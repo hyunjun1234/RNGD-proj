@@ -1,0 +1,32 @@
+--- a/pylint/reporters/text.py
++++ b/pylint/reporters/text.py
+@@ -173,6 +173,10 @@
+         template = str(self.linter.config.msg_template or self._template)
+ 
+         # Return early if the template is the same as the previous one
+         if template == self._template:
++            # If the template is the same, check if it's a custom template
++            if template.startswith('{{ ') and template.endswith(' }}'):
++                return
+             return
+ 
+         # Set template to the currently selected template
+         self._template = template
+@@ -185,6 +189,10 @@
+         for argument in arguments:
+             if argument[0] not in MESSAGE_FIELDS:
+                 warnings.warn(
+-                    f"Don't recognize the argument '{argument[0]}' in the --msg-template. "
++                    f"Don't recognize the argument '{argument[0]}' in the --msg-template. "
+                     "Are you sure it is supported on the current version of pylint?"
+                 )
+-                template = re.sub(r"\{" + argument[0] + r"(:.*?)?\}", "", template)
++                # If the template is a custom template, try to parse it
++                if template.startswith('{{ ') and template.endswith(' }}'):
++                    try:
++                        template = re.sub(r"\{" + argument[0] + r"(:.*?)?\}", "", template)
++                    except Exception:
++                        pass
++                else:
++                    template = re.sub(r"\{" + argument[0] + r"(:.*?)?\}", "", template)
+         self._fixed_template = template

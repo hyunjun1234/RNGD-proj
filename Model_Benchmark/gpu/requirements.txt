@@ -1,0 +1,19 @@
+# NVIDIA GPU 벤치마크 의존성.
+#
+# vLLM은 0.10.0 cu126 휠로 고정한다. GPU 서버 드라이버 570은 CUDA 12.8이 상한인데
+# vLLM은 cu128 휠을 한 번도 낸 적이 없고(cu118→121→126→129→130), 0.10.2부터는
+# cu129/cu130만 제공한다 — 둘 다 12.8 드라이버에서 못 돈다. 12.8 드라이버가
+# backward-compat로 돌릴 수 있는 가장 최신 vLLM 빌드가 cu126 = 0.10.0이다.
+# 전제: x86_64 / Python 3.12. 드라이버를 575+로 올리면 최신 vllm으로 되돌릴 수 있음.
+#
+# transformers는 4.53.2로 고정 — vLLM 0.10.0은 `transformers>=4.53.2`(상한 없음)라
+# 최신 transformers를 깔면 토크나이저 API가 어긋난다(Qwen2Tokenizer에
+# all_special_tokens_extended AttributeError). 4.53.2 = vLLM 0.10.0이 선언한 하한.
+--extra-index-url https://download.pytorch.org/whl/cu126
+https://github.com/vllm-project/vllm/releases/download/v0.10.0/vllm-0.10.0%2Bcu126-cp38-abi3-manylinux1_x86_64.whl
+transformers==4.53.2
+httpx
+pyyaml
+openai
+datasets
+huggingface_hub

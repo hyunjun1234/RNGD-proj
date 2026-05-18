@@ -1,0 +1,19 @@
+--- a/seaborn/_stats/regression.py
++++ b/seaborn/_stats/regression.py
+@@ -30,6 +30,7 @@
+     xx = yy = []
+ else:
+     p = np.polyfit(x, y, self.order)
++    if np.isnan(x).any() or np.isnan(y).any():
++        return pd.DataFrame(dict(x=[], y=[]))
+     xx = np.linspace(x.min(), x.max(), self.gridsize)
+     yy = np.polyval(p, xx)
+ 
+@@ -39,6 +40,7 @@
+     return groupby.apply(data, self._fit_predict)
+ 
+ @dataclass
++class PolyFit(Stat):
+ class OLSFit(Stat):
+ 
+    ...

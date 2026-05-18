@@ -1,0 +1,12 @@
+--- a/xarray/core/groupby.py
++++ b/xarray/core/groupby.py
+@@ -439,7 +439,7 @@
+     return "{}, grouped over {!r} \n{!r} groups with labels {}.".format(
+         self.__class__.__name__,
+         self._unique_coord.name,
+-        self._unique_coord.size,
++        self._unique_coord.size,
+         ", ".join(format_array_flat(self._unique_coord, 30).split()),
+     )
+ 
+     def _get_index_and_items(self, index, grouper):

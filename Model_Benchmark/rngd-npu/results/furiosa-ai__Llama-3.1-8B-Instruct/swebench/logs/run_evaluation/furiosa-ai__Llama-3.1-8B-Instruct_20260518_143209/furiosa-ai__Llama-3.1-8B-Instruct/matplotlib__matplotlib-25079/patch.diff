@@ -1,0 +1,61 @@
+--- a/lib/matplotlib/colors.py
++++ b/lib/matplotlib/colors.py
+@@ -295,6 +295,7 @@
+ def to_rgba(c, alpha=None):
+     """
+     Convert *c* to an RGBA color.
++
+     Parameters
+     ----------
+     c : Matplotlib color or ``np.ma.masked``
+ 
+@@ -306,6 +307,7 @@
+         alpha is ignored for the color value ``"none"`` (case-insensitive),
+         which always maps to ``(0, 0, 0, 0)``.
+ 
++    """
+     # Special-case nth color syntax because it should not be cached.
+     if _is_nth_color(c):
+         prop_cycler = mpl.rcParams['axes.prop_cycle']
+@@ -315,6 +317,7 @@
+         c = colors[int(c[1:]) % len(colors)]
+     try:
+         rgba = _colors_full_map.cache[c, alpha]
+     except (KeyError, TypeError):  # Not in cache, or unhashable.
+         rgba = None
+     if rgba is None:  # Suppress exception chaining of cache lookup failure.
+@@ -324,6 +327,7 @@
+         rgba = _to_rgba_no_colorcycle(c, alpha)
+         try:
+             _colors_full_map.cache[c, alpha] = rgba
+         except TypeError:
+             pass
+     return rgba
+@@ -335,6 +339,7 @@
+ def _to_rgba_no_colorcycle(c, alpha=None):
+     """
+     Convert *c* to an RGBA color, with no support for color-cycle syntax.
++
+     If *alpha* is given, force the alpha value of the returned RGBA tuple
+     to *alpha*. Otherwise, the alpha value from *c* is used, if it has alpha
+     information, or defaults to 1.
+@@ -346,6 +351,7 @@
+         # string gray.
+         try:
+             c = float(c)
+         except ValueError:
+             pass
+         else:
+             if not (0 <= c <= 1):
+@@ -355,6 +361,7 @@
+             return c, c, c, alpha if alpha is not None else 1.
+         raise ValueError(f"Invalid RGBA argument: {orig_c!r}")
+     # turn 2-D array into 1-D array
+     if isinstance(c, np.ndarray):
+         if c.ndim == 2 and c.shape[0] == 1:
+@@ -366,6 +373,7 @@
+         rgba = np.array([to_rgba(cc) for cc in c])
+ 
+     if alpha is not None:
+         rgba[:, 3] = alpha
+     return rgba

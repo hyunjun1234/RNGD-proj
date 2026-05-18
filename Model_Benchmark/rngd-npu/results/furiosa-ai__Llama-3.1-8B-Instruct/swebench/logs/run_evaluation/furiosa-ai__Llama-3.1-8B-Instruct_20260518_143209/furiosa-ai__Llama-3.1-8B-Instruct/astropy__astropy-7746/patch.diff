@@ -1,0 +1,113 @@
+--- a/astropy/wcs/wcs.py
++++ b/astropy/wcs/wcs.py
+@@ -1352,7 +1352,7 @@
+     return self._array_converter(
+         lambda xy, o: self.wcs.p2s(xy, o)['world'],
+         'output', *args, **kwargs)
+-    wcs_pix2world.__doc__ = """
++    wcs_pix2world.__doc__ = """
+         Transforms pixel coordinates to world coordinates by doing
+         only the basic `wcslib`_ transformation.
+         No `SIP`_ or `distortion paper`_ table lookup correction is
+@@ -1366,7 +1366,7 @@
+         Parameters
+         ----------
+         {0}
+-        {1}
++        {1}
+         Returns
+         -------
+         {2}
+@@ -1381,7 +1381,7 @@
+         Notes
+         -----
+         The order of the axes for the result is determined by the
+         ``CTYPEia`` keywords in the FITS header, therefore it may not
+         always be of the form (*ra*, *dec*).  The
+-        `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
++        `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
+         `~astropy.wcs.Wcsprm.lattyp` and `~astropy.wcs.Wcsprm.lngtyp`
+         members can be used to determine the order of the axes.
+         """
+@@ -1406,7 +1406,7 @@
+     def wcs_world2pix(self, *args, **kwargs):
+         if self.wcs is None:
+-            raise ValueError("No basic WCS settings were created.")
++            raise ValueError("No basic WCS settings were created.")
+         return self._array_converter(
+             lambda xy, o: self.wcs.s2p(xy, o)['pixcrd'],
+             'input', *args, **kwargs)
+@@ -1421,7 +1421,7 @@
+         Parameters
+         ----------
+         {0}
+-        {1}
++        {1}
+         Returns
+         -------
+         {2}
+@@ -1436,7 +1436,7 @@
+         Notes
+         -----
+         The order of the axes for the input world array is determined by
+         the ``CTYPEia`` keywords in the FITS header, therefore it may
+         not always be of the form (*ra*, *dec*).  The
+-        `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
++        `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
+         `~astropy.wcs.Wcsprm.lattyp` and `~astropy.wcs.Wcsprm.lngtyp`
+         members can be used to determine the order of the axes.
+         """
+@@ -1451,7 +1451,7 @@
+     def _array_converter(self, func, sky, *args, **kwargs):
+         """
+         A helper function to support reading either a pair of arrays
+         or a single Nx2 array.
+-        """
++        """
+         """
+         def _return_list_of_arrays(axes, origin):
+             try:
+@@ -1466,7 +1466,7 @@
+             xy = np.hstack([x.reshape((x.size, 1)) for x in axes])
+             if ra_dec_order and sky == 'input':
+                 xy = self._denormalize_sky(xy)
+-            output = func(xy, origin)
++            output = func(xy, origin)
+             if ra_dec_order and sky == 'output':
+                 output = self._normalize_sky(output)
+                 return (output[:, 0].reshape(axes[0].shape),
+@@ -1479,7 +1479,7 @@
+         def _return_single_array(xy, origin):
+             if xy.shape[-1]!= self.naxis:
+                 raise ValueError(
+-                    "When providing two arguments, the array must be "
++                    "When providing two arguments, the array must be "
+                     "of shape (N, {0})".format(self.naxis))
+             if ra_dec_order and sky == 'input':
+                 xy = self._denormalize_sky(xy)
+@@ -1494,7 +1494,7 @@
+         if len(args) == 2:
+             try:
+                 xy, origin = args
+-                xy = np.asarray(xy)
++                xy = np.asarray(xy)
+                 origin = int(origin)
+             except Exception:
+                 raise TypeError(
+@@ -1509,7 +1509,7 @@
+         elif len(args) == self.naxis + 1:
+             axes = args[:-1]
+             origin = args[-1]
+-            try:
++            try:
+                 axes = [np.asarray(x) for x in axes]
+                 origin = int(origin)
+             except Exception:
+@@ -1524,7 +1524,7 @@
+         raise TypeError(
+             "WCS projection has {0} dimensions, so expected 2 (an Nx{0} array "
+             "and the origin argument) or {1} arguments (the position in each "
+-            "dimension, and the origin argument). Instead, {2} arguments were "
++            "dimension, and the origin argument). Instead, {2} arguments were "
+             "given.".format(
+                 self.naxis, self.naxis + 1, len(args)))

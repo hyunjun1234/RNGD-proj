@@ -1,0 +1,23 @@
+--- a/lib/matplotlib/colors.py
++++ b/lib/matplotlib/colors.py
+@@ -730,7 +730,7 @@
+     For the old behavior, usually::
+         np.array(value).astype(dtype)``
+     will give the desired result (the cast overflows).
+   /usr/lib/python3.10/site-packages/matplotlib/colors.py:731: DeprecationWarning: NumPy will stop allowing conversion of out-of-bound Python integers to integer arrays.  The conversion of 256 to uint8 will fail in the future.
+For the old behavior, usually::
+    np.array(value).astype(dtype)``
+will give the desired result (the cast overflows).
+   /usr/lib/python3.10/site-packages/matplotlib/colors.py:732: DeprecationWarning: NumPy will stop allowing conversion of out-of-bound Python integers to integer arrays.  The conversion of 258 to uint8 will fail in the future.
+For the old behavior, usually::
+    np.array(value).astype(dtype)``
+will give the desired result (the cast overflows).
+@@ -731,7 +731,7 @@
+   xa[xa > self.N - 1] = self._i_over
+   xa[xa < 0] = self._i_under
+   xa[mask_bad] = self._i_bad
+-  xa = xa.astype(np.uint8)
++  xa = np.clip(xa, 0, self.N - 1).astype(np.uint8)
+   lut = self._lut
+   if bytes:
+     lut = (lut * 255).astype(np.uint8)

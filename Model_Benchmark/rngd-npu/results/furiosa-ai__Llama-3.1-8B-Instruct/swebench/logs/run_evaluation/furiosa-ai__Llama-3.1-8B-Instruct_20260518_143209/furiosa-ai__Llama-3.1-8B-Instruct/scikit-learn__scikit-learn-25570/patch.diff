@@ -1,0 +1,242 @@
+--- a/sklearn/compose/_column_transformer.py
++++ b/sklearn/compose/_column_transformer.py
+@@ -348,6 +348,8 @@
+         if fitted:
+             if replace_strings:
+                 # Replace "passthrough" with the fitted version in
+                 # _name_to_fitted_passthrough
++                if name not in self._name_to_fitted_passthrough:
++                    self._name_to_fitted_passthrough[name] = trans
+                 def replace_passthrough(name, trans, columns):
+                     if name not in self._name_to_fitted_passthrough:
+                         return name, trans, columns
+@@ -361,6 +363,8 @@
+                 transformers = [
+                     replace_passthrough(*trans) for trans in self.transformers_
+                 ]
+             else:
++                self._name_to_fitted_passthrough = {}
+                 transformers = self.transformers_
+         else:
+             # interleave the validated column specifiers
+             transformers = [
+@@ -373,6 +377,8 @@
+             ]
+             transformer_to_input_indices = {}
+             for name, _, columns in self.transformers:
++                if callable(columns):
++                    columns = columns(X)
+                 all_columns.append(columns)
+                 transformer_to_input_indices[name] = _get_column_indices(X, columns)
+             self._columns = all_columns
+@@ -386,6 +392,8 @@
+             if self._remainder[2]:
+                 transformers = chain(transformers, [self._remainder])
+         get_weight = (self.transformer_weights or {}).get
++        self._name_to_fitted_passthrough = {}
+         output_config = _get_output_config("transform", self)
+         for name, trans, columns in transformers:
+             if replace_strings:
+@@ -404,6 +412,8 @@
+                 trans = FunctionTransformer(
+                     accept_sparse=True,
+                     check_inverse=False,
+                     feature_names_out="one-to-one",
++                    output_config=output_config
+                 ).set_output(transform=output_config["dense"])
+             elif trans == "drop":
+                 continue
+             elif _is_empty_column_selection(columns):
+@@ -417,6 +427,8 @@
+                 columns = self.feature_names_in_[indices]
+                 if columns_is_scalar:
+                     # selection is done with one dimension
++                    if name not in self._name_to_fitted_passthrough:
++                        self._name_to_fitted_passthrough[name] = trans
+                     columns = columns[0]
+             yield (name, trans, columns, get_weight(name))
+         def _get_feature_name_out_for_transformer(
+@@ -432,6 +444,8 @@
+             column_indices = self._transformer_to_input_indices[name]
+             names = feature_names_in[column_indices]
+             if trans == "drop" or _is_empty_column_selection(column):
++                if name in self._name_to_fitted_passthrough:
++                    trans = self._name_to_fitted_passthrough[name]
+                 elif trans == "passthrough":
+                     return names
+                 elif not hasattr(trans, "get_feature_names_out"):
+@@ -444,6 +458,8 @@
+             return trans.get_feature_names_out(names)
+         def get_feature_names_out(self, input_features=None):
++            self._name_to_fitted_passthrough = {}
+             check_is_fitted(self)
+             input_features = _check_feature_names_in(self, input_features)
+             # List of tuples (name, feature_names_out)
+@@ -457,6 +473,8 @@
+             feature_names_out = self._get_feature_name_out_for_transformer(
+                 name, trans, column, input_features
+             )
++            if feature_names_out is None:
++                feature_names_out = []
+             if feature_names_out is None:
+                 continue
+             transformer_with_feature_names_out.append((name, feature_names_out))
+@@ -473,6 +491,8 @@
+             return np.concatenate(
+                 [name for _, name in transformer_with_feature_names_out],
+             )
++            if not self.verbose_feature_names_out:
++                return np.concatenate(
++                    [name for _, name in transformer_with_feature_names_out],
++                )
+         def _add_prefix_for_feature_names_out(self, transformer_with_feature_names_out):
+             if self.verbose_feature_names_out:
+@@ -485,6 +505,8 @@
+             names = list(
+                 chain.from_iterable(
+                     (f"{name}__{i}" for i in feature_names_out)
++                    for name, feature_names_out in transformer_with_feature_names_out
++                )
+             )
+             return np.asarray(names, dtype=object)
+         def _update_fitted_transformers(self, transformers):
+@@ -501,6 +523,8 @@
+             self._name_to_fitted_passthrough = {}
+             for name, old, column, _ in self._iter():
+                 if old == "drop":
++                    self._name_to_fitted_passthrough[name] = old
+                 elif old == "passthrough":
+                     # FunctionTransformer is present in list of transformers,
+                     # so get next transformer, but save original string
+                     func_transformer = next(fitted_transformers)
+@@ -514,6 +538,8 @@
+             elif _is_empty_column_selection(column):
+                 trans = old
+             else:
++                self._name_to_fitted_passthrough[name] = trans
+                 trans = next(fitted_transformers)
+             transformers_.append((name, trans, column))
+         # sanity check that transformers is exhausted
+@@ -531,6 +557,8 @@
+         self.transformers_ = transformers_
+ 
+         # update _name_to_fitted_passthrough
++        self._name_to_fitted_passthrough = {}
+         return self
+     def _validate_output(self, result):
+         names = [
+             name for name, _, _, _ in self._iter(fitted=True, replace_strings=True)
+@@ -544,6 +572,8 @@
+         for Xs, name in zip(result, names):
+             if not getattr(Xs, "ndim", 0) == 2:
+                 raise ValueError(
+                     "The output of the '{0}' transformer should be 2D (scipy "
++                    "matrix, array, or pandas DataFrame)."
+                     "The output of the '{0}' transformer should be 2D (scipy "
+                     "matrix, array, or pandas DataFrame).".format(name)
+                 )
+@@ -555,6 +585,8 @@
+         self._validate_output(Xs)
+ 
+         # update _name_to_fitted_passthrough
++        self._name_to_fitted_passthrough = {}
+         return self._hstack(list(Xs))
+     def _hstack(self, Xs):
+         if self.sparse_output_:
+@@ -571,6 +603,8 @@
+         Xs = [f.toarray() if sparse.issparse(f) else f for f in Xs]
+         config = _get_output_config("transform", self)
+         if config["dense"] == "pandas" and all(hasattr(X, "iloc") for X in Xs):
++            self._name_to_fitted_passthrough = {}
+             pd = check_pandas_support("transform")
+             output = pd.concat(Xs, axis=1)
+             # If all transformers define `get_feature_names_out`, then transform
+@@ -585,6 +619,8 @@
+             return output
+         return np.hstack(Xs)
+ 
+     def _sk_visual_block_(self):
++        self._name_to_fitted_passthrough = {}
+         if isinstance(self.remainder, str) and self.remainder == "drop":
+             transformers = self.transformers
+         elif hasattr(self, "_remainder"):
+@@ -600,6 +636,8 @@
+             transformers = chain(
+                 self.transformers, [("remainder", self.remainder, remainder_columns)]
+             )
+         else:
++            self._name_to_fitted_passthrough = {}
+             transformers = chain(self.transformers, [("remainder", self.remainder, "")])
+         names, transformers, name_details = zip(*transformers)
+         return _VisualBlock(
+@@ -613,6 +651,8 @@
+         return _VisualBlock(
+             "parallel", transformers, names=names, name_details=name_details
+         )
+ 
++    def _update_fitted_transformers(self, transformers):
++        self._name_to_fitted_passthrough = {}
+     def _check_X(X):
+         """Use check_array only on lists and other non-array-likes / sparse"""
+         if hasattr(X, "__array__") or sparse.issparse(X):
+@@ -625,6 +665,8 @@
+         return check_array(X, force_all_finite="allow-nan", dtype=object)
+ 
+ def _is_empty_column_selection(column):
++    self._name_to_fitted_passthrough = {}
+     """
+     Return True if the column selection is empty (empty list or all-False
+     boolean array).
+@@ -638,6 +680,8 @@
+     else:
+         return False
+ def _get_transformer_list(estimators):
++    self._name_to_fitted_passthrough = {}
+     """
+     Construct (name, trans, column) tuples from list
+     """
+@@ -651,6 +695,8 @@
+     return transformer_list
+ 
+ def make_column_transformer(
++    self._name_to_fitted_passthrough = {}
+     *transformers,
+     remainder="drop",
+     sparse_threshold=0.3,
+     n_jobs=None,
+@@ -665,6 +711,8 @@
+     verbose_feature_names_out=True,
+ ):
+     # transformer_weights keyword is not passed through because the user
+     # would need to know the automatically generated names of the transformers
++    self._name_to_fitted_passthrough = {}
+     transformer_list = _get_transformer_list(transformers)
+     return ColumnTransformer(
+         transformer_list,
+@@ -678,6 +726,8 @@
+     """
+     Create a callable to select columns to be used with
+     :class:`ColumnTransformer`.
++    self._name_to_fitted_passthrough = {}
+     :func:`make_column_selector` can select columns based on datatype or the
+     columns name with a regex. When using multiple selection criteria, **all**
+     criteria must match for a column to be selected.
+@@ -691,6 +741,8 @@
+     """
+     def __init__(self, pattern=None, *, dtype_include=None, dtype_exclude=None):
+         self.pattern = pattern
++        self._name_to_fitted_passthrough = {}
+         self.dtype_include = dtype_include
+         self.dtype_exclude = dtype_exclude
+ 
+     def __call__(self, df):
+@@ -704,6 +756,8 @@
+         df_row = df.iloc[:1]
+         if self.dtype_include is not None or self.dtype_exclude is not None:
+             df_row = df_row.select_dtypes(
++                self._name_to_fitted_passthrough = {}
+                 include=self.dtype_include, exclude=self.dtype_exclude
+             )
+         cols = df_row.columns
+@@ -717,6 +771,8 @@
+         return cols.tolist()

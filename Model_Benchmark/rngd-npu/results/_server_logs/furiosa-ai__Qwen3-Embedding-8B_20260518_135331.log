@@ -1,0 +1,206 @@
+/home/jun/furiosa/lib/python3.12/site-packages/requests/__init__.py:113: RequestsDependencyWarning: urllib3 (2.6.3) or chardet (7.4.3)/charset_normalizer (3.4.7) doesn't match a supported version!
+  warnings.warn(
+/home/jun/furiosa/lib/python3.12/site-packages/furiosa/models/core/attention/attention.py:6: UserWarning: LTW Backend is provided temporarily for compatibility purposes only. This feature may be removed without notice in future versions. (Default behavior, set USE_WTL_BACKEND=1 to use WTL backend)
+  from furiosa.models.core.attention.backends import LLMAttentionBackend
+INFO:furiosa_llm.server.models:Loading LLM from artifact: furiosa-ai/Qwen3-Embedding-8B
+Fetching 13 files:   0%|          | 0/13 [00:00<?, ?it/s]Fetching 13 files:   8%|▊         | 1/13 [00:00<00:07,  1.55it/s]Fetching 13 files:  15%|█▌        | 2/13 [00:00<00:03,  2.95it/s]Fetching 13 files:  38%|███▊      | 5/13 [00:03<00:05,  1.52it/s]Fetching 13 files:  62%|██████▏   | 8/13 [01:08<00:56, 11.28s/it]Fetching 13 files: 100%|██████████| 13/13 [01:08<00:00,  5.24s/it]
+[2m2026-05-18T13:54:45.454172368+09:00[0m [32m INFO[0m [2mfuriosa_llm_common::artifact::types::next_gen[0m[2m:[0m Loading artifact from path: /home/jun/.cache/huggingface/hub/models--furiosa-ai--Qwen3-Embedding-8B/snapshots/2e6ae3d695c8dc4b0a70d7f358b9822049a822f7
+[2m2026-05-18T13:54:45.606137373+09:00[0m [32m INFO[0m [2mfuriosa_llm_common::artifact::types::commons[0m[2m:[0m Loading artifact with schema version: 3.0
+[2m2026-05-18T13:54:45.609806951+09:00[0m [32m INFO[0m [2mfuriosa::llm::engine[0m[2m:[0m Loaded target artifact: SchemaVersion { major: 3, minor: 0 }
+[2m2026-05-18T13:54:45.609899351+09:00[0m [32m INFO[0m [2mfuriosa::llm::engine[0m[2m:[0m Parallelism Config: tp=8, pp=1, dp=1
+[2m2026-05-18T13:54:46.030335259+09:00[0m [32m INFO[0m [2mfuriosa_generator::next_gen::hf_compat_next_gen[0m[2m:[0m Loading the target model ...
+[2m2026-05-18T13:54:46.03163052+09:00[0m [32m INFO[0m [2mdevice_runtime::context[0m[2m:[0m Memory dump thread for Device([npu:0:0-3, npu:0:4-7]) started
+[2m2026-05-18T13:54:46.035258346+09:00[0m [32m INFO[0m [2mfuriosa_generator::next_gen::pipeline::resolve[0m[2m:[0m PP device#0 allocation plan: Binary=1.7 MiB, Model weights=14.1 GiB, Reserved IO memory=1.0 GiB
+[2m2026-05-18T13:54:46.504533539+09:00[0m [32m INFO[0m [2mfuriosa_generator::next_gen::pipeline::resolve[0m[2m:[0m Resolve 1 pipeline for 1 DP groups (DP=1, PP=1) in 474.06ms
+[2m2026-05-18T13:54:46.504717499+09:00[0m [32m INFO[0m [2mfuriosa_generator::backing_file[0m[2m:[0m Total size of parameters loaded: 14.1 GiB in 0.46939352 s
+[2m2026-05-18T13:54:46.619600735+09:00[0m [32m INFO[0m [2mfuriosa_generator::next_gen::hf_compat_next_gen[0m[2m:[0m Loading the target model took 589.208388ms
+[2m2026-05-18T13:54:46.619891198+09:00[0m [32m INFO[0m [2mfuriosa_generator::next_gen::hf_compat_next_gen[0m[2m:[0m Computed bucket limits: max_executable_len=8192
+[2m2026-05-18T13:54:46.620587812+09:00[0m [32m INFO[0m [2mfuriosa_generator::structured_output::manager[0m[2m:[0m Initializing structured output manager for backend: Auto
+[2m2026-05-18T13:54:47.118540389+09:00[0m [32m INFO[0m [2mfuriosa_generator::structured_output::manager[0m[2m:[0m XGrammar backend is initialized.
+[2m2026-05-18T13:54:47.920139404+09:00[0m [32m INFO[0m [2mfuriosa_generator::structured_output::manager[0m[2m:[0m LLGuidance backend is initialized.
+[2m2026-05-18T13:54:47.920209407+09:00[0m [32m INFO[0m [2mfuriosa_generator::next_gen::generator[0m[2m:[0m DP entry DpId(0) → device [npu0pe0-3, npu0pe4-7]
+[2m2026-05-18T13:54:47.94239562+09:00[0m [32m INFO[0m [2mfuriosa_generator::next_gen::scheduler::request_management::task_selector[0m[2m:[0m Initializing TaskSelector([[npu:0:0-3, npu:0:4-7]]) with config: TaskSelectorConfig { enable_jit_compilation: false }, 0 AOT wired pipelines
+[2m2026-05-18T13:54:47.942509505+09:00[0m [33m WARN[0m [2mfuriosa_generator::next_gen::scheduler::strategies::fcfs[0m[2m:[0m No extend buckets with kv_cache_size > 0 found in the artifact. Chunked prefill will be disabled to prevent liveness violations. If this is a non-pooling model, this may indicate a bucket misconfiguration in the artifact, causing suboptimal performance.
+[2m2026-05-18T13:54:47.942611479+09:00[0m [33m WARN[0m [2mfuriosa_generator::next_gen::scheduler::strategies::fcfs[0m[2m:[0m Prefix caching is enabled but no extend buckets are available. Disabling prefix caching to prevent unschedulable extend requests.
+[2m2026-05-18T13:54:48.092530122+09:00[0m [32m INFO[0m [2mfuriosa_generator::next_gen::scheduler::memory_manager[0m[2m:[0m Initialize KVCacheManager with config: KVCacheConfig(kv_cache_memory: {[npu:0:0-3, npu:0:4-7]: Buffer { addr: 0xffffffffffffffff, size: 0x0, device: Npu([npu:0:0-3, npu:0:4-7], Dram) }}, KVCachePlan(global_attention_config: LayerConfig(attention_type: Global, unit_block_size: 0, block_size: 0, num_chips: 1), global_kv_cache_tensors: 0, aux_attention_config: None, aux_kv_cache_tensors: 0)), is_prefix_cache_enabled: false
+[2m2026-05-18T13:54:48.092616162+09:00[0m [33m WARN[0m [2mfuriosa_generator::next_gen::scheduler::memory_manager[0m[2m:[0m LM-family artifact with no KV cache tensors detected.
+[2m2026-05-18T13:54:48.095490201+09:00[0m [32m INFO[0m [2mfuriosa_generator::next_gen::generator[0m[2m:[0m Eager scheduler has started with: SchedulerConfig { scheduler_kind: None, npu_queue_limit: 1, max_processing_samples: 65536, spare_blocks_ratio: 0.0, estimation_time_limit_ms: None, prefix_cache_config: PrefixCacheConfig { enabled: true, lookahead_requests: 2 }, experimental_scheduling_loop_type: Eager, experimental_aggressive_batching: false, max_concurrency: None, max_num_batched_tokens: None, data_parallel_routing_policy: PrefixAware }
+[2m2026-05-18T13:54:48.095715105+09:00[0m [32m INFO[0m [2mfuriosa_generator::next_gen::generator[0m[2m:[0m max_kv_len=99999 (from KV cache blocks across 1 DP device(s))
+INFO:     Started server process [363480]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:33062 - "GET /v1/models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 23.4 tokens/s, Avg generation throughput: 1.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 27.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 28.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 25.7 tokens/s, Avg generation throughput: 1.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 27.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 25.7 tokens/s, Avg generation throughput: 1.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 28.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 27.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 25.7 tokens/s, Avg generation throughput: 1.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 28.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 25.8 tokens/s, Avg generation throughput: 1.1 tokens/s, Running: 1 reqs, Waiting: 1 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 27.5 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 1 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 28.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 1 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 25.8 tokens/s, Avg generation throughput: 1.1 tokens/s, Running: 1 reqs, Waiting: 2 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 27.5 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 2 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 28.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 2 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 25.8 tokens/s, Avg generation throughput: 1.1 tokens/s, Running: 1 reqs, Waiting: 3 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 27.5 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 7 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 28.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 11 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 25.8 tokens/s, Avg generation throughput: 1.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 27.5 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 4 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 28.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 8 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 27.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 12 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 25.7 tokens/s, Avg generation throughput: 1.1 tokens/s, Running: 1 reqs, Waiting: 1 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 28.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 5 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 27.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 61 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 25.7 tokens/s, Avg generation throughput: 1.1 tokens/s, Running: 1 reqs, Waiting: 50 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 28.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 38 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 27.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 26 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 28.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 15 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 25.7 tokens/s, Avg generation throughput: 1.1 tokens/s, Running: 1 reqs, Waiting: 3 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 27.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 27 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 28.6 tokens/s, Avg generation throughput: 1.2 tokens/s, Running: 1 reqs, Waiting: 15 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:furiosa_llm.server.metrics:[Engine 0] Avg prompt throughput: 25.7 tokens/s, Avg generation throughput: 1.1 tokens/s, Running: 1 reqs, Waiting: 4 reqs, RNGD KV cache usage: 0.0%, Prefix cache hit rate: 0.0%, Wire pipeline hit rate: 0.0%
+INFO:     127.0.0.1:33078 - "POST /v1/embeddings HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+[2m2026-05-18T14:00:31.919924812+09:00[0m [32m INFO[0m [2mfuriosa_generator::next_gen::generator[0m[2m:[0m Scheduler exits normally
+INFO:     Application shutdown complete.
+INFO:     Finished server process [363480]

@@ -1,0 +1,11 @@
+--- a/sympy/matrices/expressions/matexpr.py
++++ b/sympy/matrices/expressions/matexpr.py
+@@ -80,7 +80,7 @@
+         return [self.blocks[0, i].cols for i in range(self.blockshape[1])]
+ 
+     def _blockmul(self, other):
+-        if self.colblocksizes == other.rowblocksizes):
++        if self.colblocksizes == other.rowblocksizes):
+             return MatMul(self, other)
+         else:
+             raise ShapeError("Block matrix multiplication is not possible")

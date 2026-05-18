@@ -1,0 +1,21 @@
+[Mon May 18 11:32:29 AM KST 2026] PHASE1 tps,sweep,embed,rerank START
+Traceback (most recent call last):
+  File "/home/jun/bench/orchestrator.py", line 215, in run_for_model
+    model=model, revision=model_cfg.get("revision"),
+  File "/home/jun/bench/runners/server.py", line 111, in __enter__
+    self.start()
+  File "/home/jun/bench/runners/server.py", line 72, in start
+    self._wait_ready()
+  File "/home/jun/bench/runners/server.py", line 78, in _wait_ready
+    raise RuntimeError(
+RuntimeError: server exited prematurely with code 1. check log: /home/jun/bench/results/_server_logs/furiosa-ai__Qwen3-32B-FP8_20260518_121810.log
+Traceback (most recent call last):
+  File "/home/jun/bench/orchestrator.py", line 215, in run_for_model
+    model=model, revision=model_cfg.get("revision"),
+  File "/home/jun/bench/runners/server.py", line 111, in __enter__
+    self.start()
+  File "/home/jun/bench/runners/server.py", line 72, in start
+    self._wait_ready()
+  File "/home/jun/bench/runners/server.py", line 90, in _wait_ready
+    raise TimeoutError(f"server didn't become ready within {self.startup_timeout}s")
+TimeoutError: server didn't become ready within 600.0s

@@ -1,0 +1,15 @@
+--- a/requests/adapters.py
++++ b/requests/adapters.py
+@@ -412,6 +412,10 @@
+         except (ProtocolError, socket.error) as err:
+             raise ConnectionError(err, request=request)
+ 
+         except MaxRetryError as e:
++            if isinstance(e.reason, urllib3.exceptions.DecodeError):
++                raise DecodeError(e, request=request)
++            elif isinstance(e.reason, urllib3.exceptions.TimeoutError):
++                raise Timeout(e, request=request)
+             if isinstance(e.reason, ConnectTimeoutError):
+                 raise ConnectTimeout(e, request=request)
+ 
+             if isinstance(e.reason, ResponseError):

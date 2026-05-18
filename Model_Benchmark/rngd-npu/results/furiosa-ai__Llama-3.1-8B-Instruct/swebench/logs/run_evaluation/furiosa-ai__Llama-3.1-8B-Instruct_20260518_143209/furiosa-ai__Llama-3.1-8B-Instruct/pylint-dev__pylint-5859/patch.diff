@@ -1,0 +1,53 @@
+--- a/pylint/checkers/misc.py
++++ b/pylint/checkers/misc.py
+@@ -123,6 +123,7 @@
+ 
+         self._fixme_pattern = re.compile(regex_string, re.I)
+ 
++        self._punctuation_pattern = re.compile(r'^[\W_]+$')
+ 
+     def _check_encoding(
+         self, lineno: int, line: bytes, file_encoding: str
+@@ -147,6 +148,11 @@
+         return None
+ 
+     def process_module(self, node: nodes.Module) -> None:
+         """Inspect the source file to find encoding problem."""
+         encoding = node.file_encoding if node.file_encoding else "ascii"
+ 
++        with node.stream() as stream:
++            for lineno, line in enumerate(stream):
++                if self._punctuation_pattern.match(line.decode('ascii')):
++                    self.add_message("fixme", line=lineno + 1, args=line.decode('ascii'))
++
+         with node.stream() as stream:
+             for lineno, line in enumerate(stream):
+                 self._check_encoding(lineno + 1, line, encoding)
+@@ -155,6 +161,7 @@
+ def process_tokens(self, tokens):
+     """Inspect the source to find fixme problems."""
+     if not self.config.notes:
+         return
++    if not self.config.notes_rgx:
+     comments = (
+         token_info for token_info in tokens if token_info.type == tokenize.COMMENT
+     )
+     for comment in comments:
+@@ -165,6 +172,11 @@
+         continue
+ 
+             # emit warnings if necessary
++            if self._punctuation_pattern.match(comment_text):
++                self.add_message(
++                    "fixme",
++                    col_offset=comment.start[1] + 1,
++                    args=comment_text,
++                    line=comment.start[0],
++                )
+             match = self._fixme_pattern.search("#" + comment_text.lower())
+             if match:
+                 self.add_message(
+@@ -201,6 +213,7 @@
+ def register(linter: "PyLinter") -> None:
+     linter.register_checker(EncodingChecker(linter))
+     linter.register_checker(ByIdManagedMessagesChecker(linter))

@@ -1,0 +1,524 @@
+```diff
+--- a/sympy/core/basic.py
++++ b/sympy/core/basic.py
+@@ -435,7 +435,7 @@
+     """
+     Return from the atoms of self those which are free symbols.
+ 
+     For most expressions, all symbols are free symbols. For some classes
+-    this is not true. e.g. Integrals use Symbols for the dummy variables
++    this is not true. e.g. Integrals use Symbols for the dummy variables
+     which are bound variables, so Integral has a method to return all
+     symbols except those. Derivative keeps track of symbols with respect
+     to which it will perform a derivative; those are
+@@ -444,7 +444,7 @@
+     """
+     return set().union(*[a.free_symbols for a in self.args])
+ 
+-    @property
+-    def expr_free_symbols(self):
++    @property
++    def expr_free_symbols(self):
+     return set([])
+ 
+     def as_dummy(self):
+@@ -455,7 +455,7 @@
+     """
+     Return the expression with any objects having structurally
+     bound symbols replaced with unique, canonical symbols within
+-    the object in which they appear and having only the default
++    the object in which they appear and having only the default
+     assumption for commutativity being True.
+ 
+     Examples
+@@ -465,7 +465,7 @@
+     """
+     def can(x):
+         d = {i: i.as_dummy() for i in x.bound_symbols}
+-        # mask free that shadow bound
++        # mask free that shadow bound
+         x = x.subs(d)
+         c = x.canonical_variables
+         # replace bound
+@@ -476,7 +476,7 @@
+         return x
+     return self.replace(
+         lambda x: hasattr(x, 'bound_symbols'),
+-        lambda x: can(x))
++        lambda x: can(x))
+ 
+     @property
+     def canonical_variables(self):
+@@ -487,7 +487,7 @@
+     """
+     Return a dictionary mapping any variable defined in
+     ``self.bound_symbols`` to Symbols that do not clash
+-    with any existing symbol in the expression.
++    with any existing symbol in the expression.
+ 
+     Examples
+     ========
+@@ -498,7 +498,7 @@
+     """
+     from sympy.core.symbol import Symbol
+     from sympy.utilities.iterables import numbered_symbols
+-    if not hasattr(self, 'bound_symbols'):
++    if not hasattr(self, 'bound_symbols'):
+     return {}
+     dums = numbered_symbols('_')
+     reps = {}
+@@ -509,7 +509,7 @@
+     for v in v:
+         d = next(dums)
+         if v.is_Symbol:
+-            while v.name == d.name or d.name in free:
++            while v.name == d.name or d.name in free:
+             d = next(dums)
+         reps[v] = d
+     return reps
+@@ -520,7 +520,7 @@
+     """
+     Apply on the argument recursively through the expression tree.
+ 
+     This method is used to simulate a common abuse of notation for
+-    operators. For instance in SymPy the the following will not work:
++    operators. For instance in SymPy the the following will not work:
+     ``(x+Lambda(y, 2*y))(z) == x+2*z``,
+ 
+     however you can use
+@@ -531,7 +531,7 @@
+     """
+     from sympy import Symbol
+     def the_call_method_is_overridden(expr):
+-        for cls in getmro(type(expr)):
++        for cls in getmro(type(expr)):
+         if '__call__' in cls.__dict__:
+             return cls!= Basic
+ 
+     if callable(expr_to_call) and the_call_method_is_overridden(expr_to_call):
+@@ -542,7 +542,7 @@
+     """
+     Return a sort key.
+ 
+     Examples
+-    >>> from sympy.core import S, I
++    >>> from sympy.core import S, I
+     """
+ 
+     # XXX: remove this when issue 5169 is fixed
+     def inner_key(arg):
+@@ -553,7 +553,7 @@
+     """
+     Return a boolean indicating whether a == b on the basis of
+     their symbolic trees.
+ 
+-    This is the same as a.compare(b) == 0 but faster.
++    This is the same as a.compare(b) == 0 but faster.
+ 
+     Notes
+     =====
+@@ -564,7 +564,7 @@
+     """
+     if self is other:
+         return True
+-    tself = type(self)
++    tself = type(self)
+     tother = type(other)
+     if tself is not tother:
+         try:
+@@ -576,7 +576,7 @@
+     """
+     Return a boolean indicating whether a!= b on the basis of
+     their symbolic trees.
+ 
+-    this is the same as:
++    this is the same as:
+     ``a.compare(b)!= 0``
+ 
+     but faster
+@@ -587,7 +587,7 @@
+     """
+     return not self == other
+ 
+     def dummy_eq(self, other, symbol=None):
+-    """
++    """
+     """
+     Compare two expressions and handle dummy symbols.
+ 
+@@ -598,7 +598,7 @@
+     """
+     s = self.as_dummy()
+     o = _sympify(other)
+-    o = o.as_dummy()
++    o = o.as_dummy()
+     dummy_symbols = [i for i in s.free_symbols if i.is_Dummy]
+ 
+     if len(dummy_symbols) == 1:
+@@ -609,7 +609,7 @@
+     """
+     Return the expression as a string.
+ 
+     """
+-    from sympy.printing import sstr
++    from sympy.printing import sstr
+     return sstr(self, order=None)
+ 
+     def __str__(self):
+@@ -620,7 +620,7 @@
+     """
+     IPython/Jupyter LaTeX printing
+ 
+     To change the behavior of this (e.g., pass in some settings to LaTeX),
+-    use init_printing(). init_printing() will also enable LaTeX printing
++    use init_printing(). init_printing() will also enable LaTeX printing
+     for built in numeric types like ints and container types that contain
+     SymPy objects, like lists and dictionaries of expressions.
+ 
+@@ -631,7 +631,7 @@
+     """
+     from sympy.printing.latex import latex
+     s = latex(self, mode='plain')
+-    return "$\\displaystyle %s$" % s
++    return "$\\displaystyle %s$" % s
+ 
+     _repr_latex_orig = _repr_latex_
+ 
+@@ -642,7 +642,7 @@
+     """
+     Returns the atoms that form the current object.
+ 
+     By default, only objects that are truly atomic and can't
+-    be divided into smaller pieces are returned: symbols, numbers,
++    be divided into smaller pieces are returned: symbols, numbers,
+     and number symbols like I and pi. It is possible to request
+     atoms of any type, however, as demonstrated below.
+ 
+@@ -653,7 +653,7 @@
+     """
+     if types:
+         types = tuple(
+-            [t if isinstance(t, type) else type(t) for t in types])
++            [t if isinstance(t, type) else type(t) for t in types])
+     else:
+         types = (Atom,)
+     result = set()
+@@ -664,7 +664,7 @@
+     """
+     Return from the atoms of self those which are free symbols.
+ 
+     For most expressions, all symbols are free symbols. For some classes
+-    this is not true. e.g. Integrals use Symbols for the dummy variables
++    this is not true. e.g. Integrals use Symbols for the dummy variables
+     which are bound variables, so Integral has a method to return all
+     symbols except those. Derivative keeps track of symbols with respect
+     to which it will perform a derivative; those are
+@@ -675,7 +675,7 @@
+     """
+     return set().union(*[a.free_symbols for a in self.args])
+ 
+-    @property
+-    def expr_free_symbols(self):
++    @property
++    def expr_free_symbols(self):
+     return set([])
+ 
+     def as_dummy(self):
+@@ -686,7 +686,7 @@
+     """
+     Return the expression with any objects having structurally
+     bound symbols replaced with unique, canonical symbols within
+-    the object in which they appear and having only the default
++    the object in which they appear and having only the default
+     assumption for commutativity being True.
+ 
+     Examples
+@@ -696,7 +696,7 @@
+     """
+     def can(x):
+         d = {i: i.as_dummy() for i in x.bound_symbols}
+-        # mask free that shadow bound
++        # mask free that shadow bound
+         x = x.subs(d)
+         c = x.canonical_variables
+         # replace bound
+@@ -707,7 +707,7 @@
+         return x
+     return self.replace(
+         lambda x: hasattr(x, 'bound_symbols'),
+-        lambda x: can(x))
++        lambda x: can(x))
+ 
+     @property
+     def canonical_variables(self):
+@@ -718,7 +718,7 @@
+     """
+     Return a dictionary mapping any variable defined in
+     ``self.bound_symbols`` to Symbols that do not clash
+-    with any existing symbol in the expression.
++    with any existing symbol in the expression.
+ 
+     Examples
+     ========
+@@ -729,7 +729,7 @@
+     """
+     from sympy.core.symbol import Symbol
+     from sympy.utilities.iterables import numbered_symbols
+-    if not hasattr(self, 'bound_symbols'):
++    if not hasattr(self, 'bound_symbols'):
+     return {}
+     dums = numbered_symbols('_')
+     reps = {}
+@@ -740,7 +740,7 @@
+     for v in v:
+         d = next(dums)
+         if v.is_Symbol:
+-            while v.name == d.name or d.name in free:
++            while v.name == d.name or d.name in free:
+             d = next(dums)
+         reps[v] = d
+     return reps
+@@ -751,7 +751,7 @@
+     """
+     Apply on the argument recursively through the expression tree.
+ 
+     This method is used to simulate a common abuse of notation for
+-    operators. For instance in SymPy the the following will not work:
++    operators. For instance in SymPy the the following will not work:
+     ``(x+Lambda(y, 2*y))(z) == x+2*z``,
+ 
+     however you can use
+@@ -762,7 +762,7 @@
+     """
+     from sympy import Symbol
+     def the_call_method_is_overridden(expr):
+-        for cls in getmro(type(expr)):
++        for cls in getmro(type(expr)):
+         if '__call__' in cls.__dict__:
+             return cls!= Basic
+ 
+     if callable(expr_to_call) and the_call_method_is_overridden(expr_to_call):
+@@ -773,7 +773,7 @@
+     """
+     Return a sort key.
+ 
+     Examples
+-    >>> from sympy.core import S, I
++    >>> from sympy.core import S, I
+     """
+ 
+     # XXX: remove this when issue 5169 is fixed
+     def inner_key(arg):
+@@ -784,7 +784,7 @@
+     """
+     Return a boolean indicating whether a == b on the basis of
+     their symbolic trees.
+ 
+-    This is the same as a.compare(b) == 0 but faster.
++    This is the same as a.compare(b) == 0 but faster.
+ 
+     Notes
+     =====
+@@ -795,7 +795,7 @@
+     """
+     if self is other:
+         return True
+-    tself = type(self)
++    tself = type(self)
+     tother = type(other)
+     if tself is not tother:
+         try:
+@@ -807,7 +807,7 @@
+     """
+     Return a boolean indicating whether a!= b on the basis of
+     their symbolic trees.
+ 
+-    this is the same as:
++    this is the same as:
+     ``a.compare(b)!= 0``
+ 
+     but faster
+@@ -818,7 +818,7 @@
+     """
+     return not self == other
+ 
+     def dummy_eq(self, other, symbol=None):
+-    """
++    """
+     """
+     Compare two expressions and handle dummy symbols.
+ 
+@@ -829,7 +829,7 @@
+     """
+     s = self.as_dummy()
+     o = _sympify(other)
+-    o = o.as_dummy()
++    o = o.as_dummy()
+     dummy_symbols = [i for i in s.free_symbols if i.is_Dummy]
+ 
+     if len(dummy_symbols) == 1:
+@@ -840,7 +840,7 @@
+     """
+     Return the expression as a string.
+ 
+     """
+-    from sympy.printing import sstr
++    from sympy.printing import sstr
+     return sstr(self, order=None)
+ 
+     def __str__(self):
+@@ -851,7 +851,7 @@
+     """
+     IPython/Jupyter LaTeX printing
+ 
+     To change the behavior of this (e.g., pass in some settings to LaTeX),
+-    use init_printing(). init_printing() will also enable LaTeX printing
++    use init_printing(). init_printing() will also enable LaTeX printing
+     for built in numeric types like ints and container types that contain
+     SymPy objects, like lists and dictionaries of expressions.
+ 
+@@ -862,7 +862,7 @@
+     """
+     from sympy.printing.latex import latex
+     s = latex(self, mode='plain')
+-    return "$\\displaystyle %s$" % s
++    return "$\\displaystyle %s$" % s
+ 
+     _repr_latex_orig = _repr_latex_
+ 
+@@ -873,7 +873,7 @@
+     """
+     Returns the atoms that form the current object.
+ 
+     By default, only objects that are truly atomic and can't
+-    be divided into smaller pieces are returned: symbols, numbers,
++    be divided into smaller pieces are returned: symbols, numbers,
+     and number symbols like I and pi. It is possible to request
+     atoms of any type, however, as demonstrated below.
+ 
+@@ -884,7 +884,7 @@
+     """
+     if types:
+         types = tuple(
+-            [t if isinstance(t, type) else type(t) for t in types])
++            [t if isinstance(t, type) else type(t) for t in types])
+     else:
+         types = (Atom,)
+     result = set()
+@@ -895,7 +895,7 @@
+     """
+     Return from the atoms of self those which are free symbols.
+ 
+     For most expressions, all symbols are free symbols. For some classes
+-    this is not true. e.g. Integrals use Symbols for the dummy variables
++    this is not true. e.g. Integrals use Symbols for the dummy variables
+     which are bound variables, so Integral has a method to return all
+     symbols except those. Derivative keeps track of symbols with respect
+     to which it will perform a derivative; those are
+@@ -906,7 +906,7 @@
+     """
+     return set().union(*[a.free_symbols for a in self.args])
+ 
+-    @property
+-    def expr_free_symbols(self):
++    @property
++    def expr_free_symbols(self):
+     return set([])
+ 
+     def as_dummy(self):
+@@ -917,7 +917,7 @@
+     """
+     Return the expression with any objects having structurally
+     bound symbols replaced with unique, canonical symbols within
+-    the object in which they appear and having only the default
++    the object in which they appear and having only the default
+     assumption for commutativity being True.
+ 
+     Examples
+@@ -927,7 +927,7 @@
+     """
+     def can(x):
+         d = {i: i.as_dummy() for i in x.bound_symbols}
+-        # mask free that shadow bound
++        # mask free that shadow bound
+         x = x.subs(d)
+         c = x.canonical_variables
+         # replace bound
+@@ -938,7 +938,7 @@
+         return x
+     return self.replace(
+         lambda x: hasattr(x, 'bound_symbols'),
+-        lambda x: can(x))
++        lambda x: can(x))
+ 
+     @property
+     def canonical_variables(self):
+@@ -949,7 +949,7 @@
+     """
+     Return a dictionary mapping any variable defined in
+     ``self.bound_symbols`` to Symbols that do not clash
+-    with any existing symbol in the expression.
++    with any existing symbol in the expression.
+ 
+     Examples
+     ========
+@@ -960,7 +960,7 @@
+     """
+     from sympy.core.symbol import Symbol
+     from sympy.utilities.iterables import numbered_symbols
+-    if not hasattr(self, 'bound_symbols'):
++    if not hasattr(self, 'bound_symbols'):
+     return {}
+     dums = numbered_symbols('_')
+     reps = {}
+@@ -971,7 +971,7 @@
+     for v in v:
+         d = next(dums)
+         if v.is_Symbol:
+-            while v.name == d.name or d.name in free:
++            while v.name == d.name or d.name in free:
+             d = next(dums)
+         reps[v] = d
+     return reps
+@@ -982,7 +982,7 @@
+     """
+     Apply on the argument recursively through the expression tree.
+ 
+     This method is used to simulate a common abuse of notation for
+-    operators. For instance in SymPy the the following will not work:
++    operators. For instance in SymPy the the following will not work:
+     ``(x+Lambda(y, 2*y))(z) == x+2*z``,
+ 
+     however you can use
+@@ -993,7 +993,7 @@
+     """
+     from sympy import Symbol
+     def the_call_method_is_overridden(expr):
+-        for cls in getmro(type(expr)):
++        for cls in getmro(type(expr)):
+         if '__call__' in cls.__dict__:
+             return cls!= Basic
+ 
+     if callable(expr_to_call) and the_call_method_is_overridden(expr_to_call):
+@@ -1004,7 +1004,7 @@
+     """
+     Return a sort key.
+ 
+     Examples
+-    >>> from sympy.core import S, I
++    >>> from sympy.core import S, I
+     """
+ 
+     # XXX: remove this when issue 5169 is fixed
+     def inner_key(arg):
+@@ -1015,7 +1015,7 @@
+     """
+     Return a boolean indicating whether a == b on the basis of
+     their symbolic trees.
+ 
+-    This is the same as a.compare(b) == 0 but faster.
++    This is the same as a.compare(b) == 0 but faster.
+ 
+     Notes
+     =====
+@@ -

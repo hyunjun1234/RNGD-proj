@@ -1,0 +1,12 @@
+--- a/sympy/physics/units/unitsystem.py
++++ b/sympy/physics/units/unitsystem.py
+@@ -152,7 +152,7 @@
+     def _collect_factor_and_dimension(self, expr):
+         """
+         Return tuple with scale factor expression and dimension expression.
+         """
+-        if isinstance(expr, Pow):
++        elif isinstance(expr, Pow):
+             factor, dim = self._collect_factor_and_dimension(expr.base)
+             exp_factor, exp_dim = self._collect_factor_and_dimension(expr.exp)
+             if self.get_dimension_system().is_dimensionless(exp_dim):

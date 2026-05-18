@@ -1,0 +1,105 @@
+--- a/seaborn/axisgrid.py
++++ b/seaborn/axisgrid.py
+@@ -1498,6 +1498,7 @@
+     def _map_diag_iter_hue(self, func, **kwargs):
+         """Put marginal plot on each diagonal axes, iterating over hue."""
+         # Plot on each of the diagonal axes
+         fixed_color = kwargs.pop("color", None)
++
+         for var, ax in zip(self.diag_vars, self.diag_axes):
+             hue_grouped = self.data.groupby(self.hue_vals)
+             plot_kwargs = kwargs.copy()
+             if str(func.__module__).startswith("seaborn"):
+                 plot_kwargs["ax"] = ax
+@@ -1514,6 +1515,7 @@
+                 kws = kwargs.copy()
+                 kws.setdefault("color", self.palette[k])
+                 if self._hue_var is not None:
+                     kws["label"] = label_k
++
+                 if str(func.__module__).startswith("seaborn"):
+                     func(x=data_k, label=label_k, color=color, **kws)
+                 else:
+                     func(x, label=label_k, color=color, **kws)
+@@ -1523,6 +1525,7 @@
+     def _map_bivariate(self, func, indices, **kwargs):
+         """Draw a bivariate plot on the indicated axes."""
+         # This is a hack to handle the fact that new distribution plots don't add
+         # their artists onto the axes. This is probably superior in general, but
+         # we'll need a better way to handle it in the axisgrid functions.
+         from.distributions import histplot, kdeplot
+         if func is histplot or func is kdeplot:
+             self._extract_legend_handles = True
++
+         kws = kwargs.copy()  # Use copy as we insert other kwargs
+         for i, j in indices:
+             x_var = self.x_vars[j]
+             y_var = self.y_vars[i]
+             ax = self.axes[i, j]
+@@ -1541,6 +1544,7 @@
+                 plot_kwargs = plot_kwargs.copy()
+                 semantics = ["x", "y", "hue", "size", "style"]
+                 for key, val in zip(semantics, plot_args):
+                     plot_kwargs[key] = val
++
+                 if str(func.__module__).startswith("seaborn"):
+                     func(*plot_args, **plot_kwargs)
+                 else:
+                     func(*plot_args, **plot_kwargs)
+@@ -1551,6 +1555,7 @@
+     def _plot_bivariate(self, func, **kwargs):
+         """Draw a bivariate plot on the specified axes."""
+         if "hue" not in signature(func).parameters:
+             self._plot_bivariate_iter_hue(func, **kwargs)
+             return
++
+         kwargs = kwargs.copy()
+         if str(func.__module__).startswith("seaborn"):
+             kwargs["ax"] = ax
+@@ -1563,6 +1568,7 @@
+         if x_var == y_var:
+             axes_vars = [x_var]
+         else:
+             axes_vars = [x_var, y_var]
++
+         if self._hue_var is not None and self._hue_var not in axes_vars:
+             axes_vars.append(self._hue_var)
+         data = self.data[axes_vars]
+@@ -1574,6 +1580,7 @@
+         if self._hue_var is None:
+             hue = None
+         else:
+             hue = data.get(self._hue_var)
++
+         if "hue" not in kwargs:
+             kwargs.update({
+                 "hue": hue, "hue_order": self._hue_order, "palette": self._orig_palette,
+@@ -1585,6 +1592,7 @@
+     def _plot_bivariate_iter_hue(self, x_var, y_var, ax, func, **kwargs):
+         """Draw a bivariate plot while iterating over hue subsets."""
+         kwargs = kwargs.copy()
+         if str(func.__module__).startswith("seaborn"):
+             kwargs["ax"] = ax
++
+         if x_var == y_var:
+             axes_vars = [x_var]
+         else:
+@@ -1601,6 +1609,7 @@
+         for k, label_k in enumerate(self._hue_order):
+             kws = kwargs.copy()
+             # Attempt to get data for this level, allowing for empty
+             try:
+                 data_k = hue_grouped.get_group(label_k)
++
+             except KeyError:
+                 data_k = pd.DataFrame(columns=axes_vars,
+                                       dtype=float)
+             if self._dropna:
+                 data_k = data_k[axes_vars].dropna()
+@@ -1613,6 +1622,7 @@
+                 if str(func.__module__).startswith("seaborn"):
+                     func(x=x, y=y, **kws)
+                 else:
+                     func(x, y, **kws)
++
+         self._update_legend_data(ax)

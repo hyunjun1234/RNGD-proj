@@ -1,0 +1,49 @@
+--- a/django/db/models/query_utils.py
++++ b/django/db/models/query_utils.py
+@@ -43,6 +43,7 @@
+ 
+ def __init__(self, *args, _connector=None, _negated=False, **kwargs):
+     super().__init__(children=[*args, *sorted(kwargs.items())], connector=_connector, negated=_negated)
++
+     # If the other Q() is empty, ignore it and just use `self`.
+     # Or if this Q is empty, ignore it and just use `other`.
+     if not other:
+         return copy.deepcopy(self)
+     # Or if this Q is empty, ignore it and just use `other`.
+     elif not self:
+         return copy.deepcopy(other)
+ 
+@@ -54,6 +55,7 @@
+ 
+ def _combine(self, other, conn):
+     if not isinstance(other, Q):
+         raise TypeError(other)
++
+     # If the other Q() is empty, ignore it and just use `self`.
+     if not other:
+         return copy.deepcopy(self)
+     # Or if this Q is empty, ignore it and just use `other`.
+     elif not self:
+         return copy.deepcopy(other)
+ 
+@@ -63,6 +65,7 @@
+ 
+ def __or__(self, other):
+     return self._combine(other, self.OR)
++
+ def __and__(self, other):
+     return self._combine(other, self.AND)
+ 
+ def __invert__(self):
+@@ -73,6 +76,7 @@
+ 
+ def resolve_expression(self, query=None, allow_joins=True, reuse=None, summarize=False, for_save=False):
+     # We must promote any new joins to left outer joins so that when Q is
+     # used as an expression, rows aren't filtered due to joins.
++
+     clause, joins = query._add_q(
+         self, reuse, allow_joins=allow_joins, split_subq=False,
+         check_filterable=False,
+     )
+     query.promote_joins(joins)
+     return clause

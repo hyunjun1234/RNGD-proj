@@ -1,0 +1,39 @@
+--- a/src/_pytest/pathlib.py
++++ b/src/_pytest/pathlib.py
+@@ -517,6 +517,7 @@
+ def import_path(
+     p: Union[str, "os.PathLike[str]"],
+     *,
+     mode: Union[str, ImportMode] = ImportMode.prepend,
++    root: Optional[Path] = None,
+ ) -> ModuleType:
+     """Import and return a module from the given path, which can be a file (a module) or
+     a directory (a package).
+@@ -544,7 +545,7 @@
+     if mode is ImportMode.importlib:
+         module_name = module_name_from_path(path, root)
+ 
+-        for meta_importer in sys.meta_path:
++        for meta_importer in sys.meta_path or []:
+             spec = meta_importer.find_spec(module_name, [str(path.parent)])
+             if spec is not None:
+                 break
+@@ -555,7 +556,7 @@
+         spec = importlib.util.spec_from_file_location(module_name, str(path))
+         if spec is None:
+             raise ImportError(f"Can't find module {module_name} at location {path}")
+-        mod = importlib.util.module_from_spec(spec)
++        mod = importlib.util.module_from_spec(spec) if spec else None
+         sys.modules[module_name] = mod
+         spec.loader.exec_module(mod)  # type: ignore[union-attr]
+         insert_missing_modules(sys.modules, module_name)
+@@ -567,7 +568,7 @@
+     if mode is ImportMode.append:
+         if str(pkg_root) not in sys.path:
+             sys.path.append(str(pkg_root))
+     elif mode is ImportMode.prepend:
+-        if str(pkg_root)!= sys.path[0]:
++        if str(pkg_root)!= sys.path[0] and root is not None:
+             sys.path.insert(0, str(pkg_root))
+     else:
+         assert_never(mode)

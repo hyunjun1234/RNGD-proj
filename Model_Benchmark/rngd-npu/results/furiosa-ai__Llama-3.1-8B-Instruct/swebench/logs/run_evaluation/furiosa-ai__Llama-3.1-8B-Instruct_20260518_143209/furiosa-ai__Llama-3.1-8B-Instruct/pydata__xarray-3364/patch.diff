@@ -1,0 +1,43 @@
+--- a/xarray/core/concat.py
++++ b/xarray/core/concat.py
+@@ -116,6 +116,7 @@
+     if compat not in _VALID_COMPAT:
+         raise ValueError(
+             "compat=%r invalid: must be 'broadcast_equals', 'equals', 'identical', 'no_conflicts' or 'override'"
++            " or 'ignore' or 'ignore-missing'"
+             % compat
+         )
+ 
+     if isinstance(first_obj, DataArray):
+@@ -303,6 +304,7 @@
+     concat_over, equals, concat_dim_lengths = _calc_concat_over(
+         datasets, dim, dim_names, data_vars, coords, compat
+     )
+ 
++    # ignore missing variables
++    if compat == "ignore-missing":
++        concat_over = set()
+     # determine which variables to merge, and then merge them according to compat
+     variables_to_merge = (coord_names | data_names) - concat_over - dim_names
+ 
+@@ -342,6 +344,7 @@
+     result_vars = {}
+     if variables_to_merge:
+         to_merge = {var: [] for var in variables_to_merge}
++        # ignore missing variables
++        if compat == "ignore-missing":
++            for ds in datasets:
++                for var in variables_to_merge:
++                    if var not in ds.variables:
++                        continue
++                    to_merge[var].append(ds.variables[var])
+ 
+         for var in variables_to_merge:
+             result_vars[var] = unique_variable(
+@@ -381,6 +384,7 @@
+     result = result.drop(unlabeled_dims, errors="ignore")
+ 
+     if coord is not None:
++        # add concat dimension last to ensure that its in the final Dataset
+         result[coord.name] = coord
+     return result

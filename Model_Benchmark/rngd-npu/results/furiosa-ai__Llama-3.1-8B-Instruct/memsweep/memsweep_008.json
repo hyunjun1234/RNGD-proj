@@ -1,0 +1,1816 @@
+{
+  "combo": {
+    "spare_blocks_ratio": 0.1
+  },
+  "model": "furiosa-ai/Llama-3.1-8B-Instruct",
+  "concurrency": 128,
+  "prompt_tokens_target": 1024,
+  "max_tokens": 256,
+  "wall_clock_s": 1.101787831983529,
+  "successes": 0,
+  "failures": 256,
+  "metrics": [
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5926395310088992,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5907920830650255,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5898759330157191,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5893054419429973,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5903162090107799,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5895112489815801,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5902342549525201,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5892009150702506,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5894919120473787,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5881257869768888,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5885605770163238,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5895419989246875,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5887972700875252,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5883308539632708,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5041226770263165,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5025747399777174,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.501983292051591,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5029399379855022,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.503094840911217,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5034612229792401,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5034173830645159,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5025858370354399,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5027965940535069,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5016385989729315,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5009180650813505,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5013663590652868,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5016724769957364,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5019763039890677,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5018503339961171,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5021124939667061,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.500163635937497,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5008287909440696,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5021669180132449,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5010063759982586,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5001580759417266,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4999988420167938,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5006485780468211,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5001941310474649,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5011689639650285,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49987857695668936,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5008818870410323,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49974555405788124,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5000705800484866,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5002629709197208,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49967913003638387,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49980743997730315,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49999309994746,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.5004356290446594,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4991953750140965,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4993987629422918,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49887832603417337,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49977287708316,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4992498740321025,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4980328440433368,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49806841602548957,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49841340293642133,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49895995191764086,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4987816010834649,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49880733399186283,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4977803799556568,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49862882297020406,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4980585629818961,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4980123200220987,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49625435401685536,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4979914770228788,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49637830699793994,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49809890100732446,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49793669395148754,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49789318395778537,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4959225170314312,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49578636791557074,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4959469480672851,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4960558289894834,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49552902102004737,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49509317392949015,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49548231705557555,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49499237700365484,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4956056149676442,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4945689339656383,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4966094800038263,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49458189599681646,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4947275829035789,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4945870729861781,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4950068680336699,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49465332203544676,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4954060899326578,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4955475570168346,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4944238270400092,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4948212020099163,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4948012310778722,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4935970460064709,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4936558960471302,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49575863499194384,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4951516699511558,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49557621707208455,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4953114140080288,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4951122240163386,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4952804130734876,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4952287810156122,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49509476602543145,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49441187002230436,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49443427298683673,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49472257506567985,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4943789530079812,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49420123000163585,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4936822219751775,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49412012193351984,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4936531849671155,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4933105749078095,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49331618600990623,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4936371949734166,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49326112400740385,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49345679790712893,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4932080309372395,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4928311809198931,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4926490730140358,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4927131839795038,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.492578238947317,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49218724702950567,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4925992180360481,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4923296980559826,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4918413460254669,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4910606099292636,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49109221703838557,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4906276570400223,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49093734798952937,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49061667697969824,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49037955899257213,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49633224308490753,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4977398549672216,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49728745489846915,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4972115330165252,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4968037389917299,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4966206889366731,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49632223590742797,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4962574749952182,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4959241709439084,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4971625639591366,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49560738098807633,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49543555395212024,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4966434999369085,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49661260994616896,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49456194101367146,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49485224206000566,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49577035394031554,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49559360300190747,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4977760480251163,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49557658890262246,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49551669496577233,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.494068154017441,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4938070710049942,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49731595697812736,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49406961898785084,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4948326169978827,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49399998609442264,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.493476141942665,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4945427019847557,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49381457490380853,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4938638120656833,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4948307470185682,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4935539630241692,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49363560404162854,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4931140460539609,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4936201609671116,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4927598589565605,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4925074320053682,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4935684810625389,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4914890269283205,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4916011899476871,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49036525294650346,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4922436260385439,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4919231210369617,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4919647689675912,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49101713695563376,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.490420488989912,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4899032620014623,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49014035903383046,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4912719279527664,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.489512272994034,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49114870105404407,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4907884099520743,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49072007194627076,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48994992894586176,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.489878139924258,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4904388759750873,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4901792739983648,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48856786102987826,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49290405807550997,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49220671807415783,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49249970505479723,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49242400797083974,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4917258070781827,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4916832479648292,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4913501349510625,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49205279001034796,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49184018396772444,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.491944279987365,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4914721989771351,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4911959220189601,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49205783498473465,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49141330108977854,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49048075592145324,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4913201769813895,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4906479970086366,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4903409330872819,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4904991629300639,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4902228170540184,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.49102903297170997,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4898504439042881,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48999492498114705,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4900732940295711,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4899202069500461,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4904806170379743,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4891081239329651,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4896446969360113,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4890900870086625,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4898297729669139,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48986517498269677,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4884848479414359,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4896054840646684,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48835428105667233,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48808790696784854,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48833297193050385,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48880618205294013,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48785376991145313,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48769511305727065,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4888719490263611,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4876842759549618,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4881239889655262,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4882415250176564,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48808955296408385,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48814039397984743,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48767812398727983,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4877156609436497,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4875342850573361,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4876160039566457,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48744153790175915,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4875044570071623,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48735183908138424,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48703636205755174,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4863827610388398,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48622130102012306,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4862482020398602,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4861881600227207,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4863139819353819,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4861062809359282,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48621867899782956,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.485509417951107,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48494093399494886,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4851196480449289,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4848551229806617,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4848980139940977,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48500347696244717,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.485310563002713,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.4843919830163941,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.48475846799556166,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": null
+    }
+  ],
+  "summary": {
+    "model": "furiosa-ai/Llama-3.1-8B-Instruct",
+    "concurrency": 128,
+    "prompt_tokens_target": 1024,
+    "max_tokens": 256,
+    "successes": 0,
+    "failures": 256,
+    "wall_clock_s": 1.101787831983529,
+    "error": "no successful requests"
+  }
+}

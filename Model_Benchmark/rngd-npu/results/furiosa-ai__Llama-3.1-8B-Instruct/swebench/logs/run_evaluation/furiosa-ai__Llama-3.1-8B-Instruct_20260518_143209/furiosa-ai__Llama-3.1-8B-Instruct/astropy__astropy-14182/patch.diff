@@ -1,0 +1,56 @@
+--- a/astropy/io/ascii/rst.py
++++ b/astropy/io/ascii/rst.py
+@@ -55,6 +55,7 @@
+ 
+ class RST(FixedWidth):
+     """reStructuredText simple format table.
+ 
++    See: https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#simple-tables
+     See: https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#tables
+     Example::
+ 
+@@ -64,6 +65,10 @@
+ 
+     Currently there is no support for reading tables which utilize continuation lines,
+     or for ones which define column spans through the use of an additional
+-    line of dashes in the header.
++    line of dashes in the header.
++
++    """
++
+     _format_name = "rst"
+     _description = "reStructuredText simple table"
+     data_class = SimpleRSTData
+@@ -73,6 +78,7 @@
+     header_class = SimpleRSTHeader
+ 
+     def __init__(self):
++        super().__init__(delimiter_pad=None, bookend=False)
+         super().__init__()
+ 
+     def write(self, lines):
+         lines = super().write(lines)
+@@ -83,6 +89,7 @@
+         return lines
+ 
+     def __init__(self, delimiter_pad=None, bookend=False):
++        super().__init__()
+         self.delimiter_pad = delimiter_pad
+         self.bookend = bookend
+         self.position_line = 0
+@@ -94,6 +101,7 @@
+         return vals, starts, ends
+ 
+     def __init__(self):
++        super().__init__()
+         self.position_line = 0
+         self.start_line = 1
+         self.splitter_class = DefaultSplitter
+@@ -105,6 +113,7 @@
+         return vals, starts, ends
+ 
+     def __init__(self):
++        super().__init__()
+         self.start_line = 3
+         self.end_line = -1
+         self.splitter_class = FixedWidthTwoLineDataSplitter

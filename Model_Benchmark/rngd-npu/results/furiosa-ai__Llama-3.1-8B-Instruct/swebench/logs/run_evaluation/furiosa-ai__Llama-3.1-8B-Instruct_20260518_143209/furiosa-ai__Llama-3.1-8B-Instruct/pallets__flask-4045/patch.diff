@@ -1,0 +1,24 @@
+--- a/src/flask/blueprints.py
++++ b/src/flask/blueprints.py
+@@ -363,7 +363,7 @@
+ def add_url_rule(
+     self,
+     rule: str,
+     endpoint: t.Optional[str] = None,
+-    view_func: t.Optional[t.Callable] = None,
++    view_func: t.Optional[t.Callable] = None,
+     **options: t.Any,
+ ) -> None:
+     """Like :meth:`Flask.add_url_rule` but for a blueprint.  The endpoint for
+     the :func:`url_for` function is prefixed with the name of the blueprint.
+@@ -371,7 +371,7 @@
+     if endpoint:
+         assert "." not in endpoint, "Blueprint endpoints should not contain dots"
+     if view_func and hasattr(view_func, "__name__"):
+-        assert (
+-            "." not in view_func.__name__
+-        ), "Blueprint view function name should not contain dots"
++        assert (
++            "." not in view_func.__name__ and "." not in rule
++        ), "Blueprint view function name and rule should not contain dots"
+     self.record(lambda s: s.add_url_rule(rule, endpoint, view_func, **options))

@@ -5,7 +5,7 @@ const pptx = new (require("pptxgenjs"))();
 pptx.defineLayout({ name: "W", width: 13.333, height: 7.5 });
 pptx.layout = "W";
 pptx.author = "RNGD Benchmark";
-const TOTAL = 16;
+const TOTAL = 18;
 
 const F = {
   black: "Paperlogy 9 Black", xbold: "Paperlogy 8 ExtraBold",
@@ -659,14 +659,130 @@ function resultLabel(s, y) {
   card(s, M, 6.32, 12.333, 0.5, { fill: C.bg2, line: null });
   s.addText([
     { text: "시사점  ", options: { fontFace: F.bold, fontSize: 10.5, color: C.blue } },
-    { text: "정확도는 모델이 결정, 속도는 하드웨어가 결정 — 같은 모델이면 GPU에서도 SWE-bench 결과는 비슷할 것. NPU↔GPU 비교의 핵심은 속도·처리량.", options: { fontFace: F.med, fontSize: 10.5, color: C.ink2 } },
+    { text: "정확도는 모델이 결정, 속도는 하드웨어가 결정 — 다음 슬라이드에서 같은 모델의 공개 GPU SWE-bench 수치로 이를 대조한다.", options: { fontFace: F.med, fontSize: 10.5, color: C.ink2 } },
   ], { x: M + 0.3, y: 6.32, w: 11.7, h: 0.5, margin: 0, valign: "middle" });
 })();
 
-/* ===================== 15 — 테스트 5: 임베딩 / 리랭커 ===================== */
+/* ===================== 15 — 테스트 4 SWE-bench ⑥: GPU 환경 결과 대조 ===================== */
 (() => {
   const s = pptx.addSlide();
-  frame(s, "Test 5 · Embedding", 15, "출처: bench/results · embed / rerank task");
+  frame(s, "Test 4 · SWE-bench ⑥", 15, "출처: SWE-bench·SWE-Fixer·SWE-RL 논문 — 모두 GPU/클라우드 실행");
+  title(s, "테스트 4 — SWE-bench ⑥: 일반 GPU 환경 결과 대조",
+    "RNGD 0/50 — 같은 모델·같은 single-shot 방식의 공개 GPU 수치와 비교");
+  // verdict 배너
+  const vy = 2.39, vh = 0.84;
+  card(s, M, vy, 12.333, vh, { fill: C.blue, line: null, r: 0.16, shadow: shGlow() });
+  s.addShape(pptx.ShapeType.roundRect, { x: M + 0.32, y: vy + 0.26, w: 0.92, h: 0.32, rectRadius: 0.16, fill: { color: C.white }, line: { type: "none" } });
+  s.addText("결론", { x: M + 0.32, y: vy + 0.26, w: 0.92, h: 0.32, margin: 0, align: "center", valign: "middle", fontFace: F.semi, fontSize: 10, color: C.blue });
+  s.addText("같은 모델·같은 single-shot이면 GPU에서도 SWE-bench는 ~0% — 정확도를 가르는 건 하드웨어가 아니라 모델 크기·스캐폴드", {
+    x: M + 1.4, y: vy, w: 11.25, h: vh, margin: 0, valign: "middle", fontFace: F.bold, fontSize: 14, color: C.white,
+  });
+  // 좌: 공개 SWE-bench 결과 표
+  const ty = vy + vh + 0.18;            // 3.41
+  const tw = 7.0, tcardH = 6.85 - ty;
+  card(s, M, ty, tw, tcardH, { shadow: shStd() });
+  s.addText("공개 SWE-bench 결과 — 단발 생성(에이전트 스캐폴드 없음)", {
+    x: M + 0.24, y: ty + 0.15, w: tw - 0.48, h: 0.28, margin: 0, fontFace: F.semi, fontSize: 12, color: C.ink,
+  });
+  const rows = [
+    ["모델 (규모)", "방식", "벤치 · N", "resolved"],
+    ["Llama-3.1-8B-Instruct ·8B", "oracle · single-shot", "Lite · 50", "0 %"],
+    ["SWE-Llama-13B ·13B †", "RAG · single-shot", "Lite · 300", "1.0 %"],
+    ["GPT-4 ·프런티어", "oracle · single-shot", "full · 2294", "1.7 %"],
+    ["Claude 2 ·프런티어", "oracle · single-shot", "full · 2294", "4.8 %"],
+    ["Llama-3.3-70B-Instruct ·70B", "oracle 수리 · greedy", "Verified · 500", "5.4 %"],
+  ];
+  const colX = [0, 2.7, 4.45, 5.72], colW = [2.7, 1.75, 1.27, 0.8];
+  const txx = M + 0.24, trh = 0.40, t0 = ty + 0.48;
+  rows.forEach((r, ri) => {
+    const y = t0 + ri * trh;
+    if (ri === 0) s.addShape(pptx.ShapeType.rect, { x: txx, y, w: tw - 0.48, h: trh, fill: { color: C.border }, line: { type: "none" } });
+    else if (ri === 1) s.addShape(pptx.ShapeType.roundRect, { x: txx, y, w: tw - 0.48, h: trh, rectRadius: 0.04, fill: { color: "fdeef7" }, line: { color: C.pink, width: 1 } });
+    else if (ri % 2 === 1) s.addShape(pptx.ShapeType.rect, { x: txx, y, w: tw - 0.48, h: trh, fill: { color: "fafafa" }, line: { type: "none" } });
+    r.forEach((c, ci) => {
+      s.addText(c, {
+        x: txx + colX[ci] + 0.08, y, w: colW[ci] - 0.1, h: trh, margin: 0, valign: "middle",
+        fontFace: ri === 0 ? F.semi : (ci === 0 || ci === 3 ? F.bold : F.reg),
+        fontSize: ri === 0 ? 9.5 : (ci === 0 ? 9 : 9.3),
+        color: ri === 0 ? C.ink : (ci === 3 ? (ri === 1 ? C.pink : C.blue) : (ci === 0 ? C.ink : C.ink2)),
+        align: ci === 3 ? "right" : "left",
+      });
+    });
+  });
+  s.addText("첫 행 = 본 측정(RNGD).  † SWE-Llama = SWE-bench 학습셋에 파인튜닝한 모델.  나머지는 모두 GPU/클라우드 실행 — 출처: SWE-bench(2023)·SWE-Fixer·SWE-RL(Meta) 논문.", {
+    x: M + 0.24, y: t0 + 6 * trh + 0.1, w: tw - 0.48, h: 0.5, margin: 0, fontFace: F.reg, fontSize: 8.4, color: C.mut, lineSpacingMultiple: 1.4,
+  });
+  // 우: 해석 카드 3
+  const rx = M + tw + 0.24, rw = 13.333 - M - rx;
+  const notes = [
+    ["공개된 정확 일치 수치는 없다", "이 모델·방식 조합의 공식 GPU 리더보드 기록은 없다 — 리더보드는 대부분 대형 모델+에이전트. 표는 가장 근접한 공개 기준점이다.", C.blue3],
+    ["같은 방식이면 큰 모델도 한 자릿수", "single-shot에선 8B보다 훨씬 큰 GPT-4·Claude 2·70B도 1.7~5.4%. 8B는 그 아래 — 50건 기준 기대 해결 ≈ 0~1건.", C.blue2],
+    ["개선은 하드웨어가 아니다", "8B 아티팩트는 bf16(양자화 0)이라 GPU와 수치가 같다. 정확도는 더 큰 모델(4카드 32B·70B)이나 에이전트 스캐폴드로만 오른다.", C.blue],
+  ];
+  const nh = (tcardH - 2 * 0.16) / 3;
+  notes.forEach(([t, d, ac], i) => {
+    const y = ty + i * (nh + 0.16);
+    card(s, rx, y, rw, nh, { shadow: shStd() });
+    accent(s, rx, y + 0.16, nh - 0.32, ac);
+    s.addText(t, { x: rx + 0.26, y: y + 0.15, w: rw - 0.48, h: 0.3, margin: 0, fontFace: F.bold, fontSize: 12, color: C.ink });
+    s.addText(d, { x: rx + 0.26, y: y + 0.51, w: rw - 0.5, h: nh - 0.66, margin: 0, fontFace: F.reg, fontSize: 9.4, color: C.ink2, lineSpacingMultiple: 1.4 });
+  });
+})();
+
+/* ===================== 16 — 측정 모델 노트: Qwen2.5-0.5B (smoke) ===================== */
+(() => {
+  const s = pptx.addSlide();
+  frame(s, "Model Note · 0.5B", 16, "출처: results/furiosa-ai__Qwen2.5-0.5B-Instruct");
+  title(s, "측정 모델 노트 — Qwen2.5-0.5B-Instruct",
+    "측정 4모델 중 최소 — 속도는 최상이나 컨텍스트 4,096 한계로 코드 작업엔 부적합");
+  // role 배너
+  const vy = 2.39, vh = 0.82;
+  card(s, M, vy, 12.333, vh, { fill: C.blue, line: null, r: 0.16, shadow: shGlow() });
+  s.addShape(pptx.ShapeType.roundRect, { x: M + 0.32, y: vy + 0.25, w: 1.16, h: 0.32, rectRadius: 0.16, fill: { color: C.white }, line: { type: "none" } });
+  s.addText("smoke", { x: M + 0.32, y: vy + 0.25, w: 1.16, h: 0.32, margin: 0, align: "center", valign: "middle", fontFace: F.semi, fontSize: 10, color: C.blue });
+  s.addText("자동화 파이프라인(서빙→측정→채점)이 정상 동작하는지 빠르게 확인하는 검증용 모델 — models.yaml에 role: smoke로 지정된, 코드 생성 후보가 아닌 모델.", {
+    x: M + 1.66, y: vy, w: 10.4, h: vh, margin: 0, valign: "middle", fontFace: F.med, fontSize: 11.5, color: C.white, lineSpacingMultiple: 1.3,
+  });
+  // 2단 — 강점 / 한계
+  const cy = vy + vh + 0.18, cBot = 6.30, ch = cBot - cy;
+  const cw = (12.333 - 0.22) / 2;
+  const cols = [
+    ["강점 — 속도·처리량 (4모델 중 최상)", C.blue, [
+      ["85 tok/s", "단일 요청 생성 속도 — Llama-3.1-8B(55 tok/s)의 약 1.5배."],
+      ["31 ms", "TTFT p50 — 첫 토큰 지연이 매우 짧다."],
+      ["4,175 tok/s", "동시성 c128 합산 처리량 · c1~128 전 구간 요청 실패 0건."],
+    ]],
+    ["한계 — 컨텍스트 4,096 토큰", C.pink, [
+      ["4,096", "max_context_len — prebuilt 아티팩트에 고정 컴파일된 버킷 (8B는 128K)."],
+      ["0 / 50", "SWE-bench — oracle 프롬프트(3K~10K+)가 4096 초과 → 50건 전부 거부, 패치 0."],
+      ["0 성공", "sweep prompt=4096 — prompt+max_tokens가 버킷을 넘겨 전 동시성 실패."],
+    ]],
+  ];
+  cols.forEach(([head, ac, rows], ci) => {
+    const x = M + ci * (cw + 0.22);
+    card(s, x, cy, cw, ch, { shadow: shStd() });
+    s.addText(head, { x: x + 0.26, y: cy + 0.16, w: cw - 0.5, h: 0.3, margin: 0, fontFace: F.semi, fontSize: 12.5, color: ac });
+    const rh = (ch - 0.56) / 3, ry0 = cy + 0.54;
+    rows.forEach(([v, d], ri) => {
+      const y = ry0 + ri * rh;
+      if (ri > 0) s.addShape(pptx.ShapeType.line, { x: x + 0.26, y, w: cw - 0.52, h: 0, line: { color: C.border, width: 1 } });
+      accent(s, x + 0.26, y + (rh - 0.42) / 2, 0.42, ac);
+      s.addText(v, { x: x + 0.42, y: y + 0.06, w: 1.95, h: rh - 0.12, margin: 0, valign: "middle", fontFace: F.bold, fontSize: 19, color: ac });
+      s.addText(d, { x: x + 2.45, y: y + 0.06, w: cw - 2.45 - 0.3, h: rh - 0.12, margin: 0, valign: "middle", fontFace: F.reg, fontSize: 9.8, color: C.ink2, lineSpacingMultiple: 1.34 });
+    });
+  });
+  // 하단 결론 strip
+  card(s, M, 6.32, 12.333, 0.5, { fill: C.bg2, line: null });
+  s.addText([
+    { text: "시사점  ", options: { fontFace: F.bold, fontSize: 10.5, color: C.blue } },
+    { text: "smoke·단문 고처리량 데모엔 적합 · 코드 생성·긴 컨텍스트 작업엔 부적합 — 실사용하려면 아티팩트를 더 큰 컨텍스트 버킷으로 재컴파일해야 한다.", options: { fontFace: F.med, fontSize: 10.5, color: C.ink2 } },
+  ], { x: M + 0.3, y: 6.32, w: 11.7, h: 0.5, margin: 0, valign: "middle" });
+})();
+
+/* ===================== 17 — 테스트 5: 임베딩 / 리랭커 ===================== */
+(() => {
+  const s = pptx.addSlide();
+  frame(s, "Test 5 · Embedding", 17, "출처: bench/results · embed / rerank task");
   title(s, "테스트 5 — 임베딩 · 리랭커",
     "검색 보조 모델(Qwen3-Embedding-8B · Qwen3-Reranker-8B)의 처리량 측정");
   methodStrip(s, 2.39, [
@@ -698,10 +814,10 @@ function resultLabel(s, y) {
   });
 })();
 
-/* ===================== 16 — 결론 & 권장 ===================== */
+/* ===================== 18 — 결론 & 권장 ===================== */
 (() => {
   const s = pptx.addSlide();
-  frame(s, "Conclusion", 16, "출처: bench/REPORT.md · 동시성은 prompt 1024 기준");
+  frame(s, "Conclusion", 18, "출처: bench/REPORT.md · 동시성은 prompt 1024 기준");
   title(s, "결론 — 2-카드에서는 Llama-3.1-8B 단독",
     "강력 후보 32B·70B는 RNGD 4카드 필요 → 정확도 우선이면 4카드 환경 권장");
   const tw = 7.0, ty = 2.39;
@@ -753,6 +869,6 @@ function resultLabel(s, y) {
   });
 })();
 
-pptx.writeFile({ fileName: "/home/jun/bench/ppt/RNGD_Benchmark.pptx" })
-  .then(() => console.log("OK: 16 slides"))
+pptx.writeFile({ fileName: "/home/jun/RNGD-proj/Model_Benchmark/ppt/RNGD_Benchmark.pptx" })
+  .then(() => console.log("OK: 18 slides"))
   .catch((e) => { console.error(e); process.exit(1); });

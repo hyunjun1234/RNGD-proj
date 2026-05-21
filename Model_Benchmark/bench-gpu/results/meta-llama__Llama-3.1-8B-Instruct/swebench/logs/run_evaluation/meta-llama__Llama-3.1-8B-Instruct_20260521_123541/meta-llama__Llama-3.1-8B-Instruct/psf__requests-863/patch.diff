@@ -1,0 +1,130 @@
+--- a/requests/models.py
++++ b/requests/models.py
+@@ -150,7 +150,7 @@
+ 
+         for (k, v) in list(hooks.items()):
+             self.register_hook(event=k, hook=v)
+-        # self.hooks = hooks
++        self.hooks = hooks
+ 
+         #: Session.
+         self.session = session
+@@ -1023,7 +1023,7 @@
+         if self.config.get('trust_env'):
+             self.auth = get_netrc_auth(url)
+ 
+-        if self.auth:
++        if self.auth is not None:
+             if isinstance(self.auth, tuple) and len(self.auth) == 2:
+                 # special-case basic HTTP auth
+                 self.auth = HTTPBasicAuth(*self.auth)
+@@ -1043,7 +1043,7 @@
+         if self.cert:
+             if len(self.cert) == 2:
+                 conn.cert_file = self.cert[0]
+-                conn.key_file = self.cert[1]
++                conn.key_file = self.cert[1]
+             else:
+                 conn.cert_file = self.cert
+@@ -1061,7 +1061,7 @@
+         if not self.sent or anyway:
+ 
+             # Skip if 'cookie' header is explicitly set.
+-            if 'cookie' not in self.headers:
++            if 'cookie' not in self.headers and self.headers.get('Cookie') is None:
+                 cookie_header = get_cookie_header(self.cookies, self)
+                 if cookie_header is not None:
+                     self.headers['Cookie'] = cookie_header
+@@ -1081,7 +1081,7 @@
+         # catch urllib3 exceptions and throw Requests exceptions
+         try:
+-            # Send the request.
++            # Send the request.
+             r = conn.urlopen(
+                 method=self.method,
+                 url=self.path_url,
+                 body=body,
+                 headers=self.headers,
+                 redirect=False,
+                 assert_same_host=False,
+                 preload_content=False,
+                 decode_content=False,
+                 retries=self.config.get('max_retries', 0),
+                 timeout=self.timeout,
+             )
+@@ -1095,7 +1095,7 @@
+         except socket.error as sockerr:
+             raise ConnectionError(sockerr)
+         except MaxRetryError as e:
+-            raise ConnectionError(e)
++            raise ConnectionError(e)
+         except (_SSLError, _HTTPError) as e:
+             if isinstance(e, _SSLError):
+                 raise SSLError(e)
+             elif isinstance(e, TimeoutError):
+@@ -1111,7 +1111,7 @@
+         # build_response can throw TooManyRedirects
+         self._build_response(r)
+ 
+-        # Response manipulation hook.
++        # Response manipulation hook.
+         self.response = dispatch_hook('response', self.hooks, self.response)
+ 
+         # Post-request hook.
+         r = dispatch_hook('post_request', self.hooks, self)
+@@ -1123,7 +1123,7 @@
+         # If prefetch is True, mark content as consumed.
+         if prefetch is None:
+             prefetch = self.prefetch
+-        if prefetch:
++        if prefetch is not False:
+             # Save the response.
+             self.response.content
+@@ -1135,7 +1135,7 @@
+         # If prefetch is True, mark content as consumed.
+         if prefetch is None:
+             prefetch = self.prefetch
+-        if prefetch:
++        if prefetch is not False:
+             # Save the response.
+             self.response.content
+@@ -1147,7 +1147,7 @@
+         # If prefetch is True, mark content as consumed.
+         if prefetch is None:
+             prefetch = self.prefetch
+-        if prefetch:
++        if prefetch is not False:
+             # Save the response.
+             self.response.content
+@@ -1159,7 +1159,7 @@
+         # If prefetch is True, mark content as consumed.
+         if prefetch is None:
+             prefetch = self.prefetch
+-        if prefetch:
++        if prefetch is not False:
+             # Save the response.
+             self.response.content
+@@ -1171,7 +1171,7 @@
+         # If prefetch is True, mark content as consumed.
+         if prefetch is None:
+             prefetch = self.prefetch
+-        if prefetch:
++        if prefetch is not False:
+             # Save the response.
+             self.response.content
+@@ -1183,7 +1183,7 @@
+         # If prefetch is True, mark content as consumed.
+         if prefetch is None:
+             prefetch = self.prefetch
+-        if prefetch:
++        if prefetch is not False:
+             # Save the response.
+             self.response.content
+@@ -1195,7 +1195,7 @@
+         # If prefetch is True, mark content as consumed.
+         if prefetch is None:
+             prefetch = self.prefetch
+-        if prefetch:
++        if prefetch is not False:
+             # Save the response.
+             self.response.content

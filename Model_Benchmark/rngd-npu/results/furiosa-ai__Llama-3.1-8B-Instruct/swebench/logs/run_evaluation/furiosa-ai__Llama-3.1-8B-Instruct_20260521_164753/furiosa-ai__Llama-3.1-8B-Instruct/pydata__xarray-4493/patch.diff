@@ -1,0 +1,111 @@
+<patch>
+--- a/xarray/core/variable.py
++++ b/xarray/core/variable.py
+@@ -105,6 +105,7 @@
+         self._data = as_compatible_data(data, fastpath=fastpath)
+         self._dims = self._parse_dimensions(dims)
+         self._attrs = None
++        self._encoding = None
+         if attrs is not None:
+             self.attrs = attrs
+         if encoding is not None:
+@@ -123,6 +124,7 @@
+         self._data = as_compatible_data(data, fastpath=fastpath)
+         self._dims = self._parse_dimensions(dims)
+         self._attrs = None
++        self._encoding = None
+         if attrs is not None:
+             self.attrs = attrs
+         if encoding is not None:
+@@ -143,6 +145,7 @@
+         self._data = as_compatible_data(data, fastpath=fastpath)
+         self._dims = self._parse_dimensions(dims)
+         self._attrs = None
++        self._encoding = None
+         if attrs is not None:
+             self.attrs = attrs
+         if encoding is not None:
+@@ -163,6 +166,7 @@
+         self._data = as_compatible_data(data, fastpath=fastpath)
+         self._dims = self._parse_dimensions(dims)
+         self._attrs = None
++        self._encoding = None
+         if attrs is not None:
+             self.attrs = attrs
+         if encoding is not None:
+@@ -183,6 +187,7 @@
+         self._data = as_compatible_data(data, fastpath=fastpath)
+         self._dims = self._parse_dimensions(dims)
+         self._attrs = None
++        self._encoding = None
+         if attrs is not None:
+             self.attrs = attrs
+         if encoding is not None:
+@@ -203,6 +208,7 @@
+         self._data = as_compatible_data(data, fastpath=fastpath)
+         self._dims = self._parse_dimensions(dims)
+         self._attrs = None
++        self._encoding = None
+         if attrs is not None:
+             self.attrs = attrs
+         if encoding is not None:
+@@ -223,6 +229,7 @@
+         self._data = as_compatible_data(data, fastpath=fastpath)
+         self._dims = self._parse_dimensions(dims)
+         self._attrs = None
++        self._encoding = None
+         if attrs is not None:
+             self.attrs = attrs
+         if encoding is not None:
+@@ -243,6 +250,7 @@
+         self._data = as_compatible_data(data, fastpath=fastpath)
+         self._dims = self._parse_dimensions(dims)
+         self._attrs = None
++        self._encoding = None
+         if attrs is not None:
+             self.attrs = attrs
+         if encoding is not None:
+@@ -263,6 +271,7 @@
+         self._data = as_compatible_data(data, fastpath=fastpath)
+         self._dims = self._parse_dimensions(dims)
+         self._attrs = None
++        self._encoding = None
+         if attrs is not None:
+             self.attrs = attrs
+         if encoding is not None:
+@@ -283,6 +292,7 @@
+         self._data = as_compatible_data(data, fastpath=fastpath)
+         self._dims = self._parse_dimensions(dims)
+         self._attrs = None
++        self._encoding = None
+         if attrs is not None:
+             self.attrs = attrs
+         if encoding is not None:
+@@ -303,6 +313,7 @@
+         self._data = as_compatible_data(data, fastpath=fastpath)
+         self._dims = self._parse_dimensions(dims)
+         self._attrs = None
++        self._encoding = None
+         if attrs is not None:
+             self.attrs = attrs
+         if encoding is not None:
+@@ -323,6 +334,7 @@
+         self._data = as_compatible_data(data, fastpath=fastpath)
+         self._dims = self._parse_dimensions(dims)
+         self._attrs = None
++        self._encoding = None
+         if attrs is not None:
+             self.attrs = attrs
+         if encoding is not None:
+@@ -343,6 +355,7 @@
+         self._data = as_compatible_data(data, fastpath=fastpath)
+         self._dims = self._parse_dimensions(dims)
+         self._attrs = None
++        self._encoding = None
+         if attrs is not None:
+             self.attrs = attrs
+         if encoding is not None:
+@@ -363,6 +376,7 @@
+         self._data = as_compatible_data(data, fastpath=fastpath)
+         self._dims = self._parse_dimensions(dims)
+         self

@@ -1,0 +1,46 @@
+--- a/seaborn/_stats/regression.py
++++ b/seaborn/_stats/regression.py
+@@ -30,7 +30,7 @@
+     xx = yy = []
+ else:
+     # Handle missing data by removing rows with missing values
+-    p = np.polyfit(x.dropna(), y.dropna(), self.order)
++    p = np.polyfit(x.dropna(), y.dropna(), self.order)
+     xx = np.linspace(x.min(), x.max(), self.gridsize)
+     yy = np.polyval(p, xx)
+ 
+@@ -39,7 +39,7 @@
+     return groupby.apply(data, self._fit_predict)
+ 
+ @dataclass
+-class PolyFit(Stat):
++class PolyFit(Stat):
+     """
+     Fit a polynomial of the given order and resample data onto predicted curve.
+     """
+     # This is a provisional class that is useful for building out functionality.
+     # It may or may not change substantially in form or dissappear as we think
+     # through the organization of the stats subpackage.
+@@ -50,7 +50,7 @@
+     gridsize: int = 100
+ 
+     def _fit_predict(self, data):
+-        x = data["x"]
+-        y = data["y"]
++        x = data["x"].dropna()
++        y = data["y"].dropna()
+         if x.nunique() <= self.order:
+             # TODO warn?
+             xx = yy = []
+         else:
+             p = np.polyfit(x, y, self.order)
+             xx = np.linspace(x.min(), x.max(), self.gridsize)
+             yy = np.polyval(p, xx)
+@@ -59,7 +59,7 @@
+         return pd.DataFrame(dict(x=xx, y=yy))
+ 
+     # TODO we should have a way of identifying the method that will be applied
+     # and then only define __call__ on a base-class of stats with this pattern
+-    def __call__(self, data, groupby, orient, scales):
++    def __call__(self, data, groupby, orient, scales):
+         return groupby.apply(data, self._fit_predict)

@@ -1,0 +1,68 @@
+--- a/sphinx/ext/autodoc/typehints.py
++++ b/sphinx/ext/autodoc/typehints.py
+@@ -114,7 +114,7 @@
+         if not arg.get('type'):
+             field = nodes.field()
+             field += nodes.field_name('', 'type ' + name)
+-            field += nodes.field_body('', nodes.paragraph('', annotation))
++            field += nodes.field_body('', nodes.paragraph('', annotation, classes=['typehint'])))
+             node += field
+         if not arg.get('param'):
+             field = nodes.field()
+@@ -131,7 +131,7 @@
+         if annotation == 'None' and suppress_rtype:
+             return
+         field = nodes.field()
+-        field += nodes.field_name('', 'rtype')
++        field += nodes.field_name('', 'return type')
+         field += nodes.field_body('', nodes.paragraph('', annotation))
+         node += field
+ 
+@@ -148,7 +148,7 @@
+         field_name = field[0].astext()
+         parts = re.split(' +', field_name)
+         if parts[0] == 'param':
+-            if len(parts) == 2:
++            if len(parts) == 2 and parts[1] not in annotations:
+                 # :param xxx:
+                 has_description.add(parts[1])
+             elif len(parts) > 2:
+@@ -166,7 +166,7 @@
+         elif parts[0] == 'type':
+             name = ' '.join(parts[1:])
+             has_type.add(name)
+-        elif parts[0] in ('return', 'returns'):
++        elif parts[0] in ('return', 'returns') and parts[0] not in annotations:
+             has_description.add('return')
+         elif parts[0] == 'rtype':
+             has_type.add('return')
+@@ -179,7 +179,7 @@
+         if name in has_description and name not in has_type:
+             field = nodes.field()
+             field += nodes.field_name('', 'type ' + name)
+-            field += nodes.field_body('', nodes.paragraph('', annotations[name]))
++            field += nodes.field_body('', nodes.paragraph('', annotations[name], classes=['typehint'])))
+             node += field
+ 
+     # Add 'rtype' if 'return' is present and 'rtype' isn't.
+     if 'return' in annotations:
+@@ -188,7 +188,7 @@
+         if 'return' not in has_type and ('return' in has_description or
+                                          (force_rtype and rtype != "None")):
+             field = nodes.field()
+-            field += nodes.field_name('', 'rtype')
++            field += nodes.field_name('', 'return type')
+             field += nodes.field_body('', nodes.paragraph('', rtype))
+             node += field
+ 
+@@ -197,7 +197,7 @@
+ def setup(app: Sphinx) -> Dict[str, Any]:
+     app.connect('autodoc-process-signature', record_typehints)
+     app.connect('object-description-transform', merge_typehints)
+ 
+-    return {
++    return {
+         'version': 'builtin',
+         'parallel_read_safe': True,
+         'parallel_write_safe': True,
+     }

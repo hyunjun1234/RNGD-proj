@@ -6,8 +6,9 @@ swebench·embed·rerank)를 돌리는 절차.
 ## 환경
 
 ```bash
-source ~/furiosa/bin/activate
 cd ~/RNGD-proj/Model_Benchmark/rngd-npu
+bash setup.sh                        # 측정 클라이언트 의존성 (한 번만)
+source ~/furiosa/bin/activate
 ```
 
 ## 1. 모델이 이 머신에서 돌아가는지 확인 (필수 선행)
@@ -88,12 +89,16 @@ bash eval_swebench.sh                        # 전체
 bash eval_swebench.sh --models Llama-3.1-8B   # 특정 모델
 ```
 
-범위 조정 (환경변수):
+범위 조정 / 동작 튜닝 (환경변수):
 
 ```bash
-SWEBENCH_N=300 python orchestrator.py configs/models.yaml --tasks swebench  # 전체 300건
+SWEBENCH_N=300 python orchestrator.py configs/models.yaml --tasks swebench   # 전체 300건
 # 기본 SWEBENCH_N=50 (repo별 stratified)
+SWEBENCH_FILTER_CONTEXT=1 SWEBENCH_RETRY_INVALID=1 \
+SWEBENCH_DROP_INVALID_PATCH=1 SWEBENCH_MAXTOK=2048 ...
 ```
+
+전체 환경변수: `runners/swebench_run.py` docstring 참조.
 
 ## 5. 결과
 

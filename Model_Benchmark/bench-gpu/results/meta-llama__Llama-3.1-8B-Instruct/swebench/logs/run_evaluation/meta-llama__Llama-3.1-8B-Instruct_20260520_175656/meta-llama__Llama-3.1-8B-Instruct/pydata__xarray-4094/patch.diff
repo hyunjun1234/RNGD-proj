@@ -1,0 +1,26 @@
+diff --git a/xarray/core/dataarray.py b/xarray/core/dataarray.py
+index 1a2b3c4d..56789abc 100644
+--- a/xarray/core/dataarray.py
++++ b/xarray/core/dataarray.py
+@@ -1901,6 +1901,7 @@ class DataArray(AbstractArray, DataWithCoords):
+     def to_unstacked_dataset(self, dim, level=0):
+         """Unstack DataArray expanding to Dataset along a given level of a
+         stacked coordinate.
++
+         This is the inverse operation of Dataset.to_stacked_array.
+         """
+         idx = self.indexes[dim]
+         if not isinstance(idx, pd.MultiIndex):
+@@ -1913,6 +1914,7 @@ class DataArray(AbstractArray, DataWithCoords):
+             variable_dim = idx.names[level_number]
+ 
+         # pull variables out of datarray
+         data_dict = {}
++        if level_number == 0:
++            data_dict = {k: self for k in idx.levels[level_number]}
+         for k in variables:
+             data_dict[k] = self.sel({variable_dim: k}).squeeze(drop=True)
+ 
+         # unstacked dataset
+@@ -1923,6 +1925,7 @@ class DataArray(AbstractArray, DataWithCoords):
+         return Dataset(data_dict)

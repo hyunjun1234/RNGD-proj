@@ -1,0 +1,32 @@
+--- a/src/flask/config.py
++++ b/src/flask/config.py
+@@ -234,7 +234,8 @@
+ def from_file(
+     self,
+     filename: str,
+-    load: t.Callable[[t.IO[t.Any]], t.Any],
+     silent: bool = False,
+ ) -> bool:
++    load: t.Callable[[t.IO[t.Any]], t.Mapping],
++    mode: t.Optional[str] = "r",
+     """Update the values in the config from a file that is loaded
+     using the ``load`` parameter. The loaded data is passed to the
+     :meth:`from_mapping` method.
+@@ -245,6 +246,7 @@
+         :param filename: The path to the data file. This can be an
+             absolute path or relative to the config root path.
+         :param load: A callable that takes a file handle and returns a
+-            mapping of loaded data from the file.
++            mapping of loaded data from the file. The file is opened in
++            the specified mode.
+         :type load: ``Callable[[Reader], Mapping]`` where ``Reader``
+             implements a ``read`` method.
+         :param silent: Ignore the file if it doesn't exist.
+@@ -262,7 +264,7 @@
+         except OSError as e:
+             if silent and e.errno in (errno.ENOENT, errno.EISDIR):
+                 return False
+-            e.strerror = f"Unable to load configuration file ({e.strerror})"
++            e.strerror = f"Unable to load configuration file ({e.strerror}) in mode {mode}"
+             raise
+         return self.from_mapping(obj)

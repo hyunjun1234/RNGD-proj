@@ -1,0 +1,69 @@
+diff --git a/pylint/lint/expand_modules.py b/pylint/lint/expand_modules.py
+@@ -76,6 +76,7 @@
+ def expand_modules(
+     files_or_modules: Sequence[str],
+     ignore_list: list[str],
+     ignore_list_re: list[Pattern[str]],
+     ignore_list_paths_re: list[Pattern[str]],
+     recursive: bool = False,
+ ) -> tuple[list[ModuleDescriptionDict], list[ErrorDescriptionDict]]:
+     """Take a list of files/modules/packages and return the list of tuple
+     (file, module name) which have to be actually checked.
+@@ -87,6 +88,7 @@
+     for something in files_or_modules:
+         basename = os.path.basename(something)
+         if _is_ignored_file(
+             something, ignore_list, ignore_list_re, ignore_list_paths_re
+         ):
+             continue
+         if recursive and basename.startswith("src/gen/"):
+@@ -96,6 +98,7 @@
+             continue
+         module_path = get_python_path(something)
+         additional_search_path = [".", module_path] + path
+         if os.path.exists(something):
+@@ -105,6 +108,7 @@
+             try:
+                 filepath = modutils.file_from_modpath(
+                     modname.split("."), path=additional_search_path
+                 )
+                 if filepath is None:
+@@ -115,6 +119,7 @@
+                 filepath = os.path.normpath(filepath)
+                 modparts = (modname or something).split(".")
+                 try:
+@@ -125,6 +130,7 @@
+                 except ImportError:
+                     # Might not be acceptable, don't crash.
+                     is_namespace = False
+                     is_directory = os.path.isdir(something)
+@@ -135,6 +141,7 @@
+                 if not is_namespace:
+                     result.append(
+                         {
+                             "path": filepath,
+                             "name": modname,
+@@ -145,6 +152,7 @@
+                     has_init = (
+                         not (modname.endswith(".__init__") or modname == "__init__")
+                         and os.path.basename(filepath) == "__init__.py"
+                     )
+@@ -155,6 +163,7 @@
+                     if has_init or is_namespace or is_directory:
+                         for subfilepath in modutils.get_module_files(
+                             os.path.dirname(filepath), ignore_list, list_all=is_namespace
+                         ):
+@@ -165,6 +174,7 @@
+                             continue
+                             if _is_in_ignore_list_re(
+                                 os.path.basename(subfilepath), ignore_list_re
+                             ) or _is_in_ignore_list_re(subfilepath, ignore_list_paths_re):
+@@ -175,6 +185,7 @@
+                             submodname = ".".join(modpath)
+                             result.append(
+                                 {
+                                     "path": subfilepath,
+                                     "name": submodname,
+@@ -185,6 +196,7 @@
+     return result, errors
+```

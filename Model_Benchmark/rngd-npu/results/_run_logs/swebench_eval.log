@@ -1,245 +1,177 @@
 /home/jun/furiosa/lib/python3.12/site-packages/requests/__init__.py:113: RequestsDependencyWarning: urllib3 (2.6.3) or chardet (7.4.3)/charset_normalizer (3.4.7) doesn't match a supported version!
   warnings.warn(
 <frozen runpy>:128: RuntimeWarning: 'swebench.harness.run_evaluation' found in sys.modules after import of package 'swebench.harness', but prior to execution of 'swebench.harness.run_evaluation'; this may result in unpredictable behaviour
-2026-05-18 14:32:12,394 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
-2026-05-18 14:32:12,609 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/princeton-nlp/SWE-bench_Lite/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/README.md "HTTP/1.1 200 OK"
-2026-05-18 14:32:12,829 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/resolve-cache/datasets/princeton-nlp/SWE-bench_Lite/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/README.md "HTTP/1.1 200 OK"
-2026-05-18 14:32:13,041 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/SWE-bench_Lite.py "HTTP/1.1 404 Not Found"
-2026-05-18 14:32:13,751 - httpx - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/princeton-nlp/SWE-bench_Lite/princeton-nlp/SWE-bench_Lite.py "HTTP/1.1 404 Not Found"
-2026-05-18 14:32:13,986 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/datasets/princeton-nlp/SWE-bench_Lite/revision/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2 "HTTP/1.1 200 OK"
-2026-05-18 14:32:14,203 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/.huggingface.yaml "HTTP/1.1 404 Not Found"
-2026-05-18 14:32:14,511 - httpx - INFO - HTTP Request: GET https://datasets-server.huggingface.co/info?dataset=princeton-nlp/SWE-bench_Lite "HTTP/1.1 200 OK"
-2026-05-18 14:32:14,722 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/datasets/princeton-nlp/SWE-bench_Lite/tree/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/data?recursive=true&expand=false "HTTP/1.1 200 OK"
-2026-05-18 14:32:14,930 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/datasets/princeton-nlp/SWE-bench_Lite/tree/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2?recursive=false&expand=false "HTTP/1.1 200 OK"
-2026-05-18 14:32:15,150 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/dataset_infos.json "HTTP/1.1 404 Not Found"
-2026-05-18 14:32:15,379 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/data/dev-00000-of-00001.parquet "HTTP/1.1 302 Found"
-2026-05-18 14:32:15,606 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/datasets/princeton-nlp/SWE-bench_Lite/xet-read-token/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2 "HTTP/1.1 200 OK"
-2026-05-18 14:32:17,052 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/data/test-00000-of-00001.parquet "HTTP/1.1 302 Found"
-Generating dev split:   0%|          | 0/23 [00:00<?, ? examples/s]Generating dev split: 100%|██████████| 23/23 [00:00<00:00, 2351.64 examples/s]
-Generating test split:   0%|          | 0/300 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 300/300 [00:00<00:00, 20012.90 examples/s]
-2026-05-18 14:32:17,940 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
-2026-05-18 14:32:17,958 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/princeton-nlp/SWE-bench_Lite/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/README.md "HTTP/1.1 200 OK"
-2026-05-18 14:32:18,175 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/SWE-bench_Lite.py "HTTP/1.1 404 Not Found"
-2026-05-18 14:32:18,392 - httpx - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/princeton-nlp/SWE-bench_Lite/princeton-nlp/SWE-bench_Lite.py "HTTP/1.1 404 Not Found"
-2026-05-18 14:32:18,618 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/.huggingface.yaml "HTTP/1.1 404 Not Found"
-2026-05-18 14:32:18,848 - httpx - INFO - HTTP Request: GET https://datasets-server.huggingface.co/info?dataset=princeton-nlp/SWE-bench_Lite "HTTP/1.1 200 OK"
-2026-05-18 14:32:19,065 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/dataset_infos.json "HTTP/1.1 404 Not Found"
+2026-05-21 16:34:06,588 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-05-21 16:34:06,606 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/princeton-nlp/SWE-bench_Lite/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/README.md "HTTP/1.1 200 OK"
+2026-05-21 16:34:06,825 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/SWE-bench_Lite.py "HTTP/1.1 404 Not Found"
+2026-05-21 16:34:07,533 - httpx - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/princeton-nlp/SWE-bench_Lite/princeton-nlp/SWE-bench_Lite.py "HTTP/1.1 404 Not Found"
+2026-05-21 16:34:07,814 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/datasets/princeton-nlp/SWE-bench_Lite/revision/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2 "HTTP/1.1 200 OK"
+2026-05-21 16:34:08,047 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/.huggingface.yaml "HTTP/1.1 404 Not Found"
+2026-05-21 16:34:08,775 - httpx - INFO - HTTP Request: GET https://datasets-server.huggingface.co/info?dataset=princeton-nlp/SWE-bench_Lite "HTTP/1.1 200 OK"
+2026-05-21 16:34:09,040 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/datasets/princeton-nlp/SWE-bench_Lite/tree/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/data?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-21 16:34:09,259 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/datasets/princeton-nlp/SWE-bench_Lite/tree/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2?recursive=false&expand=false "HTTP/1.1 200 OK"
+2026-05-21 16:34:09,480 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/dataset_infos.json "HTTP/1.1 404 Not Found"
+2026-05-21 16:34:09,745 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-05-21 16:34:09,760 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/princeton-nlp/SWE-bench_Lite/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/README.md "HTTP/1.1 200 OK"
+2026-05-21 16:34:09,979 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/SWE-bench_Lite.py "HTTP/1.1 404 Not Found"
+2026-05-21 16:34:10,204 - httpx - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/princeton-nlp/SWE-bench_Lite/princeton-nlp/SWE-bench_Lite.py "HTTP/1.1 404 Not Found"
+2026-05-21 16:34:10,421 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/.huggingface.yaml "HTTP/1.1 404 Not Found"
+2026-05-21 16:34:10,645 - httpx - INFO - HTTP Request: GET https://datasets-server.huggingface.co/info?dataset=princeton-nlp/SWE-bench_Lite "HTTP/1.1 200 OK"
+2026-05-21 16:34:10,857 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/dataset_infos.json "HTTP/1.1 404 Not Found"
 Running 50 instances...
-Evaluation:   0%|          | 0/50 [00:00<?, ?it/s, error=0, ✓=0, ✖=0]Evaluation:   0%|          | 0/50 [01:33<?, ?it/s, ✓=0, ✖=0, error=1]Evaluation:   2%|▏         | 1/50 [01:33<1:16:00, 93.07s/it, ✓=0, ✖=0, error=1]Evaluation:   2%|▏         | 1/50 [01:34<1:16:00, 93.07s/it, ✓=0, ✖=0, error=2]Evaluation:   4%|▍         | 2/50 [01:34<31:11, 38.99s/it, ✓=0, ✖=0, error=2]  Evaluation:   4%|▍         | 2/50 [01:34<31:11, 38.99s/it, ✓=0, ✖=0, error=3]Evaluation:   6%|▌         | 3/50 [01:35<30:32, 38.99s/it, ✓=0, ✖=0, error=4]Evaluation:   8%|▊         | 4/50 [01:35<11:26, 14.92s/it, ✓=0, ✖=0, error=4]Evaluation:   8%|▊         | 4/50 [01:36<11:26, 14.92s/it, ✓=0, ✖=0, error=5]Evaluation:  10%|█         | 5/50 [01:36<07:59, 10.66s/it, ✓=0, ✖=0, error=5]Evaluation:  10%|█         | 5/50 [01:37<07:59, 10.66s/it, ✓=0, ✖=1, error=5]Evaluation:  12%|█▏        | 6/50 [01:37<05:38,  7.69s/it, ✓=0, ✖=1, error=5]Evaluation:  12%|█▏        | 6/50 [01:41<05:38,  7.69s/it, ✓=0, ✖=2, error=5]Evaluation:  14%|█▍        | 7/50 [01:41<04:38,  6.47s/it, ✓=0, ✖=2, error=5]Evaluation:  14%|█▍        | 7/50 [01:51<04:38,  6.47s/it, ✓=0, ✖=3, error=5]Evaluation:  16%|█▌        | 8/50 [01:51<05:19,  7.60s/it, ✓=0, ✖=3, error=5]Evaluation:  16%|█▌        | 8/50 [01:56<05:19,  7.60s/it, ✓=0, ✖=3, error=6]Evaluation:  18%|█▊        | 9/50 [01:56<04:44,  6.95s/it, ✓=0, ✖=3, error=6]Evaluation:  18%|█▊        | 9/50 [01:57<04:44,  6.95s/it, ✓=0, ✖=3, error=7]Evaluation:  20%|██        | 10/50 [01:57<03:24,  5.12s/it, ✓=0, ✖=3, error=7]Evaluation:  20%|██        | 10/50 [02:10<03:24,  5.12s/it, ✓=0, ✖=4, error=7]Evaluation:  22%|██▏       | 11/50 [02:10<04:52,  7.49s/it, ✓=0, ✖=4, error=7]Evaluation:  22%|██▏       | 11/50 [02:10<04:52,  7.49s/it, ✓=0, ✖=5, error=7]Evaluation:  24%|██▍       | 12/50 [02:10<03:20,  5.28s/it, ✓=0, ✖=5, error=7]Evaluation:  24%|██▍       | 12/50 [02:19<03:20,  5.28s/it, ✓=0, ✖=5, error=8]Evaluation:  26%|██▌       | 13/50 [02:19<03:49,  6.21s/it, ✓=0, ✖=5, error=8]Evaluation:  26%|██▌       | 13/50 [02:20<03:49,  6.21s/it, ✓=0, ✖=5, error=9]Evaluation:  28%|██▊       | 14/50 [02:20<02:45,  4.60s/it, ✓=0, ✖=5, error=9]Evaluation:  28%|██▊       | 14/50 [02:27<02:45,  4.60s/it, ✓=0, ✖=6, error=9]Evaluation:  30%|███       | 15/50 [02:27<03:07,  5.37s/it, ✓=0, ✖=6, error=9]Evaluation:  30%|███       | 15/50 [02:29<03:07,  5.37s/it, ✓=0, ✖=7, error=9]Evaluation:  32%|███▏      | 16/50 [02:29<02:34,  4.53s/it, ✓=0, ✖=7, error=9]Evaluation:  32%|███▏      | 16/50 [02:31<02:34,  4.53s/it, ✓=0, ✖=7, error=10]Evaluation:  34%|███▍      | 17/50 [02:31<02:02,  3.72s/it, ✓=0, ✖=7, error=10]Evaluation:  34%|███▍      | 17/50 [03:00<02:02,  3.72s/it, ✓=0, ✖=8, error=10]Evaluation:  36%|███▌      | 18/50 [03:00<05:56, 11.15s/it, ✓=0, ✖=8, error=10]Evaluation:  36%|███▌      | 18/50 [03:14<05:56, 11.15s/it, ✓=0, ✖=8, error=11]Evaluation:  38%|███▊      | 19/50 [03:14<06:17, 12.17s/it, ✓=0, ✖=8, error=11]Evaluation:  38%|███▊      | 19/50 [03:20<06:17, 12.17s/it, ✓=0, ✖=8, error=12]Evaluation:  40%|████      | 20/50 [03:20<05:10, 10.34s/it, ✓=0, ✖=8, error=12]Evaluation:  40%|████      | 20/50 [03:20<05:10, 10.34s/it, ✓=0, ✖=8, error=13]Evaluation:  42%|████▏     | 21/50 [03:20<04:59, 10.34s/it, ✓=0, ✖=8, error=14]Evaluation:  44%|████▍     | 22/50 [03:21<04:49, 10.34s/it, ✓=0, ✖=8, error=15]Evaluation:  46%|████▌     | 23/50 [03:21<02:06,  4.70s/it, ✓=0, ✖=8, error=15]Evaluation:  46%|████▌     | 23/50 [03:22<02:06,  4.70s/it, ✓=0, ✖=9, error=15]Evaluation:  48%|████▊     | 24/50 [03:22<01:41,  3.91s/it, ✓=0, ✖=9, error=15]Evaluation:  48%|████▊     | 24/50 [03:22<01:41,  3.91s/it, ✓=0, ✖=9, error=16]Evaluation:  50%|█████     | 25/50 [03:41<01:37,  3.91s/it, ✓=0, ✖=10, error=16]Evaluation:  52%|█████▏    | 26/50 [03:41<02:21,  5.92s/it, ✓=0, ✖=10, error=16]Evaluation:  52%|█████▏    | 26/50 [03:51<02:21,  5.92s/it, ✓=0, ✖=10, error=17]Evaluation:  54%|█████▍    | 27/50 [03:51<02:37,  6.84s/it, ✓=0, ✖=10, error=17]Evaluation:  54%|█████▍    | 27/50 [03:57<02:37,  6.84s/it, ✓=0, ✖=10, error=18]Evaluation:  56%|█████▌    | 28/50 [03:57<02:29,  6.78s/it, ✓=0, ✖=10, error=18]Evaluation:  56%|█████▌    | 28/50 [03:58<02:29,  6.78s/it, ✓=0, ✖=11, error=18]Evaluation:  58%|█████▊    | 29/50 [03:58<02:22,  6.78s/it, ✓=0, ✖=11, error=19]Evaluation:  60%|██████    | 30/50 [03:58<02:15,  6.78s/it, ✓=0, ✖=11, error=20]Evaluation:  62%|██████▏   | 31/50 [03:58<01:06,  3.52s/it, ✓=0, ✖=11, error=20]Evaluation:  62%|██████▏   | 31/50 [04:01<01:06,  3.52s/it, ✓=0, ✖=12, error=20]Evaluation:  64%|██████▍   | 32/50 [04:01<01:01,  3.44s/it, ✓=0, ✖=12, error=20]Evaluation:  64%|██████▍   | 32/50 [04:12<01:01,  3.44s/it, ✓=0, ✖=13, error=20]Evaluation:  66%|██████▌   | 33/50 [04:12<01:24,  4.96s/it, ✓=0, ✖=13, error=20]astropy__astropy-12907: >>>>> Patch Apply Failed:
-patching file astropy/modeling/separable.py
-patch: **** malformed patch at line 14:      elif isinstance(transform, Model):
+Evaluation:   0%|          | 0/50 [00:00<?, ?it/s, error=0, ✓=0, ✖=0]Evaluation:   0%|          | 0/50 [01:16<?, ?it/s, ✓=0, ✖=0, error=1]Evaluation:   2%|▏         | 1/50 [01:16<1:02:07, 76.08s/it, ✓=0, ✖=0, error=1]Evaluation:   2%|▏         | 1/50 [01:16<1:02:07, 76.08s/it, ✓=0, ✖=0, error=2]Evaluation:   4%|▍         | 2/50 [01:18<1:00:51, 76.08s/it, ✓=0, ✖=0, error=3]Evaluation:   6%|▌         | 3/50 [01:18<16:15, 20.75s/it, ✓=0, ✖=0, error=3]  Evaluation:   6%|▌         | 3/50 [01:21<16:15, 20.75s/it, ✓=0, ✖=0, error=4]Evaluation:   8%|▊         | 4/50 [01:21<11:02, 14.41s/it, ✓=0, ✖=0, error=4]Evaluation:   8%|▊         | 4/50 [01:27<11:02, 14.41s/it, ✓=0, ✖=1, error=4]Evaluation:  10%|█         | 5/50 [01:27<08:51, 11.81s/it, ✓=0, ✖=1, error=4]Evaluation:  10%|█         | 5/50 [01:51<08:51, 11.81s/it, ✓=0, ✖=2, error=4]Evaluation:  12%|█▏        | 6/50 [01:51<11:24, 15.56s/it, ✓=0, ✖=2, error=4]Evaluation:  12%|█▏        | 6/50 [01:51<11:24, 15.56s/it, ✓=0, ✖=3, error=4]Evaluation:  14%|█▍        | 7/50 [01:51<07:46, 10.84s/it, ✓=0, ✖=3, error=4]Evaluation:  14%|█▍        | 7/50 [02:10<07:46, 10.84s/it, ✓=0, ✖=4, error=4]Evaluation:  16%|█▌        | 8/50 [02:10<09:16, 13.26s/it, ✓=0, ✖=4, error=4]Evaluation:  16%|█▌        | 8/50 [02:12<09:16, 13.26s/it, ✓=0, ✖=5, error=4]Evaluation:  18%|█▊        | 9/50 [02:12<06:38,  9.72s/it, ✓=0, ✖=5, error=4]Evaluation:  18%|█▊        | 9/50 [02:13<06:38,  9.72s/it, ✓=0, ✖=5, error=5]Evaluation:  20%|██        | 10/50 [02:13<04:43,  7.08s/it, ✓=0, ✖=5, error=5]Evaluation:  20%|██        | 10/50 [03:19<04:43,  7.08s/it, ✓=0, ✖=5, error=6]Evaluation:  22%|██▏       | 11/50 [03:19<16:16, 25.04s/it, ✓=0, ✖=5, error=6]Evaluation:  22%|██▏       | 11/50 [03:19<16:16, 25.04s/it, ✓=0, ✖=5, error=7]Evaluation:  24%|██▍       | 12/50 [03:19<11:05, 17.50s/it, ✓=0, ✖=5, error=7]Evaluation:  24%|██▍       | 12/50 [03:34<11:05, 17.50s/it, ✓=0, ✖=6, error=7]Evaluation:  26%|██▌       | 13/50 [03:34<10:16, 16.67s/it, ✓=0, ✖=6, error=7]Evaluation:  26%|██▌       | 13/50 [03:46<10:16, 16.67s/it, ✓=0, ✖=6, error=8]Evaluation:  28%|██▊       | 14/50 [03:46<09:10, 15.28s/it, ✓=0, ✖=6, error=8]Evaluation:  28%|██▊       | 14/50 [03:53<09:10, 15.28s/it, ✓=0, ✖=6, error=9]Evaluation:  30%|███       | 15/50 [03:53<07:22, 12.64s/it, ✓=0, ✖=6, error=9]Evaluation:  30%|███       | 15/50 [03:53<07:22, 12.64s/it, ✓=0, ✖=6, error=10]Evaluation:  32%|███▏      | 16/50 [04:05<07:09, 12.64s/it, ✓=0, ✖=7, error=10]Evaluation:  34%|███▍      | 17/50 [04:05<05:21,  9.73s/it, ✓=0, ✖=7, error=10]Evaluation:  34%|███▍      | 17/50 [04:07<05:21,  9.73s/it, ✓=0, ✖=7, error=11]Evaluation:  36%|███▌      | 18/50 [04:07<04:05,  7.67s/it, ✓=0, ✖=7, error=11]Evaluation:  36%|███▌      | 18/50 [04:15<04:05,  7.67s/it, ✓=0, ✖=7, error=12]Evaluation:  38%|███▊      | 19/50 [04:15<04:04,  7.89s/it, ✓=0, ✖=7, error=12]Evaluation:  38%|███▊      | 19/50 [04:25<04:04,  7.89s/it, ✓=0, ✖=7, error=13]Evaluation:  40%|████      | 20/50 [04:25<04:12,  8.41s/it, ✓=0, ✖=7, error=13]django__django-13551: >>>>> Patch Apply Failed:
+patch: **** malformed patch at line 13:             a password reset.
 
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/astropy__astropy-12907/run_instance.log) for more information.
-django__django-12915: >>>>> Patch Apply Failed:
-patch: **** malformed patch at line 11:  
-
-patching file django/contrib/staticfiles/handlers.py
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/django__django-12915/run_instance.log) for more information.
-django__django-13551: >>>>> Patch Apply Failed:
 patching file django/contrib/auth/tokens.py
-patch: **** malformed patch at line 11:         same password is chosen, due to password salting).
+
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/django__django-13551/run_instance.log) for more information.
+astropy__astropy-12907: >>>>> Patch Apply Failed:
+patch: **** malformed patch at line 51: -        if isinstance(input, Model):
+
+patching file astropy/modeling/separable.py
+
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/astropy__astropy-12907/run_instance.log) for more information.
+astropy__astropy-7746: >>>>> Patch Apply Failed:
+patching file astropy/wcs/wcs.py
+Hunk #1 succeeded at 1352 with fuzz 3.
+Hunk #2 succeeded at 1369 with fuzz 3 (offset 3 lines).
+Hunk #3 succeeded at 1405 (offset 24 lines).
+Hunk #4 succeeded at 2190 with fuzz 3 (offset 794 lines).
+Hunk #5 succeeded at 2208 with fuzz 3 (offset 797 lines).
+Hunk #6 FAILED at 1426.
+patch: **** malformed patch at line 66: @@ -1456,7 +1456,7 @@
 
 
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/django__django-13551/run_instance.log) for more information.
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/astropy__astropy-7746/run_instance.log) for more information.
+django__django-14016: >>>>> Patch Apply Failed:
+patching file django/db/models/query_utils.py
+Hunk #1 succeeded at 43 with fuzz 3.
+Hunk #2 succeeded at 64 with fuzz 2.
+patch: **** malformed patch at line 31:          path = '%s.%s' % (self.__class__.__module__, self.__class__.__name__)
+
+
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/django__django-14016/run_instance.log) for more information.
 django__django-16527: >>>>> Patch Apply Failed:
+patching file django/contrib/admin/templatetags/admin_modify.py
 patch: **** malformed patch at line 14:      show_save = context.get("show_save", True)
 
-patching file django/contrib/admin/templatetags/admin_modify.py
 
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/django__django-16527/run_instance.log) for more information.
-django__django-16139: >>>>> Patch Apply Failed:
-patching file django/contrib/auth/forms.py
-patch: **** malformed patch at line 10:              "user’s password, but you can change the password using "
-
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/django__django-16139/run_instance.log) for more information.
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/django__django-16527/run_instance.log) for more information.
 mwaskom__seaborn-3010: >>>>> Patch Apply Failed:
 patching file seaborn/_stats/regression.py
-patch: **** malformed patch at line 11:  
+Hunk #1 FAILED at 30.
+Hunk #2 succeeded at 8 with fuzz 1 (offset -31 lines).
+1 out of 2 hunks FAILED -- saving rejects to file seaborn/_stats/regression.py.rej
+patch unexpectedly ends in middle of line
 
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/mwaskom__seaborn-3010/run_instance.log) for more information.
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/mwaskom__seaborn-3010/run_instance.log) for more information.
 mwaskom__seaborn-3190: >>>>> Patch Apply Failed:
 patching file seaborn/_core/scales.py
 Hunk #1 succeeded at 352 with fuzz 3 (offset 1 line).
-Hunk #2 FAILED at 360.
+Hunk #2 FAILED at 359.
 1 out of 2 hunks FAILED -- saving rejects to file seaborn/_core/scales.py.rej
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/mwaskom__seaborn-3190/run_instance.log) for more information.
-pallets__flask-4992: >>>>> Patch Apply Failed:
-patching file src/flask/config.py
-patch: **** malformed patch at line 10:  ) -> bool:
-
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/pallets__flask-4992/run_instance.log) for more information.
-pallets__flask-4045: >>>>> Patch Apply Failed:
-patching file src/flask/blueprints.py
-Hunk #1 FAILED at 363.
-1 out of 1 hunk FAILED -- saving rejects to file src/flask/blueprints.py.rej
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/pallets__flask-4045/run_instance.log) for more information.
-psf__requests-3362: >>>>> Patch Apply Failed:
-patching file requests/utils.py
-patch: **** malformed patch at line 50: -    encoding = get_encoding_from_headers(r.headers)
-
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/psf__requests-3362/run_instance.log) for more information.
-matplotlib__matplotlib-24970: >>>>> Patch Apply Failed:
-patching file lib/matplotlib/colors.py
-patch: **** malformed patch at line 8: For the old behavior, usually::
-
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/matplotlib__matplotlib-24970/run_instance.log) for more information.
-matplotlib__matplotlib-24149: >>>>> Patch Apply Failed:
-patching file lib/matplotlib/axes/_axes.py
-patch: **** unexpected end of file in patch
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/matplotlib__matplotlib-24149/run_instance.log) for more information.
-pylint-dev__pylint-5859: >>>>> Patch Apply Failed:
-patching file pylint/checkers/misc.py
-Hunk #1 succeeded at 73 with fuzz 2 (offset -50 lines).
-Hunk #2 FAILED at 148.
-1 out of 2 hunks FAILED -- saving rejects to file pylint/checkers/misc.py.rej
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/pylint-dev__pylint-5859/run_instance.log) for more information.
-matplotlib__matplotlib-22835: >>>>> Patch Apply Failed:
-patching file lib/matplotlib/artist.py
-patch: **** malformed patch at line 12:         .. note::
-
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/matplotlib__matplotlib-22835/run_instance.log) for more information.
-pylint-dev__pylint-7080: >>>>> Patch Apply Failed:
-patch: **** malformed patch at line 10:  ) -> tuple[list[ModuleDescriptionDict], list[ErrorDescriptionDict]]:
-
-patching file pylint/lint/expand_modules.py
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/pylint-dev__pylint-7080/run_instance.log) for more information.
-pylint-dev__pylint-7993: >>>>> Patch Apply Failed:
-patching file pylint/reporters/text.py
-patch: **** malformed patch at line 13:          # Set template to the currently selected template
-
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/pylint-dev__pylint-7993/run_instance.log) for more information.
-pydata__xarray-5131: >>>>> Patch Apply Failed:
-patching file xarray/core/groupby.py
-Hunk #1 FAILED at 439.
-1 out of 1 hunk FAILED -- saving rejects to file xarray/core/groupby.py.rej
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/pydata__xarray-5131/run_instance.log) for more information.
-pytest-dev__pytest-7373: >>>>> Patch Apply Failed:
-patching file src/_pytest/mark/evaluate.py
-patch: **** malformed patch at line 12:      #...
-
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/pytest-dev__pytest-7373/run_instance.log) for more information.
-pytest-dev__pytest-5495: >>>>> Patch Apply Failed:
-patching file src/_pytest/assertion/util.py
-Hunk #1 FAILED at 167.
-1 out of 1 hunk FAILED -- saving rejects to file src/_pytest/assertion/util.py.rej
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/pytest-dev__pytest-5495/run_instance.log) for more information.
-pytest-dev__pytest-5413: >>>>> Patch Apply Failed:
-patching file src/_pytest/_code/code.py
-Hunk #1 FAILED at 422.
-1 out of 1 hunk FAILED -- saving rejects to file src/_pytest/_code/code.py.rej
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/pytest-dev__pytest-5413/run_instance.log) for more information.
-scikit-learn__scikit-learn-14087: >>>>> Patch Apply Failed:
-patching file sklearn/linear_model/logistic.py
-Hunk #1 FAILED at 2192.
-1 out of 1 hunk FAILED -- saving rejects to file sklearn/linear_model/logistic.py.rej
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/scikit-learn__scikit-learn-14087/run_instance.log) for more information.
-scikit-learn__scikit-learn-13496: >>>>> Patch Apply Failed:
-patch: **** malformed patch at line 11:      and then randomly selecting a split value between the maximum and minimum
-
-patching file sklearn/ensemble/iforest.py
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/scikit-learn__scikit-learn-13496/run_instance.log) for more information.
-sphinx-doc__sphinx-10451: >>>>> Patch Apply Failed:
-patch: **** malformed patch at line 20: @@ -148,6 +152,8 @@
-
-patching file sphinx/ext/autodoc/typehints.py
-Hunk #1 succeeded at 114 with fuzz 3.
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/sphinx-doc__sphinx-10451/run_instance.log) for more information.Evaluation:  66%|██████▌   | 33/50 [04:18<01:24,  4.96s/it, ✓=0, ✖=14, error=20]Evaluation:  68%|██████▊   | 34/50 [04:18<01:25,  5.33s/it, ✓=0, ✖=14, error=20]Evaluation:  68%|██████▊   | 34/50 [04:20<01:25,  5.33s/it, ✓=0, ✖=15, error=20]Evaluation:  70%|███████   | 35/50 [04:20<01:04,  4.33s/it, ✓=0, ✖=15, error=20]Evaluation:  70%|███████   | 35/50 [04:27<01:04,  4.33s/it, ✓=0, ✖=16, error=20]Evaluation:  72%|███████▏  | 36/50 [04:27<01:12,  5.16s/it, ✓=0, ✖=16, error=20]Evaluation:  72%|███████▏  | 36/50 [04:28<01:12,  5.16s/it, ✓=0, ✖=17, error=20]Evaluation:  74%|███████▍  | 37/50 [04:28<00:50,  3.92s/it, ✓=0, ✖=17, error=20]Evaluation:  74%|███████▍  | 37/50 [04:33<00:50,  3.92s/it, ✓=0, ✖=17, error=21]Evaluation:  76%|███████▌  | 38/50 [04:33<00:52,  4.37s/it, ✓=0, ✖=17, error=21]Evaluation:  76%|███████▌  | 38/50 [04:34<00:52,  4.37s/it, ✓=0, ✖=17, error=22]Evaluation:  78%|███████▊  | 39/50 [04:34<00:35,  3.27s/it, ✓=0, ✖=17, error=22]Evaluation:  78%|███████▊  | 39/50 [04:34<00:35,  3.27s/it, ✓=0, ✖=18, error=22]Evaluation:  80%|████████  | 40/50 [04:34<00:32,  3.27s/it, ✓=0, ✖=18, error=23]Evaluation:  82%|████████▏ | 41/50 [04:34<00:16,  1.83s/it, ✓=0, ✖=18, error=23]Evaluation:  82%|████████▏ | 41/50 [04:34<00:16,  1.83s/it, ✓=0, ✖=18, error=24]Evaluation:  84%|████████▍ | 42/50 [04:34<00:11,  1.43s/it, ✓=0, ✖=18, error=24]Evaluation:  84%|████████▍ | 42/50 [04:38<00:11,  1.43s/it, ✓=0, ✖=19, error=24]Evaluation:  86%|████████▌ | 43/50 [04:38<00:14,  2.01s/it, ✓=0, ✖=19, error=24]Evaluation:  86%|████████▌ | 43/50 [04:38<00:14,  2.01s/it, ✓=0, ✖=19, error=25]Evaluation:  88%|████████▊ | 44/50 [04:38<00:09,  1.61s/it, ✓=0, ✖=19, error=25]Evaluation:  88%|████████▊ | 44/50 [04:43<00:09,  1.61s/it, ✓=0, ✖=20, error=25]Evaluation:  90%|█████████ | 45/50 [04:43<00:12,  2.43s/it, ✓=0, ✖=20, error=25]Evaluation:  90%|█████████ | 45/50 [04:46<00:12,  2.43s/it, ✓=0, ✖=20, error=26]Evaluation:  92%|█████████▏| 46/50 [04:46<00:09,  2.48s/it, ✓=0, ✖=20, error=26]Evaluation:  92%|█████████▏| 46/50 [04:46<00:09,  2.48s/it, ✓=0, ✖=21, error=26]Evaluation:  94%|█████████▍| 47/50 [04:46<00:05,  1.96s/it, ✓=0, ✖=21, error=26]Evaluation:  94%|█████████▍| 47/50 [04:47<00:05,  1.96s/it, ✓=0, ✖=21, error=27]Evaluation:  96%|█████████▌| 48/50 [04:47<00:03,  1.67s/it, ✓=0, ✖=21, error=27]Evaluation:  96%|█████████▌| 48/50 [04:59<00:03,  1.67s/it, ✓=0, ✖=22, error=27]Evaluation:  98%|█████████▊| 49/50 [04:59<00:04,  4.76s/it, ✓=0, ✖=22, error=27]Evaluation:  98%|█████████▊| 49/50 [05:19<00:04,  4.76s/it, ✓=0, ✖=23, error=27]Evaluation: 100%|██████████| 50/50 [05:19<00:00,  9.03s/it, ✓=0, ✖=23, error=27]Evaluation: 100%|██████████| 50/50 [05:19<00:00,  6.38s/it, ✓=0, ✖=23, error=27]
-
-sphinx-doc__sphinx-8627: >>>>> Patch Apply Failed:
-patching file sphinx/util/typing.py
-patch: **** malformed patch at line 46:  def is_system_TypeVar(typ: Any) -> bool:
-
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/sphinx-doc__sphinx-8627/run_instance.log) for more information.
-sympy__sympy-17630: >>>>> Patch Apply Failed:
-patching file sympy/matrices/expressions/matexpr.py
-Hunk #1 FAILED at 80.
-1 out of 1 hunk FAILED -- saving rejects to file sympy/matrices/expressions/matexpr.py.rej
-
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/sympy__sympy-17630/run_instance.log) for more information.
-sympy__sympy-18532: >>>>> Patch Apply Failed:
-patching file sympy/core/basic.py
-Hunk #1 FAILED at 435.
-1 out of 1 hunk FAILED -- saving rejects to file sympy/core/basic.py.rej
 patch unexpectedly ends in middle of line
 
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/sympy__sympy-18532/run_instance.log) for more information.
-sympy__sympy-21847: >>>>> Patch Apply Failed:
-patch: **** malformed patch at line 15:              # Force to list in case of passed tuple or other incompatible collection
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/mwaskom__seaborn-3190/run_instance.log) for more information.
+matplotlib__matplotlib-24970: >>>>> Patch Apply Failed:
+patching file lib/matplotlib/colors.py
+Hunk #1 FAILED at 731.
+Hunk #2 FAILED at 732.
+Hunk #3 FAILED at 733.
+Hunk #4 FAILED at 734.
+4 out of 4 hunks FAILED -- saving rejects to file lib/matplotlib/colors.py.rej
 
-patching file sympy/polys/monomials.py
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/matplotlib__matplotlib-24970/run_instance.log) for more information.
+mwaskom__seaborn-3407: >>>>> Patch Apply Failed:
+patch: **** malformed patch at line 15:  
 
-Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209/furiosa-ai__Llama-3.1-8B-Instruct/sympy__sympy-21847/run_instance.log) for more information.
-All instances run.
-Cleaning cached images...
-Removed 0 images.
-Total instances: 50
-Instances submitted: 50
-Instances completed: 23
-Instances incomplete: 0
-Instances resolved: 0
-Instances unresolved: 23
-Instances with empty patches: 0
-Instances with errors: 27
-Unstopped containers: 0
-Unremoved images: 0
-Report written to furiosa-ai__Llama-3.1-8B-Instruct.furiosa-ai__Llama-3.1-8B-Instruct_20260518_143209.json
-/home/jun/furiosa/lib/python3.12/site-packages/requests/__init__.py:113: RequestsDependencyWarning: urllib3 (2.6.3) or chardet (7.4.3)/charset_normalizer (3.4.7) doesn't match a supported version!
-  warnings.warn(
-<frozen runpy>:128: RuntimeWarning: 'swebench.harness.run_evaluation' found in sys.modules after import of package 'swebench.harness', but prior to execution of 'swebench.harness.run_evaluation'; this may result in unpredictable behaviour
-2026-05-18 14:37:44,650 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
-2026-05-18 14:37:44,667 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/princeton-nlp/SWE-bench_Lite/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/README.md "HTTP/1.1 200 OK"
-2026-05-18 14:37:44,892 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/SWE-bench_Lite.py "HTTP/1.1 404 Not Found"
-2026-05-18 14:37:45,594 - httpx - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/princeton-nlp/SWE-bench_Lite/princeton-nlp/SWE-bench_Lite.py "HTTP/1.1 404 Not Found"
-2026-05-18 14:37:46,050 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/datasets/princeton-nlp/SWE-bench_Lite/revision/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2 "HTTP/1.1 200 OK"
-2026-05-18 14:37:46,383 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/.huggingface.yaml "HTTP/1.1 404 Not Found"
-2026-05-18 14:37:46,796 - httpx - INFO - HTTP Request: GET https://datasets-server.huggingface.co/info?dataset=princeton-nlp/SWE-bench_Lite "HTTP/1.1 200 OK"
-2026-05-18 14:37:47,020 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/datasets/princeton-nlp/SWE-bench_Lite/tree/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/data?recursive=true&expand=false "HTTP/1.1 200 OK"
-2026-05-18 14:37:47,230 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/datasets/princeton-nlp/SWE-bench_Lite/tree/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2?recursive=false&expand=false "HTTP/1.1 200 OK"
-2026-05-18 14:37:47,449 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/dataset_infos.json "HTTP/1.1 404 Not Found"
-2026-05-18 14:37:47,720 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
-2026-05-18 14:37:47,737 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/princeton-nlp/SWE-bench_Lite/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/README.md "HTTP/1.1 200 OK"
-2026-05-18 14:37:47,954 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/SWE-bench_Lite.py "HTTP/1.1 404 Not Found"
-2026-05-18 14:37:48,171 - httpx - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/princeton-nlp/SWE-bench_Lite/princeton-nlp/SWE-bench_Lite.py "HTTP/1.1 404 Not Found"
-2026-05-18 14:37:48,389 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/.huggingface.yaml "HTTP/1.1 404 Not Found"
-2026-05-18 14:37:48,621 - httpx - INFO - HTTP Request: GET https://datasets-server.huggingface.co/info?dataset=princeton-nlp/SWE-bench_Lite "HTTP/1.1 200 OK"
-2026-05-18 14:37:48,908 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite/resolve/6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2/dataset_infos.json "HTTP/1.1 404 Not Found"
-No instances to run.
-Cleaning cached images...
-Removed 0 images.
-Total instances: 50
-Instances submitted: 50
-Instances completed: 0
-Instances incomplete: 0
-Instances resolved: 0
-Instances unresolved: 0
-Instances with empty patches: 50
-Instances with errors: 0
-Unstopped containers: 0
-Unremoved images: 0
-Report written to furiosa-ai__Qwen2.5-0.5B-Instruct.furiosa-ai__Qwen2.5-0.5B-Instruct_20260518_143743.json
-=== eval furiosa-ai__Llama-3.1-8B-Instruct  (50 instances) ===
-  resolved 0/50  -> /home/jun/bench/results/furiosa-ai__Llama-3.1-8B-Instruct/swebench/eval_result.json
-=== eval furiosa-ai__Qwen2.5-0.5B-Instruct  (50 instances) ===
-  resolved 0/50  -> /home/jun/bench/results/furiosa-ai__Qwen2.5-0.5B-Instruct/swebench/eval_result.json
+patching file seaborn/axisgrid.py
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/mwaskom__seaborn-3407/run_instance.log) for more information.
+matplotlib__matplotlib-24149: >>>>> Patch Apply Failed:
+patching file lib/matplotlib/axes/_axes.py
+patch: **** malformed patch at line 57:  
+
+
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/matplotlib__matplotlib-24149/run_instance.log) for more information.
+pallets__flask-4045: >>>>> Patch Apply Failed:
+patching file src/flask/blueprints.py
+Hunk #2 FAILED at 371.
+Hunk #3 FAILED at 380.
+2 out of 3 hunks FAILED -- saving rejects to file src/flask/blueprints.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/pallets__flask-4045/run_instance.log) for more information.
+pallets__flask-4992: >>>>> Patch Apply Failed:
+patching file src/flask/config.py
+Hunk #1 FAILED at 234.
+1 out of 1 hunk FAILED -- saving rejects to file src/flask/config.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/pallets__flask-4992/run_instance.log) for more information.
+matplotlib__matplotlib-25079: >>>>> Patch Apply Failed:
+patch: **** malformed patch at line 48: @@ -1463,6 +1469,7 @@
+
+patching file lib/matplotlib/colors.py
+Hunk #1 succeeded at 1968 with fuzz 1 (offset 623 lines).
+Hunk #2 succeeded at 1988 (offset 626 lines).
+Hunk #3 succeeded at 1996 with fuzz 1 (offset 583 lines).
+Hunk #4 succeeded at 2010 (offset 584 lines).
+Hunk #5 succeeded at 2020 (offset 573 lines).
+
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/matplotlib__matplotlib-25079/run_instance.log) for more information.
+matplotlib__matplotlib-25498: >>>>> Patch Apply Failed:
+patching file lib/matplotlib/colorbar.py
+Hunk #1 succeeded at 494 with fuzz 3.
+Hunk #2 succeeded at 515 with fuzz 3.
+Hunk #3 succeeded at 535 with fuzz 3.
+Hunk #4 succeeded at 558 with fuzz 3.
+Hunk #5 succeeded at 580 with fuzz 3.
+Hunk #6 succeeded at 602 with fuzz 3.
+Hunk #7 succeeded at 624 with fuzz 3.
+Hunk #8 succeeded at 646 with fuzz 3.
+Hunk #9 succeeded at 668 with fuzz 3.
+Hunk #10 succeeded at 690 with fuzz 3.
+Hunk #11 succeeded at 712 with fuzz 3.
+Hunk #12 succeeded at 734 with fuzz 3.
+Hunk #13 succeeded at 756 with fuzz 3.
+Hunk #14 succeeded at 778 with fuzz 3.
+patch unexpectedly ends in middle of line
+patch: **** unexpected end of file in patch
+
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/matplotlib__matplotlib-25498/run_instance.log) for more information.
+pallets__flask-5063: >>>>> Patch Apply Failed:
+patching file src/flask/cli.py
+patch: **** malformed patch at line 31:  
+
+
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/pallets__flask-5063/run_instance.log) for more information.
+psf__requests-2674: >>>>> Patch Apply Failed:
+patching file requests/adapters.py
+Hunk #1 succeeded at 22 with fuzz 3.
+patch: **** malformed patch at line 22:              raise ProxyError(e)
+
+
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/psf__requests-2674/run_instance.log) for more information.
+psf__requests-3362: >>>>> Patch Apply Failed:
+patching file requests/utils.py
+patch: **** malformed patch at line 47: -            tried_encodings.append(encoding)
+
+
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/psf__requests-3362/run_instance.log) for more information.
+psf__requests-863: >>>>> Patch Apply Failed:
+patching file requests/models.py
+Hunk #1 FAILED at 150.
+Hunk #2 succeeded at 507 with fuzz 1 (offset -516 lines).
+patch: **** malformed patch at line 29: @@ -1061,7 +1061,7 @@
+
+
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/psf__requests-863/run_instance.log) for more information.
+psf__requests-1963: >>>>> Patch Apply Failed:
+patching file requests/sessions.py
+Hunk #1 FAILED at 87.
+1 out of 1 hunk FAILED -- saving rejects to file requests/sessions.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/psf__requests-1963/run_instance.log) for more information.Evaluation:  40%|████      | 20/50 [04:32<04:12,  8.41s/it, ✓=0, ✖=7, error=14]Evaluation:  42%|████▏     | 21/50 [04:32<03:55,  8.12s/it, ✓=0, ✖=7, error=14]Evaluation:  42%|████▏     | 21/50 [04:32<03:55,  8.12s/it, ✓=0, ✖=7, error=15]Evaluation:  44%|████▍     | 22/50 [04:33<03:47,  8.12s/it, ✓=0, ✖=7, error=16]Evaluation:  46%|████▌     | 23/50 [04:33<02:06,  4.67s/it, ✓=0, ✖=7, error=16]Evaluation:  46%|████▌     | 23/50 [04:38<02:06,  4.67s/it, ✓=0, ✖=7, error=17]Evaluation:  48%|████▊     | 24/50 [04:38<02:00,  4.65s/it, ✓=0, ✖=7, error=17]Evaluation:  48%|████▊     | 24/50 [04:39<02:00,  4.65s/it, ✓=0, ✖=7, error=18]Evaluation:  50%|█████     | 25/50 [04:39<01:33,  3.75s/it, ✓=0, ✖=7, error=18]Evaluation:  50%|█████     | 25/50 [04:49<01:33,  3.75s/it, ✓=0, ✖=7, error=19]Evaluation:  52%|█████▏    | 26/50 [04:49<02:11,  5.47s/it, ✓=0, ✖=7, error=19]Evaluation:  52%|█████▏    | 26/50 [05:15<02:11,  5.47s/it, ✓=0, ✖=7, error=20]Evaluation:  54%|█████▍    | 27/50 [05:15<04:15, 11.11s/it, ✓=0, ✖=7, error=20]

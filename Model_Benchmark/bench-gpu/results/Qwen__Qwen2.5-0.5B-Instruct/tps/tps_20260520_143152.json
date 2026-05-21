@@ -1,0 +1,371 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "concurrency": 1,
+  "prompt_tokens_target": 256,
+  "max_tokens": 256,
+  "wall_clock_s": 0.07255726598668844,
+  "successes": 0,
+  "failures": 50,
+  "metrics": [
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0016097570187412202,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0014656040002591908,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0014171230141073465,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0014042590046301484,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0015197060129139572,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0014148080081213266,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0014164109888952225,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013820769963786006,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.001395111990859732,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013950919965282083,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013820170133840293,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013877080054953694,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0014859729853924364,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.00141536898445338,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.002645730011863634,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013876979937776923,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013869759859517217,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013636320072691888,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0014108710165601224,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.001381465990561992,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.001388990000123158,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013935180031694472,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013706449826713651,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013821979810018092,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.001369171979604289,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0015587910020258278,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013783799950033426,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013601450191345066,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013843919732607901,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013586829882115126,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013581720122601837,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.001362309994874522,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013443549978546798,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013814560079481453,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013583519903477281,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013602460094261914,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013801130116917193,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0015389919863082469,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013704749871976674,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013659060059580952,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013919860066380352,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013451770064420998,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013456979941111058,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013781099987681955,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013511590077541769,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.001353341998765245,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013759749999735504,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0017288609815295786,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0013739120040554553,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "ttft_s": NaN,
+      "total_s": 0.0015439919952768832,
+      "output_tokens": 0,
+      "itl_s_list": [],
+      "error": "HTTPStatusError: Client error '404 Not Found' for url 'http://127.0.0.1:8000/v1/chat/completions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    }
+  ],
+  "summary": {
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "concurrency": 1,
+    "prompt_tokens_target": 256,
+    "max_tokens": 256,
+    "successes": 0,
+    "failures": 50,
+    "wall_clock_s": 0.07255726598668844,
+    "error": "no successful requests"
+  }
+}

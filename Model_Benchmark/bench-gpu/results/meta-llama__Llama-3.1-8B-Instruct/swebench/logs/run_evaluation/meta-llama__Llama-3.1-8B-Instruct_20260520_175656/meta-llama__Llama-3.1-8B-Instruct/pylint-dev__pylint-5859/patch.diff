@@ -1,0 +1,47 @@
+--- a/pylint/checkers/misc.py
++++ b/pylint/checkers/misc.py
+@@ -123,6 +123,7 @@
+         if self.config.notes_rgx:
+             regex_string = rf"#\s*({notes}|{self.config.notes_rgx})\b"
+         else:
++            regex_string = rf"#\s*({notes})\b"
+             regex_string = rf"#\s*({notes})\b"
+         self._fixme_pattern = re.compile(regex_string, re.I)
+ 
+@@ -191,6 +192,7 @@
+             comment_text = comment.string[1:].lstrip()  # trim '#' and whitespaces
+         # handle pylint disable clauses
+         disable_option_match = OPTION_PO.search(comment_text)
++        if disable_option_match:
+             try:
+                 values = []
+                 try:
+                     for pragma_repr in (
+                         p_rep
+@@ -201,6 +203,7 @@
+                     except PragmaParserError:
+                         # Printing useful information dealing with this error is done in the lint package
+                         pass
+                 except ValueError:
++                    self.add_message(
++                        "bad-inline-option",
++                        args=disable_option_match.group(1).strip(),
++                        line=comment.start[0],
++                    )
+                     continue
+             except ValueError:
+                 self.add_message(
+@@ -192,6 +195,7 @@
+             match = self._fixme_pattern.search("#" + comment_text.lower())
+         if match:
++            if self.config.notes_rgx:
++                if re.search(self.config.notes_rgx, comment_text.lower()):
++                    self.add_message(
++                        "fixme",
++                        col_offset=comment.start[1] + 1,
++                        args=comment_text,
++                        line=comment.start[0],
++                    )
+             if match:
+                 self.add_message(
+                     "fixme",

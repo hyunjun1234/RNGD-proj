@@ -1,0 +1,25 @@
+2026-05-21 13:34:01,119 - INFO - Creating container for astropy__astropy-14365...
+2026-05-21 13:34:01,684 - INFO - Container for astropy__astropy-14365 created: d278044f74fdd9c80c9bb35e8c8a2152240cba35f9d0625da145d4b530872f20
+2026-05-21 13:34:02,217 - INFO - Container for astropy__astropy-14365 started: d278044f74fdd9c80c9bb35e8c8a2152240cba35f9d0625da145d4b530872f20
+2026-05-21 13:34:02,218 - INFO - Intermediate patch for astropy__astropy-14365 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/astropy__astropy-14365/patch.diff, now applying to container...
+2026-05-21 13:34:02,311 - INFO - Failed to apply patch to container: git apply --verbose
+2026-05-21 13:34:02,347 - INFO - Failed to apply patch to container: git apply --verbose --reject
+2026-05-21 13:34:02,482 - INFO - >>>>> Applied Patch:
+patching file astropy/io/ascii/qdp.py
+Hunk #1 succeeded at 20 with fuzz 2 (offset -42 lines).
+
+2026-05-21 13:34:02,905 - INFO - Git diff before:
+
+2026-05-21 13:34:02,906 - INFO - Eval script for astropy__astropy-14365 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/astropy__astropy-14365/eval.sh; copying to container...
+2026-05-21 13:34:43,808 - INFO - Test runtime: 40.86 seconds
+2026-05-21 13:34:43,829 - INFO - Test output for astropy__astropy-14365 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/astropy__astropy-14365/test_output.txt
+2026-05-21 13:34:43,892 - INFO - Git diff after:
+
+2026-05-21 13:34:43,892 - INFO - Grading answer for astropy__astropy-14365...
+2026-05-21 13:34:43,896 - INFO - report: {'astropy__astropy-14365': {'patch_is_None': False, 'patch_exists': True, 'patch_successfully_applied': True, 'resolved': False, 'tests_status': {'FAIL_TO_PASS': {'success': [], 'failure': ['astropy/io/ascii/tests/test_qdp.py::test_roundtrip[True]']}, 'PASS_TO_PASS': {'success': ['astropy/io/ascii/tests/test_qdp.py::test_get_tables_from_qdp_file', 'astropy/io/ascii/tests/test_qdp.py::test_roundtrip[False]', 'astropy/io/ascii/tests/test_qdp.py::test_read_example', 'astropy/io/ascii/tests/test_qdp.py::test_roundtrip_example', 'astropy/io/ascii/tests/test_qdp.py::test_roundtrip_example_comma', 'astropy/io/ascii/tests/test_qdp.py::test_read_write_simple', 'astropy/io/ascii/tests/test_qdp.py::test_read_write_simple_specify_name', 'astropy/io/ascii/tests/test_qdp.py::test_get_lines_from_qdp'], 'failure': []}, 'FAIL_TO_FAIL': {'success': [], 'failure': []}, 'PASS_TO_FAIL': {'success': [], 'failure': []}}}}
+Result for astropy__astropy-14365: resolved: False
+2026-05-21 13:34:43,896 - INFO - Attempting to stop container sweb.eval.astropy__astropy-14365.meta-llama__Llama-3.1-8B-Instruct_20260521_133234...
+2026-05-21 13:34:59,304 - INFO - Attempting to remove container sweb.eval.astropy__astropy-14365.meta-llama__Llama-3.1-8B-Instruct_20260521_133234...
+2026-05-21 13:34:59,480 - INFO - Container sweb.eval.astropy__astropy-14365.meta-llama__Llama-3.1-8B-Instruct_20260521_133234 removed.
+2026-05-21 13:34:59,480 - INFO - Attempting to remove image swebench/sweb.eval.x86_64.astropy_1776_astropy-14365:latest...
+2026-05-21 13:34:59,717 - INFO - Image swebench/sweb.eval.x86_64.astropy_1776_astropy-14365:latest removed.

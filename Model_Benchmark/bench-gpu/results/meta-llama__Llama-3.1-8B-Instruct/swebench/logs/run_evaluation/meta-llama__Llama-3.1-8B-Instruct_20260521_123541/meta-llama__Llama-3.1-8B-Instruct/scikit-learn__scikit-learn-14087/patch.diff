@@ -1,0 +1,23 @@
+
+--- a/sklearn/linear_model/logistic.py
++++ b/sklearn/linear_model/logistic.py
+@@ -2192,7 +2192,7 @@
+                 else:
+                     w = np.mean([coefs_paths[:, i, best_indices[i], :]
+                                  for i in range(len(folds))], axis=0)
+-            # best_indices_C is between 0 and (n_Cs - 1)
++            # best_indices_C is between 0 and (n_Cs - 1)
+             best_indices_C = best_indices % len(self.Cs_)
+ 
+             # best_indices_l1 is between 0 and (n_l1_ratios - 1)
+             best_indices_l1 = best_indices // len(self.Cs_)
+@@ -2201,7 +2201,7 @@
+                 else:
+                     w = np.mean([coefs_paths[:, i, best_indices[i], :]
+                                  for i in range(len(folds))], axis=0)
+-            # best_indices_C is between 0 and (n_Cs - 1)
++            # best_indices_C is between 0 and (n_Cs - 1)
+             best_indices_C = best_indices % len(self.Cs_)
+ 
+             # best_indices_l1 is between 0 and (n_l1_ratios - 1)
+             best_indices_l1 = best_indices // len(self.Cs_)

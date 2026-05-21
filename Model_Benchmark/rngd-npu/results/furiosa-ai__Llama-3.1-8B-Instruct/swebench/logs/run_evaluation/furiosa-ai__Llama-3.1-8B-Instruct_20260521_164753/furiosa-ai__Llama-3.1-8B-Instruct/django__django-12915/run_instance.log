@@ -1,0 +1,48 @@
+2026-05-21 16:48:38,428 - INFO - Creating container for django__django-12915...
+2026-05-21 16:48:39,270 - INFO - Container for django__django-12915 created: 4b7c03e47ac72a64d7b8f80bdf828c71dccec03a938213910b4fd60f54ad25ac
+2026-05-21 16:48:40,242 - INFO - Container for django__django-12915 started: 4b7c03e47ac72a64d7b8f80bdf828c71dccec03a938213910b4fd60f54ad25ac
+2026-05-21 16:48:40,243 - INFO - Intermediate patch for django__django-12915 written to logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_164753/furiosa-ai__Llama-3.1-8B-Instruct/django__django-12915/patch.diff, now applying to container...
+2026-05-21 16:48:40,364 - INFO - Failed to apply patch to container: git apply --verbose
+2026-05-21 16:48:40,430 - INFO - Failed to apply patch to container: git apply --verbose --reject
+2026-05-21 16:48:40,583 - INFO - >>>>> Applied Patch:
+patching file django/contrib/staticfiles/handlers.py
+Hunk #1 succeeded at 49 with fuzz 5.
+patch unexpectedly ends in middle of line
+
+2026-05-21 16:48:41,269 - INFO - Git diff before:
+diff --git a/django/contrib/staticfiles/handlers.py b/django/contrib/staticfiles/handlers.py
+index 711d8864ad..a47c2b1c49 100644
+--- a/django/contrib/staticfiles/handlers.py
++++ b/django/contrib/staticfiles/handlers.py
+@@ -51,6 +51,7 @@ class StaticFilesHandlerMixin:
+             return self.serve(request)
+         except Http404 as e:
+             return response_for_exception(request, e)
++    async def get_response_async(self, request):
+ 
+ 
+ class StaticFilesHandler(StaticFilesHandlerMixin, WSGIHandler):
+2026-05-21 16:48:41,270 - INFO - Eval script for django__django-12915 written to logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_164753/furiosa-ai__Llama-3.1-8B-Instruct/django__django-12915/eval.sh; copying to container...
+2026-05-21 16:48:47,231 - INFO - Test runtime: 5.86 seconds
+2026-05-21 16:48:47,232 - INFO - Test output for django__django-12915 written to logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_164753/furiosa-ai__Llama-3.1-8B-Instruct/django__django-12915/test_output.txt
+2026-05-21 16:48:47,330 - INFO - Git diff after:
+diff --git a/django/contrib/staticfiles/handlers.py b/django/contrib/staticfiles/handlers.py
+index 711d8864ad..a47c2b1c49 100644
+--- a/django/contrib/staticfiles/handlers.py
++++ b/django/contrib/staticfiles/handlers.py
+@@ -51,6 +51,7 @@ class StaticFilesHandlerMixin:
+             return self.serve(request)
+         except Http404 as e:
+             return response_for_exception(request, e)
++    async def get_response_async(self, request):
+ 
+ 
+ class StaticFilesHandler(StaticFilesHandlerMixin, WSGIHandler):
+2026-05-21 16:48:47,330 - INFO - Grading answer for django__django-12915...
+2026-05-21 16:48:47,337 - INFO - report: {'django__django-12915': {'patch_is_None': False, 'patch_exists': True, 'patch_successfully_applied': True, 'resolved': False, 'tests_status': {'FAIL_TO_PASS': {'success': [], 'failure': ['test_get_async_response (staticfiles_tests.test_handlers.TestASGIStaticFilesHandler)', 'test_get_async_response_not_found (staticfiles_tests.test_handlers.TestASGIStaticFilesHandler)', 'test_static_file_response (asgi.tests.ASGITest)']}, 'PASS_TO_PASS': {'success': [], 'failure': ['test_disconnect (asgi.tests.ASGITest)', 'test_file_response (asgi.tests.ASGITest)', 'test_get_asgi_application (asgi.tests.ASGITest)', 'test_get_query_string (asgi.tests.ASGITest)', 'test_headers (asgi.tests.ASGITest)', 'test_non_unicode_query_string (asgi.tests.ASGITest)', 'test_request_lifecycle_signals_dispatched_with_thread_sensitive (asgi.tests.ASGITest)', 'test_wrong_connection_type (asgi.tests.ASGITest)']}, 'FAIL_TO_FAIL': {'success': [], 'failure': []}, 'PASS_TO_FAIL': {'success': [], 'failure': []}}}}
+Result for django__django-12915: resolved: False
+2026-05-21 16:48:47,338 - INFO - Attempting to stop container sweb.eval.django__django-12915.furiosa-ai__Llama-3.1-8B-Instruct_20260521_164753...
+2026-05-21 16:49:02,793 - INFO - Attempting to remove container sweb.eval.django__django-12915.furiosa-ai__Llama-3.1-8B-Instruct_20260521_164753...
+2026-05-21 16:49:02,834 - INFO - Container sweb.eval.django__django-12915.furiosa-ai__Llama-3.1-8B-Instruct_20260521_164753 removed.
+2026-05-21 16:49:02,834 - INFO - Attempting to remove image swebench/sweb.eval.x86_64.django_1776_django-12915:latest...
+2026-05-21 16:49:03,881 - INFO - Image swebench/sweb.eval.x86_64.django_1776_django-12915:latest removed.

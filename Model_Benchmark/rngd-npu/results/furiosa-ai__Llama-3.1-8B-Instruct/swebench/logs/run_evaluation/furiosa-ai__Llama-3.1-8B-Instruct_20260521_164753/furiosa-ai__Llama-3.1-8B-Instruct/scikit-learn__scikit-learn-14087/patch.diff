@@ -1,0 +1,73 @@
+Here is the patch that resolves the issue:
+
+<patch>
+--- a/sklearn/linear_model/logistic.py
++++ b/sklearn/linear_model/logistic.py
+@@ -2192,7 +2192,7 @@
+                 else:
+                     w = np.mean([coefs_paths[:, i, best_indices[i], :]
+                                  for i in range(len(folds))], axis=0)
+-            # w is of shape (n_features,) or (n_features + 1,)
++            # w is of shape (n_features,) or (n_features + 1, n_classes)
+             best_indices_C = best_indices % len(self.Cs_)
+ 
+             # In the case of OvR, we need to reshape w to (n_classes, n_features)
+             # or (n_classes, n_features + 1) depending on whether we fit the
+@@ -2201,7 +2201,7 @@
+             # intercept or not.
+             if w.shape[0] > n_features:
+                 w = w.reshape((n_classes, n_features + int(fit_intercept)))
+-            # w is of shape (n_classes, n_features) or (n_classes, n_features + 1)
++            # w is of shape (n_classes, n_features) or (n_classes, n_features + 1, n_classes)
+             return w, best_indices_C
+         else:
+             # In the case of multinomial, we need to reshape w to (n_classes, n_features)
+@@ -2211,7 +2211,7 @@
+             # intercept or not.
+             if w.shape[0] > n_features:
+                 w = w.reshape((n_classes, n_features + int(fit_intercept)))
+-            # w is of shape (n_classes, n_features) or (n_classes, n_features + 1)
++            # w is of shape (n_classes, n_features) or (n_classes, n_features + 1, n_classes)
+             return w, best_indices_C
+         else:
+             # In the case of OvR, we need to reshape w to (n_classes, n_features)
+@@ -2221,7 +2221,7 @@
+             # intercept or not.
+             if w.shape[0] > n_features:
+                 w = w.reshape((n_classes, n_features + int(fit_intercept)))
+-            # w is of shape (n_classes, n_features) or (n_classes, n_features + 1)
++            # w is of shape (n_classes, n_features) or (n_classes, n_features + 1, n_classes)
+             return w, best_indices_C
+         else:
+             # In the case of multinomial, we need to reshape w to (n_classes, n_features)
+@@ -2231,7 +2231,7 @@
+             # intercept or not.
+             if w.shape[0] > n_features:
+                 w = w.reshape((n_classes, n_features + int(fit_intercept)))
+-            # w is of shape (n_classes, n_features) or (n_classes, n_features + 1)
++            # w is of shape (n_classes, n_features) or (n_classes, n_features + 1, n_classes)
+             return w, best_indices_C
+         else:
+             # In the case of OvR, we need to reshape w to (n_classes, n_features)
+@@ -2241,7 +2241,7 @@
+             # intercept or not.
+             if w.shape[0] > n_features:
+                 w = w.reshape((n_classes, n_features + int(fit_intercept)))
+-            # w is of shape (n_classes, n_features) or (n_classes, n_features + 1)
++            # w is of shape (n_classes, n_features) or (n_classes, n_features + 1, n_classes)
+             return w, best_indices_C
+         else:
+             # In the case of multinomial, we need to reshape w to (n_classes, n_features)
+@@ -2251,7 +2251,7 @@
+             # intercept or not.
+             if w.shape[0] > n_features:
+                 w = w.reshape((n_classes, n_features + int(fit_intercept)))
+-            # w is of shape (n_classes, n_features) or (n_classes, n_features + 1)
++            # w is of shape (n_classes, n_features) or (n_classes, n_features + 1, n_classes)
+             return w, best_indices_C
+         else:
+             # In the case of OvR, we need to reshape w to (n_classes, n_features)
+@@ -2261,7 +2261,7 @@
+             # intercept or not.
+             if w.shape[0] > n_features:
+                 w = w.reshape((n_classes, n_features + int(fit_intercept)))

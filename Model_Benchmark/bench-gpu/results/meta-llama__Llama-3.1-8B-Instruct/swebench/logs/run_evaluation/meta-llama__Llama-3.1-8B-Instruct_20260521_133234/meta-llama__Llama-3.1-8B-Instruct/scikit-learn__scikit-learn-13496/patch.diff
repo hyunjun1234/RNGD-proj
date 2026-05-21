@@ -1,0 +1,105 @@
+--- a/sklearn/ensemble/iforest.py
++++ b/sklearn/ensemble/iforest.py
+@@ -166,6 +166,7 @@
+         super().__init__(
+             base_estimator=ExtraTreeRegressor(
+                 max_features=1,
++                warm_start=True,
+                 splitter='random',
+                 random_state=random_state),
+             # here above max_features has no links with self.max_features
+             bootstrap=bootstrap,
+             bootstrap_features=False,
+@@ -193,6 +194,7 @@
+         self.behaviour = behaviour
+         self.contamination = contamination
+ 
+         self.warm_start = warm_start
++
+         if self.contamination == "legacy":
+             warn('default contamination parameter 0.1 will change '
+                  'in version 0.22 to "auto". This will change the '
+@@ -221,6 +223,7 @@
+         if self.behaviour == 'old':
+             warn('behaviour="old" is deprecated and will be removed '
+                  'in version 0.22. Please use behaviour="new", which '
+                  'makes the decision_function change to match '
+@@ -242,6 +245,7 @@
+         X = check_array(X, accept_sparse=['csc'])
+         if issparse(X):
+             # Pre-sort indices to avoid that each individual tree of the
+@@ -255,6 +259,7 @@
+         rnd = check_random_state(self.random_state)
+         y = rnd.uniform(size=X.shape[0])
+ 
+         # ensure that max_sample is in [1, n_samples]:
+@@ -273,6 +278,7 @@
+         elif isinstance(self.max_samples, INTEGER_TYPES):
+             if self.max_samples > n_samples:
+                 warn("max_samples (%s) is greater than the "
+@@ -294,6 +300,7 @@
+         else:  # float
+             if not (0. < self.max_samples <= 1.):
+                 raise ValueError("max_samples must be in (0, 1], got %r"
+@@ -306,6 +313,7 @@
+         self.max_samples_ = max_samples
+         max_depth = int(np.ceil(np.log2(max(max_samples, 2))))
+         super()._fit(X, y, max_samples,
+@@ -323,6 +331,7 @@
+         if self.behaviour == 'old':
+             # in this case, decision_function = 0.5 + self.score_samples(X):
+             if self._contamination == "auto":
+                 raise ValueError("contamination parameter cannot be set to "
+@@ -341,6 +350,7 @@
+         if self._contamination == "auto":
+             # 0.5 plays a special role as described in the original paper.
+             # we take the opposite as we consider the opposite of their score.
+@@ -353,6 +363,7 @@
+         self.offset_ = np.percentile(self.score_samples(X),
+                                      100. * self._contamination)
+ 
+         return self
+@@ -365,6 +376,7 @@
+         check_is_fitted(self, ["estimators_"])
+ 
+         # Check data
+@@ -378,6 +390,7 @@
+         if self.n_features_ != X.shape[1]:
+             raise ValueError("Number of features of the model must "
+@@ -394,6 +407,7 @@
+         return -self._compute_chunked_score_samples(X)
+ 
+     @property
+@@ -405,6 +419,7 @@
+         if self.behaviour != 'old':
+             raise AttributeError("threshold_ attribute does not exist when "
+@@ -417,6 +432,7 @@
+         warn("threshold_ attribute is deprecated in 0.20 and will"
+              " be removed in 0.22.", DeprecationWarning)
+         return self._threshold_
+@@ -429,6 +445,7 @@
+         n_samples = _num_samples(X)
+ 
+         if self._max_features == X.shape[1]:
+             subsample_features = False
+@@ -443,6 +460,7 @@
+         # We get as many rows as possible within our working_memory budget
+         # (defined by sklearn.get_config()['working_memory']) to store
+@@ -456,6 +474,7 @@
+         chunk_n_rows = get_chunk_n_rows(row_bytes=16 * self._max_features,
+                                         max_n_rows=n_samples)
+         slices = gen_batches(n_samples, chunk_n_rows)
+@@ -469,6 +488,7 @@
+         scores = np.zeros(n_samples, order="f")
+ 
+         for sl in slices:
+             # compute score on the slices of test samples:
+@@ -482,6 +502,7 @@
+         return scores
+     def _compute_score_samples(self, X, subsample_features):
+         """Compute the score of each samples in X going through the extra trees.
+@@ -495,6 +516,7 @@
+         n_samples = X.shape[0]
+ 
+         depths = np.zeros(n_samples, order="f")
+@@ -508,6 +530,7

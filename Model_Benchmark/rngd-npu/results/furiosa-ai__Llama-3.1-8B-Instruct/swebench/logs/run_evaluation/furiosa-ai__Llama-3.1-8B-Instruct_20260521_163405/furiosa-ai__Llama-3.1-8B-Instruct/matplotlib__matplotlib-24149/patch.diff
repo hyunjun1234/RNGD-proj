@@ -1,0 +1,93 @@
+Here is the patch file that you can apply to the repository:
+
+<patch>
+--- a/lib/matplotlib/axes/_axes.py
++++ b/lib/matplotlib/axes/_axes.py
+@@ -1,27 +1,35 @@
+ def _check_no_units(vals, names):
+-    for val, name in zip(vals, names):
+-        if not munits._is_natively_supported(val):
+-            raise ValueError(f"{name} must be a single scalar value, "
+-                             f"but got {val}")
++    for val, name in zip(vals, names):
++        if not munits._is_natively_supported(val):
++            raise ValueError(f"{name} must be a single scalar value, "
++                             f"but got {val}")
+ 
+ 
+ def _process_unit_info(self, units, kwargs):
+-    # Process unit information for each argument
+-    for name, unit in units:
+-        if unit is None:
+-            continue
+-        if not isinstance(unit, str):
+-            # If it's not a string, it's already been processed
+-            continue
+-        if unit in kwargs:
+-            # If it's already been processed, don't do it again
+-            continue
+-        # Get the unit info from the rcParams
+-        unit_info = munits.get_unit_info(unit)
+-        # If the unit info is None, it's not a valid unit
+-        if unit_info is None:
+-            raise ValueError(f"Invalid unit: {unit}")
+-        # Set the unit info in the kwargs
+-        kwargs[name + '_units'] = unit_info
+-        # Convert the value to the unit
+-        kwargs[name] = mtransforms._convert_units(kwargs[name], unit_info)
++    # Process unit information for each argument
++    for name, unit in units:
++        if unit is None:
++            continue
++        if not isinstance(unit, str):
++            # If it's not a string, it's already been processed
++            continue
++        if unit in kwargs:
++            # If it's already been processed, don't do it again
++            continue
++        # Get the unit info from the rcParams
++        unit_info = munits.get_unit_info(unit)
++        # If the unit info is None, it's not a valid unit
++        if unit_info is None:
++            raise ValueError(f"Invalid unit: {unit}")
++        # Set the unit info in the kwargs
++        kwargs[name + '_units'] = unit_info
++        # Convert the value to the unit
++        kwargs[name] = mtransforms._convert_units(kwargs[name], unit_info)
+ 
+ 
+ def _get_lines(self, *args, data=None, **kwargs):
+-    # Get the line styles from the rcParams
+-    line_styles = mlines.Line2D._get_line_styles()
+-    # Get the line style from the kwargs
+-    line_style = kwargs.pop('linestyle', None)
+-    # If the line style is None, use the default
+-    if line_style is None:
+-        line_style = line_styles[0]
+-    # Get the line style from the rcParams
+-    line_style = mlines.Line2D._get_line_style(line_style)
+-    # Get the line style from the args
+-    line_style = mlines.Line2D._get_line_style(args[0])
+-    # Get the line style from the data
+-    if data is not None:
+-        line_style = mlines.Line2D._get_line_style(data)
+-    # Get the line style from the kwargs
+-    line_style = mlines.Line2D._get_line_style(kwargs.get('linestyle'))
+-    # Get the line style from the rcParams
+-    line_style = mlines.Line2D._get_line_style(mpl.rcParams['lines.linestyle'])
+-    # Get the line style from the args
+-    line_style = mlines.Line2D._get_line_style(args[0])
+-    # Get the line style from the data
+-    if data is not None:
+-        line_style = mlines.Line2D._get_line_style(data)
+-    # Get the line style from the kwargs
+-    line_style = mlines.Line2D._get_line_style(kwargs.get('linestyle'))
+-    # Get the line style from the rcParams
+-    line_style = mlines.Line2D._get_line_style(mpl.rcParams['lines.linestyle'])
++    # Get the line styles from the rcParams
++    line_styles = mlines.Line2D._get_line_styles()
++    # Get the line style from the kwargs
++    line_style = kwargs.pop('linestyle', None)
++    # If the line style is None, use the default
++    if line_style is None:
++       

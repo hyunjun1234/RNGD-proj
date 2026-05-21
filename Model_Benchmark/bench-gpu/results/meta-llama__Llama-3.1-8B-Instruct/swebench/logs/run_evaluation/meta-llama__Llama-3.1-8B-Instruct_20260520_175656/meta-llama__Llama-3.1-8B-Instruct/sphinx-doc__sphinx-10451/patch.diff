@@ -1,0 +1,38 @@
+--- a/sphinx/ext/autodoc/typehints.py
++++ b/sphinx/ext/autodoc/typehints.py
+@@ -114,6 +114,8 @@
+         if not arg.get('type'):
+             field = nodes.field()
+             field += nodes.field_name('', 'type ' + name)
++            if name in annotations and annotations[name] == '...':
++                field += nodes.field_body('', nodes.paragraph('', ''))
+             field += nodes.field_body('', nodes.paragraph('', annotation))
+             node += field
+         if not arg.get('param'):
+@@ -131,6 +133,8 @@
+         if 'return' in annotations and 'return' not in arguments:
+             annotation = annotations['return']
+             if annotation == 'None' and suppress_rtype:
++                return
+             field = nodes.field()
+             field += nodes.field_name('', 'rtype')
+             field += nodes.field_body('', nodes.paragraph('', annotation))
+@@ -148,6 +152,8 @@
+         elif parts[0] == 'type':
+             name = ' '.join(parts[1:])
+             has_type.add(name)
++            if name in annotations and annotations[name] == '...':
++                continue
+         elif parts[0] in ('return', 'returns'):
+             has_description.add('return')
+         elif parts[0] == 'rtype':
+@@ -173,6 +179,8 @@
+         if name in has_description and name not in has_type:
+             field = nodes.field()
+             field += nodes.field_name('', 'type ' + name)
++            if name in annotations and annotations[name] == '...':
++                field += nodes.field_body('', nodes.paragraph(''))
+             field += nodes.field_body('', nodes.paragraph('', annotations[name]))
+             node += field
+ 
+     # Add 'rtype' if 'return' is present and 'rtype' isn't.

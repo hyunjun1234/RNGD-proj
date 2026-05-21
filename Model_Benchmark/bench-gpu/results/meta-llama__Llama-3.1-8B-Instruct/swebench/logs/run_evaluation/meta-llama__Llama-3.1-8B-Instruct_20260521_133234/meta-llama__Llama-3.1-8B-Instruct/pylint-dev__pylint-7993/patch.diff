@@ -1,0 +1,66 @@
+--- a/pylint/reporters/text.py
++++ b/pylint/reporters/text.py
+@@ -173,7 +173,7 @@
+         template = str(self.linter.config.msg_template or self._template)
+ 
+         # Return early if the template is the same as the previous one
+-        if template == self._template:
++        if template == self._fixed_template:
+             return
+ 
+         # Set template to the currently selected template
+         self._template = template
+@@ -185,6 +185,7 @@
+         template = re.sub(r"\{" + argument[0] + r"(:.*?)?\}", "", template)
+         self._fixed_template = template
+ 
++        self._template = self._fixed_template
+     def write_message(self, msg: Message) -> None:
+         """Convenience method to write a formatted message with class default
+         template.
+@@ -197,7 +198,7 @@
+         self.writeln(self._fixed_template.format(**self_dict))
+ 
+     def handle_message(self, msg: Message) -> None:
+-        if msg.module not in self._modules:
++        if msg.module not in self._modules or self._fixed_template != self._template:
+             if msg.module:
+                 self.writeln(f"************* Module {msg.module}")
+                 self._modules.add(msg.module)
+@@ -206,7 +207,7 @@
+             else:
+                 self.writeln("************* ")
+             self._modules.add(msg.module)
+-        self.write_message(msg)
++        self.write_message(msg)
+     def _display(self, layout: Section) -> None:
+         """Launch layouts display."""
+         print(file=self.out)
+@@ -223,7 +224,7 @@
+         warnings.warn(
+             f"{self.name} output format is deprecated. This is equivalent to --msg-template={self.line_format}",
+             DeprecationWarning,
+-        )
++        # Removed the DeprecationWarning
+         super().__init__(output)
+ 
+     def handle_message(self, msg: Message) -> None:
+         """Manage message of different types, and colorize output
+@@ -294,7 +295,7 @@
+         if msg.module not in self._modules:
+             msg_style = self._get_decoration("S")
+             if msg.module:
+-                modsep = colorize_ansi(f"************* Module {msg.module}", msg_style)
++                modsep = colorize_ansi(f"************* {msg.module}", msg_style)
+             else:
+                 modsep = colorize_ansi(f"************* {msg.module}", msg_style)
+             self.writeln(modsep)
+@@ -309,7 +310,7 @@
+         msg_style = self._get_decoration(msg.C)
+ 
+         msg.msg = colorize_ansi(msg.msg, msg_style)
+-        msg.symbol = colorize_ansi(msg.symbol, msg_style)
++        # Removed the colorize_ansi call for msg.symbol
+         msg.category = colorize_ansi(msg.category, msg_style)
+         msg.C = colorize_ansi(msg.C, msg_style)
+         self.write_message(msg)

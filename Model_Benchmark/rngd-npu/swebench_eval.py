@@ -8,7 +8,7 @@ harness는 --namespace swebench 기본값으로 prebuilt instance 이미지를 p
 
 사용:
     python swebench_eval.py                   # results/*/swebench/preds/*.jsonl 전부
-    python swebench_eval.py --models Qwen3    # model_safe substring 필터
+    python swebench_eval.py --models Llama    # model_safe substring 필터
     python swebench_eval.py --max-workers 12
 """
 from __future__ import annotations

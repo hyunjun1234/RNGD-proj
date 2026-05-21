@@ -1,0 +1,121 @@
+--- a/requests/models.py
++++ b/requests/models.py
+@@ -150,7 +150,7 @@
+ 
+         for (k, v) in list(hooks.items()):
+             self.register_hook(event=k, hook=v)
+-        # self.hooks = hooks
++        self.hooks = hooks
+ 
+         #: Session.
+         self.session = session
+@@ -1023,7 +1023,7 @@
+         if self.config.get('trust_env'):
+             self.auth = get_netrc_auth(url)
+ 
+-        if self.auth:
++        if self.auth is not None:
+             if isinstance(self.auth, tuple) and len(self.auth) == 2:
+                 # special-case basic HTTP auth
+                 self.auth = HTTPBasicAuth(*self.auth)
+@@ -1043,7 +1043,7 @@
+         if self.cert:
+             if len(self.cert) == 2:
+                 conn.cert_file = self.cert[0]
+-                conn.key_file = self.cert[1]
++                conn.key_file = self.cert[1]
+             else:
+                 conn.cert_file = self.cert
+@@ -1061,7 +1061,7 @@
+         if not self.sent or anyway:
+ 
+             # Skip if 'cookie' header is explicitly set.
+-            if 'cookie' not in self.headers:
++            if 'cookie' not in self.headers and self.headers.get('Cookie') is None:
+                 cookie_header = get_cookie_header(self.cookies, self)
+                 if cookie_header is not None:
+                     self.headers['Cookie'] = cookie_header
+@@ -1081,7 +1081,7 @@
+         # catch urllib3 exceptions and throw Requests exceptions
+         try:
+-            # Send the request.
++            # Send the request.
+             r = conn.urlopen(
+                 method=self.method,
+                 url=self.path_url,
+                 body=body,
+                 headers=self.headers,
+                 redirect=False,
+                 assert_same_host=False,
+                 preload_content=False,
+                 decode_content=False,
+                 retries=self.config.get('max_retries', 0),
+                 timeout=self.timeout,
+             )
+@@ -1094,7 +1094,7 @@
+         except socket.error as sockerr:
+             raise ConnectionError(sockerr)
+         except MaxRetryError as e:
+-            raise ConnectionError(e)
++            raise ConnectionError(e)
+         except (_SSLError, _HTTPError) as e:
+             if isinstance(e, _SSLError):
+                 raise SSLError(e)
+             elif isinstance(e, TimeoutError):
+@@ -1111,7 +1111,7 @@
+         # build_response can throw TooManyRedirects
+         self._build_response(r)
+ 
+-        # Response manipulation hook.
++        # Response manipulation hook.
+         self.response = dispatch_hook('response', self.hooks, self.response)
+ 
+         # Post-request hook.
+         r = dispatch_hook('post_request', self.hooks, self)
+@@ -1123,7 +1123,7 @@
+         # If prefetch is True, mark content as consumed.
+         if prefetch is None:
+             prefetch = self.prefetch
+-        if prefetch:
++        if prefetch is not None:
+             # Save the response.
+             self.response.content
+ 
+         if self.config.get('danger_mode'):
+@@ -1135,7 +1135,7 @@
+         return self.sent
+ 
+ class Response(object):
+-    """The core :class:`Response <Response>` object. All
++    """The core :class:`Response <Response>` object. All
+         :class:`Request <Request>` objects contain a
+         :class:`response <Response>` attribute, which is an instance
+         of this class.
+@@ -1153,7 +1153,7 @@
+         #: Integer Code of responded HTTP Status.
+         self.status_code = None
+ 
+-        #: Case-insensitive Dictionary of Response Headers.
++        #: Case-insensitive Dictionary of Response Headers.
+         #: For example, ``headers['content-encoding']`` will return the
+         #: value of a ``'Content-Encoding'`` response header.
+         self.headers = CaseInsensitiveDict()
+@@ -1165,7 +1165,7 @@
+         #: File-like object representation of response (for advanced usage).
+         self.raw = None
+ 
+-        #: Final URL location of Response.
++        #: Final URL location of Response.
+         self.url = None
+ 
+         #: Resulting :class:`HTTPError` of request, if one occurred.
+         self.error = None
+@@ -1177,7 +1177,7 @@
+         #: Encoding to decode with when accessing r.text.
+         self.encoding = None
+ 
+-        #: A list of :class:`Response <Response>` objects from
++        #: A list of :class:`Response <Response>` objects from
+         #: the history of the Request. Any redirect responses will end
+         #: up here. The list is sorted from the oldest to the most recent request.
+         self.history = []

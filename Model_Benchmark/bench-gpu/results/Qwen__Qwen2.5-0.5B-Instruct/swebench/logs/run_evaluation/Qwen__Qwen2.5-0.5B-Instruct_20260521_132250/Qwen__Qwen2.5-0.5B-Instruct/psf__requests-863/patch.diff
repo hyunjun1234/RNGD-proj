@@ -1,0 +1,14 @@
+
+diff --git a/request/models.py b/request/models.py
+--- a/request/models.py
++++ b/request/models.py
+@@ -1,10 +1,10 @@
+ from .hooks import dispatch_hook, HOOKS
+ from .structures import CaseInsensitiveDict
+-from .status_codes import codes
++from .status_codes import codes as STATUS_CODES
+ from .auth import HTTPBasicAuth, HTTPProxyAuth
+ from .cookies import cookiejar_from_dict, extract_cookies_to_jar, get_cookie_header
+ from .packages.urllib3.exceptions import MaxRetryError, LocationParseError
+-- 
+2.21.1

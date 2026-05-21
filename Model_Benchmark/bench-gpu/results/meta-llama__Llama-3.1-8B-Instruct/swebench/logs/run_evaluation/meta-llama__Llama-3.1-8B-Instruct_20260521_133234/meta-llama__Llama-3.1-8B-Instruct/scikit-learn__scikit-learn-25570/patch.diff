@@ -1,0 +1,114 @@
+--- a/sklearn/compose/_column_transformer.py
++++ b/sklearn/compose/_column_transformer.py
+@@ -348,6 +348,7 @@
+         if fitted:
+             if replace_strings:
+                 # Replace "passthrough" with the fitted version in
+                 # _name_to_fitted_passthrough
++                if name not in self._name_to_fitted_passthrough:
+                 def replace_passthrough(name, trans, columns):
+                     if name not in self._name_to_fitted_passthrough:
+                         return name, trans, columns
+@@ -361,6 +362,7 @@
+                 transformers = [
+                     replace_passthrough(*trans) for trans in self.transformers_
+                 ]
+             else:
++                if name not in self._name_to_fitted_passthrough:
+                 transformers = self.transformers_
+         else:
+             # interleave the validated column specifiers
+             transformers = [
+@@ -373,6 +375,7 @@
+             ]
+             transformer_to_input_indices = {}
+             for name, _, columns in self.transformers:
++                if callable(columns):
+                 columns = columns(X)
+                 all_columns.append(columns)
+                 transformer_to_input_indices[name] = _get_column_indices(X, columns)
+@@ -386,6 +389,7 @@
+             self._columns = all_columns
+             self._transformer_to_input_indices = transformer_to_input_indices
+         # add transformer tuple for remainder
++        if self._remainder[2]:
+         if self._remainder[2]:
+             transformers = chain(transformers, [self._remainder])
+         else:
+@@ -403,6 +407,7 @@
+         for name, trans, columns in transformers:
+             if replace_strings:
+                 # replace 'passthrough' with identity transformer and
+                 # skip in case of 'drop'
++                if trans == "passthrough":
+                 if trans == "passthrough":
+                     trans = FunctionTransformer(
+                         accept_sparse=True,
+                         check_inverse=False,
+@@ -416,6 +421,7 @@
+                 elif trans == "drop":
+                     continue
+                 elif _is_empty_column_selection(columns):
++                    continue
+                 if column_as_strings:
+                     # Convert all columns to using their string labels
+                     columns_is_scalar = np.isscalar(columns)
+@@ -429,6 +435,7 @@
+                 if columns_is_scalar:
+                     # selection is done with one dimension
+                     columns = columns[0]
++                yield (name, trans, columns, get_weight(name))
+             else:
+                 yield (name, trans, column, get_weight(name))
+         def _get_feature_name_out_for_transformer(
+@@ -444,6 +451,7 @@
+             column_indices = self._transformer_to_input_indices[name]
+             names = feature_names_in[column_indices]
+             if trans == "drop" or _is_empty_column_selection(column):
++                return
+             elif trans == "passthrough":
+                 return names
+             # An actual transformer
+@@ -457,6 +465,7 @@
+             raise AttributeError(
+                 f"Transformer {name} (type {type(trans).__name__}) does "
+                 "not provide get_feature_names_out."
++                )
+         return trans.get_feature_names_out(names)
+     def get_feature_names_out(self, input_features=None):
+@@ -468,6 +477,7 @@
+         input_features = _check_feature_names_in(self, input_features)
+         # List of tuples (name, feature_names_out)
+         transformer_with_feature_names_out = []
++        for name, trans, column, _ in self._iter(fitted=True):
+         for name, trans, column, _ in self._iter(fitted=True):
+             feature_names_out = self._get_feature_name_out_for_transformer(
+                 name, trans, column, input_features
+@@ -482,6 +492,7 @@
+         if not transformer_with_feature_names_out:
+             # No feature names
+             return np.array([], dtype=object)
++        return self._add_prefix_for_feature_names_out(
+         return self._add_prefix_for_feature_names_out(
+             transformer_with_feature_names_out
+         )
+@@ -495,6 +506,7 @@
+         if self.verbose_feature_names_out:
+             # Prefix the feature names out with the transformers name
+             names = list(
++                chain.from_iterable(
+                 (f"{name}__{i}" for i in feature_names_out)
+                 for name, feature_names_out in transformer_with_feature_names_out
+             )
+@@ -509,6 +521,7 @@
+         feature_names_count = Counter(
+             chain.from_iterable(s for _, s in transformer_with_feature_names_out)
+         )
++        top_6_overlap = [
+         top_6_overlap = [
+             name for name, count in feature_names_count.most_common(6) if count > 1
+         ]
+         top_6_overlap.sort()
+@@ -522,6 +535,7 @@
+         raise ValueError(
+             f"Output feature names: {names_repr} are not

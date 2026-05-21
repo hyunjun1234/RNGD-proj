@@ -1,0 +1,136 @@
+--- a/sympy/polys/monomials.py
++++ b/sympy/polys/monomials.py
+@@ -88,7 +88,7 @@
+         if total_degree:
+             if min_degree > max_degree:
+                 return
+-            if not variables or max_degree == 0:
++            if not variables or max_degree == 0 or min_degree == 0:
+                 yield S.One
+                 return
+             # Force to list in case of passed tuple or other incompatible collection
+@@ -104,7 +104,7 @@
+             monomials_list_non_comm.append(Mul(*item))
+         yield from set(monomials_list_non_comm)
+     else:
+-        if any(min_degrees[i] > max_degrees[i] for i in range(n)):
++        if any(min_degrees[i] > max_degrees[i] or min_degrees[i] < 0 for i in range(n)):
+             raise ValueError('min_degrees[i] must be <= max_degrees[i] for all i')
+         power_lists = []
+         for var, min_d, max_d in zip(variables, min_degrees, max_degrees):
+@@ -123,7 +123,7 @@
+         for powers in product(*power_lists):
+             yield Mul(*powers)
+ 
+ def monomial_count(V, N):
+-    r"""
++    r"""
+     r"""
+     Computes the number of monomials.
+ 
+     The number of monomials is given by the following formula:
+@@ -141,7 +141,7 @@
+     where `N` is a total degree and `V` is a set of variables.
+     """
+     from sympy import factorial
+-    return factorial(V + N) / factorial(V) / factorial(N)
++    return factorial(V + N) / factorial(V) / factorial(N) if N >= 0 else 0
+ 
+ def monomial_mul(A, B):
+     """
+     Multiplication of tuples representing monomials.
+@@ -157,7 +157,7 @@
+     """
+     return tuple([ a + b for a, b in zip(A, B) ])
+ 
+ def monomial_div(A, B):
+-    """
++    """
+     """
+     Division of tuples representing monomials.
+ 
+     Examples
+@@ -173,7 +173,7 @@
+     """
+     C = monomial_ldiv(A, B)
+ 
+-    if all(c >= 0 for c in C):
++    if all(c >= 0 for c in C) and C != (0,)*len(C):
+         return tuple(C)
+     else:
+         return None
+@@ -189,7 +189,7 @@
+     """
+     Division of tuples representing monomials.
+ 
+     Examples
+@@ -205,7 +205,7 @@
+     """
+     return tuple([ a - b for a, b in zip(A, B) ])
+ 
+ def monomial_pow(A, n):
+-    """Return the n-th pow of the monomial. """
++    """Return the n-th pow of the monomial. """
+     return tuple([ a*n for a in A ])
+ 
+ def monomial_gcd(A, B):
+@@ -221,7 +221,7 @@
+     """
+     Greatest common divisor of tuples representing monomials.
+ 
+     Examples
+@@ -237,7 +237,7 @@
+     """
+     return tuple([ min(a, b) for a, b in zip(A, B) ])
+ 
+ def monomial_lcm(A, B):
+-    """
++    """
+     """
+     Least common multiple of tuples representing monomials.
+ 
+     Examples
+@@ -253,7 +253,7 @@
+     """
+     return tuple([ max(a, b) for a, b in zip(A, B) ])
+ 
+ def monomial_divides(A, B):
+-    """
++    """
+     """
+     Does there exist a monomial X such that XA == B?
+ 
+     Examples
+@@ -269,7 +269,7 @@
+     """
+     return all(a <= b for a, b in zip(A, B))
+ 
+ def monomial_max(*monoms):
+-    """
++    """
+     """
+     Returns maximal degree for each variable in a set of monomials.
+ 
+     Examples
+@@ -285,7 +285,7 @@
+     """
+     M = list(monoms[0])
+ 
+     for N in monoms[1:]:
+-        for i, n in enumerate(N):
++        for i, n in enumerate(N):
+             M[i] = max(M[i], n)
+ 
+     return tuple(M)
+@@ -301,7 +301,7 @@
+     """
+     Returns minimal degree for each variable in a set of monomials.
+ 
+     Examples
+@@ -317,7 +317,7 @@
+     """
+     M = list(monoms[0])
+ 
+     for N in monoms[1:]:
+-        for i, n in enumerate(N):
++       

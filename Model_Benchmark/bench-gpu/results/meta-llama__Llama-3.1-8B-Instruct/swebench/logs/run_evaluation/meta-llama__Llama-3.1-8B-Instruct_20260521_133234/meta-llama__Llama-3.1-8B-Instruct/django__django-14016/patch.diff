@@ -1,0 +1,55 @@
+--- a/django/db/models/query_utils.py
++++ b/django/db/models/query_utils.py
+@@ -43,6 +43,7 @@
+ 
+ def __init__(self, *args, _connector=None, _negated=False, **kwargs):
+     super().__init__(children=[*args, *sorted(kwargs.items())], connector=_connector, negated=_negated)
++    self._freeze_children = False
+ 
+ def _combine(self, other, conn):
+     if not isinstance(other, Q):
+@@ -63,6 +64,10 @@
+     def __or__(self, other):
+         return self._combine(other, self.OR)
+ 
+     def __and__(self, other):
++        if self._freeze_children and other._freeze_children:
++            raise TypeError("Cannot combine two frozen Q objects")
+         return self._combine(other, self.AND)
+ 
+     def __invert__(self):
+@@ -72,6 +77,10 @@
+     def resolve_expression(self, query=None, allow_joins=True, reuse=None, summarize=False, for_save=False):
+         # We must promote any new joins to left outer joins so that when Q is
+         # used as an expression, rows aren't filtered due to joins.
+         clause, joins = query._add_q(
+             self, reuse, allow_joins=allow_joins, split_subq=False,
+             check_filterable=False,
+         )
++        if self._freeze_children:
++            self._freeze_children = False
++            self.children = tuple(self.children)
+         query.promote_joins(joins)
+         return clause
+ 
+@@ -91,6 +100,7 @@
+         return path.replace('django.db.models.query_utils', 'django.db.models')
+     args, kwargs = (), {}
+     if len(self.children) == 1 and not isinstance(self.children[0], Q):
+         child = self.children[0]
++        self._freeze_children = True
+         kwargs = {child[0]: child[1]}
+     else:
+         args = tuple(self.children)
+@@ -98,6 +108,7 @@
+         if self.negated:
+             kwargs['_negated'] = True
+         return path, args, kwargs
+ 
++    def __deepcopy__(self, memo):
++        q = super().__deepcopy__(memo)
++        q._freeze_children = False
++        return q
++
+ class DeferredAttribute:
+     # ... (rest of the file remains the same)

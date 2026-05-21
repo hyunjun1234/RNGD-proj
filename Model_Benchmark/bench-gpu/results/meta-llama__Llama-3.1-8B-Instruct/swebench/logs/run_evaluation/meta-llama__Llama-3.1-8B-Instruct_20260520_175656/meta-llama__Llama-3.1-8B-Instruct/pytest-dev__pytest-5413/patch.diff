@@ -1,0 +1,12 @@
+--- a/src/_pytest/_code/code.py
++++ b/src/_pytest/_code/code.py
+@@ -421,7 +421,7 @@
+     def exconly(self, tryshort=False):
+         """ return the exception as a string
+ 
+         when 'tryshort' resolves to True, and the exception is a
+-        _pytest._code._AssertionError, only the actual exception part of
++        _pytest._code._AssertionError, only the actual exception part of
+         the exception representation is returned (so 'AssertionError: ' is
+         removed from the beginning)
+         """

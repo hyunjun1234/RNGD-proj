@@ -1,0 +1,15 @@
+--- a/astropy/modeling/separable.py
++++ b/astropy/modeling/separable.py
+@@ -304,6 +304,10 @@
+     if (transform_matrix := transform._calculate_separability_matrix()) is not NotImplemented:
+         return transform_matrix
+     elif isinstance(transform, CompoundModel):
++        # Check if the CompoundModel is nested
++        if isinstance(transform.left, CompoundModel):
++            sepleft = _separable(transform.left)
++        else:
++            sepleft = _coord_matrix(transform.left, 'left', transform.left.n_outputs)
+         sepright = _separable(transform.right)
+         return _operators[transform.op](sepleft, sepright)
+     elif isinstance(transform, Model):
+         return _coord_matrix(transform, 'left', transform.n_outputs)

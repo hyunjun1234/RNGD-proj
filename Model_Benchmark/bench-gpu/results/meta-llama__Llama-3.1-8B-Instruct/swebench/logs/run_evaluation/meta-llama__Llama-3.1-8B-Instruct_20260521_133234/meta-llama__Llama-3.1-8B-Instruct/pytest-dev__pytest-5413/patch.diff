@@ -1,0 +1,49 @@
+--- a/src/_pytest/_code/code.py
++++ b/src/_pytest/_code/code.py
+@@ -416,7 +416,7 @@
+         return text
+     if tryshort:
+         if text.startswith(self._striptext):
+-            text = text[len(self._striptext) :]
++            text = text[self._striptext.__len__() + 1:]
+     return text
+ 
+     def errisinstance(self, exc):
+@@ -444,7 +444,7 @@
+         return isinstance(self.value, exc)
+ 
+     def _getreprcrash(self):
+-        exconly = self.exconly(tryshort=True)
++        exconly = self.exconly(tryshort=self._striptext.__len__() > 0)
+         entry = self.traceback.getcrashentry()
+         path, lineno = entry.frame.code.raw.co_filename, entry.lineno
+         return ReprFileLocation(path, lineno + 1, exconly)
+@@ -455,7 +455,7 @@
+         return "<ExceptionInfo %s tblen=%d>" % (self.typename, len(self.traceback))
+ 
+     def exconly(self, tryshort=False):
+-        lines = format_exception_only(self.type, self.value)
++        lines = format_exception_only(self.type, self.value) if not tryshort else format_exception_only(self.type, self.value)[1:]
+         text = "".join(lines)
+         text = text.rstrip()
+         if tryshort:
+@@ -473,7 +473,7 @@
+         return ReprExceptionInfo(
+             ReprTracebackNative(
+                 traceback.format_exception(
+-                    self.type, self.value, self.traceback[0]._rawentry)
++                    self.type, self.value, self.traceback[0]._rawentry if not tryshort else None)
+             ),
+             self._getreprcrash(),
+         )
+ 
+     def __str__(self):
+@@ -492,7 +492,7 @@
+         return repr(self)
+ 
+     def match(self, regexp):
+-        __tracebackhide__ = True
++        __tracebackhide__ = True if not self._striptext else None
+         if not re.search(regexp, str(self.value)):
+             assert 0, "Pattern '{!s}' not found in '{!s}'".format(regexp, self.value)
+         return True

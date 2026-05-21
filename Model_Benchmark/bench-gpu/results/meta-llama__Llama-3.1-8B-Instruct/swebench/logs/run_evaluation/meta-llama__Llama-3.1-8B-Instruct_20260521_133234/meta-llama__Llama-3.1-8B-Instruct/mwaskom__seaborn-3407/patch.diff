@@ -1,0 +1,16 @@
+
+--- a/seaborn/axisgrid.py
++++ b/seaborn/axisgrid.py
+@@ -2142,7 +2142,7 @@
+     if diag_kind == "hist":
+-        grid.map_diag(histplot, **diag_kws)
++        grid.map_diag(histplot, hue_order=grid.hue_order, **diag_kws)
+     elif diag_kind == "kde":
+-        diag_kws.setdefault("fill", True)
+-        diag_kws.setdefault("warn_singular", False)
+-        grid.map_diag(kdeplot, **diag_kws)
++        diag_kws.setdefault("fill", True)
++        diag_kws.setdefault("warn_singular", False)
++        diag_kws.setdefault("hue_order", grid.hue_order)
++        grid.map_diag(kdeplot, **diag_kws)
+ 

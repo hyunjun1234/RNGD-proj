@@ -1,14 +1,14 @@
 [
   {
     "combo": {},
-    "started_at": 1779076979.52902,
+    "started_at": 1779343753.1455028,
     "server_info": {
       "/models": {
         "object": "list",
         "data": [
           {
             "id": "furiosa-ai/Llama-3.1-8B-Instruct",
-            "created": 1779076997,
+            "created": 1779343771,
             "object": "model",
             "owned_by": "furiosa-ai",
             "artifact_id": "d6ae6a43-6ce0-4864-aaca-eeac4340234c",
@@ -17,7 +17,7 @@
           }
         ]
       },
-      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
+      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
     },
     "bench": {
       "model": "furiosa-ai/Llama-3.1-8B-Instruct",
@@ -26,14 +26,14 @@
       "max_tokens": 256,
       "successes": 256,
       "failures": 0,
-      "wall_clock_s": 24.262,
-      "ttft_s_p50": 0.6293,
-      "ttft_s_p95": 2.1592,
-      "itl_s_p50": 0.04786,
-      "itl_s_p95": 0.04887,
-      "output_tps_per_request_p50": 19.33,
-      "aggregate_output_tps": 2275.94,
-      "total_output_tokens": 55219
+      "wall_clock_s": 24.518,
+      "ttft_s_p50": 0.5307,
+      "ttft_s_p95": 2.1574,
+      "itl_s_p50": 0.04783,
+      "itl_s_p95": 0.0492,
+      "output_tps_per_request_p50": 18.93,
+      "aggregate_output_tps": 2251.05,
+      "total_output_tokens": 55192
     },
     "status": "ok"
   },
@@ -41,14 +41,14 @@
     "combo": {
       "max_model_len": 4096
     },
-    "started_at": 1779077027.8161185,
+    "started_at": 1779343802.7303936,
     "server_info": {
       "/models": {
         "object": "list",
         "data": [
           {
             "id": "furiosa-ai/Llama-3.1-8B-Instruct",
-            "created": 1779077045,
+            "created": 1779343820,
             "object": "model",
             "owned_by": "furiosa-ai",
             "artifact_id": "d6ae6a43-6ce0-4864-aaca-eeac4340234c",
@@ -57,7 +57,7 @@
           }
         ]
       },
-      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
+      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
     },
     "bench": {
       "model": "furiosa-ai/Llama-3.1-8B-Instruct",
@@ -66,14 +66,14 @@
       "max_tokens": 256,
       "successes": 256,
       "failures": 0,
-      "wall_clock_s": 23.963,
-      "ttft_s_p50": 0.5322,
-      "ttft_s_p95": 2.1662,
-      "itl_s_p50": 0.04727,
-      "itl_s_p95": 0.04899,
-      "output_tps_per_request_p50": 19.26,
-      "aggregate_output_tps": 2294.43,
-      "total_output_tokens": 54981
+      "wall_clock_s": 24.233,
+      "ttft_s_p50": 0.487,
+      "ttft_s_p95": 2.1891,
+      "itl_s_p50": 0.04722,
+      "itl_s_p95": 0.04871,
+      "output_tps_per_request_p50": 19.14,
+      "aggregate_output_tps": 2272.38,
+      "total_output_tokens": 55067
     },
     "status": "ok"
   },
@@ -81,174 +81,14 @@
     "combo": {
       "max_model_len": 8192
     },
-    "started_at": 1779077075.6959364,
+    "started_at": 1779343852.1932266,
     "server_info": {
       "/models": {
         "object": "list",
         "data": [
           {
             "id": "furiosa-ai/Llama-3.1-8B-Instruct",
-            "created": 1779077093,
-            "object": "model",
-            "owned_by": "furiosa-ai",
-            "artifact_id": "d6ae6a43-6ce0-4864-aaca-eeac4340234c",
-            "max_prompt_len": 131072,
-            "max_context_len": 131072
-          }
-        ]
-      },
-      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
-    },
-    "bench": {
-      "model": "furiosa-ai/Llama-3.1-8B-Instruct",
-      "concurrency": 128,
-      "prompt_tokens_target": 1024,
-      "max_tokens": 256,
-      "successes": 256,
-      "failures": 0,
-      "wall_clock_s": 24.566,
-      "ttft_s_p50": 0.5171,
-      "ttft_s_p95": 2.1596,
-      "itl_s_p50": 0.04727,
-      "itl_s_p95": 0.04846,
-      "output_tps_per_request_p50": 19.07,
-      "aggregate_output_tps": 2250.81,
-      "total_output_tokens": 55294
-    },
-    "status": "ok"
-  },
-  {
-    "combo": {
-      "max_model_len": 16384
-    },
-    "started_at": 1779077124.3290265,
-    "server_info": {
-      "/models": {
-        "object": "list",
-        "data": [
-          {
-            "id": "furiosa-ai/Llama-3.1-8B-Instruct",
-            "created": 1779077142,
-            "object": "model",
-            "owned_by": "furiosa-ai",
-            "artifact_id": "d6ae6a43-6ce0-4864-aaca-eeac4340234c",
-            "max_prompt_len": 131072,
-            "max_context_len": 131072
-          }
-        ]
-      },
-      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
-    },
-    "bench": {
-      "model": "furiosa-ai/Llama-3.1-8B-Instruct",
-      "concurrency": 128,
-      "prompt_tokens_target": 1024,
-      "max_tokens": 256,
-      "successes": 256,
-      "failures": 0,
-      "wall_clock_s": 25.761,
-      "ttft_s_p50": 0.5383,
-      "ttft_s_p95": 2.1664,
-      "itl_s_p50": 0.04697,
-      "itl_s_p95": 0.0488,
-      "output_tps_per_request_p50": 18.76,
-      "aggregate_output_tps": 2133.4,
-      "total_output_tokens": 54958
-    },
-    "status": "ok"
-  },
-  {
-    "combo": {
-      "max_batch_size": 8
-    },
-    "started_at": 1779077174.0611608,
-    "server_info": {
-      "/models": {
-        "object": "list",
-        "data": [
-          {
-            "id": "furiosa-ai/Llama-3.1-8B-Instruct",
-            "created": 1779077191,
-            "object": "model",
-            "owned_by": "furiosa-ai",
-            "artifact_id": "d6ae6a43-6ce0-4864-aaca-eeac4340234c",
-            "max_prompt_len": 131072,
-            "max_context_len": 131072
-          }
-        ]
-      },
-      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
-    },
-    "bench": {
-      "model": "furiosa-ai/Llama-3.1-8B-Instruct",
-      "concurrency": 128,
-      "prompt_tokens_target": 1024,
-      "max_tokens": 256,
-      "successes": 256,
-      "failures": 0,
-      "wall_clock_s": 24.309,
-      "ttft_s_p50": 0.5497,
-      "ttft_s_p95": 2.1545,
-      "itl_s_p50": 0.04721,
-      "itl_s_p95": 0.04846,
-      "output_tps_per_request_p50": 19.09,
-      "aggregate_output_tps": 2268.11,
-      "total_output_tokens": 55136
-    },
-    "status": "ok"
-  },
-  {
-    "combo": {
-      "max_batch_size": 32
-    },
-    "started_at": 1779077222.3838189,
-    "server_info": {
-      "/models": {
-        "object": "list",
-        "data": [
-          {
-            "id": "furiosa-ai/Llama-3.1-8B-Instruct",
-            "created": 1779077240,
-            "object": "model",
-            "owned_by": "furiosa-ai",
-            "artifact_id": "d6ae6a43-6ce0-4864-aaca-eeac4340234c",
-            "max_prompt_len": 131072,
-            "max_context_len": 131072
-          }
-        ]
-      },
-      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
-    },
-    "bench": {
-      "model": "furiosa-ai/Llama-3.1-8B-Instruct",
-      "concurrency": 128,
-      "prompt_tokens_target": 1024,
-      "max_tokens": 256,
-      "successes": 256,
-      "failures": 0,
-      "wall_clock_s": 24.354,
-      "ttft_s_p50": 0.5171,
-      "ttft_s_p95": 2.1575,
-      "itl_s_p50": 0.04769,
-      "itl_s_p95": 0.04886,
-      "output_tps_per_request_p50": 19.0,
-      "aggregate_output_tps": 2265.19,
-      "total_output_tokens": 55166
-    },
-    "status": "ok"
-  },
-  {
-    "combo": {
-      "max_num_batched_tokens": 4096
-    },
-    "started_at": 1779077270.8759964,
-    "server_info": {
-      "/models": {
-        "object": "list",
-        "data": [
-          {
-            "id": "furiosa-ai/Llama-3.1-8B-Instruct",
-            "created": 1779077288,
+            "created": 1779343870,
             "object": "model",
             "owned_by": "furiosa-ai",
             "artifact_id": "d6ae6a43-6ce0-4864-aaca-eeac4340234c",
@@ -266,29 +106,29 @@
       "max_tokens": 256,
       "successes": 256,
       "failures": 0,
-      "wall_clock_s": 24.316,
-      "ttft_s_p50": 0.5295,
-      "ttft_s_p95": 2.1657,
-      "itl_s_p50": 0.04728,
-      "itl_s_p95": 0.04839,
-      "output_tps_per_request_p50": 19.01,
-      "aggregate_output_tps": 2271.67,
-      "total_output_tokens": 55237
+      "wall_clock_s": 24.188,
+      "ttft_s_p50": 0.5254,
+      "ttft_s_p95": 2.1872,
+      "itl_s_p50": 0.04757,
+      "itl_s_p95": 0.04871,
+      "output_tps_per_request_p50": 19.19,
+      "aggregate_output_tps": 2271.21,
+      "total_output_tokens": 54936
     },
     "status": "ok"
   },
   {
     "combo": {
-      "max_num_batched_tokens": 16384
+      "max_model_len": 16384
     },
-    "started_at": 1779077319.2293158,
+    "started_at": 1779343901.3112402,
     "server_info": {
       "/models": {
         "object": "list",
         "data": [
           {
             "id": "furiosa-ai/Llama-3.1-8B-Instruct",
-            "created": 1779077336,
+            "created": 1779343919,
             "object": "model",
             "owned_by": "furiosa-ai",
             "artifact_id": "d6ae6a43-6ce0-4864-aaca-eeac4340234c",
@@ -297,7 +137,7 @@
           }
         ]
       },
-      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
+      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
     },
     "bench": {
       "model": "furiosa-ai/Llama-3.1-8B-Instruct",
@@ -306,29 +146,29 @@
       "max_tokens": 256,
       "successes": 256,
       "failures": 0,
-      "wall_clock_s": 24.332,
-      "ttft_s_p50": 0.5364,
-      "ttft_s_p95": 2.1565,
-      "itl_s_p50": 0.04798,
-      "itl_s_p95": 0.04917,
-      "output_tps_per_request_p50": 19.0,
-      "aggregate_output_tps": 2265.84,
-      "total_output_tokens": 55132
+      "wall_clock_s": 24.28,
+      "ttft_s_p50": 0.5761,
+      "ttft_s_p95": 2.1917,
+      "itl_s_p50": 0.04715,
+      "itl_s_p95": 0.04848,
+      "output_tps_per_request_p50": 19.23,
+      "aggregate_output_tps": 2274.11,
+      "total_output_tokens": 55216
     },
     "status": "ok"
   },
   {
     "combo": {
-      "spare_blocks_ratio": 0.1
+      "max_batch_size": 8
     },
-    "started_at": 1779077367.524991,
+    "started_at": 1779343950.59077,
     "server_info": {
       "/models": {
         "object": "list",
         "data": [
           {
             "id": "furiosa-ai/Llama-3.1-8B-Instruct",
-            "created": 1779077385,
+            "created": 1779343968,
             "object": "model",
             "owned_by": "furiosa-ai",
             "artifact_id": "d6ae6a43-6ce0-4864-aaca-eeac4340234c",
@@ -337,32 +177,38 @@
           }
         ]
       },
-      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
+      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
     },
     "bench": {
       "model": "furiosa-ai/Llama-3.1-8B-Instruct",
       "concurrency": 128,
       "prompt_tokens_target": 1024,
       "max_tokens": 256,
-      "successes": 0,
-      "failures": 256,
-      "wall_clock_s": 1.101787831983529,
-      "error": "no successful requests"
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 24.765,
+      "ttft_s_p50": 0.5352,
+      "ttft_s_p95": 2.1766,
+      "itl_s_p50": 0.04776,
+      "itl_s_p95": 0.04893,
+      "output_tps_per_request_p50": 19.01,
+      "aggregate_output_tps": 2232.29,
+      "total_output_tokens": 55282
     },
     "status": "ok"
   },
   {
     "combo": {
-      "spare_blocks_ratio": 0.3
+      "max_batch_size": 32
     },
-    "started_at": 1779077389.406814,
+    "started_at": 1779344000.3145452,
     "server_info": {
       "/models": {
         "object": "list",
         "data": [
           {
             "id": "furiosa-ai/Llama-3.1-8B-Instruct",
-            "created": 1779077407,
+            "created": 1779344018,
             "object": "model",
             "owned_by": "furiosa-ai",
             "artifact_id": "d6ae6a43-6ce0-4864-aaca-eeac4340234c",
@@ -371,17 +217,103 @@
           }
         ]
       },
-      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
+      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
     },
     "bench": {
       "model": "furiosa-ai/Llama-3.1-8B-Instruct",
       "concurrency": 128,
       "prompt_tokens_target": 1024,
       "max_tokens": 256,
-      "successes": 0,
-      "failures": 256,
-      "wall_clock_s": 1.0623536579078063,
-      "error": "no successful requests"
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 24.504,
+      "ttft_s_p50": 0.5619,
+      "ttft_s_p95": 2.1974,
+      "itl_s_p50": 0.04746,
+      "itl_s_p95": 0.04877,
+      "output_tps_per_request_p50": 18.95,
+      "aggregate_output_tps": 2249.83,
+      "total_output_tokens": 55130
+    },
+    "status": "ok"
+  },
+  {
+    "combo": {
+      "max_num_batched_tokens": 4096
+    },
+    "started_at": 1779344049.8478317,
+    "server_info": {
+      "/models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "furiosa-ai/Llama-3.1-8B-Instruct",
+            "created": 1779344067,
+            "object": "model",
+            "owned_by": "furiosa-ai",
+            "artifact_id": "d6ae6a43-6ce0-4864-aaca-eeac4340234c",
+            "max_prompt_len": 131072,
+            "max_context_len": 131072
+          }
+        ]
+      },
+      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
+    },
+    "bench": {
+      "model": "furiosa-ai/Llama-3.1-8B-Instruct",
+      "concurrency": 128,
+      "prompt_tokens_target": 1024,
+      "max_tokens": 256,
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 24.149,
+      "ttft_s_p50": 0.5326,
+      "ttft_s_p95": 2.1597,
+      "itl_s_p50": 0.04682,
+      "itl_s_p95": 0.04796,
+      "output_tps_per_request_p50": 19.11,
+      "aggregate_output_tps": 2287.84,
+      "total_output_tokens": 55249
+    },
+    "status": "ok"
+  },
+  {
+    "combo": {
+      "max_num_batched_tokens": 16384
+    },
+    "started_at": 1779344099.0201406,
+    "server_info": {
+      "/models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "furiosa-ai/Llama-3.1-8B-Instruct",
+            "created": 1779344116,
+            "object": "model",
+            "owned_by": "furiosa-ai",
+            "artifact_id": "d6ae6a43-6ce0-4864-aaca-eeac4340234c",
+            "max_prompt_len": 131072,
+            "max_context_len": 131072
+          }
+        ]
+      },
+      "/../metrics": "# HELP furiosa_llm_num_requests_running Number of requests currently running on RNGD.\n# TYPE furiosa_llm_num_requests_running gauge\nfuriosa_llm_num_requests_running{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_num_requests_waiting Number of requests waiting to be processed.\n# TYPE furiosa_llm_num_requests_waiting gauge\nfuriosa_llm_num_requests_waiting{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_kv_cache_usage_percent KV-cache usage. 1 means 100 percent usage.\n# TYPE furiosa_llm_kv_cache_usage_percent gauge\nfuriosa_llm_kv_cache_usage_percent{model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\",engine=\"0\"} 0\n# HELP furiosa_llm_prefix_cache_hits Prefix cache hits, in terms of number of cached tokens.\n# TYPE furiosa_llm_prefix_cache_hits counter\nfuriosa_llm_prefix_cache_hits{engine=\"0\",model_name=\"furiosa-ai/Llama-3.1-8B-Instruct\"} 0\n# HELP furiosa_llm_prefix_cache_queries Prefix cache queries, in terms of number of queried toke"
+    },
+    "bench": {
+      "model": "furiosa-ai/Llama-3.1-8B-Instruct",
+      "concurrency": 128,
+      "prompt_tokens_target": 1024,
+      "max_tokens": 256,
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 25.975,
+      "ttft_s_p50": 0.7777,
+      "ttft_s_p95": 2.1678,
+      "itl_s_p50": 0.0471,
+      "itl_s_p95": 0.04838,
+      "output_tps_per_request_p50": 17.69,
+      "aggregate_output_tps": 2138.87,
+      "total_output_tokens": 55557
     },
     "status": "ok"
   }

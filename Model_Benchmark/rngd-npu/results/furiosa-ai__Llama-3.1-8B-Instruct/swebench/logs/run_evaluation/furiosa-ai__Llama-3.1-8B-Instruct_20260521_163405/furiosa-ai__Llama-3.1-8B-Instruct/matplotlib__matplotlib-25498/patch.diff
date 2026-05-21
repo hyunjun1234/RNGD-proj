@@ -1,0 +1,116 @@
+--- a/lib/matplotlib/colorbar.py
++++ b/lib/matplotlib/colorbar.py
+@@ -494,6 +494,7 @@
+         self.mappable = mappable
+         self.set_alpha(mappable.get_alpha())
+         self.cmap = mappable.cmap
++        self.norm = mappable.norm
+         if mappable.norm!= self.norm:
+             self.norm = mappable.norm
+             self._reset_locator_formatter_scale()
+@@ -514,6 +515,7 @@
+         self.mappable = mappable
+         self.set_alpha(mappable.get_alpha())
+         self.cmap = mappable.cmap
++        self.norm = mappable.norm
+         self._process_values()
+         if isinstance(self.mappable, contour.ContourSet):
+             CS = self.mappable
+@@ -533,6 +535,7 @@
+         self.mappable = mappable
+         self.set_alpha(mappable.get_alpha())
+         self.cmap = mappable.cmap
++        self.norm = mappable.norm
+         self._process_values()
+         if isinstance(self.mappable, contour.ContourSet):
+             CS = self.mappable
+@@ -555,6 +558,7 @@
+         self.mappable = mappable
+         self.set_alpha(mappable.get_alpha())
+         self.cmap = mappable.cmap
++        self.norm = mappable.norm
+         self._process_values()
+         if isinstance(self.mappable, contour.ContourSet):
+             CS = self.mappable
+@@ -576,6 +580,7 @@
+         self.mappable = mappable
+         self.set_alpha(mappable.get_alpha())
+         self.cmap = mappable.cmap
++        self.norm = mappable.norm
+         self._process_values()
+         if isinstance(self.mappable, contour.ContourSet):
+             CS = self.mappable
+@@ -597,6 +602,7 @@
+         self.mappable = mappable
+         self.set_alpha(mappable.get_alpha())
+         self.cmap = mappable.cmap
++        self.norm = mappable.norm
+         self._process_values()
+         if isinstance(self.mappable, contour.ContourSet):
+             CS = self.mappable
+@@ -618,6 +624,7 @@
+         self.mappable = mappable
+         self.set_alpha(mappable.get_alpha())
+         self.cmap = mappable.cmap
++        self.norm = mappable.norm
+         self._process_values()
+         if isinstance(self.mappable, contour.ContourSet):
+             CS = self.mappable
+@@ -639,6 +646,7 @@
+         self.mappable = mappable
+         self.set_alpha(mappable.get_alpha())
+         self.cmap = mappable.cmap
++        self.norm = mappable.norm
+         self._process_values()
+         if isinstance(self.mappable, contour.ContourSet):
+             CS = self.mappable
+@@ -660,6 +668,7 @@
+         self.mappable = mappable
+         self.set_alpha(mappable.get_alpha())
+         self.cmap = mappable.cmap
++        self.norm = mappable.norm
+         self._process_values()
+         if isinstance(self.mappable, contour.ContourSet):
+             CS = self.mappable
+@@ -681,6 +690,7 @@
+         self.mappable = mappable
+         self.set_alpha(mappable.get_alpha())
+         self.cmap = mappable.cmap
++        self.norm = mappable.norm
+         self._process_values()
+         if isinstance(self.mappable, contour.ContourSet):
+             CS = self.mappable
+@@ -702,6 +712,7 @@
+         self.mappable = mappable
+         self.set_alpha(mappable.get_alpha())
+         self.cmap = mappable.cmap
++        self.norm = mappable.norm
+         self._process_values()
+         if isinstance(self.mappable, contour.ContourSet):
+             CS = self.mappable
+@@ -723,6 +734,7 @@
+         self.mappable = mappable
+         self.set_alpha(mappable.get_alpha())
+         self.cmap = mappable.cmap
++        self.norm = mappable.norm
+         self._process_values()
+         if isinstance(self.mappable, contour.ContourSet):
+             CS = self.mappable
+@@ -744,6 +756,7 @@
+         self.mappable = mappable
+         self.set_alpha(mappable.get_alpha())
+         self.cmap = mappable.cmap
++        self.norm = mappable.norm
+         self._process_values()
+         if isinstance(self.mappable, contour.ContourSet):
+             CS = self.mappable
+@@ -765,6 +778,7 @@
+         self.mappable = mappable
+         self.set_alpha(mappable.get_alpha())
+         self.cmap = mappable.cmap
++        self.norm = mappable.norm
+         self._process_values()
+         if isinstance(self.mappable, contour.ContourSet):
+             CS = self.mappable
+@@ -786,6 +800,7 @@
+         self

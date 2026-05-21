@@ -1,0 +1,33 @@
+INFO 05-21 10:14:02 [__init__.py:239] No platform detected, vLLM is running on UnspecifiedPlatform
+/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/torch/cuda/__init__.py:789: UserWarning: Can't initialize NVML
+  warnings.warn("Can't initialize NVML")
+Traceback (most recent call last):
+  File "/home/etri/jun/bench-gpu/.venv/bin/vllm", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/entrypoints/cli/main.py", line 46, in main
+    cmd.subparser_init(subparsers).set_defaults(
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/entrypoints/cli/serve.py", line 66, in subparser_init
+    serve_parser = make_arg_parser(serve_parser)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/entrypoints/openai/cli_args.py", line 236, in make_arg_parser
+    parser = AsyncEngineArgs.add_cli_args(parser)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/engine/arg_utils.py", line 1673, in add_cli_args
+    parser = EngineArgs.add_cli_args(parser)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/engine/arg_utils.py", line 825, in add_cli_args
+    vllm_kwargs = get_kwargs(VllmConfig)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/engine/arg_utils.py", line 261, in get_kwargs
+    return copy.deepcopy(_compute_kwargs(cls))
+                         ^^^^^^^^^^^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/engine/arg_utils.py", line 162, in _compute_kwargs
+    default = field.default_factory()
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/pydantic/_internal/_dataclasses.py", line 121, in __init__
+    s.__pydantic_validator__.validate_python(ArgsKwargs(args, kwargs), self_instance=s)
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/config.py", line 2573, in __post_init__
+    raise RuntimeError(
+RuntimeError: Failed to infer device type, please set the environment variable `VLLM_LOGGING_LEVEL=DEBUG` to turn on verbose logging to help debug the issue.

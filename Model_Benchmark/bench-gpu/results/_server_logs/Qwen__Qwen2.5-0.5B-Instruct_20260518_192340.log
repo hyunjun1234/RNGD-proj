@@ -1,0 +1,63 @@
+INFO 05-18 19:23:48 [__init__.py:235] Automatically detected platform cuda.
+INFO 05-18 19:23:51 [api_server.py:1755] vLLM API server version 0.10.0
+INFO 05-18 19:23:52 [cli_args.py:261] non-default args: {'model_tag': 'Qwen/Qwen2.5-0.5B-Instruct', 'host': '0.0.0.0', 'model': 'Qwen/Qwen2.5-0.5B-Instruct'}
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+INFO 05-18 19:23:59 [config.py:1604] Using max model len 32768
+INFO 05-18 19:23:59 [config.py:2434] Chunked prefill is enabled with max_num_batched_tokens=2048.
+Traceback (most recent call last):
+  File "/home/etri/jun/bench-gpu/.venv/bin/vllm", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/entrypoints/cli/main.py", line 54, in main
+    args.dispatch_function(args)
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/entrypoints/cli/serve.py", line 52, in cmd
+    uvloop.run(run_server(args))
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/uvloop/__init__.py", line 96, in run
+    return __asyncio.run(
+           ^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/uvloop/__init__.py", line 48, in wrapper
+    return await main
+           ^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 1791, in run_server
+    await run_server_worker(listen_address, sock, args, **uvicorn_kwargs)
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 1811, in run_server_worker
+    async with build_async_engine_client(args, client_config) as engine_client:
+  File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 158, in build_async_engine_client
+    async with build_async_engine_client_from_engine_args(
+  File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 194, in build_async_engine_client_from_engine_args
+    async_llm = AsyncLLM.from_vllm_config(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/v1/engine/async_llm.py", line 163, in from_vllm_config
+    return cls(
+           ^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/v1/engine/async_llm.py", line 100, in __init__
+    self.tokenizer = init_tokenizer_from_configs(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/transformers_utils/tokenizer_group.py", line 111, in init_tokenizer_from_configs
+    return TokenizerGroup(
+           ^^^^^^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/transformers_utils/tokenizer_group.py", line 24, in __init__
+    self.tokenizer = get_tokenizer(self.tokenizer_id, **tokenizer_config)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/transformers_utils/tokenizer.py", line 283, in get_tokenizer
+    tokenizer = get_cached_tokenizer(tokenizer)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/vllm/transformers_utils/tokenizer.py", line 100, in get_cached_tokenizer
+    tokenizer.all_special_tokens_extended)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/etri/jun/bench-gpu/.venv/lib/python3.12/site-packages/transformers/tokenization_utils_base.py", line 1315, in __getattr__
+    raise AttributeError(f"{self.__class__.__name__} has no attribute {key}")
+AttributeError: Qwen2Tokenizer has no attribute all_special_tokens_extended. Did you mean: 'num_special_tokens_to_add'?

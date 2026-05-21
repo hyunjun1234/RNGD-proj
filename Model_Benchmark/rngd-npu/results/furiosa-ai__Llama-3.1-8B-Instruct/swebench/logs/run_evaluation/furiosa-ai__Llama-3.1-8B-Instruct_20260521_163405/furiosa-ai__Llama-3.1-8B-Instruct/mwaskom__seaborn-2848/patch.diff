@@ -1,0 +1,90 @@
+--- a/seaborn/_oldcore.py
++++ b/seaborn/_oldcore.py
+@@ -1433,6 +1433,7 @@
+ 
+     # TODO this should happen in some centralized location
+     # it is similar to GH2419, but more complicated because
+     # supporting `order` in categorical plots is tricky
++    # TODO also handle the case where the order is not specified
+     orig = orig.dropna()
+     if var in self.var_levels:
+         # TODO this should happen in some centralized location
+@@ -1443,6 +1444,7 @@
+         orig = orig[orig.isin(self.var_levels[var])]
+     comp = pd.to_numeric(converter.convert_units(orig))
+     if converter.get_scale() == "log":
++        # TODO also handle the case where the order is not specified
+         comp = np.log10(comp)
+     parts.append(pd.Series(comp, orig.index, name=orig.name))
+                 if parts:
+                     comp_col = pd.concat(parts)
+@@ -1453,6 +1455,7 @@
+                     comp_col = pd.Series(dtype=float, name=var)
+                 self._comp_data = comp_data
+             return self._comp_data
++        # TODO also handle the case where the order is not specified
+         if self.var_types.get("y", None) == "categorical":
+             for ax in ax_list:
+                 try:
+@@ -1463,6 +1466,7 @@
+                 except AttributeError:  # mpl < 3.1
+                     if not ax.yaxis_inverted():
+                         ax.invert_yaxis()
++        # TODO also handle the case where the order is not specified
+         # Categorical plots can be "univariate" in which case they get an anonymous
+         # category label on the opposite axis.
+         if axis not in self.variables:
+@@ -1473,6 +1477,7 @@
+             self.plot_data[axis] = ""
+         # If the "categorical" variable has a numeric type, sort the rows so that
+         # the default result from categorical_order has those values sorted after
+         # they have been coerced to strings. The reason for this is so that later
++        # TODO also handle the case where the order is not specified
+         # we can get facet-wise orders that are correct.
+         # XXX Should this also sort datetimes?
+         # It feels more consistent, but technically will be a default change
+@@ -1483,6 +1488,7 @@
+         # Now get a reference to the categorical data vector
+         cat_data = self.plot_data[axis]
+         # Get the initial categorical order, which we do before string
+         # conversion to respect the original types of the order list.
++        # TODO also handle the case where the order is not specified
+         self._var_ordered[axis] = order is not None or cat_data.dtype.name == "category"
+         order = pd.Index(categorical_order(cat_data, order))
+         # Then convert data to strings. This is because in matplotlib,
+@@ -1493,6 +1499,7 @@
+         # TODO implement formatter here; check that it returns strings?
+         if formatter is not None:
+             cat_data = cat_data.map(formatter)
++        # TODO also handle the case where the order is not specified
+             order = order.map(formatter)
+         else:
+             cat_data = cat_data.astype(str)
+@@ -1503,6 +1510,7 @@
+         # Update the levels list with the type-converted order variable
+         self.var_levels[axis] = order
+         # Now ensure that seaborn will use categorical rules internally
++        # TODO also handle the case where the order is not specified
+         self.var_types[axis] = "categorical"
+         # Put the string-typed categorical vector back into the plot_data structure
+         self.plot_data[axis] = cat_data
+@@ -1513,6 +1521,7 @@
+ def categorical_order(vector, order=None):
+     """Return a list of unique data values.
+ 
+     Determine an ordered list of levels in ``values``.
++    # TODO also handle the case where the order is not specified
+     Parameters
+     ----------
+     vector : list, array, Categorical, or Series
+         Vector of "categorical" values
+@@ -1523,6 +1532,7 @@
+     order : list-like, optional
+         Desired order of category levels to override the order determined
+         from the ``values`` object.
++    # TODO also handle the case where the order is not specified
+     Returns
+     -------
+     order : list
+         Ordered list of category levels not including null values.
+```

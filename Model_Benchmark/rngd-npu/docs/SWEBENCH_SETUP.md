@@ -100,6 +100,7 @@ python -m swebench.harness.run_evaluation \
 
 `rngd-npu`에서는 `runners/swebench_run.py`가 추론(oracle 프롬프트 → 로컬 furiosa-llm
 서버), `swebench_eval.py`가 채점(위 harness 호출)을 담당한다.
+컨텍스트 필터링·patch sanity 검사·재시도는 모두 `runners/swebench_run.py` 안에서 처리된다.
 
 ```bash
 source ~/furiosa/bin/activate

@@ -1,0 +1,112 @@
+{
+  "model": "furiosa-ai/Llama-3.1-8B-Instruct",
+  "dataset": "oracle-subset",
+  "n_requested_instances": 50,
+  "n_instances": 50,
+  "n_filtered_context": 0,
+  "filtered_context_ids": [],
+  "filtered_context": [],
+  "max_model_len": null,
+  "max_input_tokens": null,
+  "max_tokens": 1024,
+  "n_nonempty_patch": 50,
+  "n_error": 0,
+  "n_invalid_patch": 48,
+  "invalid_patch_examples": [
+    {
+      "instance_id": "astropy__astropy-12907",
+      "reason": "hunk line count mismatch old=42/27 new=42/35"
+    },
+    {
+      "instance_id": "astropy__astropy-14182",
+      "reason": "hunk line count mismatch old=7/6 new=8/7"
+    },
+    {
+      "instance_id": "astropy__astropy-14365",
+      "reason": "hunk line count mismatch old=8/7 new=8/7"
+    },
+    {
+      "instance_id": "astropy__astropy-14995",
+      "reason": "hunk line count mismatch old=8/7 new=8/7"
+    },
+    {
+      "instance_id": "astropy__astropy-7746",
+      "reason": "hunk line count mismatch old=6/7 new=6/7"
+    },
+    {
+      "instance_id": "django__django-12915",
+      "reason": "hunk line count mismatch old=9/6 new=10/7"
+    },
+    {
+      "instance_id": "django__django-13551",
+      "reason": "hunk line count mismatch old=15/8 new=18/10"
+    },
+    {
+      "instance_id": "django__django-14016",
+      "reason": "hunk line count mismatch old=6/6 new=8/7"
+    },
+    {
+      "instance_id": "django__django-16139",
+      "reason": "hunk line count mismatch old=9/7 new=9/7"
+    },
+    {
+      "instance_id": "django__django-16527",
+      "reason": "bad hunk line prefix"
+    }
+  ],
+  "instance_ids": [
+    "astropy__astropy-12907",
+    "astropy__astropy-14182",
+    "astropy__astropy-14365",
+    "astropy__astropy-14995",
+    "astropy__astropy-7746",
+    "django__django-12915",
+    "django__django-13551",
+    "django__django-14016",
+    "django__django-16139",
+    "django__django-16527",
+    "matplotlib__matplotlib-22835",
+    "matplotlib__matplotlib-24149",
+    "matplotlib__matplotlib-24970",
+    "matplotlib__matplotlib-25079",
+    "matplotlib__matplotlib-25498",
+    "mwaskom__seaborn-2848",
+    "mwaskom__seaborn-3010",
+    "mwaskom__seaborn-3190",
+    "mwaskom__seaborn-3407",
+    "pallets__flask-4045",
+    "pallets__flask-4992",
+    "pallets__flask-5063",
+    "psf__requests-1963",
+    "psf__requests-2674",
+    "psf__requests-3362",
+    "psf__requests-863",
+    "pydata__xarray-3364",
+    "pydata__xarray-4094",
+    "pydata__xarray-4493",
+    "pydata__xarray-5131",
+    "pylint-dev__pylint-5859",
+    "pylint-dev__pylint-7080",
+    "pylint-dev__pylint-7228",
+    "pylint-dev__pylint-7993",
+    "pytest-dev__pytest-11148",
+    "pytest-dev__pytest-5413",
+    "pytest-dev__pytest-5495",
+    "pytest-dev__pytest-7373",
+    "scikit-learn__scikit-learn-13496",
+    "scikit-learn__scikit-learn-13584",
+    "scikit-learn__scikit-learn-14087",
+    "scikit-learn__scikit-learn-25570",
+    "sphinx-doc__sphinx-10451",
+    "sphinx-doc__sphinx-11445",
+    "sphinx-doc__sphinx-8506",
+    "sphinx-doc__sphinx-8627",
+    "sympy__sympy-17630",
+    "sympy__sympy-18532",
+    "sympy__sympy-21847",
+    "sympy__sympy-24066"
+  ],
+  "gen_s_p50": 49.7,
+  "gen_s_p95": 101.1,
+  "preds_file": "/home/jun/RNGD-proj/Model_Benchmark/rngd-npu/results/furiosa-ai__Llama-3.1-8B-Instruct/swebench/preds/furiosa-ai__Llama-3.1-8B-Instruct__preds.jsonl"
+}

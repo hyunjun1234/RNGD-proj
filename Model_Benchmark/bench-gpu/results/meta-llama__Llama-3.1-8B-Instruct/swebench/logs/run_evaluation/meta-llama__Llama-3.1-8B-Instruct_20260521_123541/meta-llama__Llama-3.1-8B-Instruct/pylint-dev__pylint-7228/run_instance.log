@@ -1,0 +1,65 @@
+2026-05-21 12:40:00,044 - INFO - Creating container for pylint-dev__pylint-7228...
+2026-05-21 12:40:00,242 - INFO - Container for pylint-dev__pylint-7228 created: 33620f481f16821f2a39132771496eaf15e720c34e57d9c83efa67cb426cfea2
+2026-05-21 12:40:00,547 - INFO - Container for pylint-dev__pylint-7228 started: 33620f481f16821f2a39132771496eaf15e720c34e57d9c83efa67cb426cfea2
+2026-05-21 12:40:00,547 - INFO - Intermediate patch for pylint-dev__pylint-7228 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_123541/meta-llama__Llama-3.1-8B-Instruct/pylint-dev__pylint-7228/patch.diff, now applying to container...
+2026-05-21 12:40:00,666 - INFO - Failed to apply patch to container: git apply --verbose
+2026-05-21 12:40:00,719 - INFO - Failed to apply patch to container: git apply --verbose --reject
+2026-05-21 12:40:00,834 - INFO - >>>>> Applied Patch:
+patching file pylint/config/argument.py
+Hunk #1 succeeded at 101 (offset -2 lines).
+Hunk #2 succeeded at 108 with fuzz 4 (offset -7 lines).
+patch unexpectedly ends in middle of line
+
+2026-05-21 12:40:01,161 - INFO - Git diff before:
+diff --git a/pylint/config/argument.py b/pylint/config/argument.py
+index 3c2951517..1d58294db 100644
+--- a/pylint/config/argument.py
++++ b/pylint/config/argument.py
+@@ -101,6 +101,7 @@ def _py_version_transformer(value: str) -> tuple[int, ...]:
+ 
+ def _regexp_csv_transfomer(value: str) -> Sequence[Pattern[str]]:
+     """Transforms a comma separated list of regular expressions."""
++    # Add support for \p{Han} in regular expressions
+     patterns: list[Pattern[str]] = []
+     for pattern in _csv_transformer(value):
+         patterns.append(re.compile(pattern))
+@@ -109,6 +110,7 @@ def _regexp_csv_transfomer(value: str) -> Sequence[Pattern[str]]:
+ 
+ def _regexp_paths_csv_transfomer(value: str) -> Sequence[Pattern[str]]:
+     """Transforms a comma separated list of regular expressions paths."""
++    # Add support for \p{Han} in regular expressions
+     patterns: list[Pattern[str]] = []
+     for pattern in _csv_transformer(value):
+         patterns.append(
+2026-05-21 12:40:01,162 - INFO - Eval script for pylint-dev__pylint-7228 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_123541/meta-llama__Llama-3.1-8B-Instruct/pylint-dev__pylint-7228/eval.sh; copying to container...
+2026-05-21 12:40:08,830 - INFO - Test runtime: 7.61 seconds
+2026-05-21 12:40:08,831 - INFO - Test output for pylint-dev__pylint-7228 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_123541/meta-llama__Llama-3.1-8B-Instruct/pylint-dev__pylint-7228/test_output.txt
+2026-05-21 12:40:08,897 - INFO - Git diff after:
+diff --git a/pylint/config/argument.py b/pylint/config/argument.py
+index 3c2951517..1d58294db 100644
+--- a/pylint/config/argument.py
++++ b/pylint/config/argument.py
+@@ -101,6 +101,7 @@ def _py_version_transformer(value: str) -> tuple[int, ...]:
+ 
+ def _regexp_csv_transfomer(value: str) -> Sequence[Pattern[str]]:
+     """Transforms a comma separated list of regular expressions."""
++    # Add support for \p{Han} in regular expressions
+     patterns: list[Pattern[str]] = []
+     for pattern in _csv_transformer(value):
+         patterns.append(re.compile(pattern))
+@@ -109,6 +110,7 @@ def _regexp_csv_transfomer(value: str) -> Sequence[Pattern[str]]:
+ 
+ def _regexp_paths_csv_transfomer(value: str) -> Sequence[Pattern[str]]:
+     """Transforms a comma separated list of regular expressions paths."""
++    # Add support for \p{Han} in regular expressions
+     patterns: list[Pattern[str]] = []
+     for pattern in _csv_transformer(value):
+         patterns.append(
+2026-05-21 12:40:08,897 - INFO - Grading answer for pylint-dev__pylint-7228...
+2026-05-21 12:40:08,899 - INFO - report: {'pylint-dev__pylint-7228': {'patch_is_None': False, 'patch_exists': True, 'patch_successfully_applied': True, 'resolved': False, 'tests_status': {'FAIL_TO_PASS': {'success': [], 'failure': ['tests/config/test_config.py::test_regex_error', 'tests/config/test_config.py::test_csv_regex_error']}, 'PASS_TO_PASS': {'success': ['tests/config/test_config.py::test_can_read_toml_env_variable', 'tests/config/test_config.py::test_unknown_message_id', 'tests/config/test_config.py::test_unknown_option_name', 'tests/config/test_config.py::test_unknown_short_option_name', 'tests/config/test_config.py::test_unknown_confidence', 'tests/config/test_config.py::test_empty_confidence', 'tests/config/test_config.py::test_unknown_yes_no', 'tests/config/test_config.py::test_unknown_py_version', 'tests/config/test_config.py::test_short_verbose', 'tests/config/test_config.py::test_argument_separator'], 'failure': []}, 'FAIL_TO_FAIL': {'success': [], 'failure': []}, 'PASS_TO_FAIL': {'success': [], 'failure': []}}}}
+Result for pylint-dev__pylint-7228: resolved: False
+2026-05-21 12:40:08,899 - INFO - Attempting to stop container sweb.eval.pylint-dev__pylint-7228.meta-llama__Llama-3.1-8B-Instruct_20260521_123541...
+2026-05-21 12:40:24,168 - INFO - Attempting to remove container sweb.eval.pylint-dev__pylint-7228.meta-llama__Llama-3.1-8B-Instruct_20260521_123541...
+2026-05-21 12:40:24,554 - INFO - Container sweb.eval.pylint-dev__pylint-7228.meta-llama__Llama-3.1-8B-Instruct_20260521_123541 removed.
+2026-05-21 12:40:24,554 - INFO - Attempting to remove image swebench/sweb.eval.x86_64.pylint-dev_1776_pylint-7228:latest...
+2026-05-21 12:40:25,636 - INFO - Image swebench/sweb.eval.x86_64.pylint-dev_1776_pylint-7228:latest removed.

@@ -1,0 +1,26 @@
+2026-05-21 16:35:12,592 - INFO - Creating container for astropy__astropy-14365...
+2026-05-21 16:35:14,756 - INFO - Container for astropy__astropy-14365 created: 668caa7a1c7b2764dc72726398663285b90b488d0df4ebffbdceb68ce5b112da
+2026-05-21 16:35:14,997 - INFO - Container for astropy__astropy-14365 started: 668caa7a1c7b2764dc72726398663285b90b488d0df4ebffbdceb68ce5b112da
+2026-05-21 16:35:14,997 - INFO - Intermediate patch for astropy__astropy-14365 written to logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/astropy__astropy-14365/patch.diff, now applying to container...
+2026-05-21 16:35:15,200 - INFO - Failed to apply patch to container: git apply --verbose
+2026-05-21 16:35:15,303 - INFO - Failed to apply patch to container: git apply --verbose --reject
+2026-05-21 16:35:15,423 - INFO - >>>>> Applied Patch:
+patching file astropy/io/ascii/qdp.py
+Hunk #1 succeeded at 20 with fuzz 2 (offset -42 lines).
+patch unexpectedly ends in middle of line
+
+2026-05-21 16:35:15,874 - INFO - Git diff before:
+
+2026-05-21 16:35:15,879 - INFO - Eval script for astropy__astropy-14365 written to logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/astropy__astropy-14365/eval.sh; copying to container...
+2026-05-21 16:35:51,240 - INFO - Test runtime: 35.28 seconds
+2026-05-21 16:35:51,241 - INFO - Test output for astropy__astropy-14365 written to logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/astropy__astropy-14365/test_output.txt
+2026-05-21 16:35:51,326 - INFO - Git diff after:
+
+2026-05-21 16:35:51,326 - INFO - Grading answer for astropy__astropy-14365...
+2026-05-21 16:35:51,330 - INFO - report: {'astropy__astropy-14365': {'patch_is_None': False, 'patch_exists': True, 'patch_successfully_applied': True, 'resolved': False, 'tests_status': {'FAIL_TO_PASS': {'success': [], 'failure': ['astropy/io/ascii/tests/test_qdp.py::test_roundtrip[True]']}, 'PASS_TO_PASS': {'success': ['astropy/io/ascii/tests/test_qdp.py::test_get_tables_from_qdp_file', 'astropy/io/ascii/tests/test_qdp.py::test_roundtrip[False]', 'astropy/io/ascii/tests/test_qdp.py::test_read_example', 'astropy/io/ascii/tests/test_qdp.py::test_roundtrip_example', 'astropy/io/ascii/tests/test_qdp.py::test_roundtrip_example_comma', 'astropy/io/ascii/tests/test_qdp.py::test_read_write_simple', 'astropy/io/ascii/tests/test_qdp.py::test_read_write_simple_specify_name', 'astropy/io/ascii/tests/test_qdp.py::test_get_lines_from_qdp'], 'failure': []}, 'FAIL_TO_FAIL': {'success': [], 'failure': []}, 'PASS_TO_FAIL': {'success': [], 'failure': []}}}}
+Result for astropy__astropy-14365: resolved: False
+2026-05-21 16:35:51,331 - INFO - Attempting to stop container sweb.eval.astropy__astropy-14365.furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405...
+2026-05-21 16:36:06,774 - INFO - Attempting to remove container sweb.eval.astropy__astropy-14365.furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405...
+2026-05-21 16:36:06,828 - INFO - Container sweb.eval.astropy__astropy-14365.furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405 removed.
+2026-05-21 16:36:06,828 - INFO - Attempting to remove image swebench/sweb.eval.x86_64.astropy_1776_astropy-14365:latest...
+2026-05-21 16:36:06,965 - INFO - Image swebench/sweb.eval.x86_64.astropy_1776_astropy-14365:latest removed.

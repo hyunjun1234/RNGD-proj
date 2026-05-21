@@ -1,0 +1,300 @@
+--- a/astropy/wcs/wcs.py
++++ b/astropy/wcs/wcs.py
+@@ -1352,7 +1352,7 @@
+     return self._array_converter(
+         lambda xy, o: self.wcs.p2s(xy, o)['world'],
+         'output', *args, **kwargs)
+-    wcs_pix2world.__doc__ = """
++    wcs_pix2world.__doc__ = """
+         Transforms pixel coordinates to world coordinates by doing
+         only the basic `wcslib`_ transformation.
+         No `SIP`_ or `distortion paper`_ table lookup correction is
+@@ -1366,7 +1366,7 @@
+         Parameters
+         ----------
+         {0}
+-        {1}
++        {1}
+         Returns
+         -------
+         {2}
+@@ -1381,7 +1381,7 @@
+         Notes
+         -----
+         The order of the axes for the result is determined by the
+         ``CTYPEia`` keywords in the FITS header, therefore it may not
+         always be of the form (*ra*, *dec*).  The
+-        `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
++        `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
+         `~astropy.wcs.Wcsprm.lattyp` and `~astropy.wcs.Wcsprm.lngtyp`
+         members can be used to determine the order of the axes.
+         """
+@@ -1406,7 +1406,7 @@
+     def wcs_world2pix(self, *args, **kwargs):
+         if self.wcs is None:
+-            raise ValueError("No basic WCS settings were created.")
++            raise ValueError("No basic WCS settings were created.")
+         return self._array_converter(
+             lambda xy, o: self.wcs.s2p(xy, o)['pixcrd'],
+             'input', *args, **kwargs)
+@@ -1421,7 +1421,7 @@
+         Parameters
+         ----------
+         {0}
+-        {1}
++        {1}
+         Returns
+         -------
+         {2}
+@@ -1436,7 +1436,7 @@
+         Notes
+         -----
+         The order of the axes for the input world array is determined by
+         the ``CTYPEia`` keywords in the FITS header, therefore it may
+         not always be of the form (*ra*, *dec*).  The
+-        `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
++        `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
+         `~astropy.wcs.Wcsprm.lattyp` and `~astropy.wcs.Wcsprm.lngtyp`
+         members can be used to determine the order of the axes.
+         """
+@@ -1451,7 +1451,7 @@
+     def _array_converter(self, func, sky, *args, **kwargs):
+         """
+         A helper function to support reading either a pair of arrays
+         or a single Nx2 array.
+-        """
++        """
+         """
+         def _return_list_of_arrays(axes, origin):
+             try:
+@@ -1466,7 +1466,7 @@
+                 return _return_single_array(xy, origin)
+             elif len(args) == self.naxis + 1:
+                 axes = args[:-1]
+-                origin = args[-1]
++                origin = int(args[-1])
+                 try:
+                     axes = [np.asarray(x) for x in axes]
+                     origin = int(origin)
+@@ -1481,7 +1481,7 @@
+         def _return_single_array(xy, origin):
+             if xy.shape[-1] != self.naxis:
+-                raise ValueError(
++                raise ValueError(
+                     "When providing two arguments, the array must be "
+                     "of shape (N, {0})".format(self.naxis))
+             if ra_dec_order and sky == 'input':
+@@ -1496,7 +1496,7 @@
+         if len(args) == 2:
+             try:
+-                xy, origin = args
++                xy, origin = args
+                 xy = np.asarray(xy)
+                 origin = int(origin)
+             except Exception:
+@@ -1511,7 +1511,7 @@
+         elif len(args) == self.naxis + 1:
+             axes = args[:-1]
+-            origin = args[-1]
++            origin = int(args[-1])
+             try:
+                 axes = [np.asarray(x) for x in axes]
+                 origin = int(origin)
+@@ -1526,7 +1526,7 @@
+         raise TypeError(
+             "WCS projection has {0} dimensions, so expected 2 (an Nx{0} array "
+             "and the origin argument) or {1} arguments (the position in each "
+-            "dimension, and the origin argument). Instead, {2} arguments were "
++            "dimension, and the origin argument). Instead, {2} arguments were "
+             "given.".format(
+                 self.naxis, self.naxis + 1, len(args)))
+         """
+@@ -1541,7 +1541,7 @@
+     def all_pix2world(self, *args, **kwargs):
+         return self._array_converter(
+             self._all_pix2world, 'output', *args, **kwargs)
+-    all_pix2world.__doc__ = """
++    all_pix2world.__doc__ = """
+         Transforms pixel coordinates to world coordinates.
+         Performs all of the following in series:
+         - Detector to image plane correction (if present in the
+@@ -1556,7 +1556,7 @@
+         Parameters
+         ----------
+         {0}
+-        {1}
++        {1}
+         Returns
+         -------
+         {2}
+@@ -1571,7 +1571,7 @@
+         Notes
+         -----
+         The order of the axes for the result is determined by the
+         ``CTYPEia`` keywords in the FITS header, therefore it may not
+         always be of the form (*ra*, *dec*).  The
+-        `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
++        `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
+         `~astropy.wcs.Wcsprm.lattyp` and `~astropy.wcs.Wcsprm.lngtyp`
+         members can be used to determine the order of the axes.
+         """
+@@ -1586,7 +1586,7 @@
+     def wcs_pix2world(self, *args, **kwargs):
+         if self.wcs is None:
+-            raise ValueError("No basic WCS settings were created.")
++            raise ValueError("No basic WCS settings were created.")
+         return self._array_converter(
+             lambda xy, o: self.wcs.p2s(xy, o)['world'],
+             'output', *args, **kwargs)
+@@ -1601,7 +1601,7 @@
+         Parameters
+         ----------
+         {0}
+-        {1}
++        {1}
+         Returns
+         -------
+         {2}
+@@ -1616,7 +1616,7 @@
+         Notes
+         -----
+         The order of the axes for the result is determined by the
+         ``CTYPEia`` keywords in the FITS header, therefore it may not
+         always be of the form (*ra*, *dec*).  The
+-        `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
++        `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
+         `~astropy.wcs.Wcsprm.lattyp` and `~astropy.wcs.Wcsprm.lngtyp`
+         members can be used to determine the order of the axes.
+         """
+@@ -1631,7 +1631,7 @@
+     def _all_world2pix(self, world, origin, tolerance, maxiter, adaptive,
+                        detect_divergence, quiet):
+         # ############################################################
+         # #          DESCRIPTION OF THE NUMERICAL METHOD            ##
+@@ -1646,7 +1646,7 @@
+         # ############################################################
+         # #                NON-ADAPTIVE ITERATIONS:                 ##
+         # ############################################################
+-        if not adaptive:
++        if not adaptive:
+             # Fixed-point iterations:
+             while (np.nanmax(dn) >= tol2 and k < maxiter):
+                 # Find correction to the previous solution:
+@@ -1661,7 +1661,7 @@
+         # ############################################################
+         # #                  ADAPTIVE ITERATIONS:                   ##
+         # ############################################################
+-        if adaptive:
++        if adaptive:
+             if ind is None:
+                 ind, = np.where(np.isfinite(pix).all(axis=1))
+                 pix0 = pix0[ind]
+@@ -1676,7 +1676,7 @@
+         # ############################################################
+         # #  RAISE EXCEPTION IF DIVERGING OR TOO SLOWLY CONVERGING  ##
+         # #  DATA POINTS HAVE BEEN DETECTED:                        ##
+         # ############################################################
+-        if (ind is not None or inddiv is not None) and not quiet:
++        if (ind is not None or inddiv is not None) and not quiet:
+             if inddiv is None:
+                 raise NoConvergence(
+                     "'WCS.all_world2pix' failed to "
+@@ -1691,7 +1691,7 @@
+     def all_world2pix(self, *args, tolerance=1e-4, maxiter=20, adaptive=False,
+                        detect_divergence=True, quiet=False, **kwargs):
+         if self.wcs is None:
+-            raise ValueError("No basic WCS settings were created.")
++            raise ValueError("No basic WCS settings were created.")
+         return self._array_converter(
+             lambda *args, **kwargs:
+             self._all_world2pix(
+@@ -1706,7 +1706,7 @@
+         Parameters
+         ----------
+         {0}
+-        {1}
++        {1}
+         tolerance : float, optional (Default = 1.0e-4)
+             Tolerance of solution. Iteration terminates when the
+             iterative solver estimates that the "true solution" is
+@@ -1721,7 +1721,7 @@
+         Returns
+         -------
+         {2}
+         Notes
+-        The order of the axes for the input world array is determined by
++        The order of the axes for the input world array is determined by
+         the ``CTYPEia`` keywords in the FITS header, therefore it may
+         not always be of the form (*ra*, *dec*).  The
+         `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
+@@ -1736,7 +1736,7 @@
+     def wcs_world2pix(self, *args, **kwargs):
+         if self.wcs is None:
+-            raise ValueError("No basic WCS settings were created.")
++            raise ValueError("No basic WCS settings were created.")
+         return self._array_converter(
+             lambda xy, o: self.wcs.s2p(xy, o)['pixcrd'],
+             'input', *args, **kwargs)
+@@ -1751,7 +1751,7 @@
+         Parameters
+         ----------
+         {0}
+-        {1}
++        {1}
+         Returns
+         -------
+         {2}
+@@ -1766,7 +1766,7 @@
+         Notes
+         -----
+         The order of the axes for the input world array is determined by
+         the ``CTYPEia`` keywords in the FITS header, therefore it may
+         not always be of the form (*ra*, *dec*).  The
+-        `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
++        `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
+         `~astropy.wcs.Wcsprm.lattyp` and `~astropy.wcs.Wcsprm.lngtyp`
+         members can be used to determine the order of the axes.
+         """
+@@ -1781,7 +1781,7 @@
+     def _array_converter(self, func, sky, *args, **kwargs):
+         """
+         A helper function to support reading either a pair of arrays
+         or a single Nx2 array.
+-        """
++        """
+         """
+         def _return_list_of_arrays(axes, origin):
+             try:
+@@ -1796,7 +1796,7 @@
+         def _return_single_array(xy, origin):
+             if xy.shape[-1] != self.naxis:
+-                raise ValueError(
++                raise ValueError(
+                     "When providing two arguments, the array must be "
+                     "of shape (N, {0})".format(self.naxis))
+             if ra_dec_order and sky == 'input':
+@@ -1811,7 +1811,7 @@
+         if len(args) == 2:
+             try:
+-                xy, origin = args
++                xy, origin = args
+                 xy = np.asarray(xy)
+                 origin = int(origin)
+             except Exception:
+@@ -1826,7 +1826,7 @@
+         elif len(args) == self.naxis + 1:
+             axes = args[:-1]
+-            origin = args[-1]
++            origin = int(args[-1])
+             try:
+                 axes = [np.asarray(x) for x in axes]
+                 origin = int(origin)
+@@ -1841,7 +1841,7 @@
+         raise TypeError(
+             "WCS projection has {0} dimensions, so expected 2 (an Nx{0} array "
+             "and the origin argument) or {1} arguments (the position in each "
+-            "dimension, and the origin argument). Instead, {2} arguments were "
++            "dimension, and the origin argument). Instead, {2} arguments were "
+             "given.".format(
+                 self.naxis, self.naxis + 1, len(args)))
+         """

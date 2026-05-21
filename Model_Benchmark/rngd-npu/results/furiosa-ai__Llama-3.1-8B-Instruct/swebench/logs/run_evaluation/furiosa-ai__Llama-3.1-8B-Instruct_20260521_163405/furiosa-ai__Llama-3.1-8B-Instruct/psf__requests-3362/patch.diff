@@ -1,0 +1,77 @@
+--- a/requests/utils.py
++++ b/requests/utils.py
+@@ -1,27 +1,35 @@
+ def stream_decode_response_unicode(iterator, r):
+-    if r.encoding is None:
+-        for item in iterator:
+-            yield item
+-        return
+-    decoder = codecs.getincrementaldecoder(r.encoding)(errors='replace')
+-    for chunk in iterator:
+-        rv = decoder.decode(chunk)
+-        if rv:
+-            yield rv
+-    rv = decoder.decode(b'', final=True)
+-    if rv:
+-        yield rv
++    if r.encoding is None:
++        for item in iterator:
++            yield item
++        return
++    decoder = codecs.getincrementaldecoder(r.encoding)(errors='replace')
++    for chunk in iterator:
++        rv = decoder.decode(chunk)
++        if rv:
++            yield rv
++    rv = decoder.decode(b'', final=True)
++    if rv:
++        yield rv
++    # If the response encoding is None, but the content is a bytes object,
++    # we should still decode it to unicode.
++    if isinstance(r.content, bytes):
++        yield r.content.decode(r.encoding, errors='replace')
+ 
+ def get_unicode_from_response(r):
+-    warnings.warn((
+-        'In requests 3.0, get_unicode_from_response will be removed. For '
+-       'more information, please see the discussion on issue #2266. (This'
+-       'warning should only appear once.)'),
+-        DeprecationWarning)
+-    tried_encodings = []
+-    # Try charset from content-type
+-    encoding = get_encoding_from_headers(r.headers)
+-    if encoding:
+-        try:
+-            return str(r.content, encoding)
+-        except UnicodeError:
+-            tried_encodings.append(encoding)
+-    # Fall back:
+-    try:
+-        return str(r.content, encoding, errors='replace')
+-    except TypeError:
+-        return r.content
++    warnings.warn((
++        'In requests 3.0, get_unicode_from_response will be removed. For '
++       'more information, please see the discussion on issue #2266. (This'
++       'warning should only appear once.)'),
++        DeprecationWarning)
++    tried_encodings = []
++    # Try charset from content-type
++    encoding = get_encoding_from_headers(r.headers)
++    if encoding:
++        try:
++            return str(r.content, encoding)
++        except UnicodeError:
++            tried_encodings.append(encoding)
++    # Fall back:
++    if r.encoding is None:
++        return r.content.decode('utf-8', errors='replace')
++    else:
++        return r.content.decode(r.encoding, errors='replace')
+ 
+ def iter_slices(string, slice_length):
+     """Iterate over slices of a string."""
+     pos = 0
+     while pos < len(string):
+         yield string[pos:pos + slice_length]
+         pos += slice_length

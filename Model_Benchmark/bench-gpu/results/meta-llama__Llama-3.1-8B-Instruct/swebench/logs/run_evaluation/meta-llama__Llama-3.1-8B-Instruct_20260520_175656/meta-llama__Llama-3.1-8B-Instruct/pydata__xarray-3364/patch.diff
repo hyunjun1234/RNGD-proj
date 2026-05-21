@@ -1,0 +1,115 @@
+--- a/xarray/core/concat.py
++++ b/xarray/core/concat.py
+@@ -116,6 +116,7 @@
+     if compat not in _VALID_COMPAT:
+         raise ValueError(
+             "compat=%r invalid: must be 'broadcast_equals', 'equals', 'identical', 'no_conflicts' or 'override'"
++            " or 'ignore' or 'ignore-missing'"
+             % compat
+         )
+ 
+     if isinstance(first_obj, DataArray):
+@@ -245,6 +246,7 @@
+     def process_subset_opt(opt, subset):
+         if isinstance(opt, str):
+             if opt == "different":
++                if compat == "ignore":
++                    return
+                 if compat == "override":
+                     raise ValueError(
+                         "Cannot specify both %s='different' and compat='override'."
+@@ -261,6 +263,7 @@
+             elif opt == "all":
+                 concat_over.update(
+                     set(getattr(datasets[0], subset)) - set(datasets[0].dims)
++                    - set([k for k, v in datasets[0].variables.items() if v.dims == ()])
+                 )
+             elif opt == "minimal":
+                 pass
+@@ -303,6 +306,7 @@
+     concat_over, equals, concat_dim_lengths = _calc_concat_over(
+         datasets, dim, dim_names, data_vars, coords, compat
+     )
+ 
++    # ignore missing variables
++    if compat == "ignore-missing":
++        concat_over = set()
+ 
+     # determine which variables to merge, and then merge them according to compat
+     variables_to_merge = (coord_names | data_names) - concat_over - dim_names
+@@ -381,6 +385,7 @@
+     result_vars = {}
+     if variables_to_merge:
+         to_merge = {var: [] for var in variables_to_merge}
++        for var in variables_to_merge:
++            if var not in concat_over:
++                to_merge[var].append(ds.variables[var])
+ 
+         for var in variables_to_merge:
+             result_vars[var] = unique_variable(
+@@ -416,6 +421,7 @@
+     datasets = []
+     for n, arr in enumerate(arrays):
+         if n == 0:
+             name = arr.name
++            if compat == "ignore-missing":
++                data_vars = "minimal"
+         elif name != arr.name:
+             if compat == "identical":
+                 raise ValueError("array names not identical")
+@@ -433,6 +439,7 @@
+     ds = _dataset_concat(
+         datasets,
+         dim,
+         data_vars,
++        compat=compat,
+         coords,
+         compat,
+         positions,
+@@ -444,6 +451,7 @@
+     return arrays[0]._from_temp_dataset(ds, name)
+ 
+ def _dataset_concat(
+     datasets,
++    compat=None,
+     dim,
+     data_vars,
+     coords,
+@@ -465,6 +473,7 @@
+     datasets = align(
+         *datasets, join=join, copy=False, exclude=[dim], fill_value=fill_value
+     )
+ 
++    if compat == "ignore-missing":
++        concat_over = set()
+     dim_coords, dims_sizes, coord_names, data_names = _parse_datasets(datasets)
+     dim_names = set(dim_coords)
+     unlabeled_dims = dim_names - coord_names
+@@ -494,6 +503,7 @@
+     result_vars = {}
+     if variables_to_merge:
+         to_merge = {var: [] for var in variables_to_merge}
++        for var in variables_to_merge:
++            if var not in concat_over:
++                to_merge[var].append(ds.variables[var])
+ 
+         for var in variables_to_merge:
+             result_vars[var] = unique_variable(
+@@ -529,6 +539,7 @@
+     result = Dataset(result_vars, attrs=result_attrs)
+     absent_coord_names = coord_names - set(result.variables)
+     if absent_coord_names:
++        if compat == "ignore-missing":
++            pass
+         raise ValueError(
+             "Variables %r are coordinates in some datasets but not others."
+             % absent_coord_names
+@@ -544,6 +555,7 @@
+     result = result.drop(unlabeled_dims, errors="ignore")
+ 
+     if coord is not None:
++        if compat == "ignore-missing":
++            pass
+         # add concat dimension last to ensure that its in the final Dataset
+         result[coord.name] = coord
+     return result

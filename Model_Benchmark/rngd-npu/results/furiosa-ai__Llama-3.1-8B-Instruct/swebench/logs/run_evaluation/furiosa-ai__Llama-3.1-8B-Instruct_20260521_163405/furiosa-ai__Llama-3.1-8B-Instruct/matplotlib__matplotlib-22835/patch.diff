@@ -1,0 +1,107 @@
+--- a/lib/matplotlib/artist.py
++++ b/lib/matplotlib/artist.py
+@@ -1274,6 +1274,7 @@ class Artist:
+         self._transformSet = False
+         self._visible = True
+         self._animated = False
+         self._alpha = None
++        self._invertible = True
+         self.clipbox = None
+         self._clippath = None
+         self._clipon = True
+@@ -1341,6 +1342,7 @@ class Artist:
+         self._animated = b
+         self.pchanged()
+ 
+     def set_in_layout(self, in_layout):
++        self._invertible = in_layout
+         self._in_layout = in_layout
+ 
+     def get_label(self):
+         """Return the label used for this artist in the legend."""
+@@ -1411,6 +1413,7 @@ class Artist:
+         self._clippath = other._clippath
+         self._label = other._label
+         self._sketch = other._sketch
++        self._invertible = other._invertible
+         self.sticky_edges.x[:] = other.sticky_edges.x.copy()
+         self.sticky_edges.y[:] = other.sticky_edges.y.copy()
+         self.pchanged()
+@@ -1471,6 +1474,7 @@ class ArtistInspector:
+         self.o = o
+         self.aliasd = self.get_aliases()
+ 
+     def get_aliases(self):
++        # Add invertible to aliases
+         names = [name for name in dir(self.o)
+                  if name.startswith(('set_', 'get_'))
+                     and callable(getattr(self.o, name))]
+@@ -1551,6 +1555,7 @@ class ArtistInspector:
+         return s + aliases
+     _NOT_LINKABLE = {
+         # A set of property setter methods that are not available in our
+         # current docs. This is a workaround used to prevent trying to link
+         # these setters which would lead to "target reference not found"
+         # warnings during docstring.
+        'matplotlib.image._ImageBase.set_alpha',
+        'matplotlib.image._ImageBase.set_array',
+        'matplotlib.image._ImageBase.set_data',
+        'matplotlib.image._ImageBase.set_filternorm',
+        'matplotlib.image._ImageBase.set_filterrad',
+        'matplotlib.image._ImageBase.set_interpolation',
+        'matplotlib.image._ImageBase.set_interpolation_stage',
+        'matplotlib.image._ImageBase.set_resample',
+        'matplotlib.text._AnnotationBase.set_annotation_clip',
++       'matplotlib.colors.BoundaryNorm.__init__',
+     }
+ 
+     def aliased_name_rest(self, s, target):
+@@ -1621,6 +1626,7 @@ class ArtistInspector:
+         return ':meth:`%s <%s>`%s' % (s, target, aliases)
+     def pprint_setters(self, prop=None, leadingspace=2):
+         if leadingspace:
+             pad ='' * leadingspace
+         else:
+             pad = ''
+         if prop is not None:
+@@ -1661,6 +1667,7 @@ class ArtistInspector:
+         return lines
+     def pprint_getters(self):
+         lines = []
+         for name, val in sorted(self.properties().items()):
+             if getattr(val,'shape', ())!= () and len(val) > 6:
+                 s = str(val[:6]) + '...'
+             else:
+                 s = str(val)
+@@ -1731,6 +1738,7 @@ def kwdoc(artist):
+         return ('\n'.join(ai.pprint_setters_rest(leadingspace=4))
+                 if mpl.rcParams['docstring.hardcopy'] else
+                 'Properties:\n' + '\n'.join(ai.pprint_setters(leadingspace=4)))
+ 
+ # We defer this to the end of them module, because it needs ArtistInspector
+ # to be defined.
+@@ -1743,6 +1751,7 @@ class Artist:
+         self._update_set_signature_and_docstring()
+ 
+ def getp(obj, property=None):
+     if property is None:
+         insp = ArtistInspector(obj)
+         ret = insp.pprint_getters()
+         print('\n'.join(ret))
+         return
+@@ -1763,6 +1772,7 @@ def getp(obj, property=None):
+         return getattr(obj, 'get_' + property)()
+ 
+ # alias
+ get = getp
+ 
+@@ -1775,6 +1785,7 @@ def setp(obj, *args, file=None, **kwargs):
+         return
+     insp = ArtistInspector(objs[0])
+ 
+     if not kwargs and len(args) < 2:
+         if args:
+             print(insp.pprint_setters(prop=args[0]), file=file)
+         else:
+@@ -1795,6 +1806,7 @@ def setp(obj, *args, file=None, **kwargs):
+         return list(cbook.flatten(ret

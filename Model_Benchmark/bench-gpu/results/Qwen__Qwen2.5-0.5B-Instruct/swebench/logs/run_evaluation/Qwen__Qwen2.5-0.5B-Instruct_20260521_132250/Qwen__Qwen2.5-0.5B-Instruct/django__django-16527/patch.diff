@@ -1,0 +1,24 @@
+
+diff --git a/django/contrib/admin/templatetags/admin_modify.py b/django/contrib/admin/templatetags/admin_modify.py
+--- a/django/contrib/admin/templatetags/admin_modify.py
++++ b/django/contrib/admin/templatetags/admin_modify.py
+@@ -102,6 +102,7 @@ def prepopulated_fields_js(context):
+         prepopulated_fields_json.append(
+             {
+                 "id": "#%s" % field["field"].auto_id,
++                "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             },
+             json.dumps(prepopulated_fields_json),
+         )
+
+diff --git a/django/contrib/admin/templatetags/base.py b/django/contrib/admin/templatetags/base.py
+--- a/django/contrib/admin/templatetags/base.py
++++ b/django/contrib/admin/templatetags/base.py
+@@ -102,6 +102,7 @@ def prepopulated_fields_js(context):
+         prepopulated_fields_json.append(
+             {
+                 "id": "#%s" % field["field"].auto_id,
++                "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             },
+             json.dumps(prepopulated_fields_json),
+         )

@@ -1,0 +1,100 @@
+--- a/lib/matplotlib/artist.py
++++ b/lib/matplotlib/artist.py
+@@ -1273,6 +1273,7 @@ class Artist:
+         self._transformSet = False
+         self._visible = True
+         self._animated = False
+         self._alpha = None
++        self._invertible = True
+         self.clipbox = None
+         self._clippath = None
+         self._clipon = True
+@@ -1343,6 +1344,7 @@ class Artist:
+         self._animated = b
+         self.pchanged()
+ 
+     def set_in_layout(self, in_layout):
++        self._invertible = in_layout
+         self._in_layout = in_layout
+ 
+     def get_label(self):
+         """Return the label used for this artist in the legend."""
+@@ -1411,6 +1413,7 @@ class Artist:
+         self._clippath = other._clippath
+         self._label = other._label
+         self._sketch = other._sketch
++        self._invertible = other._invertible
+         self.sticky_edges.x[:] = other.sticky_edges.x.copy()
+         self.sticky_edges.y[:] = other.sticky_edges.y.copy()
+         self.pchanged()
+@@ -1471,6 +1474,7 @@ class ArtistInspector:
+         self.o = o
+         self.aliasd = self.get_aliases()
+ 
+     def get_aliases(self):
++        # Add invertible to aliases
+         names = [name for name in dir(self.o)
+                  if name.startswith(('set_', 'get_'))
+                     and callable(getattr(self.o, name))]
+@@ -1551,6 +1555,7 @@ class ArtistInspector:
+         return s + aliases
+     _NOT_LINKABLE = {
+         # A set of property setter methods that are not available in our
+         # current docs. This is a workaround used to prevent trying to link
+         # these setters which would lead to "target reference not found"
+         # warnings during docstring.
+         'matplotlib.image._ImageBase.set_alpha',
+         'matplotlib.image._ImageBase.set_array',
+         'matplotlib.image._ImageBase.set_data',
+         'matplotlib.image._ImageBase.set_filternorm',
+         'matplotlib.image._ImageBase.set_filterrad',
+         'matplotlib.image._ImageBase.set_interpolation',
+         'matplotlib.image._ImageBase.set_interpolation_stage',
+         'matplotlib.image._ImageBase.set_resample',
+         'matplotlib.text._AnnotationBase.set_annotation_clip',
+     }
+@@ -1563,6 +1568,7 @@ class ArtistInspector:
+         return f'``{s}``'
+ 
+     def pprint_setters(self, prop=None, leadingspace=2):
++        # Add invertible to setters
+         if leadingspace:
+             pad = ' ' * leadingspace
+         else:
+@@ -1621,6 +1627,7 @@ class ArtistInspector:
+         return lines
+     def pprint_getters(self):
+         """Return the getters and actual values as list of strings."""
+         lines = []
+         for name, val in sorted(self.properties().items()):
+             if getattr(val, 'shape', ()) != () and len(val) > 6:
+@@ -1633,6 +1640,7 @@ class ArtistInspector:
+             s = s.replace('\n', ' ')
+             if len(s) > 50:
+                 s = s[:50] + '...'
+             name = self.aliased_name(name)
++            if name == 'invertible':
++                name = 'invertible or norm_invertible'
+             lines.append('    %s = %s' % (name, s))
+         return lines
+@@ -1645,6 +1653,7 @@ class ArtistInspector:
+         return lines
+     def pprint_setters_rest(self, prop=None, leadingspace=4):
+         """Return a list of reST-formatted strings of all settable properties
+         and their valid values."""
+         if leadingspace:
+@@ -1663,6 +1672,7 @@ class ArtistInspector:
+         prop_and_qualnames = []
+         for prop in sorted(self.get_setters()):
+             # Find the parent method which actually provides the docstring.
+             for cls in self.o.__mro__:
+                 method = getattr(cls, f"set_{prop}", None)
+                 if method and method.__doc__ is not None:
+@@ -1675,6 +1685,7 @@ class ArtistInspector:
+             prop_and_qualnames.append(
+                 (prop, f"{method.__module__}.{method.__qualname__}"))
+         names = [self.aliased_name_rest(prop, target)
+                  .replace('_base._AxesBase', 'Axes')
+@@ -1691,6 +1702,7 @@ class ArtistInspector:
+         col1_len = max(len(a) for a in accepts)
+         table_formatstr = pad + '   ' + '=' *

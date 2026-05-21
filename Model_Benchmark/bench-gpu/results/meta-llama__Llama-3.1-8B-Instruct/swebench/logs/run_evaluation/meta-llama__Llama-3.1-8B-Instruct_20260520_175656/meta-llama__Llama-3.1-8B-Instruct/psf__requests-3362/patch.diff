@@ -1,0 +1,79 @@
+--- a/requests/utils.py
++++ b/requests/utils.py
+@@ -1,27 +1,35 @@
+ def stream_decode_response_unicode(iterator, r):
+-    """Stream decodes a iterator."""
+-    if r.encoding is None:
+-        for item in iterator:
+-            yield item
+-        return
+-    decoder = codecs.getincrementaldecoder(r.encoding)(errors='replace')
+-    for chunk in iterator:
+-        rv = decoder.decode(chunk)
+-        if rv:
+-            yield rv
+-    rv = decoder.decode(b'', final=True)
+-    if rv:
+-        yield rv
++    """Stream decodes a iterator."""
++    if r.encoding is None:
++        for item in iterator:
++            yield item
++        return
++    decoder = codecs.getincrementaldecoder(r.encoding)(errors='replace')
++    for chunk in iterator:
++        rv = decoder.decode(chunk, errors='replace')
++        if rv:
++            yield rv
++    rv = decoder.decode(b'', final=True, errors='replace')
++    if rv:
++        yield rv
++
++    # If the response was not decoded, return the original bytes
++    if not any(isinstance(i, str) for i in iterator):
++        for item in iterator:
++            yield item
++
+ def get_unicode_from_response(r):
+-    """Returns the requested content back in unicode.
+-    Tried:
+-    1. charset from content-type
+-    2. fall back and replace all unicode characters
+-    """
+-    warnings.warn((
+-        'In requests 3.0, get_unicode_from_response will be removed. For '
+-        'more information, please see the discussion on issue #2266. (This'
+-        ' warning should only appear once.)'),
+-        DeprecationWarning)
+-    tried_encodings = []
+-    # Try charset from content-type
+-    encoding = get_encoding_from_headers(r.headers)
+-    if encoding:
+-        try:
+-            return str(r.content, encoding)
+-        except UnicodeError:
+-            tried_encodings.append(encoding)
+-    # Fall back:
+-    try:
+-        return str(r.content, encoding, errors='replace')
+-    except TypeError:
+-        return r.content
++    """Returns the requested content back in unicode."""
++    warnings.warn((
++        'In requests 3.0, get_unicode_from_response will be removed. For '
++        'more information, please see the discussion on issue #2266. (This'
++        ' warning should only appear once.)'),
++        DeprecationWarning)
++    tried_encodings = []
++    # Try charset from content-type
++    encoding = get_encoding_from_headers(r.headers)
++    if encoding:
++        try:
++            return str(r.content, encoding)
++        except UnicodeError:
++            tried_encodings.append(encoding)
++    # Fall back:
++    if r.iter_content(16*1024, decode_unicode=True):
++        return ''.join(r.iter_content(16*1024, decode_unicode=True))
++    else:
++        return r.content

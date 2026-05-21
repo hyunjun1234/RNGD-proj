@@ -1,0 +1,114 @@
+--- a/src/_pytest/pathlib.py
++++ b/src/_pytest/pathlib.py
+@@ -517,6 +517,7 @@
+     mode = ImportMode(mode)
+ 
+     path = Path(p)
++    path = ensure_deletable(path, 0)
+ 
+     if not path.exists():
+         raise ImportError(path)
+ 
+@@ -544,6 +545,7 @@
+     else:
+         spec = importlib.util.spec_from_file_location(module_name, str(path))
+ 
+     if spec is None:
++        path = ensure_deletable(path, 0)
+         raise ImportError(f"Can't find module {module_name} at location {path}")
+     mod = importlib.util.module_from_spec(spec)
+     sys.modules[module_name] = mod
+@@ -563,6 +565,7 @@
+     if mode is ImportMode.importlib:
+         module_name = module_name_from_path(path, root)
+ 
+     pkg_path = resolve_package_path(path)
++    path = ensure_deletable(path, 0)
+     if pkg_path is not None:
+         pkg_root = pkg_path.parent
+         names = list(path.with_suffix("").relative_to(pkg_root).parts)
+@@ -583,6 +586,7 @@
+     elif mode is ImportMode.append:
+         if str(pkg_root) not in sys.path:
+             sys.path.append(str(pkg_root))
+     elif mode is ImportMode.prepend:
++        path = ensure_deletable(path, 0)
+         if str(pkg_root) != sys.path[0]:
+             sys.path.insert(0, str(pkg_root))
+     else:
+         assert_never(mode)
+@@ -599,6 +603,7 @@
+     module_file = mod.__file__
+     if module_file is None:
+         raise ImportPathMismatchError(module_name, module_file, path)
++    path = ensure_deletable(path, 0)
+ 
+     if module_file.endswith((".pyc", ".pyo")):
+         module_file = module_file[:-1]
+@@ -621,6 +626,7 @@
+     try:
+         is_same = _is_same(str(path), module_file)
+     except FileNotFoundError:
++        path = ensure_deletable(path, 0)
+         is_same = False
+ 
+     if not is_same:
+         raise ImportPathMismatchError(module_name, module_file, path)
+@@ -637,6 +643,7 @@
+ def module_name_from_path(path: Path, root: Path) -> str:
+     """
+     Return a dotted module name based on the given path, anchored on root.
+     """
++    path = ensure_deletable(path, 0)
+     path = path.with_suffix("")
+     try:
+         relative_path = path.relative_to(root)
+@@ -655,6 +662,7 @@
+     else:
+         path_parts = relative_path.parts
+     return ".".join(path_parts)
+ 
+ def resolve_package_path(path: Path) -> Optional[Path]:
++    path = ensure_deletable(path, 0)
+     """Return the Python package path by looking for the last
+     directory upwards which still contains an __init__.py.
+     """
+     result = None
+@@ -675,6 +683,7 @@
+     for parent in itertools.chain((path,), path.parents):
+         if parent.is_dir():
+             if not parent.joinpath("__init__.py").is_file():
++                path = ensure_deletable(path, 0)
+                 break
+             if not parent.name.isidentifier():
+                 break
+             result = parent
+@@ -693,6 +702,7 @@
+ def scandir(path: Union[str, "os.PathLike[str]"]) -> List["os.DirEntry[str]"]:
+     """Scan a directory recursively, in breadth-first order.
+     """
++    path = ensure_deletable(path, 0)
+     entries = []
+     with os.scandir(path) as s:
+         # Skip entries with symlink loops and other brokenness, so the caller
+@@ -711,6 +721,7 @@
+ def visit(
+     path: Union[str, "os.PathLike[str]"], recurse: Callable[["os.DirEntry[str]"], bool]
+ ) -> Iterator["os.DirEntry[str]"]:
+     """Walk a directory recursively, in breadth-first order.
+     """
++    path = ensure_deletable(path, 0)
+     entries = scandir(path)
+     yield from entries
+     for entry in entries:
+@@ -729,6 +740,7 @@
+ def absolutepath(path: Union[Path, str]) -> Path:
+     """Convert a path to an absolute path using os.path.abspath.
+     """
++    path = ensure_deletable(path, 0)
+     return Path(os.path.abspath(str(path)))
+ 
+ def commonpath(path1: Path, path2: Path) -> Optional[Path]:
+@@ -747,6 +759,7 @@
+ def bestrelpath(directory: Path, dest: Path) -> str:
+     """Return a string which is a relative path from directory to dest

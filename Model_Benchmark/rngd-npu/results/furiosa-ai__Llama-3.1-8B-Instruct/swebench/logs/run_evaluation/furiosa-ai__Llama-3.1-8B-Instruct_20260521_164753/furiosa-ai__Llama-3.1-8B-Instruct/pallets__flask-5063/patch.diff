@@ -1,0 +1,89 @@
+--- a/src/flask/cli.py
++++ b/src/flask/cli.py
+@@ -1,27 +1,35 @@
+ 
+ def _load_plugin_commands(self):
+     if self._loaded_plugin_commands:
+         return
+     if sys.version_info >= (3, 10):
+         from importlib import metadata
+     else:
+         # Use a backport on Python < 3.10. We technically have
+         # importlib.metadata on 3.8+, but the API changed in 3.10,
+         # so use the backport for consistency.
+         import importlib_metadata as metadata
+ 
+     for ep in metadata.entry_points(group="flask.commands"):
+         self.add_command(ep.load(), ep.name)
+ 
+     self._loaded_plugin_commands = True
+ 
+ def get_command(self, ctx, name):
+     self._load_plugin_commands()
+     # Look up built-in and plugin commands, which should be
+     # available even if the app fails to load.
+     rv = super().get_command(ctx, name)
+ 
+     if rv is not None:
+         return rv
+ 
+     info = ctx.ensure_object(ScriptInfo)
+ 
+     # Look up commands provided by the app, showing an error and
+     # continuing if the app couldn't be loaded.
+     try:
+         app = info.load_app()
+     except NoAppException as e:
+         click.secho(f"Error: {e.format_message()}\n", err=True, fg="red")
+         return None
+ 
+     # Push an app context for the loaded app unless it is already
+     # active somehow. This makes the context available to parameter
+     # and command callbacks without needing @with_appcontext.
+     if not current_app or current_app._get_current_object() is not app:
+         ctx.with_resource(app.app_context())
+ 
+     # Add subdomain information to the route table
+     rules = list(current_app.url_map.iter_rules())
+     if not rules:
+         click.echo("No routes were registered.")
+         return
+ 
+     headers = ("Domain", "Endpoint", "Methods", "Rule")
+     widths = (
+         max(len(rule.domain) for rule in rules),
+         max(len(rule.endpoint) for rule in rules),
+         max(len(methods) for methods in rule_methods),
+         max(len(rule.rule) for rule in rules),
+     )
+     widths = [max(len(h), w) for h, w in zip(headers, widths)]
+     row = "{{0:<{0}}}  {{1:<{1}}}  {{2:<{2}}}  {{3:<{3}}}".format(*widths)
+ 
+     click.echo(row.format(*headers).strip())
+     click.echo(row.format(*("-" * width for width in widths)))
+ 
+     for rule in rules:
+         click.echo(row.format(rule.domain, rule.endpoint, rule_methods[rule], rule.rule).rstrip())
+ 
+     return app.cli.get_command(ctx, name)
+ 
+ def list_commands(self, ctx):
+     self._load_plugin_commands()
+     # Start with the built-in and plugin commands.
+     rv = set(super().list_commands(ctx))
+     info = ctx.ensure_object(ScriptInfo)
+ 
+     # Add commands provided by the app, showing an error and
+     # continuing if the app couldn't be loaded.
+     try:
+         rv.update(info.load_app().cli.list_commands(ctx))
+     except NoAppException as e:
+         # When an app couldn't be loaded, show the error message
+         # without the traceback.
+         click.secho(f"Error: {e.format_message()}\n", err=True, fg="red")
+     except Exception:
+         # When any other errors occurred during loading, show the
+         # full traceback.
+         click.secho(f"{traceback.format_exc()}\n", err=True, fg="red")
+ 
+     return sorted(rv)

@@ -1,0 +1,110 @@
+<patch>
+--- a/xarray/core/variable.py
++++ b/xarray/core/variable.py
+@@ -1043,6 +1043,7 @@
+         self._data = as_compatible_data(self._data.compute(**kwargs))
+         elif not is_duck_array(self._data):
+             self._data = np.asarray(self._data)
++            self._data = self._data.compute()
+         return self
+     def compute(self, **kwargs):
+         """Manually trigger loading of this variable's data from disk or a
+@@ -1054,6 +1055,7 @@
+         """
+         new = self.copy(deep=False)
+         return new.load(**kwargs)
+     def __dask_tokenize__(self):
+         # Use v.data, instead of v._data, in order to cope with the wrappers
+         # around NetCDF and the like
+         from dask.base import normalize_token
+@@ -1064,6 +1066,7 @@
+         return normalize_token((type(self), self._dims, self.data, self._attrs))
+     def __dask_graph__(self):
+         if is_duck_dask_array(self._data):
+             return self._data.__dask_graph__()
+         else:
+             return None
+     def __dask_keys__(self):
+@@ -1074,6 +1077,7 @@
+         return self._data.__dask_keys__()
+     def __dask_layers__(self):
+         return self._data.__dask_layers__()
+     @property
+@@ -1084,6 +1088,7 @@
+         return self._data.__dask_optimize__
+     @property
+     def __dask_scheduler__(self):
+         return self._data.__dask_scheduler__
+     def __dask_postcompute__(self):
+@@ -1095,6 +1100,7 @@
+         return (
+             self._dask_finalize,
+             (array_func, array_args, self._dims, self._attrs, self._encoding),
+         )
+     def __dask_postpersist__(self):
+@@ -1106,6 +1112,7 @@
+         return (
+             self._dask_finalize,
+             (array_func, array_args, self._dims, self._attrs, self._encoding),
+         )
+     @staticmethod
+@@ -1117,6 +1124,7 @@
+         data = array_func(results, *array_args)
+         return Variable(dims, data, attrs=attrs, encoding=encoding)
+     @property
+     def values(self):
+@@ -1128,6 +1136,7 @@
+         return _as_array_or_item(self._data)
+     @values.setter
+     def values(self, values):
+         self.data = values
+     def to_base_variable(self):
+@@ -1139,6 +1148,7 @@
+         return Variable(
+             self.dims, self._data, self._attrs, self._encoding, fastpath=True
+         )
+     to_variable = utils.alias(to_base_variable, "to_variable")
+     def to_index_variable(self):
+@@ -1150,6 +1160,7 @@
+         return IndexVariable(
+             self.dims, self._data, self._attrs, self._encoding, fastpath=True
+         )
+     to_coord = utils.alias(to_index_variable, "to_coord")
+     def to_index(self):
+@@ -1161,6 +1172,7 @@
+         return self.to_index_variable().to_index()
+     def to_dict(self, data=True):
+         """Dictionary representation of variable."""
+         item = {"dims": self.dims, "attrs": decode_numpy_dict_values(self.attrs)}
+@@ -1172,6 +1184,7 @@
+         return item
+     @property
+     def dims(self):
+         """Tuple of dimension names with which this variable is associated."""
+         return self._dims
+     @dims.setter
+@@ -1183,6 +1196,7 @@
+         self._dims = self._parse_dimensions(value)
+     def _parse_dimensions(self, dims):
+         if isinstance(dims, str):
+             dims = (dims,)
+         dims = tuple(dims)
+@@ -1194,6 +1208,7 @@
+         return dims
+     def _item_key_to_tuple(self, key):
+         if utils.is_dict_like(key):
+             return tuple(key.get(dim, slice(None)) for dim in self.dims)
+         else:
+@@ -1205,6 +1220,7 @@
+         return key
+     def _broadcast_indexes(self, key):
+         """Prepare an indexing key for an indexing operation.
+@@ -1216,6 +1232,7 @@
+         new_order : Optional[Sequence[int]]
+             Optional reordering to do on the result of indexing. If not None,
+             the first len(new_order) indexing should be moved to these
+             positions.
+         """
+         key = self._item_key_to_tuple(key)  # key is a tuple
+@@ -1227,6 +1244,7 @@
+         key =

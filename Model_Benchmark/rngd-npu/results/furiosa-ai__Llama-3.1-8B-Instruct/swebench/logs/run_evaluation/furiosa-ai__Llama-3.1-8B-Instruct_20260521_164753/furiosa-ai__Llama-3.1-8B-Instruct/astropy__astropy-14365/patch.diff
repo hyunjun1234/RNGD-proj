@@ -1,0 +1,111 @@
+--- a/astropy/io/ascii/qdp.py
++++ b/astropy/io/ascii/qdp.py
+@@ -62,7 +62,7 @@
+ def _line_type(line, delimiter=None):
+     """Interpret a QDP file line.
+ 
+     Parameters
+-    ----------
++    ----------
+     line : str
+         a single line of the file
+     delimiter : str, optional
+@@ -73,7 +73,7 @@
+         Line type: "comment", "command", or "data"
+ 
+     Examples
+-    --------
++    --------
+     >>> _line_type("READ SERR 3")
+     'command'
+     >>> _line_type(" \\n   !some gibberish")
+@@ -85,7 +85,7 @@
+         return type_
+ 
+     # This is the main part of the function
+-    _decimal_re = r"[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?"
++    _decimal_re = r"[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?"
+     _command_re = r"READ [TS]ERR(\s+[0-9]+)+"
+ 
+     sep = delimiter
+@@ -97,7 +97,7 @@
+     _new_re = rf"NO({sep}NO)+"
+     _data_re = rf"({_decimal_re}|NO|[-+]?nan)({sep}({_decimal_re}|NO|[-+]?nan))*)"
+     _type_re = rf"^\s*((?P<command>{_command_re})|(?P<new>{_new_re})|(?P<data>{_data_re})?\s*(\!(?P<comment>.*))?\s*$"
+-    _line_type_re = re.compile(_type_re)
++    _line_type_re = re.compile(_type_re, re.IGNORECASE)
+     line = line.strip()
+     if not line:
+         return "comment"
+@@ -134,7 +134,7 @@
+     contents, ncol = _get_type_from_list_of_lines(lines, delimiter=delimiter)
+ 
+     table_list = []
+-    err_specs = {}
++    err_specs = {}
+     colnames = None
+ 
+     comment_text = ""
+@@ -266,7 +266,7 @@
+     if datatype == "command":
+         # The first time I find commands, I save whatever comments into
+         # The initial comments.
+-        if command_lines == "":
++        if command_lines == "":
+             initial_comments = comment_text
+             comment_text = ""
+ 
+         if err_specs!= {}:
+@@ -294,7 +294,7 @@
+         if colnames is None:
+             colnames = _interpret_err_lines(err_specs, ncol, names=input_colnames)
+ 
+-        if current_rows is None:
++        if current_rows is None:
+             current_rows = []
+ 
+         values = []
+@@ -320,7 +320,7 @@
+         if datatype == "new":
+             # Save table to table_list and reset
+             if current_rows is not None:
+-                new_table = Table(names=colnames, rows=current_rows)
++                new_table = Table(names=colnames, rows=current_rows)
+                 new_table.meta["initial_comments"] = initial_comments.strip().split(
+                     "\n"
+                 )
+@@ -341,7 +341,7 @@
+         # At the very end, if there is still a table being written, let's save
+         # it to the table_list
+         if current_rows is not None:
+-            new_table = Table(names=colnames, rows=current_rows)
++            new_table = Table(names=colnames, rows=current_rows)
+             new_table.meta["initial_comments"] = initial_comments.strip().split("\n")
+             new_table.meta["comments"] = comment_text.strip().split("\n")
+             table_list.append(new_table)
+@@ -412,7 +412,7 @@
+     if table_id is None:
+         warnings.warn(
+             "table_id not specified. Reading the first available table",
+-            AstropyUserWarning,
++            AstropyUserWarning,
+         )
+         table_id = 0
+ 
+     tables = _get_tables_from_qdp_file(
+@@ -425,7 +425,7 @@
+     return tables[table_id]
+ 
+ def _write_table_qdp(table, filename=None, err_specs=None):
+-    import io
++    import io
+     fobj = io.StringIO()
+ 
+     if "initial_comments" in table.meta and table.meta["initial_comments"]!= []:
+         for line in table.meta["initial_comments"]:
+@@ -456,7 +456,7 @@
+         if serr_cols!= []:
+             col_string = " ".join([str(val) for val in serr_cols])
+             print(f"READ SERR {col_string}", file=fobj)
+-        if terr_cols!= []:
++       

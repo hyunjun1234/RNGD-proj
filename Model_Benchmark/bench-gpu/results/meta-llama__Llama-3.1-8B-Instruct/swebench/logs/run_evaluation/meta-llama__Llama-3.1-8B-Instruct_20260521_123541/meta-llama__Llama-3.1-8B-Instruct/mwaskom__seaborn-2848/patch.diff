@@ -1,0 +1,104 @@
+--- a/seaborn/_oldcore.py
++++ b/seaborn/_oldcore.py
+@@ -1433,6 +1433,7 @@ class HueMapping(SemanticMapping):
+         self.map_type = map_type
+         self.lookup_table = lookup_table
+         self.palette = palette
++        self.levels = levels
+         self.norm = norm
+         self.cmap = cmap
+ 
+     def _lookup_single(self, key):
+@@ -1453,6 +1454,7 @@ class HueMapping(SemanticMapping):
+         return value
+     def infer_map_type(self, palette, norm, input_format, var_type):
+         if palette in QUAL_PALETTES:
+             map_type = "categorical"
+         elif norm is not None:
+             map_type = "numeric"
+         elif isinstance(palette, (dict, list)):
+             map_type = "categorical"
+         elif input_format == "wide":
+             map_type = "categorical"
+         else:
+             map_type = var_type
+@@ -1473,6 +1475,7 @@ class HueMapping(SemanticMapping):
+         return levels, lookup_table, norm, cmap
+     def categorical_mapping(self, data, palette, order):
+         levels = categorical_order(data, order)
+         n_colors = len(levels)
+@@ -1485,6 +1488,7 @@ class HueMapping(SemanticMapping):
+         lookup_table = dict(zip(levels, colors))
+         return levels, lookup_table
+     def numeric_mapping(self, data, palette, norm):
+         if isinstance(palette, dict):
+@@ -1503,6 +1507,7 @@ class HueMapping(SemanticMapping):
+         lookup_table = dict(zip(levels, cmap(norm(levels))))
+         return levels, lookup_table, norm, cmap
+ 
+ class VectorPlotter:
+@@ -1963,6 +1968,7 @@ class VectorPlotter:
+         self._var_ordered = {"x": False, "y": False}  # alt., used DefaultDict
+         self.assign_variables(data, variables)
+ 
+         for var, cls in self._semantic_mappings.items():
+@@ -1983,6 +1989,7 @@ class VectorPlotter:
+             self.map_type = map_type
+             self.levels = levels
+             self.norm = norm
++            self.sizes = sizes
+             self.size_range = size_range
+             self.lookup_table = lookup_table
+ 
+     def infer_map_type(self, norm, sizes, var_type):
+@@ -2003,6 +2010,7 @@ class VectorPlotter:
+         return map_type
+     def categorical_mapping(self, data, sizes, order):
+         levels = categorical_order(data, order)
+         if isinstance(sizes, dict):
+@@ -2015,6 +2023,7 @@ class VectorPlotter:
+         lookup_table = dict(zip(levels, sizes))
+         return levels, lookup_table
+     def numeric_mapping(self, data, sizes, norm):
+         if isinstance(sizes, dict):
+@@ -2033,6 +2042,7 @@ class VectorPlotter:
+         lookup_table = dict(zip(levels, sizes))
+         return levels, lookup_table, norm, size_range
+ 
+ class VariableType(UserString):
+@@ -2053,6 +2063,7 @@ class VariableType(UserString):
+         return VariableType("categorical")
+ 
+     # Special-case all-na data, which is always "numeric"
+     if pd.isna(vector).all():
+         return VariableType("numeric")
+@@ -2067,6 +2078,7 @@ class VariableType(UserString):
+         return VariableType("categorical")
+ 
+     # Special-case binary/boolean data, allow caller to determine
+     # This triggers a numpy warning when vector has strings/objects
+     # https://github.com/numpy/numpy/issues/6784
+     # Because we reduce with .all(), we are agnostic about whether the
+     # comparison returns a scalar or vector, so we will ignore the warning.
+     # It triggers a separate DeprecationWarning when the vector has datetimes:
+     # https://github.com/numpy/numpy/issues/13548
+     # This is considered a bug by numpy and will likely go away.
+     with warnings.catch_warnings():
+@@ -2081,6 +2093,7 @@ class VariableType(UserString):
+         return VariableType(boolean_type)
+ 
+     # Defer to positive pandas tests
+     if pd.api.types.is_numeric_dtype(vector):
+         return VariableType("numeric")
+@@ -2093,6 +2106,7 @@ class VariableType(UserString):
+         return VariableType("datetime")
+ 
+     # --- If we get to here, we need to check the entries
+ 
+     # Check for a collection where everything is a number
+@@ -2105,6 +2119,7 @@ class VariableType(UserString):
+         return True
+     if all_datetime(vector):
+         return VariableType("datetime")
+ 
+     # Otherwise, our final fallback

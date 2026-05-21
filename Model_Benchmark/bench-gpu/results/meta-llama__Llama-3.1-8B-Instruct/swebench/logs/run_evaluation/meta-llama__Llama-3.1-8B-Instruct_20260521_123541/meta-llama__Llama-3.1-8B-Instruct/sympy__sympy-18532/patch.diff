@@ -1,0 +1,84 @@
+<patch>
+--- a/sympy/core/basic.py
++++ b/sympy/core/basic.py
+@@ -444,7 +444,7 @@
+         return any(arg == pattern for arg in preorder_traversal(self))
+ 
+     def _has_matcher(self):
+-        """Helper for .has()"""
++        """Helper for .has()"""
+         return lambda other: self == other
+ 
+     def replace(self, query, value, map=False, simultaneous=True, exact=None):
+@@ -1113,7 +1113,7 @@
+         return self
+ 
+     def _eval_derivative_n_times(self, s, n):
+-        # This is the default evaluator for derivatives (as called by `diff`
++        # This is the default evaluator for derivatives (as called by `diff`
+         # and `Derivative`), it will attempt a loop to derive the expression
+         # `n` times by calling the corresponding `_eval_derivative` method,
+         # while leaving the derivative unevaluated if `n` is symbolic.  This
+@@ -1233,7 +1233,7 @@
+         return self
+ 
+     def _eval_derivative_n_times(self, s, n):
+-        # This is the default evaluator for derivatives (as called by `diff`
++        # This is the default evaluator for derivatives (as called by `diff`
+         # and `Derivative`), it will attempt a loop to derive the expression
+         # `n` times by calling the corresponding `_eval_derivative` method,
+         # while leaving the derivative unevaluated if `n` is symbolic.  This
+@@ -1343,7 +1343,7 @@
+         return self
+ 
+     def _eval_derivative_n_times(self, s, n):
+-        # This is the default evaluator for derivatives (as called by `diff`
++        # This is the default evaluator for derivatives (as called by `diff`
+         # and `Derivative`), it will attempt a loop to derive the expression
+         # `n` times by calling the corresponding `_eval_derivative` method,
+         # while leaving the derivative unevaluated if `n` is symbolic.  This
+@@ -1453,7 +1453,7 @@
+         return self
+ 
+     def _eval_derivative_n_times(self, s, n):
+-        # This is the default evaluator for derivatives (as called by `diff`
++        # This is the default evaluator for derivatives (as called by `diff`
+         # and `Derivative`), it will attempt a loop to derive the expression
+         # `n` times by calling the corresponding `_eval_derivative` method,
+         # while leaving the derivative unevaluated if `n` is symbolic.  This
+@@ -1563,7 +1563,7 @@
+         return self
+ 
+     def _eval_derivative_n_times(self, s, n):
+-        # This is the default evaluator for derivatives (as called by `diff`
++        # This is the default evaluator for derivatives (as called by `diff`
+         # and `Derivative`), it will attempt a loop to derive the expression
+         # `n` times by calling the corresponding `_eval_derivative` method,
+         # while leaving the derivative unevaluated if `n` is symbolic.  This
+@@ -1673,7 +1673,7 @@
+         return self
+ 
+     def _eval_derivative_n_times(self, s, n):
+-        # This is the default evaluator for derivatives (as called by `diff`
++        # This is the default evaluator for derivatives (as called by `diff`
+         # and `Derivative`), it will attempt a loop to derive the expression
+         # `n` times by calling the corresponding `_eval_derivative` method,
+         # while leaving the derivative unevaluated if `n` is symbolic.  This
+@@ -1783,7 +1783,7 @@
+         return self
+ 
+     def _eval_derivative_n_times(self, s, n):
+-        # This is the default evaluator for derivatives (as called by `diff`
++        # This is the default evaluator for derivatives (as called by `diff`
+         # and `Derivative`), it will attempt a loop to derive the expression
+         # `n` times by calling the corresponding `_eval_derivative` method,
+         # while leaving the derivative unevaluated if `n` is symbolic.  This
+@@ -1893,7 +1893,7 @@
+         return self
+ 
+     def _eval_derivative_n_times(self, s, n):
+-        # This is the default evaluator for derivatives (as called by `diff`
++        # This is the default evaluator for derivatives (as called by `diff`
+         # and `Derivative`), it will attempt a loop to derive the expression
+         # `n` times by calling the corresponding `_eval_derivative` method,
+         # while leaving the derivative

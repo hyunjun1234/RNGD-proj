@@ -1,0 +1,20 @@
+diff --git a/django/contrib/admin/templatetags/admin_modify.py b/django/contrib/admin/templatetags/admin_modify.py
+--- a/django/contrib/admin/templatetags/admin_modify.py
++++ b/django/contrib/admin/templatetags/admin_modify.py
+@@ -102,6 +102,7 @@ def prepopulated_fields_js(context):
+         prepopulated_fields = []
+         if "adminform" in context:
+             prepopulated_fields.extend(context["adminform"].prepopulated_fields)
++        if "has_change_permission" in context:
++            prepopulated_fields.append({"id": "#%s" % context["has_change_permission"].auto_id, "name": context["has_change_permission"].name, "dependency_ids": [], "dependency_list": [], "maxLength": context["has_change_permission"].field.max_length or 50, "allowUnicode": context["has_change_permission"].field.field.allow_unicode})
+         if "has_add_permission" in context:
+             prepopulated_fields.append({"id": "#%s" % context["has_add_permission"].auto_id, "name": context["has_add_permission"].name, "dependency_ids": [], "dependency_list": [], "maxLength": context["has_add_permission"].field.max_length or 50, "allowUnicode": context["has_add_permission"].field.field.allow_unicode})
+         if "has_editable_inline_admin_formsets" in context:
+@@ -111,6 +112,7 @@ def prepopulated_fields_js(context):
+         if "has_change_permission" in context:
+             prepopulated_fields.append({"id": "#%s" % context["has_change_permission"].auto_id, "name": context["has_change_permission"].name, "dependency_ids": [], "dependency_list": [], "maxLength": context["has_change_permission"].field.max_length or 50, "allowUnicode": context["has_change_permission"].field.field.allow_unicode})
+         if "has_add_permission" in context:
++            prepopulated_fields.append({"id": "#%s" % context["has_add_permission"].auto_id, "name": context["has_add_permission"].name, "dependency_ids": [], "dependency_list": [], "maxLength": context["has_add_permission"].field.max_length or 50, "allowUnicode": context["has_add_permission"].field.field.allow_unicode})
+         if "has_editable_inline_admin_formsets" in context:
+             prepopulated_fields.append({"id": "#%s" % context["has_editable_inline_admin_formsets"].auto_id, "name": context["has_editable_inline_admin_formsets"].name, "dependency_ids": [], "dependency_list": [], "maxLength": context["has_editable_inline_admin_formsets"].field.max_length or 50, "allowUnicode": context["has_editable_inline_admin_formsets"].field.field.allow_unicode})
+

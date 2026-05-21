@@ -1,0 +1,120 @@
+--- a/requests/adapters.py
++++ b/requests/adapters.py
+@@ -22,6 +22,7 @@
+ from .packages.urllib3.response import HTTPResponse
+ from .packages.urllib3.util import Timeout as TimeoutSauce
+ from .packages.urllib3.util.retry import Retry
++from .packages.urllib3.exceptions import DecodeError, TimeoutError
+ from .compat import urlparse, basestring
+ from .utils import (DEFAULT_CA_BUNDLE_PATH, get_encoding_from_headers,
+                     prepend_scheme_if_needed, get_auth_from_url, urldefragauth)
+@@ -416,6 +417,11 @@
+         except MaxRetryError as e:
+             if isinstance(e.reason, ConnectTimeoutError):
+                 raise ConnectTimeout(e, request=request)
++            elif isinstance(e.reason, DecodeError):
++                raise DecodeError(e, request=request)
++            elif isinstance(e.reason, TimeoutError):
++                raise TimeoutError(e, request=request)
+             raise ConnectionError(e, request=request)
+ 
+         except _ProxyError as e:
+             raise ProxyError(e)
+@@ -435,6 +441,7 @@
+         return self.build_response(request, resp)
+ 
+ class HTTPAdapter(BaseAdapter):
+     """The built-in HTTP Adapter for urllib3.
+@@ -555,6 +562,7 @@
+         self.max_retries = Retry.from_int(max_retries)
+     else:
+         self.max_retries = Retry(0, read=False)
++    self.max_retries.max_redirects = 0
+     self.config = {}
+     self.proxy_manager = {}
+ 
+     super(HTTPAdapter, self).__init__()
+@@ -584,6 +592,7 @@
+         self.proxy_manager[proxy] = proxy_from_url(
+             proxy,
+             proxy_headers=proxy_headers,
+             num_pools=self._pool_connections,
+             maxsize=self._pool_maxsize,
+             block=self._pool_block,
+             **proxy_kwargs)
+         return self.proxy_manager[proxy]
+@@ -623,6 +632,7 @@
+         except (ProtocolError, socket.error) as err:
+             raise ConnectionError(err, request=request)
+         except MaxRetryError as e:
+             if isinstance(e.reason, ConnectTimeoutError):
+                 raise ConnectTimeout(e, request=request)
++            elif isinstance(e.reason, DecodeError):
++                raise DecodeError(e, request=request)
++            elif isinstance(e.reason, TimeoutError):
++                raise TimeoutError(e, request=request)
+             raise ConnectionError(e, request=request)
+         except _ProxyError as e:
+             raise ProxyError(e)
+@@ -642,6 +652,7 @@
+         return self.build_response(request, resp)
+ 
+ class HTTPAdapter(BaseAdapter):
+     """The built-in HTTP Adapter for urllib3.
+@@ -662,6 +673,7 @@
+         self.max_retries = Retry.from_int(max_retries)
+     else:
+         self.max_retries = Retry(0, read=False)
++    self.max_retries.max_redirects = 0
+     self.config = {}
+     self.proxy_manager = {}
+ 
+     super(HTTPAdapter, self).__init__()
+@@ -701,6 +713,7 @@
+         self.proxy_manager[proxy] = proxy_from_url(
+             proxy,
+             proxy_headers=proxy_headers,
+             num_pools=self._pool_connections,
+             maxsize=self._pool_maxsize,
+             block=self._pool_block,
+             **proxy_kwargs)
+         return self.proxy_manager[proxy]
+@@ -740,6 +753,7 @@
+         except (ProtocolError, socket.error) as err:
+             raise ConnectionError(err, request=request)
+         except MaxRetryError as e:
+             if isinstance(e.reason, ConnectTimeoutError):
+                 raise ConnectTimeout(e, request=request)
++            elif isinstance(e.reason, DecodeError):
++                raise DecodeError(e, request=request)
++            elif isinstance(e.reason, TimeoutError):
++                raise TimeoutError(e, request=request)
+             raise ConnectionError(e, request=request)
+         except _ProxyError as e:
+             raise ProxyError(e)
+@@ -759,6 +773,7 @@
+         return self.build_response(request, resp)
+ 
+ class HTTPAdapter(BaseAdapter):
+     """The built-in HTTP Adapter for urllib3.
+@@ -779,6 +794,7 @@
+         self.max_retries = Retry.from_int(max_retries)
+     else:
+         self.max_retries = Retry(0, read=False)
++    self.max_retries.max_redirects = 0
+     self.config = {}
+     self.proxy_manager = {}
+ 
+     super(HTTPAdapter, self).__init__()
+@@ -818,6 +834,7 @@
+         self.proxy_manager[proxy] = proxy_from_url(
+             proxy,
+             proxy_headers=proxy_headers,
+             num_pools=self._pool_connections,
+             maxsize=self._pool_maxsize,
+             block=self._pool_block,
+             **proxy_kwargs)
+         return self.proxy_manager[proxy]
+@@ -857,6 +874,7 @@
+         except (ProtocolError, socket.error) as err:
+            

@@ -1,0 +1,178 @@
+--- a/lib/matplotlib/artist.py
++++ b/lib/matplotlib/artist.py
+@@ -1272,6 +1272,7 @@ class Artist:
+     def format_cursor_data(self, data):
+         """
+         Return a string representation of *data*.
+ 
++        See Also
++        --------
++        get_cursor_data
+         .. note::
+             This method is intended to be overridden by artist subclasses.
+             As an end-user of Matplotlib you will most likely not call this
+@@ -1284,6 +1285,7 @@ class Artist:
+         The default implementation converts ints and floats and arrays of ints
+         and floats into a comma-separated string enclosed in square brackets,
+         unless the artist has an associated colorbar, in which case scalar
++        values are formatted using the colorbar's formatter.
+         values are formatted using the colorbar's formatter.
+ 
+         See Also
+         --------
+@@ -1301,6 +1303,7 @@ class Artist:
+         """
+         if np.ndim(data) == 0 and isinstance(self, ScalarMappable):
+             # This block logically belongs to ScalarMappable, but can't be
+             # implemented in it because most ScalarMappable subclasses inherit
++            # from Artist first and from ScalarMappable second, so
+             # Artist.format_cursor_data would always have precedence over
+             # ScalarMappable.format_cursor_data.
+             n = self.cmap.N
+             if np.ma.getmask(data):
+@@ -1313,6 +1316,7 @@ class Artist:
+                 return "[]"
+             normed = self.norm(data)
+             if np.isfinite(normed):
++                # Midpoints of neighboring color intervals.
+                 neighbors = self.norm.inverse(
+                     (int(self.norm(data) * n) + np.array([0, 1])) / n)
+                 delta = abs(neighbors - data).max()
+@@ -1325,6 +1329,7 @@ class Artist:
+                 g_sig_digits = cbook._g_sig_digits(data, delta)
+             else:
+                 g_sig_digits = 3  # Consistent with default below.
++                # Consistent with default below.
+             return "[{:-#.{}g}]".format(data, g_sig_digits)
+         else:
+             try:
+@@ -1341,6 +1346,7 @@ class Artist:
+                 data_str = ', '.join('{:0.3g}'.format(item) for item in data
+                                      if isinstance(item, Number))
+             return "[" + data_str + "]"
++        return "[" + data_str + "]"
+ 
+     def get_mouseover(self):
+         """
+         Return whether this artist is queried for custom context information
+@@ -1354,6 +1360,7 @@ class Artist:
+         """
+         return self._mouseover
+ 
+     def set_mouseover(self, mouseover):
++        # Add a docstring to set_mouseover
+         """
+         Set whether this artist is queried for custom context information when
+         the mouse cursor moves over it.
+ 
+@@ -1365,6 +1372,7 @@ class Artist:
+         Parameters
+         ----------
+         mouseover : bool
++        """
+         self._mouseover = bool(mouseover)
+         ax = self.axes
+         if ax:
+             if self._mouseover:
+@@ -1376,6 +1384,7 @@ class Artist:
+             ax._mouseover_set.discard(self)
+ 
+     mouseover = property(get_mouseover, set_mouseover)  # backcompat.
+ 
++    # Add a docstring to get_cursor_data
+ def get_cursor_data(self, event):
+     """
+     Return the cursor data for a given event.
+@@ -1385,6 +1394,7 @@ def get_cursor_data(self, event):
+     """
+     Cursor data can be used by Artists to provide additional context
+     information for a given event. The default implementation just returns
++    # Add a docstring to get_cursor_data
+     *None*.
+ 
+     Subclasses can override the method and return arbitrary data. However,
+@@ -1395,6 +1405,7 @@ def get_cursor_data(self, event):
+     The only current use case is displaying the z-value of an `.AxesImage`
+     in the status bar of a plot window, while moving the mouse.
+ 
+     Parameters
+@@ -1406,6 +1417,7 @@ def get_cursor_data(self, event):
+     """
+     See Also
+     --------
++    # Add a docstring to get_cursor_data
+     format_cursor_data
+     """
+     return None
+@@ -1417,6 +1429,7 @@ def format_cursor_data(self, data):
+     """
+     Return a string representation of *data*.
+ 
++    # Add a docstring to format_cursor_data
+     .. note::
+         This method is intended to be overridden by artist subclasses.
+         As an end-user of Matplotlib you will most likely not call this
+@@ -1428,6 +1441,7 @@ def format_cursor_data(self, data):
+     The default implementation converts ints and floats and arrays of ints
+     and floats into a comma-separated string enclosed in square brackets,
+     unless the artist has an associated colorbar, in which case scalar
++    # Add a docstring to format_cursor_data
+     values are formatted using the colorbar's formatter.
+ 
+     See Also
+     --------
+@@ -1440,6 +1454,7 @@ def format_cursor_data(self, data):
+     """
+     """
+     if np.ndim(data) == 0 and isinstance(self, ScalarMappable):
+         # This block logically belongs to ScalarMappable, but can't be
+         # implemented in it because most ScalarMappable subclasses inherit
++        # from Artist first and from ScalarMappable second, so
+         # Artist.format_cursor_data would always have precedence over
+         # ScalarMappable.format_cursor_data.
+         n = self.cmap.N
+@@ -1452,6 +1467,7 @@ def format_cursor_data(self, data):
+             return "[]"
+         normed = self.norm(data)
+         if np.isfinite(normed):
++            # Midpoints of neighboring color intervals.
+             neighbors = self.norm.inverse(
+                 (int(self.norm(data) * n) + np.array([0, 1])) / n)
+             delta = abs(neighbors - data).max()
+@@ -1464,6 +1480,7 @@ def format_cursor_data(self, data):
+             g_sig_digits = cbook._g_sig_digits(data, delta)
+         else:
++            # Consistent with default below.
+             g_sig_digits = 3  # Consistent with default below.
+         return "[{:-#.{}g}]".format(data, g_sig_digits)
+     else:
+         try:
+@@ -1478,6 +1495,7 @@ def format_cursor_data(self, data):
+                 data_str = ', '.join('{:0.3g}'.format(item) for item in data
+                                      if isinstance(item, Number))
+         return "[" + data_str + "]"
++        return "[" + data_str + "]"
+ 
+ def kwdoc(artist):
+     r"""
+     Inspect an `~matplotlib.artist.Artist` class (using `.ArtistInspector`) and
+@@ -1491,6 +1511,7 @@ def kwdoc(artist):
+     Returns
+     -------
+     str
+         The settable properties of *artist*, as plain text if
++        # Add a docstring to kwdoc
+     :rc:`docstring.hardcopy` is False and as a rst table (intended for
+     use in Sphinx) if it is True.
+     """
+     ai = ArtistInspector(artist)
+@@ -1502,6 +1523,7 @@ def kwdoc(artist):
+     return ('\n'.join(ai.pprint_setters_rest(leadingspace=4))
+             if mpl.rcParams['docstring.hardcopy'] else
+             'Properties:\n' + '\n'.join(ai.pprint_setters(leadingspace=4)))
++    return ('\n'.join(ai.pprint_setters_rest(leadingspace=4))
++            if mpl.rcParams['docstring.hardcopy'] else
++            'Properties:\n' + '\n'.join(ai.pprint_setters(leadingspace=4)))
+ 
+ # We defer this to the end of them module, because it needs ArtistInspector
+ # to be defined.

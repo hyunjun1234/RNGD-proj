@@ -1,0 +1,11 @@
+# Furiosa RNGD 벤치마크 — 측정 클라이언트 의존성 (furiosa-llm 위에 추가).
+# furiosa-llm SDK 자체는 Furiosa 공식 설치 가이드로 ~/furiosa venv에 설치돼 있다고 가정.
+# 본 파일은 측정 러너/리포트가 쓰는 추가 패키지만 명시.
+
+httpx
+pyyaml
+openai
+datasets
+huggingface_hub
+# transformers — 일부 swebench 토크나이즈에 필요. furiosa-llm이 보통 같이 끌어옴.
+transformers

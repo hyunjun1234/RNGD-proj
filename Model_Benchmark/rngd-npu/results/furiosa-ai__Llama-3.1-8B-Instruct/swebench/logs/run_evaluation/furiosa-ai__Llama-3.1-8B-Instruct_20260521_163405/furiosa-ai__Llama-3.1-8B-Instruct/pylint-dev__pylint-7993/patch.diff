@@ -1,0 +1,37 @@
+--- a/pylint/reporters/text.py
++++ b/pylint/reporters/text.py
+@@ -173,7 +173,7 @@
+         template = str(self.linter.config.msg_template or self._template)
+ 
+         # Return early if the template is the same as the previous one
+-        if template == self._template:
++        if template == self._fixed_template:
+             return
+         # Set template to the currently selected template
+         self._template = template
+@@ -185,6 +185,7 @@
+         template = re.sub(r"\{" + argument[0] + r"(:.*?)?\}", "", template)
+         self._fixed_template = template
+ 
++        self._template = self._fixed_template
+     def write_message(self, msg: Message) -> None:
+         """Convenience method to write a formatted message with class default
+         template.
+@@ -197,7 +198,7 @@
+         self.writeln(self._fixed_template.format(**self_dict))
+ 
+     def handle_message(self, msg: Message) -> None:
+-        if msg.module not in self._modules:
++        if msg.module not in self._modules or self._fixed_template!= self._template:
+             if msg.module:
+                 self.writeln(f"************* Module {msg.module}")
+                 self._modules.add(msg.module)
+@@ -206,7 +207,7 @@
+             else:
+                 self.writeln("************* ")
+             self._modules.add(msg.module)
+-        self.write_message(msg)
++        self.write_message(msg)
+     def _display(self, layout: Section) -> None:
+         """Launch layouts display."""
+         print(file=self.out)

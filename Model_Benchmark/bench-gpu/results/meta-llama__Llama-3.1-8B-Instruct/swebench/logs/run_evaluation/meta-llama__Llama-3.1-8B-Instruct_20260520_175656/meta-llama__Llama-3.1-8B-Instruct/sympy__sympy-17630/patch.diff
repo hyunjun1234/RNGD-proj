@@ -1,0 +1,23 @@
+--- a/sympy/matrices/expressions/matexpr.py
++++ b/sympy/matrices/expressions/matexpr.py
+@@ -80,6 +80,7 @@
+     return [self.blocks[0, i].cols for i in range(self.blockshape[1])]
+ 
+ def _blockmul(self, other):
++    if isinstance(other, ZeroMatrix):
++        return ZeroMatrix(self.rows, self.cols)
+     if self.colblocksizes == other.rowblocksizes:
+         return BlockMatrix([[self._blockmul(other.blocks[i, j]) for j in range(other.blockshape[1])]
+                             for i in range(self.blockshape[0])])
+     else:
+@@ -91,6 +92,7 @@
+         return BlockMatrix([[self._blockmul(other.blocks[i, j]) for j in range(other.blockshape[1])]
+                             for i in range(self.blockshape[0])])
+ 
+ def _blockmul(self, other):
++    if isinstance(other, ZeroMatrix):
++        return ZeroMatrix(self.rows, self.cols)
+     if self.colblocksizes == other.rowblocksizes:
+         return BlockMatrix([[self._blockmul(other.blocks[i, j]) for j in range(other.blockshape[1])]
+                             for i in range(self.blockshape[0])])
+     else:

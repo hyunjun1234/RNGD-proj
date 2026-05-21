@@ -1,0 +1,65 @@
+--- a/django/db/models/query_utils.py
++++ b/django/db/models/query_utils.py
+@@ -43,6 +43,7 @@
+ 
+ def __init__(self, *args, _connector=None, _negated=False, **kwargs):
+     super().__init__(children=[*args, *sorted(kwargs.items())], connector=_connector, negated=_negated)
++    self._freeze_children = False
+ 
+ def _combine(self, other, conn):
+     if not isinstance(other, Q):
+@@ -63,6 +64,7 @@
+     def __or__(self, other):
+         return self._combine(other, self.OR)
+ 
+     def __and__(self, other):
++        if self._freeze_children and other._freeze_children:
++            raise TypeError("Cannot combine two frozen Q objects")
+         return self._combine(other, self.AND)
+ 
+     def __invert__(self):
+@@ -73,6 +75,7 @@
+     def resolve_expression(self, query=None, allow_joins=True, reuse=None, summarize=False, for_save=False):
+         # We must promote any new joins to left outer joins so that when Q is
+         # used as an expression, rows aren't filtered due to joins.
+         clause, joins = query._add_q(
+@@ -97,6 +100,7 @@
+     def deconstruct(self):
+         path = '%s.%s' % (self.__class__.__module__, self.__class__.__name__)
+         if path.startswith('django.db.models.query_utils'):
+             path = path.replace('django.db.models.query_utils', 'django.db.models')
+         args, kwargs = (), {}
+@@ -111,6 +115,7 @@
+         if self.negated:
+             kwargs['_negated'] = True
+         return path, args, kwargs
+ 
++    def _freeze(self):
++        self._freeze_children = True
+ 
+     def __deepcopy__(self, memo):
+         obj = type(self)()
+         obj.connector = self.connector
+@@ -129,6 +134,7 @@
+         obj.add(self.children[0], self.connector)
+         return obj
+ 
+     def __or__(self, other):
++        self._freeze()
+         return self._combine(other, self.OR)
+ 
+     def __and__(self, other):
++        self._freeze()
+         return self._combine(other, self.AND)
+ 
+     def __invert__(self):
+@@ -141,6 +147,7 @@
+         obj.add(self, self.AND)
+         obj.negate()
+         return obj
+ 
++    def __hash__(self):
++        return hash(tuple(self.children))
+ 
+     def resolve_expression(self, query=None, allow_joins=True, reuse=None, summarize=False, for_save=False):
+         # We must promote any new joins to left outer joins so that when Q is

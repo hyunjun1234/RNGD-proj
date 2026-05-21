@@ -1,0 +1,12 @@
+--- a/src/_pytest/mark/evaluate.py
++++ b/src/_pytest/mark/evaluate.py
+@@ -21,7 +21,7 @@
+ 
+ def cached_eval(config: Config, expr: str, d: Dict[str, object]) -> Any:
+     default = {}  # type: Dict[str, object]
+-    evalcache = config._store.setdefault(evalcache_key, default)
++    # Remove caching
++    return eval(expr, d)
+ 
+ class MarkEvaluator:
+     #... (rest of the file remains the same)

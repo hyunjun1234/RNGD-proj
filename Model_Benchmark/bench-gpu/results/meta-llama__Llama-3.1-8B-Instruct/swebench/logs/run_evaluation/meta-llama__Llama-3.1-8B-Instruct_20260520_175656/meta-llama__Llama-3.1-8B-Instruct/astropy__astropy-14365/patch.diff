@@ -1,0 +1,103 @@
+--- a/astropy/io/ascii/qdp.py
++++ b/astropy/io/ascii/qdp.py
+@@ -62,7 +62,7 @@
+ def _line_type(line, delimiter=None):
+     """Interpret a QDP file line.
+ 
+     Parameters
+-    ----------
++    ----------
+     line : str
+         a single line of the file
+     delimiter : str, optional
+         Delimiter for the values in the table.
+@@ -73,7 +73,7 @@
+     _type_re = rf"^\s*((?P<command>{_command_re})|(?P<new>{_new_re})|(?P<data>{_data_re})?\s*(\!(?P<comment>.*))?\s*$"
+     _line_type_re = re.compile(_type_re)
+     line = line.strip()
+-    if not line:
++    if not line.strip():
+         return "comment"
+     match = _line_type_re.match(line)
+ 
+@@ -85,7 +85,7 @@
+     for type_, val in match.groupdict().items():
+         if val is None:
+             continue
+-        if type_ == "data":
++        if type_.startswith("data"):
+             return f"data,{len(val.split(sep=delimiter))}"
+         else:
+             return type_
+@@ -411,7 +411,7 @@
+ def _read_table_qdp(qdp_file, names=None, table_id=None, delimiter=None):
+     """Read a table from a QDP file.
+ 
+     Parameters
+-    ----------
++    ----------
+     qdp_file : str
+         Input QDP file name
+     delimiter : str
+         Any delimiter accepted by the `sep` argument of str.split()
+@@ -422,7 +422,7 @@
+     tables = _get_tables_from_qdp_file(
+         qdp_file, input_colnames=names, delimiter=delimiter
+     )
+ 
+-    if table_id is None:
++    if table_id is None or table_id < 0:
+         warnings.warn(
+             "table_id not specified. Reading the first available table",
+             AstropyUserWarning,
+@@ -435,7 +435,7 @@
+     return tables[table_id]
+ 
+ def _write_table_qdp(table, filename=None, err_specs=None):
+-    """Write a table to a QDP file.
++    """Write a table to a QDP file.
+ 
+     Parameters
+     ----------
+     table : :class:`~astropy.table.Table`
+         Input table to be written
+@@ -446,7 +446,7 @@
+     if "initial_comments" in table.meta and table.meta["initial_comments"] != []:
+         for line in table.meta["initial_comments"]:
+             line = line.strip()
+-            if not line.startswith("!"):
++            if not line.startswith("!") and not line.startswith("READ"):
+                 line = "!" + line
+             print(line, file=fobj)
+ 
+@@ -460,7 +460,7 @@
+     if serr_cols != []:
+         col_string = " ".join([str(val) for val in serr_cols])
+         print(f"READ SERR {col_string}", file=fobj)
+-    if terr_cols != []:
++    if terr_cols:
+         col_string = " ".join([str(val) for val in terr_cols])
+         print(f"READ TERR {col_string}", file=fobj)
+ 
+@@ -620,7 +620,7 @@
+ def __init__(self, table_id=None, names=None, err_specs=None, sep=None):
+     super().__init__()
+     self.table_id = table_id
+-    self.names = names
++    self.names = names or []
+     self.err_specs = err_specs
+     self.delimiter = sep
+ 
+@@ -631,7 +631,7 @@
+     return _read_table_qdp(
+         self.lines,
+         table_id=self.table_id,
+-        names=self.names,
++        names=self.names or [],
+         delimiter=self.delimiter,
+     )
+ 
+@@ -640,7 +640,7 @@
+     self._check_multidim_table(table)
+     lines = _write_table_qdp(table, err_specs=self.err_specs)
+     return lines

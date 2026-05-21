@@ -1,0 +1,103 @@
+--- a/sklearn/ensemble/iforest.py
++++ b/sklearn/ensemble/iforest.py
+@@ -166,6 +166,7 @@
+         super().__init__(
+             base_estimator=ExtraTreeRegressor(
+                 max_features=1,
++                warm_start=True,
+                 splitter='random',
+                 random_state=random_state),
+             # here above max_features has no links with self.max_features
+             bootstrap=bootstrap,
+             bootstrap_features=False,
+@@ -193,6 +194,7 @@
+         self.behaviour = behaviour
+         self.contamination = contamination
+ 
+         self.warm_start = warm_start
++
+     def _set_oob_score(self, X, y):
+         raise NotImplementedError("OOB score not supported by iforest")
+@@ -205,6 +207,7 @@
+         return _joblib_parallel_args(prefer='threads')
+ 
+     def fit(self, X, y=None, sample_weight=None):
++        if self.warm_start and self.n_estimators > 1:
++            self.n_estimators += self.n_estimators
+         if self.contamination == "legacy":
+             warn('default contamination parameter 0.1 will change '
+                  'in version 0.22 to "auto". This will change the '
+@@ -234,6 +237,7 @@
+         if self.behaviour == 'old':
+             warn('behaviour="old" is deprecated and will be removed '
+                  'in version 0.22. Please use behaviour="new", which '
+                 'makes the decision_function change to match '
+@@ -255,6 +259,7 @@
+         n_samples = X.shape[0]
+ 
+         if isinstance(self.max_samples, str):
+             if self.max_samples == 'auto':
+@@ -283,6 +288,7 @@
+         max_depth = int(np.ceil(np.log2(max(max_samples, 2))))
+         super()._fit(X, y, max_samples,
+                      max_depth=max_depth,
+@@ -301,6 +307,7 @@
+         if self.behaviour == 'old':
+             # in this case, decision_function = 0.5 + self.score_samples(X):
+             if self._contamination == "auto":
+                 raise ValueError("contamination parameter cannot be set to "
+                                  "'auto' when behaviour == 'old'.")
+@@ -314,6 +321,7 @@
+         # else, self.behaviour == 'new':
+         if self._contamination == "auto":
+             # 0.5 plays a special role as described in the original paper.
+             # we take the opposite as we consider the opposite of their score.
+@@ -327,6 +335,7 @@
+         self.offset_ = np.percentile(self.score_samples(X),
+                                      100. * self._contamination)
+ 
+     def predict(self, X):
++        if self.warm_start and self.n_estimators > 1:
++            self.n_estimators -= self.n_estimators
+         check_is_fitted(self, ["offset_"])
+         X = check_array(X, accept_sparse='csr')
+         is_inlier = np.ones(X.shape[0], dtype=int)
+@@ -346,6 +355,7 @@
+         return is_inlier
+     def decision_function(self, X):
+         """Average anomaly score of X of the base classifiers.
+         The anomaly score of an input sample is computed as
+@@ -357,6 +367,7 @@
+         self.score_samples(X) - self.offset_
+     def score_samples(self, X):
++        if self.warm_start and self.n_estimators > 1:
++            self.n_estimators -= self.n_estimators
+         """Opposite of the anomaly score defined in the original paper.
+         The anomaly score of an input sample is computed as
+         the mean anomaly score of the trees in the forest.
+@@ -373,6 +384,7 @@
+         return -self._compute_chunked_score_samples(X)
+     @property
+     def threshold_(self):
++        if self.warm_start and self.n_estimators > 1:
++            self.n_estimators -= self.n_estimators
+         if self.behaviour!= 'old':
+             raise AttributeError("threshold_ attribute does not exist when "
+                                  "behaviour!= 'old'")
+@@ -410,6 +422,7 @@
+         warn("threshold_ attribute is deprecated in 0.20 and will"
+              " be removed in 0.22.", DeprecationWarning)
+         return self._threshold_
+     def _compute_chunked_score_samples(self, X):
++        if self.warm_start and self.n_estimators > 1:
++            self.n_estimators -= self.n_estimators
+         n_samples = _num_samples(X)
+ 
+         if self._max_features == X.shape[1]:
+             subsample_features = False
+@@ -432,6 +445,7 @@
+         chunk_n_rows = get_chunk_n_rows(row_bytes=16 * self._max_features,
+                                         max_n_rows=n_samples)
+         slices = gen_batches(n_samples, chunk_n_rows)
+ 
+         scores =

@@ -30,17 +30,24 @@ def collect():
                     obj = json.loads(f.read_text())
                 except Exception:
                     continue
-                if task == "sweep":
+                if task == "sweep" and isinstance(obj, dict):
                     for s in obj.get("sweep", []):
                         rows.append({"task": task, "file": str(f), **s})
-                else:
+                elif isinstance(obj, list):
+                    for item in obj:
+                        if not isinstance(item, dict):
+                            continue
+                        s = item.get("bench") or item.get("summary") or {}
+                        meta = {k: v for k, v in item.items()
+                                if k not in {"bench", "summary", "server_info"}}
+                        rows.append({"task": task, "file": str(f), **meta, **s})
+                elif isinstance(obj, dict):
                     s = obj.get("summary") or {k: obj.get(k) for k in obj.keys()}
                     rows.append({"task": task, "file": str(f), **(s or {})})
     return rows
 
 
 def to_table(rows, columns):
-    # 단순 정렬 + 정렬된 컬럼 출력
     if not rows:
         return "(no data)"
     cols = columns or sorted({k for r in rows for k in r.keys()})

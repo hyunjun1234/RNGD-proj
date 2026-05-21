@@ -1,0 +1,129 @@
+--- a/seaborn/_core/scales.py
++++ b/seaborn/_core/scales.py
+@@ -351,7 +351,7 @@
+     vmin, vmax = axis.convert_units((vmin, vmax))
+     a = forward(vmin)
+     b = forward(vmax) - forward(vmin)
+-
++    # Use bitwise_xor instead of subtract for numpy boolean arrays
+     def normalize(x):
+         return (x - a) ^ b
+ 
+@@ -359,7 +359,7 @@
+     else:
+         normalize = vmin = vmax = None
+ 
+-    new._pipeline = [
++    new._pipeline = [
+         axis.convert_units,
+         forward,
+         normalize,
+         prop.get_mapping(new, data)
+@@ -373,7 +373,7 @@
+         if prop.legend:
+             axis.set_view_interval(vmin, vmax)
+             locs = axis.major.locator()
+-            locs = locs[(vmin <= locs) & (locs <= vmax)]
++            locs = locs[(vmin <= locs) & (locs <= vmax)]
+             # Avoid having an offset / scientific notation in a legend
+             # as we don't represent that anywhere so it ends up incorrect.
+             # This could become an option (e.g. Continuous.label(offset=True))
+@@ -392,7 +392,7 @@
+             if hasattr(axis.major.formatter, "set_useOffset"):
+                 axis.major.formatter.set_useOffset(False)
+             if hasattr(axis.major.formatter, "set_scientific"):
+-                axis.major.formatter.set_scientific(False)
++                axis.major.formatter.set_scientific(False)
+             labels = axis.major.formatter.format_ticks(locs)
+             new._legend = list(locs), list(labels)
+ 
+@@ -623,7 +623,7 @@
+         elif count is not None:
+             if between is None:
+                 # This is rarely useful (unless you are setting limits)
+-                major_locator = LinearLocator(count)
++                major_locator = LinearLocator(count)
+             else:
+                 if log_base or symlog_thresh:
+                     forward, inverse = self._get_transform()
+@@ -631,7 +631,7 @@
+                     ticks = inverse(np.linspace(lo, hi, num=count))
+                 else:
+                     ticks = np.linspace(*between, num=count)
+-                major_locator = FixedLocator(ticks)
++                major_locator = FixedLocator(ticks)
+ 
+         elif every is not None:
+             if between is None:
+@@ -640,7 +640,7 @@
+                 ticks = np.arange(lo, hi + every, every)
+                 major_locator = FixedLocator(ticks)
+ 
+-        elif at is not None:
++        elif at is not None:
+             major_locator = FixedLocator(at)
+         else:
+             if log_base:
+@@ -655,7 +655,7 @@
+                 minor_locator = LogLocator(log_base, subs=None) if log_base else None
+             else:
+                 minor_locator = AutoMinorLocator(minor + 1)
+-        return major_locator, minor_locator
++        return major_locator, minor_locator
+ 
+     def _get_formatter(self, locator, formatter, like, base, unit):
+ 
+@@ -665,7 +665,7 @@
+         if base is default:
+             if symlog_thresh:
+                 log_base = 10
+-            base = log_base
++            base = log_base
+ 
+         if formatter is not None:
+             return formatter
+@@ -677,7 +677,7 @@
+         elif base is not None:
+             # We could add other log options if necessary
+-            formatter = LogFormatterSciNotation(base)
++            formatter = LogFormatterSciNotation(base)
+         elif unit is not None:
+             if isinstance(unit, tuple):
+                 sep, unit = unit
+@@ -687,7 +687,7 @@
+                 return formatter
+         else:
+             formatter = ScalarFormatter()
+-        return formatter
++        return formatter
+ 
+ @dataclass
+ class Temporal(ContinuousBase):
+ 
+@@ -746,7 +746,7 @@
+         elif upto is not None:
+             major_locator = AutoDateLocator(minticks=2, maxticks=upto)
+ 
+-        else:
++        else:
+             major_locator = AutoDateLocator(minticks=2, maxticks=6)
+         minor_locator = None
+ 
+         return major_locator, minor_locator
+@@ -758,7 +758,7 @@
+         if formatter is not None:
+             return formatter
+         if concise:
+-            formatter = ConciseDateFormatter(locator)
++            formatter = ConciseDateFormatter(locator)
+         else:
+             formatter = AutoDateFormatter(locator)
+ 
+         return formatter
+@@ -875,7 +875,7 @@
+         self.converter = None
+         self.units = None
+         self.scale = scale
+-        self.major = mpl.axis.Ticker()
++        self.major = mpl.axis.Ticker()
+         self.minor = mpl

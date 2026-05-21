@@ -1,0 +1,102 @@
+--- a/sympy/physics/units/unitsystem.py
++++ b/sympy/physics/units/unitsystem.py
+@@ -151,7 +151,7 @@
+         return expr, Dimension(1)
+     else:
+         return expr, Dimension(1)
+-    if isinstance(expr, Pow):
++    elif isinstance(expr, Pow):
+         factor, dim = self._collect_factor_and_dimension(expr.base)
+         exp_factor, exp_dim = self._collect_factor_and_dimension(expr.exp)
+         if self.get_dimension_system().is_dimensionless(exp_dim):
+@@ -162,7 +162,7 @@
+         return factor, dim
+     elif isinstance(expr, Add):
+         factor, dim = self._collect_factor_and_dimension(expr.args[0])
+-        for addend in expr.args[1:]:
++        for addend in expr.args[1:]:
+             addend_factor, addend_dim = \
+                 self._collect_factor_and_dimension(addend)
+             if dim != addend_dim:
+@@ -173,7 +173,7 @@
+         elif isinstance(expr, Derivative):
+             factor, dim = self._collect_factor_and_dimension(expr.args[0])
+             for independent, count in expr.variable_count:
+-                ifactor, idim = self._collect_factor_and_dimension(independent)
++                ifactor, idim = self._collect_factor_and_dimension(independent)
+                 factor /= ifactor**count
+                 dim /= idim**count
+             return factor, dim
+@@ -184,7 +184,7 @@
+         elif isinstance(expr, Function):
+             fds = [self._collect_factor_and_dimension(
+                 arg) for arg in expr.args]
+-            return (expr.func(*(f[0] for f in fds)),
++            return (expr.func(*(f[0] for f in fds)),
+                     *(d[1] for d in fds))
+         elif isinstance(expr, Dimension):
+             return S.One, expr
+@@ -196,7 +196,7 @@
+         return expr, Dimension(1)
+     def _collect_factor_and_dimension(self, expr):
+         """
+         Return tuple with scale factor expression and dimension expression.
+-        """
++        """
+         """
+         from sympy.physics.units import Quantity
+         if isinstance(expr, Quantity):
+             return expr.scale_factor, expr.dimension
+@@ -208,7 +208,7 @@
+         elif isinstance(expr, Pow):
+             factor, dim = self._collect_factor_and_dimension(expr.base)
+             exp_factor, exp_dim = self._collect_factor_and_dimension(expr.exp)
+-            if self.get_dimension_system().is_dimensionless(exp_dim):
++            if self.get_dimension_system().is_dimensionless(exp_dim):
+                 exp_dim = 1
+             return factor ** exp_factor, dim ** (exp_factor * exp_dim)
+         elif isinstance(expr, Add):
+@@ -219,7 +219,7 @@
+         elif isinstance(expr, Derivative):
+             factor, dim = self._collect_factor_and_dimension(expr.args[0])
+             for independent, count in expr.variable_count:
+-                ifactor, idim = self._collect_factor_and_dimension(independent)
++                ifactor, idim = self._collect_factor_and_dimension(independent)
+                 factor /= ifactor**count
+                 dim /= idim**count
+             return factor, dim
+@@ -230,7 +230,7 @@
+         elif isinstance(expr, Function):
+             fds = [self._collect_factor_and_dimension(
+                 arg) for arg in expr.args]
+-            return (expr.func(*(f[0] for f in fds)),
++            return (expr.func(*(f[0] for f in fds)),
+                     *(d[1] for d in fds))
+         elif isinstance(expr, Dimension):
+             return S.One, expr
+@@ -242,7 +242,7 @@
+         return expr, Dimension(1)
+     def _collect_factor_and_dimension(self, expr):
+         """
+         Return tuple with scale factor expression and dimension expression.
+-        """
++        """
+         """
+         from sympy.physics.units import Quantity
+         if isinstance(expr, Quantity):
+             return expr.scale_factor, expr.dimension
+@@ -254,7 +254,7 @@
+         elif isinstance(expr, Pow):
+             factor, dim = self._collect_factor_and_dimension(expr.base)
+             exp_factor, exp_dim = self._collect_factor_and_dimension(expr.exp)
+-            if self.get_dimension_system().is_dimensionless(exp_dim):
++            if self.get_dimension_system().is_dimensionless(exp_dim):
+                 exp_dim = 1
+             return factor ** exp_factor, dim ** (exp_factor * exp_dim)
+         elif isinstance(expr, Add):
+@@ -265,7 +265,7 @@
+         elif isinstance(expr, Derivative):
+             factor, dim = self._collect_factor_and_dimension(expr.args[0])
+             for independent, count in expr.variable_count:
+-                ifactor, idim = self._collect_factor_and_dimension(independent)
++                ifactor, idim =

@@ -1,0 +1,618 @@
+<frozen runpy>:128: RuntimeWarning: 'swebench.harness.run_evaluation' found in sys.modules after import of package 'swebench.harness', but prior to execution of 'swebench.harness.run_evaluation'; this may result in unpredictable behaviour
+Found 6 existing instance images. Will reuse them.
+Running 43 instances...
+Evaluation:   0%|          | 0/43 [00:00<?, ?it/s, error=0, ✓=0, ✖=0]Evaluation:   0%|          | 0/43 [01:05<?, ?it/s, ✓=0, ✖=0, error=1]Evaluation:   2%|▏         | 1/43 [01:05<45:38, 65.20s/it, ✓=0, ✖=0, error=1]Evaluation:   2%|▏         | 1/43 [01:05<45:38, 65.20s/it, ✓=0, ✖=0, error=2]Evaluation:   5%|▍         | 2/43 [01:05<44:33, 65.20s/it, ✓=0, ✖=0, error=3]Evaluation:   7%|▋         | 3/43 [01:05<11:18, 16.97s/it, ✓=0, ✖=0, error=3]Evaluation:   7%|▋         | 3/43 [01:07<11:18, 16.97s/it, ✓=0, ✖=0, error=4]Evaluation:   9%|▉         | 4/43 [01:07<11:01, 16.97s/it, ✓=0, ✖=0, error=5]Evaluation:  12%|█▏        | 5/43 [01:07<05:33,  8.78s/it, ✓=0, ✖=0, error=5]Evaluation:  12%|█▏        | 5/43 [01:10<05:33,  8.78s/it, ✓=0, ✖=0, error=6]Evaluation:  14%|█▍        | 6/43 [01:10<04:30,  7.32s/it, ✓=0, ✖=0, error=6]Evaluation:  14%|█▍        | 6/43 [01:12<04:30,  7.32s/it, ✓=0, ✖=0, error=7]Evaluation:  16%|█▋        | 7/43 [01:12<03:24,  5.68s/it, ✓=0, ✖=0, error=7]Evaluation:  16%|█▋        | 7/43 [01:23<03:24,  5.68s/it, ✓=0, ✖=0, error=8]Evaluation:  19%|█▊        | 8/43 [01:23<04:11,  7.18s/it, ✓=0, ✖=0, error=8]Evaluation:  19%|█▊        | 8/43 [01:23<04:11,  7.18s/it, ✓=0, ✖=0, error=9]Evaluation:  21%|██        | 9/43 [01:23<04:03,  7.18s/it, ✓=0, ✖=0, error=10]Evaluation:  23%|██▎       | 10/43 [01:23<02:13,  4.05s/it, ✓=0, ✖=0, error=10]Evaluation:  23%|██▎       | 10/43 [01:23<02:13,  4.05s/it, ✓=0, ✖=0, error=11]Evaluation:  26%|██▌       | 11/43 [01:26<02:09,  4.05s/it, ✓=0, ✖=0, error=12]Evaluation:  28%|██▊       | 12/43 [01:26<01:36,  3.12s/it, ✓=0, ✖=0, error=12]Evaluation:  28%|██▊       | 12/43 [01:28<01:36,  3.12s/it, ✓=0, ✖=1, error=12]Evaluation:  30%|███       | 13/43 [01:28<01:26,  2.88s/it, ✓=0, ✖=1, error=12]Evaluation:  30%|███       | 13/43 [01:30<01:26,  2.88s/it, ✓=0, ✖=1, error=13]Evaluation:  33%|███▎      | 14/43 [01:30<01:16,  2.64s/it, ✓=0, ✖=1, error=13]Evaluation:  33%|███▎      | 14/43 [01:35<01:16,  2.64s/it, ✓=0, ✖=1, error=14]Evaluation:  35%|███▍      | 15/43 [01:35<01:28,  3.15s/it, ✓=0, ✖=1, error=14]Evaluation:  35%|███▍      | 15/43 [01:39<01:28,  3.15s/it, ✓=0, ✖=1, error=15]Evaluation:  37%|███▋      | 16/43 [01:39<01:29,  3.32s/it, ✓=0, ✖=1, error=15]Evaluation:  37%|███▋      | 16/43 [01:39<01:29,  3.32s/it, ✓=0, ✖=1, error=16]Evaluation:  40%|███▉      | 17/43 [01:43<01:26,  3.32s/it, ✓=0, ✖=1, error=17]Evaluation:  42%|████▏     | 18/43 [01:43<01:08,  2.74s/it, ✓=0, ✖=1, error=17]Evaluation:  42%|████▏     | 18/43 [02:10<01:08,  2.74s/it, ✓=0, ✖=1, error=18]Evaluation:  44%|████▍     | 19/43 [02:10<03:26,  8.62s/it, ✓=0, ✖=1, error=18]astropy__astropy-14995: >>>>> Patch Apply Failed:
+patch: **** malformed patch at line 33: -  More detailed information on contributing to the project or submitting feedback
+
+patching file README.rst
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/astropy__astropy-14995/run_instance.log) for more information.
+astropy__astropy-14182: >>>>> Patch Apply Failed:
+patching file astropy/io/ascii/rst.py
+patch: **** malformed patch at line 33: -    FixedWidthTwentyFourLineDataSplitter,
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/astropy__astropy-14182/run_instance.log) for more information.
+astropy__astropy-14365: >>>>> Patch Apply Failed:
+The next patch would create the file README.rst,
+which already exists!  Assuming -R.
+patching file README.rst
+patch: **** malformed patch at line 38: -can be found on the `contributions <http://www.astropy.org/contribute.html>`_
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/astropy__astropy-14365/run_instance.log) for more information.
+astropy__astropy-12907: >>>>> Patch Apply Failed:
+patching file astropy/modeling/separable.py
+patch: **** malformed patch at line 54: +            points.append((x, y))
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/astropy__astropy-12907/run_instance.log) for more information.
+django__django-13551: >>>>> Patch Apply Failed:
+patching file django/contrib/auth/tokens.py
+Hunk #1 FAILED at 1.
+1 out of 1 hunk FAILED -- saving rejects to file django/contrib/auth/tokens.py.rej
+can't find file to patch at input line 70
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|         while y != y1:
+|-            points.append((x0, y0))
+|+            points.append((x, y))
+|             err -= dy
+|             if err < 0:
+|                 x += sx
+|-            x0 += sx
+|+            x += sx
+|             y += sy
+|             err += dx
+|             x0 += sx
+|             y0 += sy
+|     return points
+|diff --git a/start of django/contrib/auth/tokens.py b/start of django/contrib/auth/tokens.py
+|--- a/start of django/contrib/auth/tokens.py
+|+++ b/start of django/contrib/auth/tokens.py
+--------------------------
+No file to patch.  Skipping patch.
+1 out of 1 hunk ignored
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/django__django-13551/run_instance.log) for more information.
+django__django-14016: >>>>> Patch Apply Failed:
+patching file django/db/models/query_utils.py
+patch: **** malformed patch at line 56:      return points
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/django__django-14016/run_instance.log) for more information.
+django__django-16139: >>>>> Patch Apply Failed:
+patching file django/contrib/auth/forms.py
+Hunk #1 FAILED at 1.
+1 out of 1 hunk FAILED -- saving rejects to file django/contrib/auth/forms.py.rej
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/django__django-16139/run_instance.log) for more information.
+matplotlib__matplotlib-25498: >>>>> Patch Apply Failed:
+patching file lib/matplotlib/colorbar.py
+patch: **** unexpected end of file in patch
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/matplotlib__matplotlib-25498/run_instance.log) for more information.
+matplotlib__matplotlib-22835: >>>>> Patch Apply Failed:
+patching file lib/matplotlib/artist.py
+patch: **** malformed patch at line 56: +                x += sx
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/matplotlib__matplotlib-22835/run_instance.log) for more information.
+mwaskom__seaborn-3010: >>>>> Patch Apply Failed:
+patching file seaborn/_stats/regression.py
+patch: **** malformed patch at line 40: +
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/mwaskom__seaborn-3010/run_instance.log) for more information.
+mwaskom__seaborn-2848: >>>>> Patch Apply Failed:
+can't find file to patch at input line 5
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|<patch>
+|diff --git a/somefile.py b/somefile.py
+|--- a/somefile.py
+|+++ b/somefile.py
+--------------------------
+No file to patch.  Skipping patch.
+patch: **** malformed patch at line 55: +            y0 += sy
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/mwaskom__seaborn-2848/run_instance.log) for more information.
+mwaskom__seaborn-3190: >>>>> Patch Apply Failed:
+patching file seaborn/_core/scales.py
+patch: **** malformed patch at line 55:  
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/mwaskom__seaborn-3190/run_instance.log) for more information.
+django__django-12915: >>>>> Patch Apply Failed:
+patching file django/contrib/staticfiles/handlers.py
+patch: **** malformed patch at line 53: +            y += sy
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/django__django-12915/run_instance.log) for more information.
+mwaskom__seaborn-3407: >>>>> Patch Apply Failed:
+patch: **** malformed patch at line 53: +            y += sy
+
+can't find file to patch at input line 5
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|
+|diff --git a/somefile.py b/somefile.py
+|--- a/somefile.py
+|+++ b/somefile.py
+--------------------------
+No file to patch.  Skipping patch.
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/mwaskom__seaborn-3407/run_instance.log) for more information.
+pallets__flask-4045: >>>>> Patch Apply Failed:
+patching file src/flask/blueprints.py
+Hunk #1 FAILED at 1.
+1 out of 1 hunk FAILED -- saving rejects to file src/flask/blueprints.py.rej
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/pallets__flask-4045/run_instance.log) for more information.
+pallets__flask-4992: >>>>> Patch Apply Failed:
+patching file src/flask/config.py
+patch: **** malformed patch at line 56:      return points
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/pallets__flask-4992/run_instance.log) for more information.
+pallets__flask-5063: >>>>> Patch Apply Failed:
+patching file src/flask/cli.py
+patch: **** malformed patch at line 56:      return points
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/pallets__flask-5063/run_instance.log) for more information.
+psf__requests-1963: >>>>> Patch Apply Failed:
+can't find file to patch at input line 5
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|<patch>
+|diff --git a/session.py b/session.py
+|--- a/session.py
+|+++ b/session.py
+--------------------------
+No file to patch.  Skipping patch.
+1 out of 1 hunk ignored
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/psf__requests-1963/run_instance.log) for more information.
+pylint-dev__pylint-5859: >>>>> Patch Apply Failed:
+patching file pylint/checkers/misc.py
+patch: **** malformed patch at line 34:  # Copyright (c) 2021 David A. Wheeler <david.a.wheeler@redhat.com>
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/pylint-dev__pylint-5859/run_instance.log) for more information.
+pylint-dev__pylint-7080: >>>>> Patch Apply Failed:
+can't find file to patch at input line 4
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|diff --git a/lint/expand_modules.py b/lint/expand_modules.py
+|--- a/lint/expand_modules.py
+|+++ b/lint/expand_modules.py
+--------------------------
+No file to patch.  Skipping patch.
+patch: **** malformed patch at line 54:  
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/pylint-dev__pylint-7080/run_instance.log) for more information.Evaluation:  44%|████▍     | 19/43 [02:27<03:26,  8.62s/it, ✓=0, ✖=1, error=19]Evaluation:  47%|████▋     | 20/43 [02:27<04:04, 10.65s/it, ✓=0, ✖=1, error=19]Evaluation:  47%|████▋     | 20/43 [02:28<04:04, 10.65s/it, ✓=0, ✖=1, error=20]Evaluation:  49%|████▉     | 21/43 [02:28<03:00,  8.21s/it, ✓=0, ✖=1, error=20]Evaluation:  49%|████▉     | 21/43 [02:51<03:00,  8.21s/it, ✓=0, ✖=1, error=21]Evaluation:  51%|█████     | 22/43 [02:51<04:15, 12.17s/it, ✓=0, ✖=1, error=21]Evaluation:  51%|█████     | 22/43 [02:51<04:15, 12.17s/it, ✓=0, ✖=1, error=22]Evaluation:  53%|█████▎    | 23/43 [02:51<04:03, 12.17s/it, ✓=0, ✖=1, error=23]Evaluation:  56%|█████▌    | 24/43 [02:51<02:10,  6.86s/it, ✓=0, ✖=1, error=23]Evaluation:  56%|█████▌    | 24/43 [02:52<02:10,  6.86s/it, ✓=0, ✖=1, error=24]Evaluation:  58%|█████▊    | 25/43 [02:52<01:38,  5.46s/it, ✓=0, ✖=1, error=24]Evaluation:  58%|█████▊    | 25/43 [02:58<01:38,  5.46s/it, ✓=0, ✖=1, error=25]Evaluation:  60%|██████    | 26/43 [02:58<01:31,  5.40s/it, ✓=0, ✖=1, error=25]Evaluation:  60%|██████    | 26/43 [03:00<01:31,  5.40s/it, ✓=0, ✖=1, error=26]Evaluation:  63%|██████▎   | 27/43 [03:00<01:12,  4.52s/it, ✓=0, ✖=1, error=26]Evaluation:  63%|██████▎   | 27/43 [03:33<01:12,  4.52s/it, ✓=0, ✖=1, error=27]Evaluation:  65%|██████▌   | 28/43 [03:33<03:07, 12.50s/it, ✓=0, ✖=1, error=27]Evaluation:  65%|██████▌   | 28/43 [03:38<03:07, 12.50s/it, ✓=0, ✖=1, error=28]Evaluation:  67%|██████▋   | 29/43 [03:38<02:26, 10.45s/it, ✓=0, ✖=1, error=28]Evaluation:  67%|██████▋   | 29/43 [04:01<02:26, 10.45s/it, ✓=0, ✖=1, error=29]Evaluation:  70%|██████▉   | 30/43 [04:01<03:00, 13.87s/it, ✓=0, ✖=1, error=29]Evaluation:  70%|██████▉   | 30/43 [04:04<03:00, 13.87s/it, ✓=0, ✖=1, error=30]Evaluation:  72%|███████▏  | 31/43 [04:04<02:09, 10.75s/it, ✓=0, ✖=1, error=30]Evaluation:  72%|███████▏  | 31/43 [04:50<02:09, 10.75s/it, ✓=0, ✖=1, error=31]Evaluation:  74%|███████▍  | 32/43 [04:50<03:53, 21.24s/it, ✓=0, ✖=1, error=31]Evaluation:  74%|███████▍  | 32/43 [04:51<03:53, 21.24s/it, ✓=0, ✖=1, error=32]Evaluation:  77%|███████▋  | 33/43 [04:51<02:32, 15.25s/it, ✓=0, ✖=1, error=32]Evaluation:  77%|███████▋  | 33/43 [05:29<02:32, 15.25s/it, ✓=0, ✖=1, error=33]Evaluation:  79%|███████▉  | 34/43 [05:29<03:16, 21.88s/it, ✓=0, ✖=1, error=33]Evaluation:  79%|███████▉  | 34/43 [05:31<03:16, 21.88s/it, ✓=0, ✖=1, error=34]Evaluation:  81%|████████▏ | 35/43 [05:31<02:08, 16.07s/it, ✓=0, ✖=1, error=34]Evaluation:  81%|████████▏ | 35/43 [05:32<02:08, 16.07s/it, ✓=0, ✖=1, error=35]Evaluation:  84%|████████▎ | 36/43 [05:32<01:20, 11.46s/it, ✓=0, ✖=1, error=35]Evaluation:  84%|████████▎ | 36/43 [05:34<01:20, 11.46s/it, ✓=0, ✖=1, error=36]Evaluation:  86%|████████▌ | 37/43 [05:34<00:51,  8.65s/it, ✓=0, ✖=1, error=36]Evaluation:  86%|████████▌ | 37/43 [05:34<00:51,  8.65s/it, ✓=0, ✖=1, error=37]Evaluation:  88%|████████▊ | 38/43 [06:05<00:43,  8.65s/it, ✓=0, ✖=1, error=38]Evaluation:  91%|█████████ | 39/43 [06:05<00:47, 11.79s/it, ✓=0, ✖=1, error=38]Evaluation:  91%|█████████ | 39/43 [06:06<00:47, 11.79s/it, ✓=0, ✖=1, error=39]Evaluation:  93%|█████████▎| 40/43 [06:06<00:27,  9.10s/it, ✓=0, ✖=1, error=39]Evaluation:  93%|█████████▎| 40/43 [06:15<00:27,  9.10s/it, ✓=0, ✖=1, error=40]Evaluation:  95%|█████████▌| 41/43 [06:15<00:18,  9.26s/it, ✓=0, ✖=1, error=40]Evaluation:  95%|█████████▌| 41/43 [06:48<00:18,  9.26s/it, ✓=0, ✖=1, error=41]Evaluation:  98%|█████████▊| 42/43 [06:48<00:15, 15.65s/it, ✓=0, ✖=1, error=41]Evaluation:  98%|█████████▊| 42/43 [09:29<00:15, 15.65s/it, ✓=0, ✖=1, error=42]Evaluation: 100%|██████████| 43/43 [09:29<00:00, 56.15s/it, ✓=0, ✖=1, error=42]Evaluation: 100%|██████████| 43/43 [09:29<00:00, 13.24s/it, ✓=0, ✖=1, error=42]
+
+pylint-dev__pylint-7228: >>>>> Patch Apply Failed:
+patching file pylint/config/argument.py
+Hunk #1 FAILED at 1.
+1 out of 1 hunk FAILED -- saving rejects to file pylint/config/argument.py.rej
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/pylint-dev__pylint-7228/run_instance.log) for more information.
+psf__requests-863: >>>>> Patch Apply Failed:
+can't find file to patch at input line 5
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|
+|diff --git a/request/models.py b/request/models.py
+|--- a/request/models.py
+|+++ b/request/models.py
+--------------------------
+No file to patch.  Skipping patch.
+patch: **** malformed patch at line 14: 2.21.1
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/psf__requests-863/run_instance.log) for more information.
+psf__requests-2674: >>>>> Patch Apply Failed:
+patching file requests/adapters.py
+patch: **** malformed patch at line 54: +                err += dy
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/psf__requests-2674/run_instance.log) for more information.
+psf__requests-3362: >>>>> Patch Apply Failed:
+patching file README.rst
+patch: **** malformed patch at line 10: +# .. image:: https://img.shields.io/pypi/v/requests.svg
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/psf__requests-3362/run_instance.log) for more information.
+pylint-dev__pylint-7993: >>>>> Patch Apply Failed:
+patch: **** malformed patch at line 56:      return points
+
+patching file pylint/reporters/text.py
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/pylint-dev__pylint-7993/run_instance.log) for more information.
+pytest-dev__pytest-11148: >>>>> Patch Apply Failed:
+patching file src/_pytest/pathlib.py
+patch: **** malformed patch at line 55:  
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/pytest-dev__pytest-11148/run_instance.log) for more information.
+pydata__xarray-5131: >>>>> Patch Apply Failed:
+patching file xarray/core/groupby.py
+Hunk #1 FAILED at 1.
+patch unexpectedly ends in middle of line
+1 out of 1 hunk FAILED -- saving rejects to file xarray/core/groupby.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/pydata__xarray-5131/run_instance.log) for more information.
+pydata__xarray-3364: >>>>> Patch Apply Failed:
+patching file xarray/core/concat.py
+patch: **** malformed patch at line 56:      return points
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/pydata__xarray-3364/run_instance.log) for more information.
+scikit-learn__scikit-learn-13496: >>>>> Patch Apply Failed:
+patching file sklearn/ensemble/iforest.py
+Hunk #1 FAILED at 1.
+1 out of 1 hunk FAILED -- saving rejects to file sklearn/ensemble/iforest.py.rej
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/scikit-learn__scikit-learn-13496/run_instance.log) for more information.
+pytest-dev__pytest-7373: >>>>> Patch Apply Failed:
+patching file src/_pytest/mark/evaluate.py
+patch: **** malformed patch at line 55:  
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/pytest-dev__pytest-7373/run_instance.log) for more information.
+pytest-dev__pytest-5413: >>>>> Patch Apply Failed:
+patching file src/_pytest/_code/code.py
+patch: **** malformed patch at line 54:  
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/pytest-dev__pytest-5413/run_instance.log) for more information.
+pytest-dev__pytest-5495: >>>>> Patch Apply Failed:
+patching file src/_pytest/assertion/util.py
+patch: **** malformed patch at line 56:      return points
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/pytest-dev__pytest-5495/run_instance.log) for more information.
+scikit-learn__scikit-learn-25570: >>>>> Patch Apply Failed:
+patching file sklearn/compose/_column_transformer.py
+Hunk #1 FAILED at 1.
+1 out of 1 hunk FAILED -- saving rejects to file sklearn/compose/_column_transformer.py.rej
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/scikit-learn__scikit-learn-25570/run_instance.log) for more information.
+sympy__sympy-17630: >>>>> Patch Apply Failed:
+patching file sympy/matrices/expressions/matexpr.py
+patch unexpectedly ends in middle of line
+patch: **** unexpected end of file in patch
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/sympy__sympy-17630/run_instance.log) for more information.
+sphinx-doc__sphinx-10451: >>>>> Patch Apply Failed:
+patching file sphinx/ext/autodoc/typehints.py
+Hunk #1 FAILED at 1.
+1 out of 1 hunk FAILED -- saving rejects to file sphinx/ext/autodoc/typehints.py.rej
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/sphinx-doc__sphinx-10451/run_instance.log) for more information.
+sphinx-doc__sphinx-8627: >>>>> Patch Apply Failed:
+patching file sphinx/util/typing.py
+Hunk #1 FAILED at 1.
+1 out of 1 hunk FAILED -- saving rejects to file sphinx/util/typing.py.rej
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/sphinx-doc__sphinx-8627/run_instance.log) for more information.
+sphinx-doc__sphinx-8506: >>>>> Patch Apply Failed:
+patching file sphinx/domains/std.py
+patch: **** malformed patch at line 55: +    points.append((x, y))
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/sphinx-doc__sphinx-8506/run_instance.log) for more information.
+sympy__sympy-24066: >>>>> Patch Apply Failed:
+patching file sympy/physics/units/unitsystem.py
+Hunk #1 FAILED at 1.
+1 out of 1 hunk FAILED -- saving rejects to file sympy/physics/units/unitsystem.py.rej
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/sympy__sympy-24066/run_instance.log) for more information.
+sympy__sympy-21847: >>>>> Patch Apply Failed:
+patching file sympy/polys/monomials.py
+Hunk #1 FAILED at 1.
+1 out of 1 hunk FAILED -- saving rejects to file sympy/polys/monomials.py.rej
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/sympy__sympy-21847/run_instance.log) for more information.
+sphinx-doc__sphinx-11445: >>>>> Patch Apply Failed:
+patching file sphinx/util/rst.py
+Hunk #1 FAILED at 1.
+1 out of 1 hunk FAILED -- saving rejects to file sphinx/util/rst.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/sphinx-doc__sphinx-11445/run_instance.log) for more information.
+sympy__sympy-18532: >>>>> Patch Apply Failed:
+patching file sympy/core/basic.py
+patch: **** malformed patch at line 36: -            err = dy / 2.0
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/sympy__sympy-18532/run_instance.log) for more information.
+scikit-learn__scikit-learn-13584: >>>>> Patch Apply Failed:
+patching file sklearn/utils/_pprint.py
+Hunk #1 FAILED at 1.
+1 out of 1 hunk FAILED -- saving rejects to file sklearn/utils/_pprint.py.rej
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_132250/Qwen__Qwen2.5-0.5B-Instruct/scikit-learn__scikit-learn-13584/run_instance.log) for more information.
+All instances run.
+Cleaning cached images...
+Removed 0 images.
+Total instances: 43
+Instances submitted: 43
+Instances completed: 1
+Instances incomplete: 0
+Instances resolved: 0
+Instances unresolved: 1
+Instances with empty patches: 0
+Instances with errors: 42
+Unstopped containers: 0
+Unremoved images: 6
+Report written to Qwen__Qwen2.5-0.5B-Instruct.Qwen__Qwen2.5-0.5B-Instruct_20260521_132250.json
+<frozen runpy>:128: RuntimeWarning: 'swebench.harness.run_evaluation' found in sys.modules after import of package 'swebench.harness', but prior to execution of 'swebench.harness.run_evaluation'; this may result in unpredictable behaviour
+Found 6 existing instance images. Will reuse them.
+Running 50 instances...
+Evaluation:   0%|          | 0/50 [00:00<?, ?it/s, error=0, ✓=0, ✖=0]Evaluation:   0%|          | 0/50 [01:11<?, ?it/s, ✓=0, ✖=0, error=1]Evaluation:   2%|▏         | 1/50 [01:11<58:14, 71.32s/it, ✓=0, ✖=0, error=1]Evaluation:   2%|▏         | 1/50 [01:24<58:14, 71.32s/it, ✓=0, ✖=1, error=1]Evaluation:   4%|▍         | 2/50 [01:24<29:51, 37.31s/it, ✓=0, ✖=1, error=1]Evaluation:   4%|▍         | 2/50 [01:27<29:51, 37.31s/it, ✓=0, ✖=1, error=2]Evaluation:   6%|▌         | 3/50 [01:27<16:39, 21.27s/it, ✓=0, ✖=1, error=2]Evaluation:   6%|▌         | 3/50 [01:29<16:39, 21.27s/it, ✓=0, ✖=1, error=3]Evaluation:   8%|▊         | 4/50 [01:29<10:42, 13.98s/it, ✓=0, ✖=1, error=3]Evaluation:   8%|▊         | 4/50 [01:31<10:42, 13.98s/it, ✓=0, ✖=1, error=4]Evaluation:  10%|█         | 5/50 [01:31<07:17,  9.72s/it, ✓=0, ✖=1, error=4]Evaluation:  10%|█         | 5/50 [01:40<07:17,  9.72s/it, ✓=0, ✖=1, error=5]Evaluation:  12%|█▏        | 6/50 [01:40<06:56,  9.46s/it, ✓=0, ✖=1, error=5]Evaluation:  12%|█▏        | 6/50 [01:53<06:56,  9.46s/it, ✓=0, ✖=2, error=5]Evaluation:  14%|█▍        | 7/50 [01:53<07:30, 10.48s/it, ✓=0, ✖=2, error=5]Evaluation:  14%|█▍        | 7/50 [02:00<07:30, 10.48s/it, ✓=0, ✖=3, error=5]Evaluation:  16%|█▌        | 8/50 [02:00<06:29,  9.28s/it, ✓=0, ✖=3, error=5]Evaluation:  16%|█▌        | 8/50 [02:11<06:29,  9.28s/it, ✓=0, ✖=4, error=5]Evaluation:  18%|█▊        | 9/50 [02:11<06:45,  9.89s/it, ✓=0, ✖=4, error=5]Evaluation:  18%|█▊        | 9/50 [02:11<06:45,  9.89s/it, ✓=0, ✖=4, error=6]Evaluation:  20%|██        | 10/50 [02:13<06:35,  9.89s/it, ✓=0, ✖=5, error=6]Evaluation:  22%|██▏       | 11/50 [02:13<03:38,  5.59s/it, ✓=0, ✖=5, error=6]Evaluation:  22%|██▏       | 11/50 [02:27<03:38,  5.59s/it, ✓=0, ✖=5, error=7]Evaluation:  24%|██▍       | 12/50 [02:27<04:58,  7.85s/it, ✓=0, ✖=5, error=7]Evaluation:  24%|██▍       | 12/50 [02:27<04:58,  7.85s/it, ✓=0, ✖=5, error=8]Evaluation:  26%|██▌       | 13/50 [02:30<04:50,  7.85s/it, ✓=0, ✖=6, error=8]Evaluation:  28%|██▊       | 14/50 [02:30<03:07,  5.21s/it, ✓=0, ✖=6, error=8]Evaluation:  28%|██▊       | 14/50 [02:37<03:07,  5.21s/it, ✓=0, ✖=7, error=8]Evaluation:  30%|███       | 15/50 [02:37<03:11,  5.48s/it, ✓=0, ✖=7, error=8]Evaluation:  30%|███       | 15/50 [02:40<03:11,  5.48s/it, ✓=0, ✖=7, error=9]Evaluation:  32%|███▏      | 16/50 [02:40<02:46,  4.89s/it, ✓=0, ✖=7, error=9]Evaluation:  32%|███▏      | 16/50 [02:44<02:46,  4.89s/it, ✓=0, ✖=7, error=10]Evaluation:  34%|███▍      | 17/50 [02:44<02:35,  4.70s/it, ✓=0, ✖=7, error=10]Evaluation:  34%|███▍      | 17/50 [02:44<02:35,  4.70s/it, ✓=0, ✖=7, error=11]Evaluation:  36%|███▌      | 18/50 [02:51<02:30,  4.70s/it, ✓=0, ✖=7, error=12]Evaluation:  38%|███▊      | 19/50 [02:51<02:13,  4.32s/it, ✓=0, ✖=7, error=12]Evaluation:  38%|███▊      | 19/50 [03:22<02:13,  4.32s/it, ✓=0, ✖=7, error=13]Evaluation:  40%|████      | 20/50 [03:22<05:14, 10.48s/it, ✓=0, ✖=7, error=13]Evaluation:  40%|████      | 20/50 [03:23<05:14, 10.48s/it, ✓=0, ✖=7, error=14]Evaluation:  42%|████▏     | 21/50 [03:23<03:54,  8.07s/it, ✓=0, ✖=7, error=14]Evaluation:  42%|████▏     | 21/50 [03:23<03:54,  8.07s/it, ✓=0, ✖=7, error=15]Evaluation:  44%|████▍     | 22/50 [04:11<03:46,  8.07s/it, ✓=0, ✖=7, error=16]Evaluation:  46%|████▌     | 23/50 [04:11<06:35, 14.66s/it, ✓=0, ✖=7, error=16]Evaluation:  46%|████▌     | 23/50 [04:24<06:35, 14.66s/it, ✓=0, ✖=8, error=16]Evaluation:  48%|████▊     | 24/50 [04:24<06:11, 14.29s/it, ✓=0, ✖=8, error=16]Evaluation:  48%|████▊     | 24/50 [05:04<06:11, 14.29s/it, ✓=0, ✖=8, error=17]Evaluation:  50%|█████     | 25/50 [05:04<08:39, 20.78s/it, ✓=0, ✖=8, error=17]Evaluation:  50%|█████     | 25/50 [05:05<08:39, 20.78s/it, ✓=0, ✖=8, error=18]Evaluation:  52%|█████▏    | 26/50 [05:05<06:15, 15.66s/it, ✓=0, ✖=8, error=18]django__django-14016: >>>>> Patch Apply Failed:
+patching file django/db/models/query_utils.py
+Hunk #1 succeeded at 43 with fuzz 3.
+patch: **** malformed patch at line 20:      def __invert__(self):
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/django__django-14016/run_instance.log) for more information.
+django__django-13551: >>>>> Patch Apply Failed:
+patching file django/contrib/auth/tokens.py
+patch: **** malformed patch at line 13:             a password reset.
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/django__django-13551/run_instance.log) for more information.
+astropy__astropy-12907: >>>>> Patch Apply Failed:
+patching file astropy/modeling/separable.py
+patch: **** malformed patch at line 51: -        if isinstance(input, Model):
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/astropy__astropy-12907/run_instance.log) for more information.
+astropy__astropy-7746: >>>>> Patch Apply Failed:
+patching file astropy/wcs/wcs.py
+Hunk #1 succeeded at 1352 with fuzz 3.
+patch: **** malformed patch at line 26: @@ -1393,6 +1396,7 @@
+
+Hunk #2 succeeded at 1368 with fuzz 3.
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/astropy__astropy-7746/run_instance.log) for more information.
+django__django-16527: >>>>> Patch Apply Failed:
+patch: **** malformed patch at line 14:      show_save = context.get("show_save", True)
+
+patching file django/contrib/admin/templatetags/admin_modify.py
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/django__django-16527/run_instance.log) for more information.
+matplotlib__matplotlib-25498: >>>>> Patch Apply Failed:
+patching file lib/matplotlib/colorbar.py
+Hunk #1 succeeded at 507 (offset 13 lines).
+Hunk #2 succeeded at 528 with fuzz 3 (offset 13 lines).
+Hunk #3 succeeded at 559 with fuzz 3 (offset 13 lines).
+Hunk #4 succeeded at 581 with fuzz 3 (offset 13 lines).
+Hunk #5 succeeded at 603 with fuzz 3 (offset 13 lines).
+Hunk #6 succeeded at 625 with fuzz 3 (offset 13 lines).
+Hunk #7 succeeded at 647 with fuzz 3 (offset 13 lines).
+Hunk #8 succeeded at 669 with fuzz 3 (offset 13 lines).
+Hunk #9 succeeded at 691 with fuzz 3 (offset 13 lines).
+Hunk #10 succeeded at 713 with fuzz 3 (offset 13 lines).
+Hunk #11 succeeded at 735 with fuzz 3 (offset 13 lines).
+Hunk #12 succeeded at 757 with fuzz 3 (offset 13 lines).
+Hunk #13 succeeded at 779 with fuzz 3 (offset 13 lines).
+Hunk #14 succeeded at 801 with fuzz 3 (offset 13 lines).
+patch unexpectedly ends in middle of line
+patch: **** unexpected end of file in patch
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/matplotlib__matplotlib-25498/run_instance.log) for more information.
+mwaskom__seaborn-3010: >>>>> Patch Apply Failed:
+patching file seaborn/_stats/regression.py
+patch: **** malformed patch at line 11: @@ -36,7 +36,7 @@
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/mwaskom__seaborn-3010/run_instance.log) for more information.
+mwaskom__seaborn-3190: >>>>> Patch Apply Failed:
+patching file seaborn/_core/scales.py
+Hunk #1 succeeded at 352 with fuzz 3 (offset 1 line).
+Hunk #2 FAILED at 359.
+1 out of 2 hunks FAILED -- saving rejects to file seaborn/_core/scales.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/mwaskom__seaborn-3190/run_instance.log) for more information.
+mwaskom__seaborn-3407: >>>>> Patch Apply Failed:
+patching file seaborn/axisgrid.py
+patch unexpectedly ends in middle of line
+patch: **** malformed patch at line 15:  
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/mwaskom__seaborn-3407/run_instance.log) for more information.
+pallets__flask-4045: >>>>> Patch Apply Failed:
+patching file src/flask/blueprints.py
+Hunk #2 FAILED at 371.
+Hunk #3 FAILED at 380.
+2 out of 3 hunks FAILED -- saving rejects to file src/flask/blueprints.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/pallets__flask-4045/run_instance.log) for more information.
+pallets__flask-4992: >>>>> Patch Apply Failed:
+patching file src/flask/config.py
+Hunk #1 FAILED at 234.
+1 out of 1 hunk FAILED -- saving rejects to file src/flask/config.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/pallets__flask-4992/run_instance.log) for more information.
+pallets__flask-5063: >>>>> Patch Apply Failed:
+patching file src/flask/cli.py
+patch: **** malformed patch at line 31:  
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/pallets__flask-5063/run_instance.log) for more information.
+psf__requests-3362: >>>>> Patch Apply Failed:
+patch: **** unexpected end of file in patch
+patching file requests/utils.py
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/psf__requests-3362/run_instance.log) for more information.
+psf__requests-863: >>>>> Patch Apply Failed:
+patching file requests/models.py
+Hunk #1 FAILED at 150.
+Hunk #2 succeeded at 507 with fuzz 1 (offset -516 lines).
+patch: **** malformed patch at line 29: @@ -1061,7 +1061,7 @@
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/psf__requests-863/run_instance.log) for more information.
+psf__requests-2674: >>>>> Patch Apply Failed:
+patching file requests/adapters.py
+Hunk #1 succeeded at 15 (offset -7 lines).
+patch: **** malformed patch at line 22:              raise ProxyError(e)
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/psf__requests-2674/run_instance.log) for more information.
+matplotlib__matplotlib-24149: >>>>> Patch Apply Failed:
+patching file lib/matplotlib/axes/_axes.py
+patch: **** malformed patch at line 57:  
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/matplotlib__matplotlib-24149/run_instance.log) for more information.
+pylint-dev__pylint-7080: >>>>> Patch Apply Failed:
+patching file pylint/lint/expand_modules.py
+patch: **** malformed patch at line 9:  from collections.abc import Sequence
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/pylint-dev__pylint-7080/run_instance.log) for more information.
+pylint-dev__pylint-5859: >>>>> Patch Apply Failed:
+patching file pylint/checkers/misc.py
+Hunk #1 succeeded at 123 with fuzz 2.
+Hunk #2 succeeded at 192 with fuzz 3.
+Hunk #3 succeeded at 202 with fuzz 3.
+misordered hunks! output would be garbled
+Hunk #4 FAILED at 184.
+1 out of 4 hunks FAILED -- saving rejects to file pylint/checkers/misc.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/pylint-dev__pylint-5859/run_instance.log) for more information.
+pydata__xarray-4094: >>>>> Patch Apply Failed:
+patching file xarray/core/dataarray.py
+patch: **** malformed patch at line 12:  
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/pydata__xarray-4094/run_instance.log) for more information.
+matplotlib__matplotlib-24970: >>>>> Patch Apply Failed:
+patching file lib/matplotlib/colors.py
+Hunk #1 FAILED at 731.
+Hunk #2 FAILED at 732.
+Hunk #3 FAILED at 733.
+Hunk #4 FAILED at 734.
+4 out of 4 hunks FAILED -- saving rejects to file lib/matplotlib/colors.py.rej
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/matplotlib__matplotlib-24970/run_instance.log) for more information.Evaluation:  52%|█████▏    | 26/50 [06:14<06:15, 15.66s/it, ✓=0, ✖=8, error=19]Evaluation:  54%|█████▍    | 27/50 [06:14<11:28, 29.94s/it, ✓=0, ✖=8, error=19]Evaluation:  54%|█████▍    | 27/50 [06:14<11:28, 29.94s/it, ✓=0, ✖=8, error=20]Evaluation:  56%|█████▌    | 28/50 [06:14<07:55, 21.63s/it, ✓=0, ✖=8, error=20]Evaluation:  56%|█████▌    | 28/50 [06:14<07:55, 21.63s/it, ✓=0, ✖=8, error=21]Evaluation:  58%|█████▊    | 29/50 [06:15<07:34, 21.63s/it, ✓=0, ✖=9, error=21]Evaluation:  60%|██████    | 30/50 [06:15<04:04, 12.25s/it, ✓=0, ✖=9, error=21]Evaluation:  60%|██████    | 30/50 [06:15<04:04, 12.25s/it, ✓=0, ✖=9, error=22]Evaluation:  62%|██████▏   | 31/50 [06:20<03:52, 12.25s/it, ✓=0, ✖=10, error=22]Evaluation:  64%|██████▍   | 32/50 [06:20<02:33,  8.52s/it, ✓=0, ✖=10, error=22]Evaluation:  64%|██████▍   | 32/50 [06:31<02:33,  8.52s/it, ✓=0, ✖=11, error=22]Evaluation:  66%|██████▌   | 33/50 [06:31<02:33,  9.02s/it, ✓=0, ✖=11, error=22]Evaluation:  66%|██████▌   | 33/50 [06:52<02:33,  9.02s/it, ✓=0, ✖=11, error=23]Evaluation:  68%|██████▊   | 34/50 [06:52<03:09, 11.83s/it, ✓=0, ✖=11, error=23]Evaluation:  68%|██████▊   | 34/50 [06:53<03:09, 11.83s/it, ✓=0, ✖=11, error=24]Evaluation:  70%|███████   | 35/50 [06:53<02:16,  9.10s/it, ✓=0, ✖=11, error=24]Evaluation:  70%|███████   | 35/50 [07:18<02:16,  9.10s/it, ✓=0, ✖=11, error=25]Evaluation:  72%|███████▏  | 36/50 [07:18<03:05, 13.25s/it, ✓=0, ✖=11, error=25]Evaluation:  72%|███████▏  | 36/50 [07:41<03:05, 13.25s/it, ✓=0, ✖=12, error=25]Evaluation:  74%|███████▍  | 37/50 [07:41<03:27, 15.97s/it, ✓=0, ✖=12, error=25]Evaluation:  74%|███████▍  | 37/50 [07:53<03:27, 15.97s/it, ✓=0, ✖=12, error=26]Evaluation:  76%|███████▌  | 38/50 [07:53<02:59, 14.97s/it, ✓=0, ✖=12, error=26]Evaluation:  76%|███████▌  | 38/50 [07:55<02:59, 14.97s/it, ✓=0, ✖=12, error=27]Evaluation:  78%|███████▊  | 39/50 [07:55<02:03, 11.20s/it, ✓=0, ✖=12, error=27]Evaluation:  78%|███████▊  | 39/50 [08:00<02:03, 11.20s/it, ✓=0, ✖=13, error=27]Evaluation:  80%|████████  | 40/50 [08:00<01:32,  9.23s/it, ✓=0, ✖=13, error=27]Evaluation:  80%|████████  | 40/50 [08:06<01:32,  9.23s/it, ✓=0, ✖=13, error=28]Evaluation:  82%|████████▏ | 41/50 [08:06<01:15,  8.41s/it, ✓=0, ✖=13, error=28]Evaluation:  82%|████████▏ | 41/50 [08:08<01:15,  8.41s/it, ✓=0, ✖=13, error=29]Evaluation:  84%|████████▍ | 42/50 [08:08<00:52,  6.62s/it, ✓=0, ✖=13, error=29]Evaluation:  84%|████████▍ | 42/50 [08:11<00:52,  6.62s/it, ✓=0, ✖=14, error=29]Evaluation:  86%|████████▌ | 43/50 [08:11<00:37,  5.34s/it, ✓=0, ✖=14, error=29]Evaluation:  86%|████████▌ | 43/50 [08:11<00:37,  5.34s/it, ✓=0, ✖=15, error=29]Evaluation:  88%|████████▊ | 44/50 [08:11<00:23,  3.86s/it, ✓=0, ✖=15, error=29]Evaluation:  88%|████████▊ | 44/50 [08:17<00:23,  3.86s/it, ✓=0, ✖=15, error=30]Evaluation:  90%|█████████ | 45/50 [08:17<00:23,  4.61s/it, ✓=0, ✖=15, error=30]Evaluation:  90%|█████████ | 45/50 [08:22<00:23,  4.61s/it, ✓=0, ✖=16, error=30]Evaluation:  92%|█████████▏| 46/50 [08:22<00:18,  4.64s/it, ✓=0, ✖=16, error=30]Evaluation:  92%|█████████▏| 46/50 [08:28<00:18,  4.64s/it, ✓=0, ✖=16, error=31]Evaluation:  94%|█████████▍| 47/50 [08:28<00:14,  4.94s/it, ✓=0, ✖=16, error=31]Evaluation:  94%|█████████▍| 47/50 [08:30<00:14,  4.94s/it, ✓=0, ✖=16, error=32]Evaluation:  96%|█████████▌| 48/50 [08:30<00:08,  4.03s/it, ✓=0, ✖=16, error=32]Evaluation:  96%|█████████▌| 48/50 [08:32<00:08,  4.03s/it, ✓=0, ✖=16, error=33]Evaluation:  98%|█████████▊| 49/50 [08:32<00:03,  3.62s/it, ✓=0, ✖=16, error=33]Evaluation:  98%|█████████▊| 49/50 [08:35<00:03,  3.62s/it, ✓=0, ✖=17, error=33]Evaluation: 100%|██████████| 50/50 [08:35<00:00,  3.28s/it, ✓=0, ✖=17, error=33]Evaluation: 100%|██████████| 50/50 [08:35<00:00, 10.31s/it, ✓=0, ✖=17, error=33]
+
+pylint-dev__pylint-7228: >>>>> Patch Apply Failed:
+patching file pylint/config/argument.py
+Reversed (or previously applied) patch detected!  Assuming -R.
+Hunk #1 succeeded at 101 (offset -2 lines).
+Hunk #2 FAILED at 114.
+1 out of 2 hunks FAILED -- saving rejects to file pylint/config/argument.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/pylint-dev__pylint-7228/run_instance.log) for more information.
+pydata__xarray-4493: >>>>> Patch Apply Failed:
+patching file xarray/core/variable.py
+Hunk #1 succeeded at 469 with fuzz 2 (offset -574 lines).
+patch: **** malformed patch at line 19:          from dask.base import normalize_token
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/pydata__xarray-4493/run_instance.log) for more information.
+pytest-dev__pytest-5495: >>>>> Patch Apply Failed:
+patching file src/_pytest/assertion/util.py
+Hunk #1 FAILED at 167.
+1 out of 1 hunk FAILED -- saving rejects to file src/_pytest/assertion/util.py.rej
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/pytest-dev__pytest-5495/run_instance.log) for more information.
+pytest-dev__pytest-5413: >>>>> Patch Apply Failed:
+patching file src/_pytest/_code/code.py
+Hunk #1 FAILED at 416.
+Hunk #2 succeeded at 470 (offset 26 lines).
+Hunk #3 FAILED at 455.
+Hunk #4 FAILED at 473.
+3 out of 4 hunks FAILED -- saving rejects to file src/_pytest/_code/code.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/pytest-dev__pytest-5413/run_instance.log) for more information.
+matplotlib__matplotlib-25079: >>>>> Patch Apply Failed:
+patching file lib/matplotlib/colors.py
+Hunk #1 succeeded at 1968 with fuzz 1 (offset 623 lines).
+Hunk #2 succeeded at 1988 (offset 626 lines).
+Hunk #3 succeeded at 1996 with fuzz 1 (offset 583 lines).
+Hunk #4 succeeded at 2010 (offset 584 lines).
+patch: **** malformed patch at line 48: @@ -1463,6 +1469,7 @@
+
+Hunk #5 succeeded at 2020 (offset 573 lines).
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/matplotlib__matplotlib-25079/run_instance.log) for more information.
+pytest-dev__pytest-7373: >>>>> Patch Apply Failed:
+patching file src/_pytest/mark/evaluate.py
+patch unexpectedly ends in middle of line
+patch: **** malformed patch at line 11:  
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/pytest-dev__pytest-7373/run_instance.log) for more information.
+sphinx-doc__sphinx-11445: >>>>> Patch Apply Failed:
+patching file sphinx/util/rst.py
+patch: **** malformed patch at line 17:  
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/sphinx-doc__sphinx-11445/run_instance.log) for more information.
+scikit-learn__scikit-learn-13584: >>>>> Patch Apply Failed:
+patching file sklearn/utils/_pprint.py
+patch: **** malformed patch at line 31:      def _pprint_estimator(self, object, stream, indent, allowance, context,
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/scikit-learn__scikit-learn-13584/run_instance.log) for more information.
+scikit-learn__scikit-learn-14087: >>>>> Patch Apply Failed:
+patching file sklearn/linear_model/logistic.py
+Hunk #1 FAILED at 2192.
+1 out of 1 hunk FAILED -- saving rejects to file sklearn/linear_model/logistic.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/scikit-learn__scikit-learn-14087/run_instance.log) for more information.
+sphinx-doc__sphinx-8627: >>>>> Patch Apply Failed:
+patching file sphinx/util/typing.py
+patch: **** malformed patch at line 34:  def restify(cls: Optional["Type"]) -> str:
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/sphinx-doc__sphinx-8627/run_instance.log) for more information.
+sympy__sympy-17630: >>>>> Patch Apply Failed:
+patching file sympy/matrices/expressions/matexpr.py
+patch: **** malformed patch at line 32:  
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/sympy__sympy-17630/run_instance.log) for more information.
+sympy__sympy-24066: >>>>> Patch Apply Failed:
+patching file sympy/physics/units/unitsystem.py
+Hunk #1 FAILED at 151.
+Hunk #2 FAILED at 162.
+Hunk #3 succeeded at 185 (offset 12 lines).
+Hunk #4 succeeded at 192 (offset 8 lines).
+Hunk #5 succeeded at 201 with fuzz 4 (offset 5 lines).
+2 out of 5 hunks FAILED -- saving rejects to file sympy/physics/units/unitsystem.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/sympy__sympy-24066/run_instance.log) for more information.
+sympy__sympy-21847: >>>>> Patch Apply Failed:
+patching file sympy/polys/monomials.py
+Hunk #1 FAILED at 88.
+Hunk #2 succeeded at 143 with fuzz 2 (offset 39 lines).
+Hunk #3 succeeded at 151 with fuzz 4 (offset 28 lines).
+1 out of 3 hunks FAILED -- saving rejects to file sympy/polys/monomials.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/sympy__sympy-21847/run_instance.log) for more information.
+All instances run.
+Cleaning cached images...
+Removed 0 images.
+Total instances: 50
+Instances submitted: 50
+Instances completed: 17
+Instances incomplete: 0
+Instances resolved: 0
+Instances unresolved: 17
+Instances with empty patches: 0
+Instances with errors: 33
+Unstopped containers: 0
+Unremoved images: 6
+Report written to meta-llama__Llama-3.1-8B-Instruct.meta-llama__Llama-3.1-8B-Instruct_20260521_133234.json
+=== eval Qwen__Qwen2.5-0.5B-Instruct  (43 instances) ===
+  resolved 0/43  -> /home/etri/jun/bench-gpu/results/Qwen__Qwen2.5-0.5B-Instruct/swebench/eval_result.json
+=== eval meta-llama__Llama-3.1-8B-Instruct  (50 instances) ===
+  resolved 0/50  -> /home/etri/jun/bench-gpu/results/meta-llama__Llama-3.1-8B-Instruct/swebench/eval_result.json

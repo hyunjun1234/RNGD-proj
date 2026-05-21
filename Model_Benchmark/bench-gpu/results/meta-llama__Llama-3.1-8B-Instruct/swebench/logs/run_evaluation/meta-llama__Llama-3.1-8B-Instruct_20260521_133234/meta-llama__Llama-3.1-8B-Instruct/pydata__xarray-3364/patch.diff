@@ -1,0 +1,115 @@
+--- a/xarray/core/concat.py
++++ b/xarray/core/concat.py
+@@ -111,6 +111,7 @@
+     if compat not in _VALID_COMPAT:
+         raise ValueError(
+             "compat=%r invalid: must be 'broadcast_equals', 'equals', 'identical', 'no_conflicts' or 'override'"
++            " or 'ignore' or 'drop' or 'raise'"
+             % compat
+         )
+     # TODO: add ignore_index arguments copied from pandas.concat
+     # TODO: support concatenating scalar coordinates even if the concatenated
+@@ -123,6 +124,7 @@
+     elif isinstance(first_obj, DataArray):
+         f = _dataarray_concat
+     elif isinstance(first_obj, Dataset):
++        f = _dataset_concat_with_ignore
+     else:
+         raise TypeError(
+             "can only concatenate xarray Dataset and DataArray "
+@@ -134,6 +136,7 @@
+     return f(objs, dim, data_vars, coords, compat, positions, fill_value, join)
+ 
+ def _dataset_concat_with_ignore(
++    # new function
+     datasets,
+     dim,
+     data_vars,
+     coords,
+@@ -145,6 +148,7 @@
+     # Make sure we're working on a copy (we'll be loading variables)
+     datasets = [ds.copy() for ds in datasets]
+     datasets = align(
++        # ignore missing variables
+         *datasets, join=join, copy=False, exclude=[dim], fill_value=fill_value
+     )
+ 
+     dim_coords, dims_sizes, coord_names, data_names = _parse_datasets(datasets)
+@@ -162,6 +166,7 @@
+     concat_over_existing_dim = False
+     concat_over.add(dim)
+     else:
++        # ignore missing variables
+         concat_over.update(k for k, v in ds.variables.items() if dim in v.dims)
+         concat_dim_lengths.append(ds.dims.get(dim, 1))
+ 
+     def process_subset_opt(opt, subset):
+@@ -184,6 +189,7 @@
+         if opt == "different":
+             if compat == "override":
+                 raise ValueError(
+-                    "Cannot specify both %s='different' and compat='override'."
++                    "Cannot specify both %s='different' and compat='override' or 'ignore'."
+                     % subset
+                 )
+             # all nonindexes that are not the same in each dataset
+@@ -201,6 +207,7 @@
+             concat_over.add(k)
+             equals[k] = False
+             # computed variables are not to be re-computed
+-            # again in the future
+             for ds, v in zip(datasets[1:], computed):
+                 ds.variables[k].data = v.data
+             break
+         else:
+@@ -219,6 +226,7 @@
+             concat_over.update(opt)
+         else:
+             invalid_vars = [k for k in opt if k not in getattr(datasets[0], subset)]
+-            if invalid_vars:
++            if invalid_vars and compat not in ['ignore', 'drop']:
+                 if subset == "coords":
+                     raise ValueError(
+                         "some variables in coords are not coordinates on "
+@@ -233,6 +241,7 @@
+             concat_over.update(opt)
+ 
+     process_subset_opt(data_vars, "data_vars")
+     process_subset_opt(coords, "coords")
++    if compat in ['ignore', 'drop']:
++        concat_over = set()
+ 
+     return concat_over, equals, concat_dim_lengths
+ 
+ # determine dimensional coordinate names and a dict mapping name to DataArray
+@@ -256,6 +265,7 @@
+     data_vars.update(ds.data_vars)
+ 
+     for dim in set(ds.dims) - dims:
+         if dim not in dim_coords:
+-            dim_coords[dim] = ds.coords[dim].variable
++            # ignore missing variables
++            if dim in ds.variables:
++                dim_coords[dim] = ds.coords[dim].variable
+         dims = dims | set(ds.dims)
+ 
+     return dim_coords, dims_sizes, all_coord_names, data_names
+@@ -281,6 +291,7 @@
+     # Make sure we're working on a copy (we'll be loading variables)
+     datasets = [ds.copy() for ds in datasets]
+     datasets = align(
++        # ignore missing variables
+         *datasets, join=join, copy=False, exclude=[dim], fill_value=fill_value
+     )
+ 
+     dim_coords, dims_sizes, coord_names, data_names = _parse_datasets(datasets)
+@@ -298,6 +309,7 @@
+     concat_over_existing_dim = False
+     concat_over.add(dim)
+     else:
++        # ignore missing variables
+         concat_over.update(k for k, v in ds.variables.items() if dim in v.dims)
+         concat_dim_lengths.append(ds.dims.get(dim, 1))
+ 
+     def process_subset_opt(opt, subset):
+@@ -320,6 +332

@@ -1,0 +1,48 @@
+2026-05-21 13:34:16,577 - INFO - Creating container for matplotlib__matplotlib-22835...
+2026-05-21 13:34:16,919 - INFO - Container for matplotlib__matplotlib-22835 created: 0235ad9ca40f2009fefd2a4b98e64e899407d6c5222ef36c8cfa95e37dd8a637
+2026-05-21 13:34:17,108 - INFO - Container for matplotlib__matplotlib-22835 started: 0235ad9ca40f2009fefd2a4b98e64e899407d6c5222ef36c8cfa95e37dd8a637
+2026-05-21 13:34:17,108 - INFO - Intermediate patch for matplotlib__matplotlib-22835 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/matplotlib__matplotlib-22835/patch.diff, now applying to container...
+2026-05-21 13:34:17,233 - INFO - Failed to apply patch to container: git apply --verbose
+2026-05-21 13:34:17,287 - INFO - Failed to apply patch to container: git apply --verbose --reject
+2026-05-21 13:34:17,367 - INFO - >>>>> Applied Patch:
+patching file lib/matplotlib/artist.py
+Hunk #1 succeeded at 156 with fuzz 2 (offset -1117 lines).
+patch unexpectedly ends in middle of line
+
+2026-05-21 13:34:18,338 - INFO - Git diff before:
+diff --git a/lib/matplotlib/artist.py b/lib/matplotlib/artist.py
+index 1f33b9d3ec..a21a9295b9 100644
+--- a/lib/matplotlib/artist.py
++++ b/lib/matplotlib/artist.py
+@@ -157,6 +157,7 @@ class Artist:
+         self._visible = True
+         self._animated = False
+         self._alpha = None
++        self._invertible = True
+         self.clipbox = None
+         self._clippath = None
+         self._clipon = True
+2026-05-21 13:34:18,339 - INFO - Eval script for matplotlib__matplotlib-22835 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/matplotlib__matplotlib-22835/eval.sh; copying to container...
+2026-05-21 13:34:26,161 - INFO - Test runtime: 7.76 seconds
+2026-05-21 13:34:26,161 - INFO - Test output for matplotlib__matplotlib-22835 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_133234/meta-llama__Llama-3.1-8B-Instruct/matplotlib__matplotlib-22835/test_output.txt
+2026-05-21 13:34:26,228 - INFO - Git diff after:
+diff --git a/lib/matplotlib/artist.py b/lib/matplotlib/artist.py
+index 1f33b9d3ec..a21a9295b9 100644
+--- a/lib/matplotlib/artist.py
++++ b/lib/matplotlib/artist.py
+@@ -157,6 +157,7 @@ class Artist:
+         self._visible = True
+         self._animated = False
+         self._alpha = None
++        self._invertible = True
+         self.clipbox = None
+         self._clippath = None
+         self._clipon = True
+2026-05-21 13:34:26,228 - INFO - Grading answer for matplotlib__matplotlib-22835...
+2026-05-21 13:34:26,228 - INFO - report: {'matplotlib__matplotlib-22835': {'patch_is_None': False, 'patch_exists': True, 'patch_successfully_applied': True, 'resolved': False, 'tests_status': {'FAIL_TO_PASS': {'success': [], 'failure': ['lib/matplotlib/tests/test_artist.py::test_format_cursor_data_BoundaryNorm']}, 'PASS_TO_PASS': {'success': ['lib/matplotlib/tests/test_artist.py::test_patch_transform_of_none', 'lib/matplotlib/tests/test_artist.py::test_collection_transform_of_none', 'lib/matplotlib/tests/test_artist.py::test_clipping[png]', 'lib/matplotlib/tests/test_artist.py::test_clipping[pdf]', 'lib/matplotlib/tests/test_artist.py::test_clipping_zoom[png]', 'lib/matplotlib/tests/test_artist.py::test_cull_markers', 'lib/matplotlib/tests/test_artist.py::test_hatching[png]', 'lib/matplotlib/tests/test_artist.py::test_hatching[pdf]', 'lib/matplotlib/tests/test_artist.py::test_remove', 'lib/matplotlib/tests/test_artist.py::test_default_edges[png]', 'lib/matplotlib/tests/test_artist.py::test_properties', 'lib/matplotlib/tests/test_artist.py::test_setp', 'lib/matplotlib/tests/test_artist.py::test_None_zorder', 'lib/matplotlib/tests/test_artist.py::test_artist_inspector_get_valid_values[-unknown]', 'lib/matplotlib/tests/test_artist.py::test_artist_inspector_get_valid_values[ACCEPTS:', 'lib/matplotlib/tests/test_artist.py::test_artist_inspector_get_valid_values[..', 'lib/matplotlib/tests/test_artist.py::test_artist_inspector_get_valid_values[arg', 'lib/matplotlib/tests/test_artist.py::test_artist_inspector_get_valid_values[*arg', 'lib/matplotlib/tests/test_artist.py::test_artist_inspector_get_aliases', 'lib/matplotlib/tests/test_artist.py::test_set_alpha', 'lib/matplotlib/tests/test_artist.py::test_set_alpha_for_array', 'lib/matplotlib/tests/test_artist.py::test_callbacks', 'lib/matplotlib/tests/test_artist.py::test_set_signature', 'lib/matplotlib/tests/test_artist.py::test_set_is_overwritten'], 'failure': []}, 'FAIL_TO_FAIL': {'success': [], 'failure': []}, 'PASS_TO_FAIL': {'success': [], 'failure': []}}}}
+Result for matplotlib__matplotlib-22835: resolved: False
+2026-05-21 13:34:26,228 - INFO - Attempting to stop container sweb.eval.matplotlib__matplotlib-22835.meta-llama__Llama-3.1-8B-Instruct_20260521_133234...
+2026-05-21 13:34:41,676 - INFO - Attempting to remove container sweb.eval.matplotlib__matplotlib-22835.meta-llama__Llama-3.1-8B-Instruct_20260521_133234...
+2026-05-21 13:34:41,753 - INFO - Container sweb.eval.matplotlib__matplotlib-22835.meta-llama__Llama-3.1-8B-Instruct_20260521_133234 removed.
+2026-05-21 13:34:41,754 - INFO - Attempting to remove image swebench/sweb.eval.x86_64.matplotlib_1776_matplotlib-22835:latest...
+2026-05-21 13:34:41,770 - INFO - Image swebench/sweb.eval.x86_64.matplotlib_1776_matplotlib-22835:latest removed.

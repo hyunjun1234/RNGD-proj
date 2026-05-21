@@ -1,0 +1,7 @@
+== SKIP Qwen/Qwen2.5-0.5B-Instruct (no applicable task: tasks={'rerank', 'embed'}, role=smoke) ==
+== SKIP meta-llama/Llama-3.1-8B-Instruct (no applicable task: tasks={'rerank', 'embed'}, role=baseline) ==
+== SKIP Qwen/Qwen3-32B (disabled) ==
+== SKIP meta-llama/Llama-3.3-70B-Instruct (disabled) ==
+== SKIP LGAI-EXAONE/EXAONE-4.0-32B (disabled) ==
+== SKIP Qwen/Qwen3-Embedding-8B (disabled) ==
+== SKIP Qwen/Qwen3-Reranker-8B (disabled) ==

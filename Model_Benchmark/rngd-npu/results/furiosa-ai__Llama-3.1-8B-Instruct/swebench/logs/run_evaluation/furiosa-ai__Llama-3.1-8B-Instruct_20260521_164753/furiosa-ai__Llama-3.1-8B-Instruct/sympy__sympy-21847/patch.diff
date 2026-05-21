@@ -1,0 +1,73 @@
+--- a/sympy/polys/monomials.py
++++ b/sympy/polys/monomials.py
+@@ -88,7 +88,7 @@
+         if all(min_degrees[i] <= max_degrees[i] for i in range(n)):
+             return
+         power_lists = []
+-        for var, min_d, max_d in zip(variables, min_degrees, max_degrees):
++        for var, min_d, max_d in zip(variables, min_degrees, max_degrees):
+             power_lists.append([var**i for i in range(min_d, max_d + 1)])
+         for powers in product(*power_lists):
+             yield Mul(*powers)
+@@ -145,7 +145,7 @@
+         if any(min_degrees[i] > max_degrees[i] for i in range(n)):
+             raise ValueError('min_degrees[i] must be <= max_degrees[i] for all i')
+-        power_lists = []
++        power_lists = []
+         for var, min_d, max_d in zip(variables, min_degrees, max_degrees):
+             power_lists.append([var**i for i in range(min_d, max_d + 1)])
+         for powers in product(*power_lists):
+@@ -163,7 +163,7 @@
+         if any(min_degrees[i] > max_degrees[i] for i in range(n)):
+             raise ValueError('min_degrees[i] must be <= max_degrees[i] for all i')
+-        power_lists = []
++        power_lists = []
+         for var, min_d, max_d in zip(variables, min_degrees, max_degrees):
+             power_lists.append([var**i for i in range(min_d, max_d + 1)])
+         for powers in product(*power_lists):
+@@ -175,7 +175,7 @@
+         if any(min_degrees[i] > max_degrees[i] for i in range(n)):
+             raise ValueError('min_degrees[i] must be <= max_degrees[i] for all i')
+-        power_lists = []
++        power_lists = []
+         for var, min_d, max_d in zip(variables, min_degrees, max_degrees):
+             power_lists.append([var**i for i in range(min_d, max_d + 1)])
+         for powers in product(*power_lists):
+@@ -187,7 +187,7 @@
+         if any(min_degrees[i] > max_degrees[i] for i in range(n)):
+             raise ValueError('min_degrees[i] must be <= max_degrees[i] for all i')
+-        power_lists = []
++        power_lists = []
+         for var, min_d, max_d in zip(variables, min_degrees, max_degrees):
+             power_lists.append([var**i for i in range(min_d, max_d + 1)])
+         for powers in product(*power_lists):
+@@ -199,7 +199,7 @@
+         if any(min_degrees[i] > max_degrees[i] for i in range(n)):
+             raise ValueError('min_degrees[i] must be <= max_degrees[i] for all i')
+-        power_lists = []
++        power_lists = []
+         for var, min_d, max_d in zip(variables, min_degrees, max_degrees):
+             power_lists.append([var**i for i in range(min_d, max_d + 1)])
+         for powers in product(*power_lists):
+@@ -211,7 +211,7 @@
+         if any(min_degrees[i] > max_degrees[i] for i in range(n)):
+             raise ValueError('min_degrees[i] must be <= max_degrees[i] for all i')
+-        power_lists = []
++        power_lists = []
+         for var, min_d, max_d in zip(variables, min_degrees, max_degrees):
+             power_lists.append([var**i for i in range(min_d, max_d + 1)])
+         for powers in product(*power_lists):
+@@ -223,7 +223,7 @@
+         if any(min_degrees[i] > max_degrees[i] for i in range(n)):
+             raise ValueError('min_degrees[i] must be <= max_degrees[i] for all i')
+-        power_lists = []
++        power_lists = []
+         for var, min_d, max_d in zip(variables, min_degrees, max_degrees):
+             power_lists.append([var**i for i in range(min_d, max_d + 1)])
+         for powers in product(*power_lists):
+@@ -235,7 +235,7 @@
+         if any(min_degrees[i] > max_degrees[i] for i in range(n)):
+             raise ValueError('min_degrees[i] must be <= max_degrees[i] for all i')
+-        power_lists = []
++        power_lists = []
+         for var, min_d, max

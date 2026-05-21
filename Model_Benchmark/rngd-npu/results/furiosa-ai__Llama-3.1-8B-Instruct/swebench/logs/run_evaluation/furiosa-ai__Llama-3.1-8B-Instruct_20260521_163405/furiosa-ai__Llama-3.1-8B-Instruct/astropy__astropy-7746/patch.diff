@@ -1,0 +1,96 @@
+<patch>
+--- a/astropy/wcs/wcs.py
++++ b/astropy/wcs/wcs.py
+@@ -1352,7 +1352,7 @@
+     return self._array_converter(
+         lambda xy, o: self.wcs.p2s(xy, o)['world'],
+         'output', *args, **kwargs)
+-    wcs_pix2world.__doc__ = """
++    wcs_pix2world.__doc__ = """
+         Transforms pixel coordinates to world coordinates by doing
+         only the basic `wcslib`_ transformation.
+         No `SIP`_ or `distortion paper`_ table lookup correction is
+@@ -1366,7 +1366,7 @@
+         Parameters
+         ----------
+         {0}
+-        {1}
++        {2}
+         Returns
+         -------
+         {3}
+@@ -1381,7 +1381,7 @@
+         Notes
+         -----
+         The order of the axes for the result is determined by the
+-        ``CTYPEia`` keywords in the FITS header, therefore it may not
++        ``CTYPEia`` keywords in the FITS header, therefore it may not
+         always be of the form (*ra*, *dec*).  The
+         `~astropy.wcs.Wcsprm.lat`, `~astropy.wcs.Wcsprm.lng`,
+         `~astropy.wcs.Wcsprm.lattyp` and `~astropy.wcs.Wcsprm.lngtyp`
+@@ -1396,7 +1396,7 @@
+         Raises
+         ------
+-        MemoryError
++        MemoryError
+             Memory allocation failed.
+         SingularMatrixError
+             Linear transformation matrix is singular.
+         InconsistentAxisTypesError
+@@ -1411,7 +1411,7 @@
+         ValueError
+             Invalid parameter value.
+         ValueError
+-            Invalid coordinate transformation parameters.
++            Invalid coordinate transformation parameters.
+         ValueError
+             x- and y-coordinate arrays are not the same size.
+         InvalidTransformError
+@@ -1426,7 +1426,7 @@
+         InvalidTransformError
+             Ill-conditioned coordinate transformation parameters.
+         Examples
+-        --------
++        --------
+         >>> import astropy.io.fits as fits
+         >>> import astropy.wcs as wcs
+         >>> import numpy as np
+@@ -1441,7 +1441,7 @@
+         >>> # Now try to use some diverging data:
+         >>> divradec = w.all_pix2world([[1.0, 1.0],
+-       ...                             [10000.0, 50000.0],
++       ...                             [10000.0, 50000.0],
+        ...                             [3.0, 1.0]], 1)
+         >>> print(divradec)  # doctest: +FLOAT_CMP
+         [[  5.52645627 -72.05171757]
+@@ -1456,7 +1456,7 @@
+         >>> # First, turn detect_divergence on:
+         >>> try:  # doctest: +FLOAT_CMP
+        ...   xy = w.all_world2pix(divradec, 1, maxiter=20,
+-       ...                        tolerance=1.0e-4, adaptive=False,
++       ...                        tolerance=1.0e-4, adaptive=False,
+        ...                        detect_divergence=True,
+        ...                        quiet=False)
+        ... except wcs.wcs.NoConvergence as e:
+        ...   print("Indices of diverging points: {{0}}"
+        ...        .format(e.divergent))
+@@ -1471,7 +1471,7 @@
+         >>> # This time turn detect_divergence off:
+         >>> try:  # doctest: +FLOAT_CMP
+        ...   xy = w.all_world2pix(divradec, 1, maxiter=20,
+-       ...                        tolerance=1.0e-4, adaptive=False,
++       ...                        tolerance=1.0e-4, adaptive=False,
+        ...                        detect_divergence=False,
+        ...                        quiet=False)
+        ... except wcs.wcs.NoConvergence as e:
+        ...   print("Indices of diverging points: {{0}}"
+@@ -1486,7 +1486,7 @@
+         >>> # Now try to use some diverging data:
+         >>> divradec = w.all_pix2world([[1.0, 1.0],
+-       ...                             [10000.0, 50000.0],
++       ...                             [10000.0, 50000.0],
+        ...                             [3.0, 1.0]], 1)
+         >>> print(divradec)  # doctest: +FLOAT_CMP
+         [[  5.52645627 -72.05171757]
+@@ -1501,7 +1501,7 @@
+         >>> # First, turn detect_diverg

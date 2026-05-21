@@ -1,0 +1,83 @@
+2026-05-21 16:39:23,283 - INFO - Creating container for pylint-dev__pylint-7993...
+2026-05-21 16:39:23,903 - INFO - Container for pylint-dev__pylint-7993 created: 62c204064d34d26009746c7520f66c1c704986009925fb565684b7593dea5883
+2026-05-21 16:39:24,073 - INFO - Container for pylint-dev__pylint-7993 started: 62c204064d34d26009746c7520f66c1c704986009925fb565684b7593dea5883
+2026-05-21 16:39:24,073 - INFO - Intermediate patch for pylint-dev__pylint-7993 written to logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/pylint-dev__pylint-7993/patch.diff, now applying to container...
+2026-05-21 16:39:24,235 - INFO - Failed to apply patch to container: git apply --verbose
+2026-05-21 16:39:24,305 - INFO - Failed to apply patch to container: git apply --verbose --reject
+2026-05-21 16:39:24,410 - INFO - >>>>> Applied Patch:
+patching file pylint/reporters/text.py
+Hunk #1 succeeded at 168 with fuzz 2 (offset -5 lines).
+Hunk #2 succeeded at 185 with fuzz 1.
+Hunk #3 succeeded at 198 with fuzz 3.
+patch unexpectedly ends in middle of line
+Hunk #4 succeeded at 204 with fuzz 3 (offset -3 lines).
+
+2026-05-21 16:39:24,645 - INFO - Git diff before:
+diff --git a/pylint/reporters/text.py b/pylint/reporters/text.py
+index 29bd46798..46026d853 100644
+--- a/pylint/reporters/text.py
++++ b/pylint/reporters/text.py
+@@ -168,7 +168,7 @@ class TextReporter(BaseReporter):
+         template = str(self.linter.config.msg_template or self._template)
+ 
+         # Return early if the template is the same as the previous one
+-        if template == self._template:
++        if template == self._fixed_template:
+             return
+ 
+         # Set template to the currently selected template
+@@ -185,6 +185,7 @@ class TextReporter(BaseReporter):
+                 template = re.sub(r"\{" + argument[0] + r"(:.*?)?\}", "", template)
+         self._fixed_template = template
+ 
++        self._template = self._fixed_template
+     def write_message(self, msg: Message) -> None:
+         """Convenience method to write a formatted message with class default
+         template.
+@@ -197,7 +198,7 @@ class TextReporter(BaseReporter):
+ 
+     def handle_message(self, msg: Message) -> None:
+         """Manage message of different type and in the context of path."""
+-        if msg.module not in self._modules:
++        if msg.module not in self._modules or self._fixed_template!= self._template:
+             if msg.module:
+                 self.writeln(f"************* Module {msg.module}")
+                 self._modules.add(msg.module)
+2026-05-21 16:39:24,645 - INFO - Eval script for pylint-dev__pylint-7993 written to logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/pylint-dev__pylint-7993/eval.sh; copying to container...
+2026-05-21 16:39:31,047 - INFO - Test runtime: 6.28 seconds
+2026-05-21 16:39:31,047 - INFO - Test output for pylint-dev__pylint-7993 written to logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/pylint-dev__pylint-7993/test_output.txt
+2026-05-21 16:39:31,147 - INFO - Git diff after:
+diff --git a/pylint/reporters/text.py b/pylint/reporters/text.py
+index 29bd46798..46026d853 100644
+--- a/pylint/reporters/text.py
++++ b/pylint/reporters/text.py
+@@ -168,7 +168,7 @@ class TextReporter(BaseReporter):
+         template = str(self.linter.config.msg_template or self._template)
+ 
+         # Return early if the template is the same as the previous one
+-        if template == self._template:
++        if template == self._fixed_template:
+             return
+ 
+         # Set template to the currently selected template
+@@ -185,6 +185,7 @@ class TextReporter(BaseReporter):
+                 template = re.sub(r"\{" + argument[0] + r"(:.*?)?\}", "", template)
+         self._fixed_template = template
+ 
++        self._template = self._fixed_template
+     def write_message(self, msg: Message) -> None:
+         """Convenience method to write a formatted message with class default
+         template.
+@@ -197,7 +198,7 @@ class TextReporter(BaseReporter):
+ 
+     def handle_message(self, msg: Message) -> None:
+         """Manage message of different type and in the context of path."""
+-        if msg.module not in self._modules:
++        if msg.module not in self._modules or self._fixed_template!= self._template:
+             if msg.module:
+                 self.writeln(f"************* Module {msg.module}")
+                 self._modules.add(msg.module)
+2026-05-21 16:39:31,147 - INFO - Grading answer for pylint-dev__pylint-7993...
+2026-05-21 16:39:31,149 - INFO - report: {'pylint-dev__pylint-7993': {'patch_is_None': False, 'patch_exists': True, 'patch_successfully_applied': True, 'resolved': False, 'tests_status': {'FAIL_TO_PASS': {'success': [], 'failure': ['tests/reporters/unittest_reporting.py::test_template_option_with_header']}, 'PASS_TO_PASS': {'success': ['tests/reporters/unittest_reporting.py::test_template_option', 'tests/reporters/unittest_reporting.py::test_template_option_default', 'tests/reporters/unittest_reporting.py::test_template_option_end_line', 'tests/reporters/unittest_reporting.py::test_template_option_non_existing', 'tests/reporters/unittest_reporting.py::test_deprecation_set_output', 'tests/reporters/unittest_reporting.py::test_parseable_output_deprecated', 'tests/reporters/unittest_reporting.py::test_parseable_output_regression', 'tests/reporters/unittest_reporting.py::test_multi_format_output', 'tests/reporters/unittest_reporting.py::test_multi_reporter_independant_messages', 'tests/reporters/unittest_reporting.py::test_display_results_is_renamed'], 'failure': []}, 'FAIL_TO_FAIL': {'success': [], 'failure': []}, 'PASS_TO_FAIL': {'success': [], 'failure': []}}}}
+Result for pylint-dev__pylint-7993: resolved: False
+2026-05-21 16:39:31,149 - INFO - Attempting to stop container sweb.eval.pylint-dev__pylint-7993.furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405...

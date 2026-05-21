@@ -1,125 +1,142 @@
-# Furiosa RNGD 코드 생성 모델 벤치마크
+# Furiosa RNGD 코드 생성 모델 벤치마크 (furiosa-llm)
 
-`furiosa-llm serve`로 OpenAI 호환 API를 띄우고, 7개 모델 각각에 대해
-**토큰 생성 속도 / 동시 접속자별 처리량 / 메모리·KV cache 한계 / SWE-bench / Embedding·Reranker 처리량**을 자동 측정합니다.
+RNGD에서 7개 모델 각각에 대해 **토큰 속도 · 동시성 스케일링 · serve 옵션 · SWE-bench · 임베딩/리랭커**를
+자동 측정. `bench-gpu`(NVIDIA GPU + vLLM 버전)와 동일한 측정 축·동일한 OpenAI 호환 클라이언트를
+사용해 결과를 직접 비교 가능하게 한다.
 
-vLLM은 RNGD에 직접 붙지 않으므로, 본 프레임워크는 furiosa-llm을 OpenAI 호환 서버로 띄우고 vLLM 호환 클라이언트(`/v1/chat/completions`, `/v1/embeddings`, …)로 측정합니다. 클라이언트 도구(예: GenAI-Perf, vllm-bench)도 동일 endpoint에 그대로 연결 가능합니다.
-
-## 디렉토리 구조
-
-```
-rngd-npu/
-├── configs/
-│   └── models.yaml              # 7개 모델 × role × serve_args + sweep grid
-├── runners/
-│   ├── server.py                # furiosa-llm serve 라이프사이클
-│   ├── tps.py                   # TTFT/ITL/output_TPS, concurrency
-│   ├── memory_sweep.py          # serve 인자 grid 스윕 (KV cache 등)
-│   ├── embed_bench.py           # Qwen3-Embedding/Reranker
-│   └── swebench_run.py          # BM25 → 예측 → Docker harness
-├── orchestrator.py              # 모델 × 태스크 자동 실행
-├── analyze.py                   # results/ 집계, CSV
-├── report.py                    # 종합 리포트 (배치 스케일링 분석 + 적합도 점수)
-├── swebench_eval.py             # 예측 jsonl → Docker harness 채점 드라이버
-├── preflight.sh                 # 사전 점검 (env, NPU, Docker, 모델 가용성)
-├── run_all.sh                   # 전체 파이프라인 실행
-├── eval_swebench.sh             # swebench_eval.py 래퍼
-├── docs/
-│   ├── RUNNING_BENCHMARKS.md    # 새 모델 추가 / RNGD 증설 시 벤치마크 실행 가이드
-│   └── COMPILING_MODELS.md      # HF 모델을 직접 컴파일해 RNGD에서 실행하기
-└── results/                     # 결과 (자동 생성)
-    └── <model_safe>/<task>/<timestamp>.json
-```
+전제: `~/furiosa` 가상환경에 **Furiosa SDK + furiosa-llm**이 설치돼 있음 (`furiosa-llm`, `furiosa-smi` 동작).
+나머지(httpx·openai·datasets·swebench)는 `setup.sh`가 설치.
 
 ## 빠른 시작
 
 ```bash
-cd rngd-npu
+cd ~/RNGD-proj/Model_Benchmark/rngd-npu
 
-# 0. 사전 점검 (NPU 상태, 모델 가용 revision, Docker)
+# 1. 측정 클라이언트 의존성 설치 (한 번만)
+bash setup.sh
+
+# 2. furiosa venv 활성화 (이후 매 세션)
+source ~/furiosa/bin/activate
+
+# 3. gated 모델 쓸 때만 — HF 토큰 로그인
+hf auth login
+
+# 4. 점검 → 전체 측정
 bash preflight.sh
+./run_all.sh                    # 측정 후 REPORT.md 생성
+```
 
-# 1. smoke (Qwen2.5-0.5B만, tps만)
-STAGE=smoke ./run_all.sh
+## 폴더 구조
 
-# 2. 생성 모델 전체: tps + sweep + memsweep
+```
+rngd-npu/
+├── setup.sh              # 측정 클라이언트 의존성 설치 (furiosa venv 위에)
+├── preflight.sh          # NPU/SDK/Docker/모델 점검
+├── run_all.sh            # 전체 파이프라인 (STAGE 단계별)
+├── eval_swebench.sh      # SWE-bench Docker 채점
+├── requirements.txt      # 측정용 추가 의존성
+├── orchestrator.py       # 모델 × 태스크 자동 실행 (furiosa-llm serve)
+├── analyze.py            # 결과 집계 / CSV
+├── report.py             # 종합 리포트 → REPORT.md
+├── swebench_eval.py      # 예측 jsonl → Docker 채점 드라이버
+├── configs/
+│   └── models.yaml       # 모델 목록 + serve_args + sweep/memsweep grid
+├── runners/
+│   ├── server.py         # FuriosaServer — furiosa-llm serve 라이프사이클
+│   ├── tps.py            # 단일 속도/스트림 측정
+│   ├── memory_sweep.py   # serve 옵션 OFAT 스윕
+│   ├── embed_bench.py    # 임베딩/리랭커 처리량
+│   └── swebench_run.py   # SWE-bench 추론(컨텍스트 필터/patch sanity/retry)
+├── docs/
+│   ├── SWEBENCH_SETUP.md   # SWE-bench 설명 / 환경 구축
+│   ├── RUNNING_BENCHMARKS.md
+│   └── COMPILING_MODELS.md # HF 모델 직접 컴파일 (RNGD prebuilt에 없을 때)
+├── artifacts/            # 직접 빌드한 아티팩트 (선택)
+└── results/              # 측정 결과 (자동 생성)
+```
+
+## 측정 태스크
+
+| 태스크 | 측정 | 대상 |
+|---|---|---|
+| `tps` | concurrency=1 TTFT/ITL/출력 TPS | 생성 모델 |
+| `sweep` | concurrency{1~128} × prompt_len{256/1024/4096} 매트릭스 | 생성 모델 |
+| `memsweep` | furiosa-llm serve 옵션 OFAT (max-model-len·max-batch-size·max-num-batched-tokens) | 생성 모델 |
+| `swebench` | SWE-bench Lite oracle single-shot 코드 패치 | 생성 모델 |
+| `embed` | `/v1/embeddings` batch별 처리량 | embedding 모델 |
+| `rerank` | rerank 처리량 (실패 시 임베딩+코사인 fallback) | reranker 모델 |
+
+## 모델 설정 — `configs/models.yaml`
+
+`id`는 HF 모델 id (furiosa-ai/* = prebuilt 아티팩트). 기본 활성:
+
+| 모델 | 역할 | 비고 |
+|---|---|---|
+| `furiosa-ai/Qwen2.5-0.5B-Instruct` | smoke | 파이프라인 검증용 (PE 4) |
+| `furiosa-ai/Llama-3.1-8B-Instruct` | baseline | v2026.2 검증 (PE 8, 1카드) |
+| `furiosa-ai/Qwen3-Embedding-8B` | embedding | PE 8 |
+| `furiosa-ai/Qwen3-Reranker-8B` | reranker | PE 8 |
+
+기본 비활성(`enabled: false`) — RNGD 4장 이상에서 켜기:
+
+- `furiosa-ai/Qwen3-32B-FP8` · `furiosa-ai/EXAONE-4.0-32B-FP8` · `furiosa-ai/Llama-3.3-70B-Instruct`
+  — prebuilt 아티팩트가 `tensor_parallel=32` (RNGD 4장 = 32 PE)로 하드 컴파일됨.
+
+**새 모델 추가**: `models:` 리스트에 항목 추가. 측정 코드 수정 불필요.
+**다중 NPU**: `devices: "npu:0,npu:1"` (top-level) 또는 모델 `serve_args`에 `["--devices","npu:0,npu:1"]`.
+
+## 실행
+
+```bash
+# 단계별 (STAGE: preflight|smoke|gen|embed|swebench|report|all)
 STAGE=gen ./run_all.sh
 
-# 3. embedding/reranker
-STAGE=embed ./run_all.sh
+# 특정 모델/태스크만 (모델은 substring 매칭)
+python orchestrator.py configs/models.yaml --tasks tps,sweep --models Llama-3.1-8B
 
-# 4. SWE-bench (Docker 필요, 시간 오래 걸림)
-STAGE=swebench ./run_all.sh
-
-# 5. 종합 리포트
-STAGE=report ./run_all.sh
-
-# 또는 한 번에
-./run_all.sh
-```
-
-## 태스크 종류
-
-| 태스크 | 설명 | 적용 대상 |
-|---|---|---|
-| `tps` | concurrency=1, stream으로 TTFT/ITL/output_TPS | 생성 모델 |
-| `sweep` | concurrency × prompt_len 매트릭스 (request shape) | 생성 모델 |
-| `memsweep` | serve 인자 OFAT 스윕 (baseline에서 한 축씩: max-model-len, max-batch-size, max-num-batched-tokens) | 생성 모델 |
-| `embed` | `/v1/embeddings` 처리량, batch size별 | Qwen3-Embedding |
-| `rerank` | `/v1/rerank` 또는 임베딩+코사인 fallback | Qwen3-Reranker |
-| `swebench` | SWE-bench Lite oracle → 예측 생성 (채점은 `swebench_eval.py`) | 생성 모델 |
-
-## 단일 태스크/모델 직접 실행
-
-```bash
-# 한 모델, 한 태스크
-python orchestrator.py configs/models.yaml \
-    --tasks sweep --models Llama-3.1-8B
-
-# 여러 태스크 + 여러 모델 (substring 매칭)
-python orchestrator.py configs/models.yaml \
-    --tasks tps,sweep,memsweep --models Qwen3,EXAONE
-
-# 어떤 게 실행될지만 먼저 확인
+# 무엇이 실행될지 미리보기
 python orchestrator.py configs/models.yaml --tasks tps --dry-run
+
+# 장시간 → 백그라운드
+nohup ./run_all.sh > results/_run_logs/run.log 2>&1 &
 ```
 
-## 결과 분석
+SWE-bench 범위 조정 (환경변수):
 
 ```bash
-# 모든 task JSON을 모아 표 출력
-python analyze.py
-
-# CSV로
-python analyze.py --csv summary.csv
-
-# task 필터
-python analyze.py --task sweep
-
-# 종합 리포트 (REPORT.md 생성)
-python report.py
+SWEBENCH_N=300 python orchestrator.py configs/models.yaml --tasks swebench   # 전체 300건
+SWEBENCH_FILTER_CONTEXT=1 SWEBENCH_RETRY_INVALID=1 ...                       # 컨텍스트 필터/재시도
 ```
 
-## 결정 사항 / 제약
+자세한 환경변수 목록은 `runners/swebench_run.py` docstring 참조.
 
-1. **vLLM 호환** — Furiosa-LLM이 vLLM과 동일한 OpenAI API를 제공. 클라이언트 도구는 그대로 사용. 본 프레임워크의 모든 측정 클라이언트는 OpenAI 호환 spec을 따름.
-2. **Docker** — SWE-bench harness 평가에만 사용. 서빙 자체는 native furiosa-llm.
-3. **NPU / 모델 크기 제약** — 이 머신은 RNGD 2장(16 PE). prebuilt 아티팩트는 `artifact.json`의 `model.parallel_config.tensor_parallel_size`로 PE 요구량이 고정됨: 0.5B=4, 8B=8, **32B·70B=32(RNGD 4장 필요)**. 따라서 32B·70B는 2장 머신에서 서빙 불가 → `models.yaml`에서 `enabled: false`. 카드당 8 PE, `-tp` 기본 4 → 1카드로 dp=2 자동. 4장 이상 머신에서는 `enabled: true`만으로 측정 가능.
-4. **SWE-bench** — `run_api`는 OpenAI/Anthropic 모델명 하드코딩이라 미사용. `swebench_run.py`가 `SWE-bench_Lite_oracle`(text 컬럼 prebuilt)을 로컬 OpenAI 호환 서버로 single-shot diff 추론. 채점은 `--namespace swebench`로 prebuilt 이미지 pull.
-5. **Coder 전용 모델** — `Qwen2.5-Coder-7B-Instruct` 등은 v2026.2 artifact가 push 안 됨 → 평가 제외.
+## 결과
+
+```bash
+python analyze.py                 # task 결과 표
+python analyze.py --csv out.csv   # CSV
+python report.py                  # 종합 리포트 → REPORT.md
+```
+
+원본 JSON: `results/<model>/<task>/<timestamp>.json` · 서버 로그: `results/_server_logs/`
+
+## GPU(`bench-gpu`) 버전과의 차이
+
+| | RNGD (이 폴더) | GPU (`bench-gpu`) |
+|---|---|---|
+| 서빙 | `furiosa-llm serve` | `vllm serve` |
+| 모델 | furiosa prebuilt 아티팩트 | 원본 HF 모델 |
+| 디바이스 | NPU PE 고정(tp 컴파일됨) — `--devices npu:0` | `CUDA_VISIBLE_DEVICES` + `--tensor-parallel-size` 자유 |
+| serve 옵션 | `max-batch-size` 등 | `max-num-seqs` / `gpu-memory-utilization` 등 |
+| 측정 러너 | 동일 (OpenAI 호환 API) | 동일 — tps/sweep/swebench/embed 코드 공유 |
 
 ## 트러블슈팅
 
-- **서버 기동 실패** — `results/_server_logs/<model>_*.log` 확인. 가장 흔한 원인은 모델 artifact의 v2026.2 태그 부재 (각 모델 레포 refs를 `preflight.sh`로 사전 확인).
-- **OOM** — `memsweep` 결과의 error 행 보고 `max_model_len` 또는 `max_batch_size` 줄여서 다시 측정.
-- **prefix caching 자동 비활성화** — artifact가 extend bucket 미지원이면 자동 disable. 작은 모델에서 자주 발생, 큰 모델은 보통 지원.
-- **SWE-bench 첫 실행이 매우 느림** — task별 base Docker 이미지를 빌드하기 때문 (수 시간). 이후 캐시.
-
-## 환경변수
-
-- `SWEBENCH_DATASET` — inference 데이터셋 (기본 `princeton-nlp/SWE-bench_Lite_oracle`).
-- `SWEBENCH_N` — SWE-bench subset 크기 (기본 50, repo별 stratified). `0`/미설정-full(300).
-- `SWEBENCH_MAXTOK` — 예측 응답 max_tokens (기본 4096).
-- `SWEBENCH_CONC` — SWE-bench 동시 추론 요청 수 (기본 8).
-- `USE_WTL_BACKEND=1` — 일부 모델에서 LTW → WTL 백엔드로 변경 (성능 개선 가능).
-- `STAGE`, `CONFIG`, `MAX_WORKERS` — `run_all.sh` / `eval_swebench.sh`에서 사용.
+| 증상 | 조치 |
+|---|---|
+| `Required PEs: N, Actual: M` | 빌드 tp ≠ 가용 PE → 작은 tp 재빌드 또는 `--devices` 늘리기 |
+| 서버 기동 실패 | `results/_server_logs/<model>_*.log` 확인 (가장 흔한 원인: v2026.2 태그 부재) |
+| OOM (memsweep error 행) | `max_model_len` / `max_batch_size` 축소 후 재측정 |
+| prefix caching 자동 비활성 | artifact에 extend bucket 없으면 정상 동작 (작은 모델 흔함) |
+| SWE-bench 첫 실행이 매우 느림 | task별 base Docker 이미지 빌드 (수 시간). 이후 캐시 |
+| gated 모델 다운로드 실패 | `hf auth login` + HF에서 라이선스 동의 |

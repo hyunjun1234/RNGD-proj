@@ -1,0 +1,19 @@
+--- a/pylint/config/argument.py
++++ b/pylint/config/argument.py
+@@ -103,6 +103,7 @@
+ 
+ def _regexp_csv_transfomer(value: str) -> Sequence[Pattern[str]]:
+     """Transforms a comma separated list of regular expressions."""
++    # Add a try-except block to handle invalid regular expressions
+     patterns: list[Pattern[str]] = []
+     for pattern in _csv_transformer(value):
+         try:
+@@ -114,6 +115,7 @@
+             patterns.append(
+                 re.compile(
+                     str(pathlib.PureWindowsPath(pattern)).replace("\\", "\\\\")
++                    # Add a try-except block to handle invalid regular expressions
+                     + "|"
+                     + pathlib.PureWindowsPath(pattern).as_posix()
+                 )
+             )

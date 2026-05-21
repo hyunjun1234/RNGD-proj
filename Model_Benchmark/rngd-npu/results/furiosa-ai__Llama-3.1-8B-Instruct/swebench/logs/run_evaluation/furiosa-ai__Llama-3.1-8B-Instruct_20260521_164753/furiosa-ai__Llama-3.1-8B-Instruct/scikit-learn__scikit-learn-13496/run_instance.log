@@ -1,0 +1,48 @@
+2026-05-21 16:53:56,654 - INFO - Creating container for scikit-learn__scikit-learn-13496...
+2026-05-21 16:53:56,767 - INFO - Container for scikit-learn__scikit-learn-13496 created: 09dbe7a75df8ece17f6206e0790431ca0d2f7825c0b6ed74b53d08e3812733aa
+2026-05-21 16:53:56,948 - INFO - Container for scikit-learn__scikit-learn-13496 started: 09dbe7a75df8ece17f6206e0790431ca0d2f7825c0b6ed74b53d08e3812733aa
+2026-05-21 16:53:56,949 - INFO - Intermediate patch for scikit-learn__scikit-learn-13496 written to logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_164753/furiosa-ai__Llama-3.1-8B-Instruct/scikit-learn__scikit-learn-13496/patch.diff, now applying to container...
+2026-05-21 16:53:57,099 - INFO - Failed to apply patch to container: git apply --verbose
+2026-05-21 16:53:57,192 - INFO - Failed to apply patch to container: git apply --verbose --reject
+2026-05-21 16:53:57,287 - INFO - >>>>> Applied Patch:
+patching file sklearn/ensemble/iforest.py
+Hunk #1 succeeded at 177 (offset 11 lines).
+patch unexpectedly ends in middle of line
+
+2026-05-21 16:53:57,518 - INFO - Git diff before:
+diff --git a/sklearn/ensemble/iforest.py b/sklearn/ensemble/iforest.py
+index 8a1bd3625..8b0211a24 100644
+--- a/sklearn/ensemble/iforest.py
++++ b/sklearn/ensemble/iforest.py
+@@ -177,6 +177,7 @@ class IsolationForest(BaseBagging, OutlierMixin):
+         super().__init__(
+             base_estimator=ExtraTreeRegressor(
+                 max_features=1,
++                warm_start=True,
+                 splitter='random',
+                 random_state=random_state),
+             # here above max_features has no links with self.max_features
+2026-05-21 16:53:57,520 - INFO - Eval script for scikit-learn__scikit-learn-13496 written to logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_164753/furiosa-ai__Llama-3.1-8B-Instruct/scikit-learn__scikit-learn-13496/eval.sh; copying to container...
+2026-05-21 16:54:00,916 - INFO - Test runtime: 3.27 seconds
+2026-05-21 16:54:00,917 - INFO - Test output for scikit-learn__scikit-learn-13496 written to logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_164753/furiosa-ai__Llama-3.1-8B-Instruct/scikit-learn__scikit-learn-13496/test_output.txt
+2026-05-21 16:54:01,004 - INFO - Git diff after:
+diff --git a/sklearn/ensemble/iforest.py b/sklearn/ensemble/iforest.py
+index 8a1bd3625..8b0211a24 100644
+--- a/sklearn/ensemble/iforest.py
++++ b/sklearn/ensemble/iforest.py
+@@ -177,6 +177,7 @@ class IsolationForest(BaseBagging, OutlierMixin):
+         super().__init__(
+             base_estimator=ExtraTreeRegressor(
+                 max_features=1,
++                warm_start=True,
+                 splitter='random',
+                 random_state=random_state),
+             # here above max_features has no links with self.max_features
+2026-05-21 16:54:01,004 - INFO - Grading answer for scikit-learn__scikit-learn-13496...
+2026-05-21 16:54:01,012 - INFO - report: {'scikit-learn__scikit-learn-13496': {'patch_is_None': False, 'patch_exists': True, 'patch_successfully_applied': True, 'resolved': False, 'tests_status': {'FAIL_TO_PASS': {'success': [], 'failure': ['sklearn/ensemble/tests/test_iforest.py::test_iforest_warm_start']}, 'PASS_TO_PASS': {'success': ['sklearn/ensemble/tests/test_iforest.py::test_iforest_average_path_length'], 'failure': ['sklearn/ensemble/tests/test_iforest.py::test_iforest', 'sklearn/ensemble/tests/test_iforest.py::test_iforest_sparse', 'sklearn/ensemble/tests/test_iforest.py::test_iforest_error', 'sklearn/ensemble/tests/test_iforest.py::test_recalculate_max_depth', 'sklearn/ensemble/tests/test_iforest.py::test_max_samples_attribute', 'sklearn/ensemble/tests/test_iforest.py::test_iforest_parallel_regression', 'sklearn/ensemble/tests/test_iforest.py::test_iforest_performance', 'sklearn/ensemble/tests/test_iforest.py::test_iforest_works[0.25]', 'sklearn/ensemble/tests/test_iforest.py::test_iforest_works[auto]', 'sklearn/ensemble/tests/test_iforest.py::test_max_samples_consistency', 'sklearn/ensemble/tests/test_iforest.py::test_iforest_subsampled_features', 'sklearn/ensemble/tests/test_iforest.py::test_score_samples', 'sklearn/ensemble/tests/test_iforest.py::test_deprecation', 'sklearn/ensemble/tests/test_iforest.py::test_behaviour_param', 'sklearn/ensemble/tests/test_iforest.py::test_iforest_chunks_works1[0.25-3]', 'sklearn/ensemble/tests/test_iforest.py::test_iforest_chunks_works1[auto-2]', 'sklearn/ensemble/tests/test_iforest.py::test_iforest_chunks_works2[0.25-3]', 'sklearn/ensemble/tests/test_iforest.py::test_iforest_chunks_works2[auto-2]']}, 'FAIL_TO_FAIL': {'success': [], 'failure': []}, 'PASS_TO_FAIL': {'success': [], 'failure': []}}}}
+Result for scikit-learn__scikit-learn-13496: resolved: False
+2026-05-21 16:54:01,012 - INFO - Attempting to stop container sweb.eval.scikit-learn__scikit-learn-13496.furiosa-ai__Llama-3.1-8B-Instruct_20260521_164753...
+2026-05-21 16:54:16,565 - INFO - Attempting to remove container sweb.eval.scikit-learn__scikit-learn-13496.furiosa-ai__Llama-3.1-8B-Instruct_20260521_164753...
+2026-05-21 16:54:17,127 - INFO - Container sweb.eval.scikit-learn__scikit-learn-13496.furiosa-ai__Llama-3.1-8B-Instruct_20260521_164753 removed.
+2026-05-21 16:54:17,127 - INFO - Attempting to remove image swebench/sweb.eval.x86_64.scikit-learn_1776_scikit-learn-13496:latest...
+2026-05-21 16:54:18,884 - INFO - Image swebench/sweb.eval.x86_64.scikit-learn_1776_scikit-learn-13496:latest removed.

@@ -1,0 +1,3 @@
+
+== Qwen/Qwen2.5-0.5B-Instruct ==  cuda=2  tasks=['tps']
+  [tps] {"model": "Qwen/Qwen2.5-0.5B-Instruct", "concurrency": 1, "prompt_tokens_target": 256, "max_tokens": 256, "successes": 50, "failures": 0, "wall_clock_s": 49.612, "ttft_s_p50": 0.0139, "ttft_s_p95": 0.0168, "itl_s_p50": 0.00382, "itl_s_p95": 0.004, "output_tps_per_request_p50": 261.5, "aggregate_output_tps": 257.8, "total_output_tokens": 12790}

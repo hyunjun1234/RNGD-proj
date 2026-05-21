@@ -1,0 +1,78 @@
+--- a/src/_pytest/assertion/util.py
++++ b/src/_pytest/assertion/util.py
+@@ -167,8 +167,8 @@
+ def _diff_text(left, right, verbose=0):
+     """Return the explanation for the diff between text or bytes.
+ 
+     Unless --verbose is used this will skip leading and trailing
+-    characters which are identical to keep the diff minimal.
+-    If the input are bytes they will be safely converted to text.
++    characters which are identical to keep the diff minimal.
++    If the input are bytes they will be safely converted to text.
+     """
+     from difflib import ndiff
+ 
+     explanation = []
+@@ -184,7 +184,7 @@
+         r = str(repr(binary_text)[1:-1])
+         r = r.replace(r"\n", "\n")
+         r = r.replace(r"\r", "\r")
+-        return r
++        return binary_text.decode('utf-8')
+ 
+     if isinstance(left, bytes):
+         left = escape_for_readable_diff(left)
+     if isinstance(right, bytes):
+         right = escape_for_readable_diff(right)
+     if verbose < 1:
+         i = 0  # just in case left or right has zero length
+-        for i in range(min(len(left), len(right))):
+-            if left[i]!= right[i]:
+-                break
+-        if i > 42:
+-            i -= 10  # Provide some context
+-            explanation = [
+-                "Skipping %s identical leading characters in diff, use -v to show" % i
+-            ]
+-            left = left[i:]
+-            right = right[i:]
+-        if len(left) == len(right):
+-            for i in range(len(left)):
+-                if left[-i]!= right[-i]:
+-                    break
+-            if i > 42:
+-                i -= 10  # Provide some context
+-                explanation += [
+-                    "Skipping {} identical trailing "
+-                    "characters in diff, use -v to show".format(i)
+-                ]
+-                left = left[:-i]
+-                right = right[:-i]
++        if isinstance(left, bytes) and isinstance(right, bytes):
++            explanation = [
++                "Skipping %s identical leading characters in diff, use -v to show" % i
++            ]
++            left = left[i:]
++            right = right[i:]
++        if len(left) == len(right):
++            for i in range(len(left)):
++                if left[-i]!= right[-i]:
++                    break
++            if i > 42:
++                i -= 10  # Provide some context
++                explanation += [
++                    "Skipping {} identical trailing "
++                    "characters in diff, use -v to show".format(i)
++                ]
++                left = left[:-i]
++                right = right[:-i]
+     keepends = True
+     if left.isspace() or right.isspace():
+         left = repr(str(left))
+         right = repr(str(right))
+         explanation += ["Strings contain only whitespace, escaping them using repr()"]
+     explanation += [
+         line.strip("\n")
+         for line in ndiff(left.splitlines(keepends), right.splitlines(keepends))
+     ]
+     return explanation

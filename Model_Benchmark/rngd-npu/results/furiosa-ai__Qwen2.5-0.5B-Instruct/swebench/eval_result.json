@@ -1,15 +1,17 @@
 {
-  "run_id": "furiosa-ai__Qwen2.5-0.5B-Instruct_20260518_143743",
+  "run_id": "furiosa-ai__Qwen2.5-0.5B-Instruct_20260521_165439",
   "returncode": 0,
   "report": {
     "total_instances": 50,
     "submitted_instances": 50,
-    "completed_instances": 0,
+    "completed_instances": 1,
     "resolved_instances": 0,
-    "unresolved_instances": 0,
-    "empty_patch_instances": 50,
-    "error_instances": 0,
-    "completed_ids": [],
+    "unresolved_instances": 1,
+    "empty_patch_instances": 47,
+    "error_instances": 2,
+    "completed_ids": [
+      "django__django-16527"
+    ],
     "incomplete_ids": [],
     "empty_patch_ids": [
       "astropy__astropy-12907",
@@ -17,11 +19,8 @@
       "astropy__astropy-14365",
       "astropy__astropy-14995",
       "astropy__astropy-7746",
-      "django__django-12915",
-      "django__django-13551",
       "django__django-14016",
       "django__django-16139",
-      "django__django-16527",
       "matplotlib__matplotlib-22835",
       "matplotlib__matplotlib-24149",
       "matplotlib__matplotlib-24970",
@@ -116,9 +115,14 @@
       "sympy__sympy-24066"
     ],
     "resolved_ids": [],
-    "unresolved_ids": [],
-    "error_ids": [],
+    "unresolved_ids": [
+      "django__django-16527"
+    ],
+    "error_ids": [
+      "django__django-12915",
+      "django__django-13551"
+    ],
     "schema_version": 2,
-    "_report_file": "/home/jun/bench/results/furiosa-ai__Qwen2.5-0.5B-Instruct/swebench/furiosa-ai__Qwen2.5-0.5B-Instruct.furiosa-ai__Qwen2.5-0.5B-Instruct_20260518_143743.json"
+    "_report_file": "/home/jun/RNGD-proj/Model_Benchmark/rngd-npu/results/furiosa-ai__Qwen2.5-0.5B-Instruct/swebench/furiosa-ai__Qwen2.5-0.5B-Instruct.furiosa-ai__Qwen2.5-0.5B-Instruct_20260521_165439.json"
   }
 }

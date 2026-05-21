@@ -1,5 +1,8 @@
-# 모델 매트릭스. enabled: false는 SKIP, role로 파이프라인 적용 결정.
-# devices를 npu:0,npu:1 또는 "all"로 바꾸면 dp/tp 자동 분산 (cold boot 후 가능).
+# 모델 매트릭스 (Furiosa RNGD / furiosa-llm). enabled:false는 SKIP.
+# id는 Hugging Face 모델 id — furiosa-ai/* 는 prebuilt 아티팩트.
+# 하드웨어: RNGD 1장 = 8 PE. 이 머신 = 2장 = 16 PE. 모델 PE = tp × pp.
+# 측정 대상: GPU 벤치(bench-gpu)와 동일 비교가 가능하도록 Qwen2.5-0.5B·Llama-3.1-8B enabled.
+# gated 모델은 HF_TOKEN 필요 — `hf auth login`.
 
 models:
   - id: furiosa-ai/Qwen2.5-0.5B-Instruct
@@ -11,7 +14,7 @@ models:
 
   - id: furiosa-ai/Llama-3.1-8B-Instruct
     revision: null
-    role: baseline        # v2026.2 검증된 베이스라인.
+    role: baseline        # v2026.2 검증된 베이스라인. bench-gpu의 meta-llama/Llama-3.1-8B 와 비교.
     gen: true
     enabled: true
     serve_args: ["--tool-call-parser", "llama3_json"]
@@ -24,24 +27,24 @@ models:
     revision: null
     role: main
     gen: true
-    enabled: false        # 아티팩트 tp=32 → RNGD 4장 필요 (이 머신 2장)
+    enabled: false        # 아티팩트 tp=32 → RNGD 4장 필요
     serve_args: ["--reasoning-parser", "qwen3"]
 
   - id: furiosa-ai/EXAONE-4.0-32B-FP8
     revision: null
     role: main
     gen: true
-    enabled: false        # 아티팩트 tp=32 → RNGD 4장 필요 (이 머신 2장)
+    enabled: false        # 아티팩트 tp=32 → RNGD 4장 필요
     serve_args: ["--reasoning-parser", "exaone4"]
 
   - id: furiosa-ai/Llama-3.3-70B-Instruct
     revision: null
     role: large
     gen: true
-    enabled: false        # 아티팩트 tp=32 → RNGD 4장 필요 (이 머신 2장)
+    enabled: false        # 아티팩트 tp=32 → RNGD 4장 필요
     serve_args: ["--tool-call-parser", "llama3_json", "--devices", "npu:0,npu:1"]
 
-  # ---- retrieval helpers (SWE-bench 보조 / 자체 throughput 측정) ----
+  # ---- retrieval helpers (자체 throughput 측정) ----
   - id: furiosa-ai/Qwen3-Embedding-8B
     revision: null
     role: embedding
@@ -56,7 +59,8 @@ models:
     enabled: true
     serve_args: []
 
-# 모든 모델 공통으로 적용
+# 모든 모델 공통 furiosa-llm serve 인자.
+# prefix caching: artifact가 extend bucket 미지원이면 엔진이 자동 비활성.
 common_serve_args:
   - "--host"
   - "0.0.0.0"
@@ -68,8 +72,8 @@ common_serve_args:
 devices: "npu:0"
 
 # Request shape sweep (tps/sweep 태스크에서 사용).
-# batch_sizes를 128까지 확장 — 8B는 c=32에서도 처리량이 안 꺾여(합산 1109 tok/s,
-# 실패 0) 성능 감소 시작점을 찾으려면 더 높은 동시성까지 밀어야 함.
+# batch_sizes를 128까지 확장 — 8B는 c=32에서도 처리량이 안 꺾여 감소 시작점을
+# 찾으려면 더 높은 동시성까지 밀어야 함.
 sweep:
   batch_sizes: [1, 2, 4, 8, 16, 32, 64, 128]
   prompt_lens: [256, 1024, 4096]
@@ -77,11 +81,7 @@ sweep:
   warmup_requests: 5
   measured_requests: 50
 
-# Memsweep (memsweep 태스크 — serve 인자를 바꿔가며 서버 재기동/측정).
-# OFAT(One-Factor-At-a-Time): baseline에서 한 번에 한 축만 변경.
-# full cartesian은 모델당 수십~수백 회 서버 재기동이라 비현실적 →
-# baseline + 축별 단일 변경으로 각 serve 옵션의 독립 효과를 측정한다.
-# 조합 수 = 1(baseline) + 각 축 값 개수 합.
+# Memsweep — furiosa-llm serve 옵션 OFAT 스윕 (baseline에서 한 축씩 변경, 조합마다 재기동).
 # 주의: spare_blocks_ratio는 furiosa-llm 2026.2.0에서 deprecated(0.0 외 값은
 # 엔진 패닉) → 축에서 제외.
 memsweep:

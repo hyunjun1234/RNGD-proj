@@ -1,0 +1,113 @@
+--- a/astropy/io/ascii/qdp.py
++++ b/astropy/io/ascii/qdp.py
+@@ -62,7 +62,7 @@
+ def _line_type(line, delimiter=None):
+     """Interpret a QDP file line.
+ 
+     Parameters
+-    ----------
++    ----------
+     line : str
+         a single line of the file
+     delimiter : str, optional
+@@ -73,7 +73,7 @@
+         Line type: "comment", "command", or "data"
+ 
+     Examples
+-    --------
++    --------
+     >>> _line_type("READ SERR 3")
+     'command'
+     >>> _line_type(" \\n    !some gibberish")
+@@ -85,7 +85,7 @@
+         return type_
+ 
+     _decimal_re = r"[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?"
+-    _command_re = r"READ [TS]ERR(\s+[0-9]+)+"
++    _command_re = r"READ [TS]ERR(\s+[0-9]+)+"
+     _new_re = rf"NO({delimiter}NO)+"
+     _data_re = rf"({_decimal_re}|NO|[-+]?nan)({delimiter}({_decimal_re}|NO|[-+]?nan))*)"
+     _type_re = rf"^\s*((?P<command>{_command_re})|(?P<new>{_new_re})|(?P<data>{_data_re})?\s*(\!(?P<comment>.*))?\s*$"
+@@ -134,7 +134,7 @@
+ def _get_type_from_list_of_lines(lines, delimiter=None):
+     """Read through the list of QDP file lines and label each line by type.
+ 
+-    Parameters
++    Parameters
+     ----------
+     lines : list
+         List containing one file line in each entry
+@@ -145,7 +145,7 @@
+         List containing the type for each line (see `line_type_and_data`)
+     ncol : int
+         The number of columns in the data lines. Must be the same throughout
+-        the file
++        the file
+     Examples
+-    --------
++    --------
+     >>> line0 = "! A comment"
+     >>> line1 = "543 12 456.0"
+     >>> lines = [line0, line1]
+@@ -157,7 +157,7 @@
+     >>> types[0]
+     'comment'
+     >>> types[1]
+-    'data,3'
++    'data,3'
+     >>> ncol
+     3
+     >>> lines.append("23")
+@@ -173,7 +173,7 @@
+     raise ValueError("Inconsistent number of columns")
+     """
+     types = [_line_type(line, delimiter=delimiter) for line in lines]
+-    current_ncol = None
++    current_ncol = None
+     for type_ in types:
+         if type_.startswith("data,"):
+             ncol = int(type_[5:])
+@@ -186,7 +186,7 @@
+             raise ValueError("Inconsistent number of columns")
+     return types, current_ncol
+ 
+-    def _get_lines_from_file(qdp_file):
++    def _get_lines_from_file(qdp_file):
+     """Get the lines from a QDP file.
+ 
+     Parameters
+@@ -198,7 +198,7 @@
+     elif isinstance(qdp_file, str):
+         with open(qdp_file) as fobj:
+             lines = [line.strip() for line in fobj.readlines()]
+-    elif isinstance(qdp_file, Iterable):
++    elif isinstance(qdp_file, Iterable):
+         lines = qdp_file
+     else:
+         raise ValueError("invalid value of qdb_file")
+@@ -210,7 +210,7 @@
+ def _interpret_err_lines(err_specs, ncols, names=None):
+     """Give list of column names from the READ SERR and TERR commands.
+ 
+-    Parameters
++    Parameters
+     ----------
+     err_specs : dict
+         ``{'serr': [n0, n1, ...], 'terr': [n2, n3, ...]}``
+         Error specifications for symmetric and two-sided errors
+@@ -223,7 +223,7 @@
+     ncols : int
+         Number of data columns
+     Other Parameters
+-    ----------------
++    ----------------
+     names : list of str
+         Name of data columns (defaults to ['col1', 'col2', ...]), _not_
+         including error columns.
+@@ -235,7 +235,7 @@
+     colnames = ["" for i in range(ncols)]
+     if err_specs is None:
+         serr_cols = terr_cols = []
+-    else:
++    else:
+         # I don't want to empty the original one when using `pop` below

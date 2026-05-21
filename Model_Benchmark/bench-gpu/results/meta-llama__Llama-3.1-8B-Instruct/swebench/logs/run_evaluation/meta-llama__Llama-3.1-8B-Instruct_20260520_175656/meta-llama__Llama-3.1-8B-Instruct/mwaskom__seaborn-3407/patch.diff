@@ -1,0 +1,33 @@
+--- a/seaborn/axisgrid.py
++++ b/seaborn/axisgrid.py
+@@ -1498,6 +1498,7 @@
+     def _map_diag_iter_hue(self, func, **kwargs):
+         """Put marginal plot on each diagonal axes, iterating over hue."""
+         # Plot on each of the diagonal axes
+         fixed_color = kwargs.pop("color", None)
++
+         for var, ax in zip(self.diag_vars, self.diag_axes):
+             hue_grouped = self.data.groupby(self.hue_vals)
+             plot_kwargs = kwargs.copy()
+             if str(func.__module__).startswith("seaborn"):
+                 plot_kwargs["ax"] = ax
+@@ -1513,6 +1514,7 @@
+                 data_k = hue_grouped.get_group(label_k)
+             except KeyError:
+                 data_k = pd.Series([], dtype=float)
++
+             if fixed_color is None:
+                 color = self.palette[k]
+             else:
+                 color = fixed_color
+@@ -1521,6 +1523,7 @@
+                 data_k = data_k.dropna()
++
+             if str(func.__module__).startswith("seaborn"):
+                 func(x=data_k, label=label_k, color=color, **plot_kwargs)
+             else:
+                 func(data_k, label=label_k, color=color, **plot_kwargs)
++
+         self._add_axis_labels()
++
+         return self

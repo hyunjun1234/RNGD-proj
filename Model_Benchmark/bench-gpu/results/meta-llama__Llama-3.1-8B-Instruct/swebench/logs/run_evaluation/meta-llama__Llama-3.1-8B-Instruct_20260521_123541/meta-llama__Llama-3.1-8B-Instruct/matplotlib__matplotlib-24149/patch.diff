@@ -1,0 +1,101 @@
+Here is the patch file that you can apply to the repository:
+
+<patch>
+--- a/lib/matplotlib/axes/_axes.py
++++ b/lib/matplotlib/axes/_axes.py
+@@ -1,27 +1,35 @@
+ def _check_no_units(vals, names):
+-    for val, name in zip(vals, names):
+-        if not munits._is_natively_supported(val):
+-            raise ValueError(f"{name} must be a single scalar value, "
+-                             f"but got {val}")
++    for val, name in zip(vals, names):
++        if not munits._is_natively_supported(val):
++            raise ValueError(f"{name} must be a single scalar value, "
++                             f"but got {val}")
+ 
+ 
+ def _process_unit_info(self, units, kwargs):
+-    # Process unit information for each argument
+-    for name, unit in units:
+-        if unit is None:
+-            continue
+-        if not isinstance(unit, str):
+-            # If it's not a string, it's already been processed
+-            continue
+-        if unit in kwargs:
+-            # If it's already been processed, don't do it again
+-            continue
+-        # Get the unit info from the rcParams
+-        unit_info = munits.get_unit_info(unit)
+-        # If the unit info is None, it's not a valid unit
+-        if unit_info is None:
+-            raise ValueError(f"Invalid unit: {unit}")
+-        # Set the unit info in the kwargs
+-        kwargs[name + '_units'] = unit_info
+-        # Convert the value to the unit
+-        kwargs[name] = mtransforms._convert_units(kwargs[name], unit_info)
++    # Process unit information for each argument
++    for name, unit in units:
++        if unit is None:
++            continue
++        if not isinstance(unit, str):
++            # If it's not a string, it's already been processed
++            continue
++        if unit in kwargs:
++            # If it's already been processed, don't do it again
++            continue
++        # Get the unit info from the rcParams
++        unit_info = munits.get_unit_info(unit)
++        # If the unit info is None, it's not a valid unit
++        if unit_info is None:
++            raise ValueError(f"Invalid unit: {unit}")
++        # Set the unit info in the kwargs
++        kwargs[name + '_units'] = unit_info
++        # Convert the value to the unit
++        kwargs[name] = mtransforms._convert_units(kwargs[name], unit_info)
+ 
+ 
+ def _get_patches_for_fill(self):
+-    # Get the current fill color cycle
+-    fill_cycle = self._get_fill_cycle()
+-    # Get the next color from the fill cycle
+-    next_color = fill_cycle.get_next_color()
+-    # Return a generator that yields the next color
+-    return (next_color for _ in itertools.count())
++    # Get the current fill color cycle
++    fill_cycle = self._get_fill_cycle()
++    # Get the next color from the fill cycle
++    next_color = fill_cycle.get_next_color()
++    # Return a generator that yields the next color
++    return (next_color for _ in itertools.count())
+ 
+ 
+ def _get_lines(self, *args, data=None, **kwargs):
+-    # Get the current line color cycle
+-    line_cycle = self._get_lines_cycle()
+-    # Get the next color from the line cycle
+-    next_color = line_cycle.get_next_color()
+-    # Get the line style from the kwargs
+-    line_style = kwargs.pop('linestyle', None)
+-    # If the line style is None, use the default line style
+-    if line_style is None:
+-        line_style = mpl.rcParams['lines.linestyle']
+-    # Get the line style and marker from the line style
+-    linestyle, marker, linecolor = _process_plot_format(line_style)
+-    # If the marker is None, use the default marker
+-    if marker is None:
+-        marker = mpl.rcParams['lines.marker']
+-    # If the line color is None, use the default line color
+-    if linecolor is None:
+-        linecolor = mpl.rcParams['lines.color']
+-    # Get the line properties from the kwargs
+-    line_properties = cbook.normalize_kwargs(kwargs, mlines.Line2D)
+-    # Set the line properties
+-    line_properties['color'] = linecolor
+-    line_properties['linestyle'] = linestyle
+-    line_properties['marker'] = marker
+-    # Return the line properties
+-    return line_properties
++    # Get the current line color cycle
++    line_cycle = self._get

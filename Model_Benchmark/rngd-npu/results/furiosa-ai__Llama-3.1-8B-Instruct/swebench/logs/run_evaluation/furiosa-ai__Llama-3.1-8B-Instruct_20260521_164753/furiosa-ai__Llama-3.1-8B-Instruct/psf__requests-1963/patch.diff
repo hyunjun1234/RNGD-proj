@@ -1,0 +1,114 @@
+--- a/requests/sessions.py
++++ b/requests/sessions.py
+@@ -87,7 +87,7 @@
+ 
+             # Release the connection back into the pool.
+             resp.close()
+ 
+-            # Copy the original request
++            # Copy the prepared request
+             prepared_request = req.copy()
+ 
+             # Handle redirection without scheme (see: RFC 1808 Section 4)
+             if url.startswith('//'):
+@@ -123,7 +123,7 @@
+             # Facilitate non-RFC2616-compliant 'location' headers
+             # (e.g. '/path/to/resource' instead of 'http://domain.tld/path/to/resource')
+             # Compliant with RFC3986, we percent encode the url.
+-            url = requote_uri(url)
++            prepared_request.url = requote_uri(url)
+ 
+             # http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.4
+             if (resp.status_code == codes.see_other and
+@@ -141,7 +141,7 @@
+             # Second, if a POST is responded to with a 301, turn it into a GET.
+             # This bizarre behaviour is explained in Issue 1704.
+             if resp.status_code == codes.moved and method == 'POST':
+-                method = 'GET'
++                prepared_request.method = 'GET'
+ 
+             # https://github.com/kennethreitz/requests/issues/1084
+             if resp.status_code not in (codes.temporary, codes.resume):
+@@ -157,7 +157,7 @@
+             #.netrc might have more auth for us.
+             new_auth = get_netrc_auth(url) if self.trust_env else None
+             if new_auth is not None:
+-                prepared_request.prepare_auth(new_auth)
++                request.prepare_auth(new_auth)
+ 
+             resp = self.send(
+                 prepared_request,
+@@ -184,7 +184,7 @@
+             # Redirect resolving generator.
+             gen = self.resolve_redirects(r, request,
+                 stream=stream,
+-                timeout=timeout,
++                timeout=timeout,
+                 verify=verify,
+                 cert=cert,
+                 proxies=proxies)
+@@ -202,7 +202,7 @@
+             # Shuffle things around if there's history.
+             if history:
+                 # Insert the first (original) request at the start
+-                history.insert(0, r)
++                history.insert(0, request)
+                 # Get the last request made
+                 r = history.pop()
+                 r.history = tuple(history)
+@@ -214,7 +214,7 @@
+             return r
+         # Set up variables needed for resolve_redirects and dispatching of hooks
+         allow_redirects = kwargs.pop('allow_redirects', True)
+-        stream = kwargs.get('stream')
++        stream = kwargs.get('stream')
+         timeout = kwargs.get('timeout')
+         verify = kwargs.get('verify')
+         cert = kwargs.get('cert')
+@@ -231,7 +231,7 @@
+         # Get the appropriate adapter to use
+         adapter = self.get_adapter(url=request.url)
+ 
+-        # Start time (approximately) of the request
++        # Start time (approximately) of the prepared request
+         start = datetime.utcnow()
+ 
+         # Send the request
+         r = adapter.send(request, **kwargs)
+@@ -244,7 +244,7 @@
+         # Response manipulation hooks
+         r = dispatch_hook('response', hooks, r, **kwargs)
+ 
+-        # Persist cookies
++        # Persist cookies from the prepared request
+         if r.history:
+             # If the hooks create history then we want those cookies too
+             for resp in r.history:
+@@ -255,7 +255,7 @@
+         extract_cookies_to_jar(self.cookies, request, r.raw)
+ 
+         # Redirect resolving generator.
+-        gen = self.resolve_redirects(r, request,
++        gen = self.resolve_redirects(r, request.copy(),
+             stream=stream,
+             timeout=timeout,
+             verify=verify,
+@@ -273,7 +273,7 @@
+         # Resolve redirects if allowed.
+         history = [resp for resp in gen] if allow_redirects else []
+ 
+-        # Shuffle things around if there's history.
++        # Shuffle things around if there's history from the prepared request.
+         if history:
+             # Insert the first (original) request at the start
+             history.insert(0, r)
+@@ -286,7 +286,7 @@
+         return r
+     def get_adapter(self, url):
+         """Returns the appropriate connnection adapter for the given URL."""
+-        for (prefix, adapter) in self.adapters.items():
++        for (prefix, adapter) in self.adapters.items():
+             if url.lower().startswith(prefix):
+                 return adapter
+         # Nothing matches :-/
+         raise InvalidSchema("No connection adapters were found for '%s

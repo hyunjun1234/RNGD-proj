@@ -1,0 +1,108 @@
+--- a/sphinx/domains/std.py
++++ b/sphinx/domains/std.py
+@@ -45,7 +45,7 @@
+ 
+ # RE for option descriptions
+ option_desc_re = re.compile(r'((?:/|--|-|\+)?[^\s=[]+)(=?\s*.*)')
+-# RE for grammar tokens
++option_desc_re = re.compile(r'([^\s=[]+)(=?\s*.*)')  # <--- CHANGED HERE
+ # RE for grammar tokens
+ token_re = re.compile(r'`(\w+)`', re.U)
+ 
+@@ -187,7 +187,7 @@
+ 
+             m = option_desc_re.match(potential_option)
+             if not m:
+-                logger.warning(__('Malformed option description %r, should '
++                logger.warning(__('Malformed option description %r, should '
+                                   'look like "opt", "-opt args", "--opt args", '
+                                   '"/opt args" or "+opt args"'), potential_option,
+                                  location=signode)
+             else:
+@@ -198,7 +198,7 @@
+ 
+             if count:
+                 signode += addnodes.desc_addname(', ', ', ')
+             signode += addnodes.desc_name(optname, optname)
+-            signode += addnodes.desc_addname(args, args)
++            signode += addnodes.desc_addname(m.group(2), args)  # <--- CHANGED HERE
+             if not count:
+                 firstname = optname
+                 signode['allnames'] = [optname]
+@@ -214,7 +214,7 @@
+ 
+             for optname in signode.get('allnames', []):
+                 prefixes = ['cmdoption']
+                 if currprogram:
+-                    prefixes.append(currprogram)
++                    prefixes.append(m.group(1))  # <--- CHANGED HERE
+                 if not optname.startswith(('-', '/')):
+                     prefixes.append('arg')
+                 prefix = '-'.join(prefixes)
+@@ -231,7 +231,7 @@
+ 
+                 domain.add_program_option(currprogram, optname,
+                                           self.env.docname, signode['ids'][0])
+ 
+-            # create an index entry
++            # create an index entry
+             if currprogram:
+                 descr = _('%s command line option') % currprogram
+             else:
+@@ -246,7 +246,7 @@
+ 
+                 self.indexnode['entries'].append(('pair', entry, signode['ids'][0], '', None))
+ 
+-    def make_old_id(self, prefix: str, optname: str) -> str:
++    def make_old_id(self, optname: str) -> str:
+         """Generate old styled node_id for cmdoption.
+ 
+         .. note:: Old Styled node_id was used until Sphinx-3.0.
+@@ -256,7 +256,7 @@
+ 
+         return nodes.make_id(prefix + '-' + optname)
+ 
+-    def make_old_id(self, name: str) -> str:
++    def make_old_id(self, token: str) -> str:
+         """Generate old styled node_id for tokens.
+ 
+         .. note:: Old Styled node_id was used until Sphinx-3.0.
+@@ -266,7 +266,7 @@
+ 
+         return nodes.make_id('grammar-token-' + token)
+ 
+-    def make_old_id(self, prefix: str, optname: str) -> str:
++    def make_old_id(self, optname: str) -> str:
+         """Generate old styled node_id for cmdoption.
+ 
+         .. note:: Old Styled node_id was used until Sphinx-3.0.
+@@ -276,7 +276,7 @@
+ 
+         return nodes.make_id(prefix + '-' + optname)
+ 
+-    def make_old_id(self, name: str) -> str:
++    def make_old_id(self, token: str) -> str:
+         """Generate old styled node_id for tokens.
+ 
+         .. note:: Old Styled node_id was used until Sphinx-3.0.
+@@ -286,7 +286,7 @@
+ 
+         return nodes.make_id('grammar-token-' + token)
+ 
+-    def make_old_id(self, prefix: str, optname: str) -> str:
++    def make_old_id(self, optname: str) -> str:
+         """Generate old styled node_id for cmdoption.
+ 
+         .. note:: Old Styled node_id was used until Sphinx-3.0.
+@@ -296,7 +296,7 @@
+ 
+         return nodes.make_id(prefix + '-' + optname)
+ 
+-    def make_old_id(self, name: str) -> str:
++    def make_old_id(self, token: str) -> str:
+         """Generate old styled node_id for tokens.
+ 
+         .. note:: Old Styled node_id was used until Sphinx-3.0.
+@@ -306,7 +306,7 @@
+ 
+         return nodes.make_id('grammar

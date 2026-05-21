@@ -1,0 +1,100 @@
+--- a/astropy/nddata/mixins/ndarithmetic.py
++++ b/astropy/nddata/mixins/ndarithmetic.py
+@@ -266,7 +266,7 @@
+         # If both are None, there is nothing to do.
+         if self.psf is not None or (operand is not None and operand.psf is not None):
+             warnings.warn(
+-                f"Not setting psf attribute during {operation.__name__}.",
++                f"Not setting psf attribute during {operation.__name__}.",
+                 AstropyUserWarning,
+             )
+         # If handle_mask is None, there is nothing to do.
+         if handle_mask is None:
+@@ -283,7 +283,7 @@
+         elif self.mask is None and operand is not None:
+             # Make a copy so there is no reference in the result.
+             return deepcopy(operand.mask)
+-        elif operand is None:
++        elif operand is None and handle_mask != np.bitwise_or:
+             return deepcopy(self.mask)
+         else:
+             # Now lets calculate the resulting mask (operation enforces copy)
+@@ -304,7 +304,7 @@
+         # If handle_meta is None, there is nothing to do.
+         if handle_meta is None:
+             kwargs["meta"] = None
+-        elif handle_meta in ["ff", "first_found"]:
++        elif handle_meta in ["ff", "first_found"] and operand is not None:
+             if not self.meta:
+                 kwargs["meta"] = deepcopy(operand.meta)
+             else:
+@@ -322,7 +322,7 @@
+         # Wrap the individual results into a new instance of the same class.
+         return result, kwargs
+     def _arithmetic_data(self, operation, operand, **kwds):
+-        """
+-        Calculate the resulting data.
+-        """
++        """
++        Calculate the resulting data.
++        """
+         # Do the calculation with or without units
+         if self.unit is None:
+             if operand.unit is None:
+@@ -342,7 +342,7 @@
+         elif operand is not None:
+             result = operation(self.data << self.unit, operand.data << operand.unit)
+         else:
+-            result = operation(self.data, axis=kwds["axis"])
++            result = operation(self.data, axis=kwds.get("axis"))
+ 
+         return result
+     def _arithmetic_uncertainty(self, operation, operand, result, correlation, **kwds):
+@@ -362,7 +362,7 @@
+         # only supply the axis kwarg if one has been specified for a collapsing operation
+         return self.uncertainty.propagate(
+             operation, operand, result, correlation, **axis_kwarg
+-        )
++        )
+     def _arithmetic_mask(self, operation, operand, handle_mask, axis=None, **kwds):
+         """
+         Calculate the resulting mask.
+@@ -384,7 +384,7 @@
+         # If only one mask is present we need not bother about any type checks
+         if (
+             self.mask is None and operand is not None and operand.mask is None
+-        ) or handle_mask is None:
++        ) or handle_mask == np.bitwise_or:
+             return None
+         elif self.mask is None and operand is not None:
+             # Make a copy so there is no reference in the result.
+@@ -405,7 +405,7 @@
+         # Now lets calculate the resulting mask (operation enforces copy)
+         return handle_mask(self.mask, operand.mask, **kwds)
+     def _arithmetic_wcs(self, operation, operand, compare_wcs, **kwds):
+-        """
+-        Calculate the resulting wcs.
+-        """
++        """
++        Calculate the resulting wcs.
++        """
+         # ok, not really arithmetic but we need to check which wcs makes sense
+         # for the result and this is an ideal place to compare the two WCS,
+         # too.
+@@ -425,7 +425,7 @@
+         # I'll assume that the comparison returned None or False in case they
+         # are not equal.
+         if not compare_wcs(self.wcs, operand.wcs, **kwds):
+-            raise ValueError("WCS are not equal.")
++            raise ValueError("WCS are not equal.")
+         return deepcopy(self.wcs)
+     def _arithmetic_meta(self, operation, operand, handle_meta, **kwds):
+         """
+@@ -445,7 +445,7 @@
+         # Just return what handle_meta does with both of the metas.
+         return handle_meta(self.meta, operand.meta, **kwds)
+     @sharedmethod
+-    @format_doc(_arit_doc, name="addition", op="+")
++    @format_doc(_arit_doc, name="addition", op="+")
+     def add(self, operand, operand2=None, **kwargs):
+         return self._prepare_then_do_arithmetic(np

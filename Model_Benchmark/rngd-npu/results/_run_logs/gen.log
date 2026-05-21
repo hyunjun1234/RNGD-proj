@@ -1,0 +1,93 @@
+
+== furiosa-ai/Qwen2.5-0.5B-Instruct ==  devices=npu:0  tasks=['memsweep', 'sweep', 'tps']
+
+[memsweep 1/8] combo={}
+
+[memsweep 2/8] combo={'max_model_len': 4096}
+
+[memsweep 3/8] combo={'max_model_len': 8192}
+
+[memsweep 4/8] combo={'max_model_len': 16384}
+
+[memsweep 5/8] combo={'max_batch_size': 8}
+
+[memsweep 6/8] combo={'max_batch_size': 32}
+
+[memsweep 7/8] combo={'max_num_batched_tokens': 4096}
+
+[memsweep 8/8] combo={'max_num_batched_tokens': 16384}
+  [memsweep] 8 combos done
+  [tps] {"model": "furiosa-ai/Qwen2.5-0.5B-Instruct", "concurrency": 1, "prompt_tokens_target": 256, "max_tokens": 256, "successes": 50, "failures": 0, "wall_clock_s": 152.693, "ttft_s_p50": 0.0306, "ttft_s_p95": 0.0319, "itl_s_p50": 0.01189, "itl_s_p95": 0.01203, "output_tps_per_request_p50": 84.48, "aggregate_output_tps": 83.83, "total_output_tokens": 12800}
+  [sweep] concurrency=1, prompt_len=256
+  [sweep] concurrency=2, prompt_len=256
+  [sweep] concurrency=4, prompt_len=256
+  [sweep] concurrency=8, prompt_len=256
+  [sweep] concurrency=16, prompt_len=256
+  [sweep] concurrency=32, prompt_len=256
+  [sweep] concurrency=64, prompt_len=256
+  [sweep] concurrency=128, prompt_len=256
+  [sweep] concurrency=1, prompt_len=1024
+  [sweep] concurrency=2, prompt_len=1024
+  [sweep] concurrency=4, prompt_len=1024
+  [sweep] concurrency=8, prompt_len=1024
+  [sweep] concurrency=16, prompt_len=1024
+  [sweep] concurrency=32, prompt_len=1024
+  [sweep] concurrency=64, prompt_len=1024
+  [sweep] concurrency=128, prompt_len=1024
+  [sweep] concurrency=1, prompt_len=4096
+  [sweep] concurrency=2, prompt_len=4096
+  [sweep] concurrency=4, prompt_len=4096
+  [sweep] concurrency=8, prompt_len=4096
+  [sweep] concurrency=16, prompt_len=4096
+  [sweep] concurrency=32, prompt_len=4096
+  [sweep] concurrency=64, prompt_len=4096
+  [sweep] concurrency=128, prompt_len=4096
+
+== furiosa-ai/Llama-3.1-8B-Instruct ==  devices=npu:0  tasks=['memsweep', 'sweep', 'tps']
+
+[memsweep 1/8] combo={}
+
+[memsweep 2/8] combo={'max_model_len': 4096}
+
+[memsweep 3/8] combo={'max_model_len': 8192}
+
+[memsweep 4/8] combo={'max_model_len': 16384}
+
+[memsweep 5/8] combo={'max_batch_size': 8}
+
+[memsweep 6/8] combo={'max_batch_size': 32}
+
+[memsweep 7/8] combo={'max_num_batched_tokens': 4096}
+
+[memsweep 8/8] combo={'max_num_batched_tokens': 16384}
+  [memsweep] 8 combos done
+  [tps] {"model": "furiosa-ai/Llama-3.1-8B-Instruct", "concurrency": 1, "prompt_tokens_target": 256, "max_tokens": 256, "successes": 50, "failures": 0, "wall_clock_s": 240.596, "ttft_s_p50": 0.0326, "ttft_s_p95": 0.037, "itl_s_p50": 0.01832, "itl_s_p95": 0.01852, "output_tps_per_request_p50": 54.5, "aggregate_output_tps": 53.2, "total_output_tokens": 12800}
+  [sweep] concurrency=1, prompt_len=256
+  [sweep] concurrency=2, prompt_len=256
+  [sweep] concurrency=4, prompt_len=256
+  [sweep] concurrency=8, prompt_len=256
+  [sweep] concurrency=16, prompt_len=256
+  [sweep] concurrency=32, prompt_len=256
+  [sweep] concurrency=64, prompt_len=256
+  [sweep] concurrency=128, prompt_len=256
+  [sweep] concurrency=1, prompt_len=1024
+  [sweep] concurrency=2, prompt_len=1024
+  [sweep] concurrency=4, prompt_len=1024
+  [sweep] concurrency=8, prompt_len=1024
+  [sweep] concurrency=16, prompt_len=1024
+  [sweep] concurrency=32, prompt_len=1024
+  [sweep] concurrency=64, prompt_len=1024
+  [sweep] concurrency=128, prompt_len=1024
+  [sweep] concurrency=1, prompt_len=4096
+  [sweep] concurrency=2, prompt_len=4096
+  [sweep] concurrency=4, prompt_len=4096
+  [sweep] concurrency=8, prompt_len=4096
+  [sweep] concurrency=16, prompt_len=4096
+  [sweep] concurrency=32, prompt_len=4096
+  [sweep] concurrency=64, prompt_len=4096
+  [sweep] concurrency=128, prompt_len=4096
+== SKIP furiosa-ai/Qwen3-32B-FP8 (disabled) ==
+== SKIP furiosa-ai/EXAONE-4.0-32B-FP8 (disabled) ==
+== SKIP furiosa-ai/Llama-3.3-70B-Instruct (disabled) ==
+== SKIP furiosa-ai/Qwen3-Embedding-8B (no applicable task: tasks={'memsweep', 'tps', 'sweep'}, role=embedding) ==
+== SKIP furiosa-ai/Qwen3-Reranker-8B (no applicable task: tasks={'memsweep', 'tps', 'sweep'}, role=reranker) ==

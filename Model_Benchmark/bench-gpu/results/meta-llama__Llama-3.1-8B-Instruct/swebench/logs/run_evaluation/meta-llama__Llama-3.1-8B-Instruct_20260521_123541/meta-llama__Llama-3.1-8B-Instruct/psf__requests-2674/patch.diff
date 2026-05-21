@@ -1,0 +1,118 @@
+--- a/requests/adapters.py
++++ b/requests/adapters.py
+@@ -22,6 +22,7 @@
+ from .packages.urllib3.response import HTTPResponse
+ from .packages.urllib3.util import Timeout as TimeoutSauce
+ from .packages.urllib3.util.retry import Retry
++from .packages.urllib3.exceptions import DecodeError, TimeoutError
+ from .compat import urlparse, basestring
+ from .utils import (DEFAULT_CA_BUNDLE_PATH, get_encoding_from_headers,
+                     prepend_scheme_if_needed, get_auth_from_url, urldefragauth)
+@@ -416,6 +417,11 @@
+         except MaxRetryError as e:
+             if isinstance(e.reason, ConnectTimeoutError):
+                 raise ConnectTimeout(e, request=request)
++            elif isinstance(e.reason, DecodeError):
++                raise DecodeError(e, request=request)
++            elif isinstance(e.reason, TimeoutError):
++                raise TimeoutError(e, request=request)
+             raise ConnectionError(e, request=request)
+ 
+         except _ProxyError as e:
+             raise ProxyError(e)
+@@ -435,6 +441,7 @@
+         return self.build_response(request, resp)
+ 
+ class HTTPAdapter(BaseAdapter):
+     """The built-in HTTP Adapter for urllib3.
+@@ -555,6 +562,7 @@
+         self.max_retries = Retry.from_int(max_retries)
+     else:
+         self.max_retries = Retry(0, read=False)
++    self.max_retries.max_redirects = 0
+     self.config = {}
+     self.proxy_manager = {}
+ 
+     super(HTTPAdapter, self).__init__()
+@@ -584,6 +592,7 @@
+         self.proxy_manager[proxy] = proxy_from_url(
+             proxy,
+             proxy_headers=proxy_headers,
+             num_pools=self._pool_connections,
+             maxsize=self._pool_maxsize,
+             block=self._pool_block,
+             **proxy_kwargs)
+         return self.proxy_manager[proxy]
+@@ -609,6 +618,7 @@
+         if not cert_loc:
+             cert_loc = DEFAULT_CA_BUNDLE_PATH
+ 
+         if not cert_loc:
+             raise Exception("Could not find a suitable SSL CA certificate bundle.")
+         conn.cert_reqs = 'CERT_REQUIRED'
+         conn.ca_certs = cert_loc
+@@ -637,6 +647,7 @@
+         return self.build_response(request, resp)
+ 
+     def get_connection(self, url, proxies=None):
+         """Returns a urllib3 connection for the given URL. This should not be
+@@ -666,6 +677,7 @@
+         except (ProtocolError, socket.error) as err:
+             raise ConnectionError(err, request=request)
+         except MaxRetryError as e:
+             if isinstance(e.reason, ConnectTimeoutError):
+                 raise ConnectTimeout(e, request=request)
++            elif isinstance(e.reason, DecodeError):
++                raise DecodeError(e, request=request)
++            elif isinstance(e.reason, TimeoutError):
++                raise TimeoutError(e, request=request)
+             raise ConnectionError(e, request=request)
+ 
+         except _ProxyError as e:
+             raise ProxyError(e)
+@@ -685,6 +697,7 @@
+         return self.build_response(request, resp)
+ 
+ class HTTPAdapter(BaseAdapter):
+     """The built-in HTTP Adapter for urllib3.
+@@ -705,6 +718,7 @@
+         self.max_retries = Retry.from_int(max_retries)
+     else:
+         self.max_retries = Retry(0, read=False)
++    self.max_retries.max_redirects = 0
+     self.config = {}
+     self.proxy_manager = {}
+ 
+     super(HTTPAdapter, self).__init__()
+@@ -734,6 +748,7 @@
+         self.proxy_manager[proxy] = proxy_from_url(
+             proxy,
+             proxy_headers=proxy_headers,
+             num_pools=self._pool_connections,
+             maxsize=self._pool_maxsize,
+             block=self._pool_block,
+             **proxy_kwargs)
+         return self.proxy_manager[proxy]
+@@ -759,6 +774,7 @@
+         if not cert_loc:
+             cert_loc = DEFAULT_CA_BUNDLE_PATH
+ 
+         if not cert_loc:
+             raise Exception("Could not find a suitable SSL CA certificate bundle.")
+         conn.cert_reqs = 'CERT_REQUIRED'
+         conn.ca_certs = cert_loc
+@@ -787,6 +803,7 @@
+         return self.build_response(request, resp)
+ 
+     def get_connection(self, url, proxies=None):
+         """Returns a urllib3 connection for the given URL. This should not be
+@@ -816,6 +833,7 @@
+         except (ProtocolError, socket.error) as err:
+             raise ConnectionError(err, request=request)
+         except MaxRetryError as e:
+             if isinstance(e.reason, ConnectTimeoutError):
+                 raise ConnectTimeout(e, request=request)
++            elif isinstance(e.reason, DecodeError):
++                raise DecodeError(e, request=request)
++            elif isinstance(e.reason, TimeoutError):
++                raise TimeoutError(e, request=request

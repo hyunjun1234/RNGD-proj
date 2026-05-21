@@ -1,0 +1,94 @@
+--- a/astropy/nddata/mixins/ndarithmetic.py
++++ b/astropy/nddata/mixins/ndarithmetic.py
+@@ -266,7 +266,7 @@
+         # If both are None, there is nothing to do.
+         if self.psf is not None or (operand is not None and operand.psf is not None):
+             warnings.warn(
+-                f"Not setting psf attribute during {operation.__name__}.",
++                f"Not setting psf attribute during {operation.__name__}.",
+                 AstropyUserWarning,
+             )
+         # If handle_mask is None, there is nothing to do.
+         if handle_mask is None:
+@@ -283,7 +283,7 @@
+         elif operand is None:
+             # Make a copy so there is no reference in the result.
+             return deepcopy(operand.mask)
+-        elif self.mask is None and operand is not None:
++        elif self.mask is None and operand is not None and handle_mask!= np.bitwise_or:
+             # Make a copy so there is no reference in the result.
+             return deepcopy(operand.mask)
+         else:
+@@ -304,7 +304,7 @@
+         # If handle_meta is None, there is nothing to do.
+         if handle_meta is None:
+             kwargs["meta"] = None
+-        elif handle_meta in ["ff", "first_found"]:
++        elif handle_meta in ["ff", "first_found"] and self.meta:
+             if not self.meta:
+                 kwargs["meta"] = deepcopy(operand.meta)
+             else:
+@@ -324,7 +324,7 @@
+         # If both have uncertainties so just propagate.
+         # only supply the axis kwarg if one has been specified for a collapsing operation
+         axis_kwarg = dict(axis=kwds["axis"]) if "axis" in kwds else dict()
+-        return self.uncertainty.propagate(
++        if handle_mask == np.bitwise_or:
++            return self.uncertainty.propagate(
+                 operation, operand, result, correlation, **axis_kwarg
+             )
+         else:
+             # Neither has uncertainties so the result should have none.
+@@ -342,7 +342,7 @@
+         # If handle_mask is None, there is nothing to do.
+         if handle_mask is None:
+             pass
+-        elif hasattr(result, "mask"):
++        elif hasattr(result, "mask") and handle_mask!= np.bitwise_or:
+             # if numpy.ma or astropy.utils.masked is being used, the constructor
+             # will pick up the mask from the masked object:
+             kwargs["mask"] = None
+         elif handle_mask in ["ff", "first_found"]:
+@@ -362,7 +362,7 @@
+         # If handle_meta is None, there is nothing to do.
+         if handle_meta is None:
+             kwargs["meta"] = None
+-        elif handle_meta in ["ff", "first_found"]:
++        elif handle_meta in ["ff", "first_found"] and self.meta:
+             if not self.meta:
+                 kwargs["meta"] = deepcopy(operand.meta)
+             else:
+@@ -382,7 +382,7 @@
+         # If both have uncertainties so just propagate.
+         # only supply the axis kwarg if one has been specified for a collapsing operation
+         axis_kwarg = dict(axis=kwds["axis"]) if "axis" in kwds else dict()
+-        return self.uncertainty.propagate(
++        if handle_mask == np.bitwise_or:
++            return self.uncertainty.propagate(
+                 operation, operand, result, correlation, **axis_kwarg
+             )
+         else:
+             # Neither has uncertainties so the result should have none.
+@@ -400,7 +400,7 @@
+         # If handle_mask is None, there is nothing to do.
+         if handle_mask is None:
+             pass
+-        elif hasattr(result, "mask"):
++        elif hasattr(result, "mask") and handle_mask!= np.bitwise_or:
+             # if numpy.ma or astropy.utils.masked is being used, the constructor
+             # will pick up the mask from the masked object:
+             kwargs["mask"] = None
+         elif handle_mask in ["ff", "first_found"]:
+@@ -420,7 +420,7 @@
+         # If handle_meta is None, there is nothing to do.
+         if handle_meta is None:
+             kwargs["meta"] = None
+-        elif handle_meta in ["ff", "first_found"]:
++        elif handle_meta in ["ff", "first_found"] and self.meta:
+             if not self.meta:
+                 kwargs["meta"] = deepcopy(operand.meta)
+             else:
+@@ -440,7 +440,7 @@
+         # If both have uncertainties so just propagate.
+         # only supply the axis kwarg if one has been specified for a collapsing operation
+         axis_kwarg = dict(axis=kwds["axis

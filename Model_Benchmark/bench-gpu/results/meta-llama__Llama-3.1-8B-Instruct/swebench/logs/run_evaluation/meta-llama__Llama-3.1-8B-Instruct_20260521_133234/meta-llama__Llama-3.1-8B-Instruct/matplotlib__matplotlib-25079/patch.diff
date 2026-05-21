@@ -1,0 +1,100 @@
+<patch>
+--- a/lib/matplotlib/colors.py
++++ b/lib/matplotlib/colors.py
+@@ -1345,6 +1345,7 @@
+         self._scale = None  # don't use the default scale.
+         self._n_regions = self.N - 1  # number of colors needed
+         self._offset = 0
++        self._clip = False
+         if extend in ('min', 'both'):
+             self._n_regions += 1
+             self._offset = 1
+@@ -1361,6 +1362,7 @@
+         if clip is None:
+             clip = self.clip
+ 
++        self._clip = clip
+         xx, is_scalar = self.process_value(value)
+         mask = np.ma.getmaskarray(xx)
+         # Fill masked values a value above the upper boundary
+@@ -1411,6 +1413,7 @@
+         if self._clip:
+             np.clip(xx, self.vmin, self.vmax, out=xx)
+             max_col = self.Ncmap - 1
++            self._clip = True
+         else:
+             max_col = self.Ncmap
+         # this gives us the bins in the lookup table in the range
+@@ -1423,6 +1426,7 @@
+         if self.Ncmap > self._n_regions:
+             if self._n_regions == 1:
+                 # special case the 1 region case, pick the middle color
++                self._clip = False
+                 iret[iret == 0] = (self.Ncmap - 1) // 2
+             else:
+                 # otherwise linearly remap the values from the region index
+@@ -1443,6 +1447,7 @@
+         iret = iret.astype(np.int16)
+         iret[xx < self.vmin] = -1
+         iret[xx >= self.vmax] = max_col
++        self._clip = False
+         ret = np.ma.array(iret, mask=mask)
+         if is_scalar:
+             ret = int(ret[0])  # assume python scalar
+@@ -1455,6 +1460,7 @@
+         def inverse(self, value):
+             """
+             Raises
+@@ -1463,6 +1469,7 @@
+         """
+         raise ValueError("BoundaryNorm is not invertible")
+ 
++    def __init__(self, boundaries, ncolors, clip=False, *, extend='neither'):
+     def __init__(self, boundaries, ncolors, clip=False, *, extend='neither'):
+         """
+         Parameters
+@@ -1473,6 +1480,7 @@
+         """
+         if clip and extend != 'neither':
+             raise ValueError("'clip=True' is not compatible with 'extend'")
++        self._clip = clip
+         super().__init__(vmin=boundaries[0], vmax=boundaries[-1], clip=clip)
+         self.boundaries = np.asarray(boundaries)
+         self.N = len(self.boundaries)
+@@ -1483,6 +1491,7 @@
+         self.Ncmap = ncolors
+         self.extend = extend
+         self._scale = None  # don't use the default scale.
++        self._clip = False
+         self._n_regions = self.N - 1  # number of colors needed
+         self._offset = 0
+         if extend in ('min', 'both'):
+@@ -1499,6 +1508,7 @@
+         if clip is None:
+             clip = self.clip
+ 
++        self._clip = clip
+         xx, is_scalar = self.process_value(value)
+         mask = np.ma.getmaskarray(xx)
+         # Fill masked values a value above the upper boundary
+@@ -1509,6 +1519,7 @@
+         if self._clip:
+             np.clip(xx, self.vmin, self.vmax, out=xx)
+             max_col = self.Ncmap - 1
++            self._clip = True
+         else:
+             max_col = self.Ncmap
+         # this gives us the bins in the lookup table in the range
+@@ -1521,6 +1532,7 @@
+         if self.Ncmap > self._n_regions:
+             if self._n_regions == 1:
+                 # special case the 1 region case, pick the middle color
++                self._clip = False
+                 iret[iret == 0] = (self.Ncmap - 1) // 2
+             else:
+                 # otherwise linearly remap the values from the region index
+@@ -1541,6 +1553,7 @@
+         iret = iret.astype(np.int16)
+         iret[xx < self.vmin] = -1
+         iret[xx >= self.vmax] = max_col
++        self._clip =

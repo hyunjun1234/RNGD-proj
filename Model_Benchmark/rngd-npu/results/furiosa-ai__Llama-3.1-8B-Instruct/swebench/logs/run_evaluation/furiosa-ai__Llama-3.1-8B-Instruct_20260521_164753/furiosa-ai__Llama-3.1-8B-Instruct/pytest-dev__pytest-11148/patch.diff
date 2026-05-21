@@ -1,0 +1,123 @@
+--- a/src/_pytest/pathlib.py
++++ b/src/_pytest/pathlib.py
+@@ -517,6 +517,7 @@
+     mode = ImportMode(mode)
+ 
+     path = Path(p)
++    path = ensure_deletable(path, 0)
+ 
+     if not path.exists():
+         raise ImportError(path)
+ 
+@@ -544,6 +545,7 @@
+     else:
+         spec = importlib.util.spec_from_file_location(module_name, str(path))
+ 
+     if spec is None:
++        path = ensure_deletable(path, 0)
+         raise ImportError(f"Can't find module {module_name} at location {path}")
+     mod = importlib.util.module_from_spec(spec)
+     sys.modules[module_name] = mod
+@@ -563,6 +565,7 @@
+     if mode is ImportMode.importlib:
+         module_name = module_name_from_path(path, root)
+ 
+     if mode is ImportMode.importlib:
++        path = ensure_deletable(path, 0)
+         module_name = module_name_from_path(path, root)
+ 
+     pkg_path = resolve_package_path(path)
+@@ -576,6 +579,7 @@
+     if mode is ImportMode.importlib:
+         module_name = module_name_from_path(path, root)
+ 
+     if mode is ImportMode.importlib:
++        path = ensure_deletable(path, 0)
+         module_name = module_name_from_path(path, root)
+ 
+     pkg_path = resolve_package_path(path)
+@@ -591,6 +595,7 @@
+     if mode is ImportMode.importlib:
+         module_name = module_name_from_path(path, root)
+ 
+     if mode is ImportMode.importlib:
++        path = ensure_deletable(path, 0)
+         module_name = module_name_from_path(path, root)
+ 
+     pkg_path = resolve_package_path(path)
+@@ -606,6 +611,7 @@
+     if mode is ImportMode.importlib:
+         module_name = module_name_from_path(path, root)
+ 
+     if mode is ImportMode.importlib:
++        path = ensure_deletable(path, 0)
+         module_name = module_name_from_path(path, root)
+ 
+     pkg_path = resolve_package_path(path)
+@@ -621,6 +627,7 @@
+     if mode is ImportMode.importlib:
+         module_name = module_name_from_path(path, root)
+ 
+     if mode is ImportMode.importlib:
++        path = ensure_deletable(path, 0)
+         module_name = module_name_from_path(path, root)
+ 
+     pkg_path = resolve_package_path(path)
+@@ -636,6 +643,7 @@
+     if mode is ImportMode.importlib:
+         module_name = module_name_from_path(path, root)
+ 
+     if mode is ImportMode.importlib:
++        path = ensure_deletable(path, 0)
+         module_name = module_name_from_path(path, root)
+ 
+     pkg_path = resolve_package_path(path)
+@@ -651,6 +659,7 @@
+     if mode is ImportMode.importlib:
+         module_name = module_name_from_path(path, root)
+ 
+     if mode is ImportMode.importlib:
++        path = ensure_deletable(path, 0)
+         module_name = module_name_from_path(path, root)
+ 
+     pkg_path = resolve_package_path(path)
+@@ -666,6 +675,7 @@
+     if mode is ImportMode.importlib:
+         module_name = module_name_from_path(path, root)
+ 
+     if mode is ImportMode.importlib:
++        path = ensure_deletable(path, 0)
+         module_name = module_name_from_path(path, root)
+ 
+     pkg_path = resolve_package_path(path)
+@@ -681,6 +691,7 @@
+     if mode is ImportMode.importlib:
+         module_name = module_name_from_path(path, root)
+ 
+     if mode is ImportMode.importlib:
++        path = ensure_deletable(path, 0)
+         module_name = module_name_from_path(path, root)
+ 
+     pkg_path = resolve_package_path(path)
+@@ -696,6 +707,7 @@
+     if mode is ImportMode.importlib:
+         module_name = module_name_from_path(path, root)
+ 
+     if mode is ImportMode.importlib:
++        path = ensure_deletable(path, 0)
+         module_name = module_name_from_path(path, root)
+ 
+     pkg_path = resolve_package_path(path)
+@@ -711,6 +723,7 @@
+     if mode is ImportMode.importlib:
+         module_name = module_name_from_path(path, root)
+ 
+     if mode is ImportMode.importlib:
++        path = ensure_deletable(path, 0)
+         module_name = module_name_from_path(path, root)
+ 
+     pkg_path = resolve_package_path(path)
+@@ -726,6 +739,7 @@
+     if mode is ImportMode.importlib:
+         module_name = module_name_from_path(path, root)
+ 

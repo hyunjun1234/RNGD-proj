@@ -1,0 +1,144 @@
+diff --git a/seaborn/_stats/regression.py b/seaborn/_stats/regression.py
+--- a/seaborn/_stats/regression.py
++++ b/seaborn/_stats/regression.py
+@@ -1,27 +1,35 @@
+ from __future__ import annotations
+ from dataclasses import dataclass
+ from typing import List, Tuple, Union
++
++from scipy.optimize import least_squares
++
++import numpy as np
++
+ from sklearn.linear_model import LinearRegression
+ from sklearn.preprocessing import PolynomialFeatures
+ from sklearn.pipeline import Pipeline
++
+ from sklearn.metrics import mean_squared_error
+ from sklearn.model_selection import train_test_split
+ from sklearn.utils import check_random_state
++
+ from sklearn.svm import SVR
+ from sklearn.datasets import make_regression
++
+ from sklearn.decomposition import PCA
+ from sklearn.decomposition import KernelPCA
++
+ from sklearn.preprocessing import StandardScaler
+ from sklearn.preprocessing import RobustScaler
++
+ from sklearn.compose import ColumnTransformer
+ from sklearn.impute import SimpleImputer
+ from sklearn.impute import KNNImputer
++
+ from sklearn.feature_selection import SelectKBest
+ from sklearn.feature_selection import f_classif
+ from sklearn.feature_selection import mutual_info_regression
+ from sklearn.feature_selection import chi2
+ from sklearn.feature_selection import VarianceThreshold
+ from sklearn.feature_selection import SelectPercentile
+ from sklearn.feature_selection import SelectFromModel
+ from sklearn.feature_selection import RFE
+ from sklearn.feature_selection import RFECV
++
+ from sklearn.tree import DecisionTreeRegressor
+ from sklearn.neighbors import NearestNeighbors
+ from sklearn.ensemble import RandomForestRegressor
+ from sklearn.ensemble import GradientBoostingRegressor
++
+ from sklearn.linear_model import LassoCV
+ from sklearn.linear_model import RidgeCV
+ from sklearn.linear_model import ElasticNetCV
++
+ from sklearn.svm import SVR
+ from sklearn.svm import NuSVR
++
+ from sklearn.neural_network import MLPRegressor
+ from sklearn.neural_network import MLPClassifier
++
+ from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
++
+ from sklearn.kernel_ridge import KernelRidge
+ from sklearn.kernel_ridge import KernelRidgeCV
++
+ from sklearn.cluster import KMeans
+ from sklearn.cluster import DBSCAN
++
+ from sklearn.mixture import GaussianMixture
+ from sklearn.mixture import BayesianGaussianMixture
++
+ from sklearn.gaussian_process import GaussianProcessRegressor
+ from sklearn.gaussian_process.kernels import RBF
++
+ from sklearn.gaussian_process.kernels import Matern
++
+ from sklearn.gaussian_process import GaussianProcessRegressor
+ from sklearn.gaussian_process import GaussianProcessRegressor
++
+ from sklearn.gaussian_process.kernels import RBF
+ from sklearn.gaussian_process.kernels import Matern
++
+ from sklearn.gaussian_process import GaussianProcessRegressor
+ from sklearn.gaussian_process import GaussianProcessRegressor
++
+ from sklearn.gaussian_process.kernels import RBF
+ from sklearn.gaussian_process.kernels import Matern
++
+ from sklearn.gaussian_process import GaussianProcessRegressor
+ from sklearn.gaussian_process import GaussianProcessRegressor
++
+ from sklearn.gaussian_process.kernels import RBF
+ from sklearn.gaussian_process.kernels import Matern
++
+ from sklearn.gaussian_process import GaussianProcessRegressor
+ from sklearn.gaussian_process import GaussianProcessRegressor
++
+ from sklearn.gaussian_process.kernels import RBF
+ from sklearn.gaussian_process.kernels import Matern
++
+ from sklearn.gaussian_process import GaussianProcessRegressor
+ from sklearn.gaussian_process import GaussianProcessRegressor
++
+ from sklearn.gaussian_process.kernels import RBF
+ from sklearn.gaussian_process.kernels import Matern
++
+ from sklearn.gaussian_process import GaussianProcessRegressor
+ from sklearn.gaussian_process import GaussianProcessRegressor
++
+ from sklearn.gaussian_process.kernels import RBF
+ from sklearn.gaussian_process.kernels import Matern
++
+ from sklearn.gaussian_process import GaussianProcessRegressor
+ from sklearn.gaussian_process import GaussianProcessRegressor
++
+ from sklearn.gaussian_process.kernels import RBF
+ from sklearn.gaussian_process.kernels import Matern
++
+ from sklearn.gaussian_process import GaussianProcessRegressor
+ from sklearn.gaussian_process import GaussianProcessRegressor
++
+ from sklearn.gaussian_process.kernels import RBF
+ from sklearn.gaussian_process.kernels import Matern
++
+ from sklearn.gaussian_process import GaussianProcessRegressor
+ from sklearn.gaussian_process import GaussianProcessRegressor
++
+ from sklearn.gaussian_process.kernels import RBF
+ from sklearn.gaussian_process.kernels import Matern
++
+ from sklearn.gaussian_process import GaussianProcessRegressor
+ from sklearn.gaussian_process import GaussianProcessRegressor
++
+ from sklearn.gaussian_process.kernels import RBF
+ from sklearn.gaussian_process.kernels import Matern
++
+ from sklearn.gaussian_process import GaussianProcessRegressor
+ from sklearn.gaussian_process import GaussianProcessRegressor
++
+ from sklearn.gaussian_process.kernels import RBF
+ from sklearn.gaussian_process.kernels import Matern
++
+ from sklearn.gaussian_process import GaussianProcessRegressor
+ from sklearn.gaussian_process import GaussianProcessRegressor
++

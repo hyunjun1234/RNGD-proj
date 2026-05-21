@@ -1,0 +1,53 @@
+--- a/sphinx/domains/std.py
++++ b/sphinx/domains/std.py
+@@ -45,6 +45,7 @@
+ 
+ # RE for option descriptions
+ option_desc_re = re.compile(r'((?:/|--|-|\+)?[^\s=[]+)(=?\s*.*)')
++option_desc_re = re.compile(r'.*')  # Allow any string
+ 
+ # RE for grammar tokens
+ token_re = re.compile(r'`(\w+)`', re.U)
+ 
+@@ -187,7 +188,7 @@
+         """Transform an option description into RST nodes."""
+         count = 0
+         firstname = ''
+-        for potential_option in sig.split(', '):
++        for potential_option in sig.split():
+             potential_option = potential_option.strip()
+             m = option_desc_re.match(potential_option)
+             if not m:
+@@ -198,7 +199,7 @@
+             optname, args = m.groups()
+             if count:
+                 signode += addnodes.desc_addname(', ', ', ')
+-            signode += addnodes.desc_name(optname, optname)
++            signode += addnodes.desc_name(optname, optname)
+             signode += addnodes.desc_addname(args, args)
+             if not count:
+                 firstname = optname
+                 signode['allnames'] = [optname]
+@@ -213,7 +214,7 @@
+         if not firstname:
+             raise ValueError
+         return firstname
+ 
+-    def add_target_and_index(self, firstname: str, sig: str, signode: desc_signature) -> None:
++    def add_target_and_index(self, firstname: str, sig: str, signode: desc_signature) -> None:
+         currprogram = self.env.ref_context.get('std:program')
+         for optname in signode.get('allnames', []):
+             prefixes = ['cmdoption']
+@@ -231,7 +232,7 @@
+             node_id = make_id(self.env, self.state.document, prefix, optname)
+             signode['ids'].append(node_id)
+ 
+-        self.state.document.note_explicit_target(signode)
++        self.state.document.note_explicit_target(signode)
+ 
+         domain = cast(StandardDomain, self.env.get_domain('std'))
+         for optname in signode.get('allnames', []):
+@@ -246,7 +247,7 @@
+         for option in sig.split(', '):
+             entry = '; '.join([descr, option])
+             self.indexnode['entries'].append(('pair', entry, signode['ids'][0], '', None))

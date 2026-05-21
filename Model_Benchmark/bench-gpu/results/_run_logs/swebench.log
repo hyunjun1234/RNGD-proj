@@ -1,0 +1,120 @@
+
+== Qwen/Qwen2.5-0.5B-Instruct ==  cuda=2  tasks=['swebench']
+  [swebench] dataset=princeton-nlp/SWE-bench_Lite_oracle subset=50
+2026-05-21 13:14:35,915 - httpx - INFO - HTTP Request: GET http://127.0.0.1:8001/v1/models "HTTP/1.1 200 OK"
+    [swebench] context-filtered 7/50 (max_input_tokens=31744, max_model_len=32768)
+2026-05-21 13:14:47,722 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:47,939 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:47,950 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:48,415 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:51,842 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:52,069 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:52,377 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:52,728 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:52,993 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:53,032 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+    [swebench] 10/43 predicted
+2026-05-21 13:14:53,133 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:53,636 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:55,764 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:56,028 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:56,516 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:56,537 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:57,042 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:57,557 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:58,541 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:14:58,949 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+    [swebench] 20/43 predicted
+2026-05-21 13:15:00,141 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:00,560 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:00,581 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:01,168 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:01,172 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:01,749 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:02,632 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:02,734 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:03,744 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:04,303 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+    [swebench] 30/43 predicted
+2026-05-21 13:15:04,313 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:04,808 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:06,523 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:07,671 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:08,279 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:09,459 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:09,510 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:10,400 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:10,537 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:10,845 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+    [swebench] 40/43 predicted
+2026-05-21 13:15:11,448 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:11,688 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:15:12,520 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+  [swebench] {"model": "Qwen/Qwen2.5-0.5B-Instruct", "dataset": "oracle-subset", "n_requested_instances": 50, "n_instances": 43, "n_filtered_context": 7, "filtered_context_ids": ["matplotlib__matplotlib-24970", "pydata__xarray-4094", "astropy__astropy-7746", "matplotlib__matplotlib-25079", "matplotlib__matplotlib-24149", "pydata__xarray-4493", "scikit-learn__scikit-learn-14087"], "filtered_context": [{"instance_id": "matplotlib__matplotlib-24970", "prompt_tokens": 36001, "max_input_tokens": 31744, "requested_tokens": 37025, "max_model_len": 32768}, {"instance_id": "pydata__xarray-4094", "prompt_tokens": 50384, "max_input_tokens": 31744, "requested_tokens": 51408, "max_model_len": 32768}, {"instance_id": "astropy__astropy-7746", "prompt_tokens": 43501, "max_input_tokens": 31744, "requested_tokens": 44525, "max_model_len": 32768}, {"instance_id": "matplotlib__matplotlib-25079", "prompt_tokens": 36546, "max_input_tokens": 31744, "requested_tokens": 37570, "max_model_len": 32768}, {"instance_id": "matplotlib__matplotlib-24149", "prompt_tokens": 110626, "max_input_tokens": 31744, "requested_tokens": 111650, "max_model_len": 32768}, {"instance_id": "pydata__xarray-4493", "prompt_tokens": 36583, "max_input_tokens": 31744, "requested_tokens": 37607, "max_model_len": 32768}, {"instance_id": "scikit-learn__scikit-learn-14087", "prompt_tokens": 33596, "max_input_tokens": 31744, "requested_tokens": 34620, "max_model_len": 32768}], "max_model_len": 32768, "max_input_tokens": 31744, "max_tokens": 1024, "n_nonempty_patch": 43, "n_error": 0, "n_invalid_patch": 34, "invalid_patch_examples": [{"instance_id": "astropy__astropy-12907", "reason": "hunk line count mismatch old=27/27 new=44/35"}, {"instance_id": "astropy__astropy-14182", "reason": "hunk line count mismatch old=94/27 new=2/35"}, {"instance_id": "astropy__astropy-14365", "reason": "bad hunk line prefix"}, {"instance_id": "astropy__astropy-14995", "reason": "bad hunk line prefix"}, {"instance_id": "django__django-12915", "reason": "hunk line count mismatch old=27/27 new=39/35"}, {"instance_id": "django__django-13551", "reason": "hunk line count mismatch old=38/27 new=46/35"}, {"instance_id": "django__django-14016", "reason": "hunk line count mismatch old=27/27 new=36/35"}, {"instance_id": "django__django-16527", "reason": "hunk line count mismatch old=7/6 new=8/7"}, {"instance_id": "matplotlib__matplotlib-22835", "reason": "bad hunk line prefix"}, {"instance_id": "matplotlib__matplotlib-25498", "reason": "hunk line count mismatch old=25/27 new=29/35"}], "gen_s_p50": 4.1, "gen_s_p95": 12.0, "preds_file": "/home/etri/jun/bench-gpu/results/Qwen__Qwen2.5-0.5B-Instruct/swebench/preds/Qwen__Qwen2.5-0.5B-Instruct__preds.jsonl"}
+
+== meta-llama/Llama-3.1-8B-Instruct ==  cuda=2  tasks=['swebench']
+2026-05-21 13:15:58,671 - httpx - INFO - HTTP Request: GET http://127.0.0.1:8000/health "HTTP/1.1 200 OK"
+2026-05-21 13:15:58,698 - httpx - INFO - HTTP Request: GET http://127.0.0.1:8000/v1/models "HTTP/1.1 200 OK"
+  [swebench] dataset=princeton-nlp/SWE-bench_Lite_oracle subset=50
+2026-05-21 13:16:00,642 - httpx - INFO - HTTP Request: GET http://127.0.0.1:8000/v1/models "HTTP/1.1 200 OK"
+2026-05-21 13:16:49,928 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:16:56,255 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:17:12,241 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:17:21,172 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:17:21,549 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:17:32,323 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:17:33,522 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:17:42,110 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:17:55,698 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:17:58,740 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+    [swebench] 10/50 predicted
+2026-05-21 13:18:05,549 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:18:10,723 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:18:13,565 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:18:18,986 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:18:40,319 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:18:42,833 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:18:45,576 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:18:47,604 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:18:53,864 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:19:03,100 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+    [swebench] 20/50 predicted
+2026-05-21 13:19:08,129 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:19:13,205 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:19:17,433 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:19:25,954 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:19:30,583 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:19:35,520 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:19:36,846 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:19:40,398 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:19:43,941 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:19:47,935 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+    [swebench] 30/50 predicted
+2026-05-21 13:19:53,117 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:20:41,734 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:20:44,460 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:20:50,720 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:21:02,670 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:21:08,411 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:21:11,533 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:21:39,893 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:21:42,618 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:21:58,372 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+    [swebench] 40/50 predicted
+2026-05-21 13:22:01,867 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:22:08,154 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:22:13,446 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:22:18,516 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:22:23,580 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:22:28,630 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:22:29,726 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:22:30,286 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:22:45,042 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 13:22:48,208 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+    [swebench] 50/50 predicted
+  [swebench] {"model": "meta-llama/Llama-3.1-8B-Instruct", "dataset": "oracle-subset", "n_requested_instances": 50, "n_instances": 50, "n_filtered_context": 0, "filtered_context_ids": [], "filtered_context": [], "max_model_len": 131072, "max_input_tokens": 130048, "max_tokens": 1024, "n_nonempty_patch": 50, "n_error": 0, "n_invalid_patch": 49, "invalid_patch_examples": [{"instance_id": "astropy__astropy-12907", "reason": "hunk line count mismatch old=42/27 new=42/35"}, {"instance_id": "astropy__astropy-14182", "reason": "hunk line count mismatch old=7/6 new=8/7"}, {"instance_id": "astropy__astropy-14365", "reason": "hunk line count mismatch old=8/7 new=8/7"}, {"instance_id": "astropy__astropy-14995", "reason": "hunk line count mismatch old=8/7 new=8/7"}, {"instance_id": "astropy__astropy-7746", "reason": "hunk line count mismatch old=5/6 new=5/7"}, {"instance_id": "django__django-12915", "reason": "hunk line count mismatch old=9/6 new=10/7"}, {"instance_id": "django__django-13551", "reason": "hunk line count mismatch old=15/8 new=18/10"}, {"instance_id": "django__django-14016", "reason": "hunk line count mismatch old=7/6 new=9/10"}, {"instance_id": "django__django-16139", "reason": "hunk line count mismatch old=9/7 new=9/7"}, {"instance_id": "django__django-16527", "reason": "bad hunk line prefix"}], "gen_s_p50": 58.3, "gen_s_p95": 111.0, "preds_file": "/home/etri/jun/bench-gpu/results/meta-llama__Llama-3.1-8B-Instruct/swebench/preds/meta-llama__Llama-3.1-8B-Instruct__preds.jsonl"}
+== SKIP Qwen/Qwen3-32B (disabled) ==
+== SKIP meta-llama/Llama-3.3-70B-Instruct (disabled) ==
+== SKIP LGAI-EXAONE/EXAONE-4.0-32B (disabled) ==
+== SKIP Qwen/Qwen3-Embedding-8B (disabled) ==
+== SKIP Qwen/Qwen3-Reranker-8B (disabled) ==

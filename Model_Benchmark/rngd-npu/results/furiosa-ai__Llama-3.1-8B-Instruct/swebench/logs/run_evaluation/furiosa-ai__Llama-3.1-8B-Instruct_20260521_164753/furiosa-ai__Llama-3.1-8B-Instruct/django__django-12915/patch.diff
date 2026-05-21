@@ -1,0 +1,112 @@
+--- a/django/contrib/staticfiles/handlers.py
++++ b/django/contrib/staticfiles/handlers.py
+@@ -49,6 +49,7 @@
+ 
+ class StaticFilesHandlerMixin:
+     """
+     Common methods used by WSGI and ASGI handlers.
+     """
++    async def get_response_async(self, request):
+     """
+     Return an async response for the given request.
+     """
+     try:
+@@ -71,6 +72,7 @@
+ 
+ class ASGIStaticFilesHandler(StaticFilesHandlerMixin, ASGIHandler):
+     """
+     ASGI application which wraps another and intercepts requests for static
+     files, passing them off to Django's static file serving.
+     """
++    async def get_response_async(self, request):
+         # Only even look at HTTP requests
+         if scope['type'] == 'http' and self._should_handle(scope['path']):
+             # Serve static content
+@@ -88,6 +90,7 @@
+         return await self.application(scope, receive, send)
+ 
+ class ASGIStaticFilesHandler(StaticFilesHandlerMixin, ASGIHandler):
+     """
+     ASGI application which wraps another and intercepts requests for static
+     files, passing them off to Django's static file serving.
+     """
++    async def get_response_async(self, request):
+         # Only even look at HTTP requests
+         if scope['type'] == 'http' and self._should_handle(scope['path']):
+             # Serve static content
+@@ -105,6 +108,7 @@
+         return await self.application(scope, receive, send)
+ 
+ class ASGIStaticFilesHandler(StaticFilesHandlerMixin, ASGIHandler):
+     """
+     ASGI application which wraps another and intercepts requests for static
+     files, passing them off to Django's static file serving.
+     """
++    async def get_response_async(self, request):
+         # Only even look at HTTP requests
+         if scope['type'] == 'http' and self._should_handle(scope['path']):
+             # Serve static content
+@@ -122,6 +126,7 @@
+         return await self.application(scope, receive, send)
+ 
+ class ASGIStaticFilesHandler(StaticFilesHandlerMixin, ASGIHandler):
+     """
+     ASGI application which wraps another and intercepts requests for static
+     files, passing them off to Django's static file serving.
+     """
++    async def get_response_async(self, request):
+         # Only even look at HTTP requests
+         if scope['type'] == 'http' and self._should_handle(scope['path']):
+             # Serve static content
+@@ -139,6 +144,7 @@
+         return await self.application(scope, receive, send)
+ 
+ class ASGIStaticFilesHandler(StaticFilesHandlerMixin, ASGIHandler):
+     """
+     ASGI application which wraps another and intercepts requests for static
+     files, passing them off to Django's static file serving.
+     """
++    async def get_response_async(self, request):
+         # Only even look at HTTP requests
+         if scope['type'] == 'http' and self._should_handle(scope['path']):
+             # Serve static content
+@@ -156,6 +162,7 @@
+         return await self.application(scope, receive, send)
+ 
+ class ASGIStaticFilesHandler(StaticFilesHandlerMixin, ASGIHandler):
+     """
+     ASGI application which wraps another and intercepts requests for static
+     files, passing them off to Django's static file serving.
+     """
++    async def get_response_async(self, request):
+         # Only even look at HTTP requests
+         if scope['type'] == 'http' and self._should_handle(scope['path']):
+             # Serve static content
+@@ -173,6 +180,7 @@
+         return await self.application(scope, receive, send)
+ 
+ class ASGIStaticFilesHandler(StaticFilesHandlerMixin, ASGIHandler):
+     """
+     ASGI application which wraps another and intercepts requests for static
+     files, passing them off to Django's static file serving.
+     """
++    async def get_response_async(self, request):
+         # Only even look at HTTP requests
+         if scope['type'] == 'http' and self._should_handle(scope['path']):
+             # Serve static content
+@@ -190,6 +198,7 @@
+         return await self.application(scope, receive, send)
+ 
+ class ASGIStaticFilesHandler(StaticFilesHandlerMixin, ASGIHandler):
+     """
+     ASGI application which wraps another and intercepts requests for static
+     files, passing them off to Django's static file serving.
+     """
++    async def get_response_async(self, request):
+         # Only even look at HTTP requests
+         if scope['type'] == 'http' and self._should_handle(scope['path']):
+             # Serve static content
+@@ -207,6 +216,7 @@
+         return await self.application(scope, receive, send)
+ 
+ class ASGIStaticFilesHandler(StaticFilesHandlerMixin, AS

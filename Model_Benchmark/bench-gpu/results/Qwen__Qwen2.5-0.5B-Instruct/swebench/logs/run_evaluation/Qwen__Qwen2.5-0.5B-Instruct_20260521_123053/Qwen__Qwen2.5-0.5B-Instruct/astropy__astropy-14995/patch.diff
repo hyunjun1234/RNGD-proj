@@ -1,0 +1,25 @@
+<patch>
+diff --git a/README.rst b/README.rst
+--- a/README.rst
++++ b/README.rst
+@@ -1,2 +1,3 @@
+ Astropy
++-------------------------------------------------
++
++.. container::
++    |Actions Status| |CircleCI Status| |Coverage Status| |PyPI Status| |Documentation Status| |Pre-Commit| |isort Status| |black| |Zenodo|
++    :end-of-file
++    :dedent: 4
++    :file: .devcontainer/devcontainer.json
++    :tab-width: 4
++    :indent-tabs-mode: nil
++
++The Astropy Project (http://astropy.org/) is a community effort to develop a
++single core package for Astronomy in Python and foster interoperability between
++Python astronomy packages. This repository contains the core package which is
++intended to contain much of the core functionality and some common tools needed
++for performing astronomy and astrophysics with Python.
++
++Releases are `registered on PyPI <https://pypi.org/project/astropy>`_,
++and development is occurring at the
++`project's GitHub page <http://github.com/astropy/astropy>`_.

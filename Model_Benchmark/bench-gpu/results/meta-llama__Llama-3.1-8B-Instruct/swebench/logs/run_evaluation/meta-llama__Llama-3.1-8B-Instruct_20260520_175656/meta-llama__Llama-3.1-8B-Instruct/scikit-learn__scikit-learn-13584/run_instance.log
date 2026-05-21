@@ -1,0 +1,47 @@
+2026-05-20 18:04:32,696 - INFO - Creating container for scikit-learn__scikit-learn-13584...
+2026-05-20 18:04:33,898 - INFO - Container for scikit-learn__scikit-learn-13584 created: eedd9de8bd8bd1e2b51d15064f8da686bdd3b1f20e7884dfbdfd84d713f2422a
+2026-05-20 18:04:34,086 - INFO - Container for scikit-learn__scikit-learn-13584 started: eedd9de8bd8bd1e2b51d15064f8da686bdd3b1f20e7884dfbdfd84d713f2422a
+2026-05-20 18:04:34,087 - INFO - Intermediate patch for scikit-learn__scikit-learn-13584 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260520_175656/meta-llama__Llama-3.1-8B-Instruct/scikit-learn__scikit-learn-13584/patch.diff, now applying to container...
+2026-05-20 18:04:34,215 - INFO - Failed to apply patch to container: git apply --verbose
+2026-05-20 18:04:34,273 - INFO - Failed to apply patch to container: git apply --verbose --reject
+2026-05-20 18:04:34,361 - INFO - >>>>> Applied Patch:
+patching file sklearn/utils/_pprint.py
+Hunk #1 succeeded at 331 with fuzz 2 (offset -1 lines).
+
+2026-05-20 18:04:34,634 - INFO - Git diff before:
+diff --git a/sklearn/utils/_pprint.py b/sklearn/utils/_pprint.py
+index b8686dba5..c6567e7bf 100644
+--- a/sklearn/utils/_pprint.py
++++ b/sklearn/utils/_pprint.py
+@@ -332,6 +332,7 @@ class _EstimatorPrettyPrinter(pprint.PrettyPrinter):
+ def _safe_repr(object, context, maxlevels, level, changed_only=False):
+     """Same as the builtin _safe_repr, with added support for Estimator
+     objects."""
++    if isinstance(object, np.ndarray):
+     typ = type(object)
+ 
+     if typ in pprint._builtin_scalars:
+2026-05-20 18:04:34,635 - INFO - Eval script for scikit-learn__scikit-learn-13584 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260520_175656/meta-llama__Llama-3.1-8B-Instruct/scikit-learn__scikit-learn-13584/eval.sh; copying to container...
+2026-05-20 18:04:38,118 - INFO - Test runtime: 3.42 seconds
+2026-05-20 18:04:38,118 - INFO - Test output for scikit-learn__scikit-learn-13584 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260520_175656/meta-llama__Llama-3.1-8B-Instruct/scikit-learn__scikit-learn-13584/test_output.txt
+2026-05-20 18:04:38,182 - INFO - Git diff after:
+diff --git a/sklearn/utils/_pprint.py b/sklearn/utils/_pprint.py
+index b8686dba5..c6567e7bf 100644
+--- a/sklearn/utils/_pprint.py
++++ b/sklearn/utils/_pprint.py
+@@ -332,6 +332,7 @@ class _EstimatorPrettyPrinter(pprint.PrettyPrinter):
+ def _safe_repr(object, context, maxlevels, level, changed_only=False):
+     """Same as the builtin _safe_repr, with added support for Estimator
+     objects."""
++    if isinstance(object, np.ndarray):
+     typ = type(object)
+ 
+     if typ in pprint._builtin_scalars:
+2026-05-20 18:04:38,182 - INFO - Grading answer for scikit-learn__scikit-learn-13584...
+2026-05-20 18:04:38,183 - INFO - report: {'scikit-learn__scikit-learn-13584': {'patch_is_None': False, 'patch_exists': True, 'patch_successfully_applied': True, 'resolved': False, 'tests_status': {'FAIL_TO_PASS': {'success': [], 'failure': ['sklearn/utils/tests/test_pprint.py::test_changed_only', 'sklearn/utils/tests/test_pprint.py::test_pipeline', 'sklearn/utils/tests/test_pprint.py::test_deeply_nested', 'sklearn/utils/tests/test_pprint.py::test_gridsearch', 'sklearn/utils/tests/test_pprint.py::test_gridsearch_pipeline', 'sklearn/utils/tests/test_pprint.py::test_n_max_elements_to_show']}, 'PASS_TO_PASS': {'success': [], 'failure': ['sklearn/utils/tests/test_pprint.py::test_basic', 'sklearn/utils/tests/test_pprint.py::test_length_constraint', 'sklearn/utils/tests/test_pprint.py::test_builtin_prettyprinter']}, 'FAIL_TO_FAIL': {'success': [], 'failure': []}, 'PASS_TO_FAIL': {'success': [], 'failure': []}}}}
+Result for scikit-learn__scikit-learn-13584: resolved: False
+2026-05-20 18:04:38,183 - INFO - Attempting to stop container sweb.eval.scikit-learn__scikit-learn-13584.meta-llama__Llama-3.1-8B-Instruct_20260520_175656...
+2026-05-20 18:04:53,664 - INFO - Attempting to remove container sweb.eval.scikit-learn__scikit-learn-13584.meta-llama__Llama-3.1-8B-Instruct_20260520_175656...
+2026-05-20 18:04:53,718 - INFO - Container sweb.eval.scikit-learn__scikit-learn-13584.meta-llama__Llama-3.1-8B-Instruct_20260520_175656 removed.
+2026-05-20 18:04:53,718 - INFO - Attempting to remove image swebench/sweb.eval.x86_64.scikit-learn_1776_scikit-learn-13584:latest...
+2026-05-20 18:04:55,727 - INFO - Image swebench/sweb.eval.x86_64.scikit-learn_1776_scikit-learn-13584:latest removed.

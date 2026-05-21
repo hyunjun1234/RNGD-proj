@@ -1,0 +1,64 @@
+2026-05-20 18:02:30,923 - INFO - Creating container for pylint-dev__pylint-5859...
+2026-05-20 18:02:36,229 - INFO - Container for pylint-dev__pylint-5859 created: cddd6b3bd7b2ff4d63b6ab53a0f2775812d67a5a16bf83fb808054ac5d2eafdc
+2026-05-20 18:02:36,419 - INFO - Container for pylint-dev__pylint-5859 started: cddd6b3bd7b2ff4d63b6ab53a0f2775812d67a5a16bf83fb808054ac5d2eafdc
+2026-05-20 18:02:36,419 - INFO - Intermediate patch for pylint-dev__pylint-5859 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260520_175656/meta-llama__Llama-3.1-8B-Instruct/pylint-dev__pylint-5859/patch.diff, now applying to container...
+2026-05-20 18:02:36,543 - INFO - Failed to apply patch to container: git apply --verbose
+2026-05-20 18:02:36,592 - INFO - Failed to apply patch to container: git apply --verbose --reject
+2026-05-20 18:02:36,670 - INFO - >>>>> Applied Patch:
+patching file pylint/checkers/misc.py
+Hunk #1 succeeded at 123 with fuzz 2.
+Hunk #2 succeeded at 192 with fuzz 3.
+
+2026-05-20 18:02:36,903 - INFO - Git diff before:
+diff --git a/pylint/checkers/misc.py b/pylint/checkers/misc.py
+index 69149e61a..e4206d58e 100644
+--- a/pylint/checkers/misc.py
++++ b/pylint/checkers/misc.py
+@@ -124,6 +124,7 @@ class EncodingChecker(BaseChecker):
+             regex_string = rf"#\s*({notes}|{self.config.notes_rgx})\b"
+         else:
+             regex_string = rf"#\s*({notes})\b"
++            regex_string = rf"#\s*({notes})\b"
+ 
+         self._fixme_pattern = re.compile(regex_string, re.I)
+ 
+@@ -191,6 +192,7 @@ class EncodingChecker(BaseChecker):
+             match = self._fixme_pattern.search("#" + comment_text.lower())
+             if match:
+                 self.add_message(
++        if disable_option_match:
+                     "fixme",
+                     col_offset=comment.start[1] + 1,
+                     args=comment_text,
+2026-05-20 18:02:36,903 - INFO - Eval script for pylint-dev__pylint-5859 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260520_175656/meta-llama__Llama-3.1-8B-Instruct/pylint-dev__pylint-5859/eval.sh; copying to container...
+2026-05-20 18:02:39,930 - INFO - Test runtime: 2.97 seconds
+2026-05-20 18:02:39,930 - INFO - Test output for pylint-dev__pylint-5859 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260520_175656/meta-llama__Llama-3.1-8B-Instruct/pylint-dev__pylint-5859/test_output.txt
+2026-05-20 18:02:39,988 - INFO - Git diff after:
+diff --git a/pylint/checkers/misc.py b/pylint/checkers/misc.py
+index 69149e61a..e4206d58e 100644
+--- a/pylint/checkers/misc.py
++++ b/pylint/checkers/misc.py
+@@ -124,6 +124,7 @@ class EncodingChecker(BaseChecker):
+             regex_string = rf"#\s*({notes}|{self.config.notes_rgx})\b"
+         else:
+             regex_string = rf"#\s*({notes})\b"
++            regex_string = rf"#\s*({notes})\b"
+ 
+         self._fixme_pattern = re.compile(regex_string, re.I)
+ 
+@@ -191,6 +192,7 @@ class EncodingChecker(BaseChecker):
+             match = self._fixme_pattern.search("#" + comment_text.lower())
+             if match:
+                 self.add_message(
++        if disable_option_match:
+                     "fixme",
+                     col_offset=comment.start[1] + 1,
+                     args=comment_text,
+2026-05-20 18:02:39,988 - INFO - Grading answer for pylint-dev__pylint-5859...
+2026-05-20 18:02:39,989 - INFO - report: {'pylint-dev__pylint-5859': {'patch_is_None': False, 'patch_exists': True, 'patch_successfully_applied': True, 'resolved': False, 'tests_status': {'FAIL_TO_PASS': {'success': [], 'failure': ['tests/checkers/unittest_misc.py::TestFixme::test_non_alphanumeric_codetag']}, 'PASS_TO_PASS': {'success': [], 'failure': ['tests/checkers/unittest_misc.py::TestFixme::test_fixme_with_message', 'tests/checkers/unittest_misc.py::TestFixme::test_todo_without_message', 'tests/checkers/unittest_misc.py::TestFixme::test_xxx_without_space', 'tests/checkers/unittest_misc.py::TestFixme::test_xxx_middle', 'tests/checkers/unittest_misc.py::TestFixme::test_without_space_fixme', 'tests/checkers/unittest_misc.py::TestFixme::test_absent_codetag', 'tests/checkers/unittest_misc.py::TestFixme::test_other_present_codetag', 'tests/checkers/unittest_misc.py::TestFixme::test_issue_2321_should_not_trigger', 'tests/checkers/unittest_misc.py::TestFixme::test_issue_2321_should_trigger', 'tests/checkers/unittest_misc.py::TestFixme::test_dont_trigger_on_todoist']}, 'FAIL_TO_FAIL': {'success': [], 'failure': []}, 'PASS_TO_FAIL': {'success': [], 'failure': []}}}}
+Result for pylint-dev__pylint-5859: resolved: False
+2026-05-20 18:02:39,989 - INFO - Attempting to stop container sweb.eval.pylint-dev__pylint-5859.meta-llama__Llama-3.1-8B-Instruct_20260520_175656...
+2026-05-20 18:02:55,320 - INFO - Attempting to remove container sweb.eval.pylint-dev__pylint-5859.meta-llama__Llama-3.1-8B-Instruct_20260520_175656...
+2026-05-20 18:03:01,264 - INFO - Container sweb.eval.pylint-dev__pylint-5859.meta-llama__Llama-3.1-8B-Instruct_20260520_175656 removed.
+2026-05-20 18:03:01,264 - INFO - Attempting to remove image swebench/sweb.eval.x86_64.pylint-dev_1776_pylint-5859:latest...
+2026-05-20 18:03:09,994 - INFO - Image swebench/sweb.eval.x86_64.pylint-dev_1776_pylint-5859:latest removed.

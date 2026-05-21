@@ -1,0 +1,48 @@
+2026-05-21 16:35:11,770 - INFO - Creating container for astropy__astropy-14182...
+2026-05-21 16:35:14,747 - INFO - Container for astropy__astropy-14182 created: 759c07cdacaee66b04f56e1173a429eb7353f162054cdeb5e03914432a089384
+2026-05-21 16:35:15,225 - INFO - Container for astropy__astropy-14182 started: 759c07cdacaee66b04f56e1173a429eb7353f162054cdeb5e03914432a089384
+2026-05-21 16:35:15,225 - INFO - Intermediate patch for astropy__astropy-14182 written to logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/astropy__astropy-14182/patch.diff, now applying to container...
+2026-05-21 16:35:15,423 - INFO - Failed to apply patch to container: git apply --verbose
+2026-05-21 16:35:15,531 - INFO - Failed to apply patch to container: git apply --verbose --reject
+2026-05-21 16:35:15,599 - INFO - >>>>> Applied Patch:
+patching file astropy/io/ascii/rst.py
+Hunk #1 succeeded at 55 with fuzz 4.
+patch unexpectedly ends in middle of line
+
+2026-05-21 16:35:15,974 - INFO - Git diff before:
+diff --git a/astropy/io/ascii/rst.py b/astropy/io/ascii/rst.py
+index abdeba8ef..bf56e4e04 100644
+--- a/astropy/io/ascii/rst.py
++++ b/astropy/io/ascii/rst.py
+@@ -56,6 +56,7 @@ class RST(FixedWidth):
+     _description = "reStructuredText simple table"
+     data_class = SimpleRSTData
+     header_class = SimpleRSTHeader
++    See: https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#simple-tables
+ 
+     def __init__(self):
+         super().__init__(delimiter_pad=None, bookend=False)
+2026-05-21 16:35:15,974 - INFO - Eval script for astropy__astropy-14182 written to logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/astropy__astropy-14182/eval.sh; copying to container...
+2026-05-21 16:36:08,270 - INFO - Test runtime: 52.23 seconds
+2026-05-21 16:36:08,270 - INFO - Test output for astropy__astropy-14182 written to logs/run_evaluation/furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405/furiosa-ai__Llama-3.1-8B-Instruct/astropy__astropy-14182/test_output.txt
+2026-05-21 16:36:08,377 - INFO - Git diff after:
+diff --git a/astropy/io/ascii/rst.py b/astropy/io/ascii/rst.py
+index abdeba8ef..bf56e4e04 100644
+--- a/astropy/io/ascii/rst.py
++++ b/astropy/io/ascii/rst.py
+@@ -56,6 +56,7 @@ class RST(FixedWidth):
+     _description = "reStructuredText simple table"
+     data_class = SimpleRSTData
+     header_class = SimpleRSTHeader
++    See: https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#simple-tables
+ 
+     def __init__(self):
+         super().__init__(delimiter_pad=None, bookend=False)
+2026-05-21 16:36:08,377 - INFO - Grading answer for astropy__astropy-14182...
+2026-05-21 16:36:08,398 - INFO - report: {'astropy__astropy-14182': {'patch_is_None': False, 'patch_exists': True, 'patch_successfully_applied': True, 'resolved': False, 'tests_status': {'FAIL_TO_PASS': {'success': [], 'failure': ['astropy/io/ascii/tests/test_rst.py::test_rst_with_header_rows']}, 'PASS_TO_PASS': {'success': [], 'failure': ['astropy/io/ascii/tests/test_rst.py::test_read_normal', 'astropy/io/ascii/tests/test_rst.py::test_read_normal_names', 'astropy/io/ascii/tests/test_rst.py::test_read_normal_names_include', 'astropy/io/ascii/tests/test_rst.py::test_read_normal_exclude', 'astropy/io/ascii/tests/test_rst.py::test_read_unbounded_right_column', 'astropy/io/ascii/tests/test_rst.py::test_read_unbounded_right_column_header', 'astropy/io/ascii/tests/test_rst.py::test_read_right_indented_table', 'astropy/io/ascii/tests/test_rst.py::test_trailing_spaces_in_row_definition', 'astropy/io/ascii/tests/test_rst.py::test_write_normal']}, 'FAIL_TO_FAIL': {'success': [], 'failure': []}, 'PASS_TO_FAIL': {'success': [], 'failure': []}}}}
+Result for astropy__astropy-14182: resolved: False
+2026-05-21 16:36:08,399 - INFO - Attempting to stop container sweb.eval.astropy__astropy-14182.furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405...
+2026-05-21 16:36:25,322 - INFO - Attempting to remove container sweb.eval.astropy__astropy-14182.furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405...
+2026-05-21 16:36:25,341 - INFO - Container sweb.eval.astropy__astropy-14182.furiosa-ai__Llama-3.1-8B-Instruct_20260521_163405 removed.
+2026-05-21 16:36:25,341 - INFO - Attempting to remove image swebench/sweb.eval.x86_64.astropy_1776_astropy-14182:latest...
+2026-05-21 16:36:26,128 - INFO - Image swebench/sweb.eval.x86_64.astropy_1776_astropy-14182:latest removed.

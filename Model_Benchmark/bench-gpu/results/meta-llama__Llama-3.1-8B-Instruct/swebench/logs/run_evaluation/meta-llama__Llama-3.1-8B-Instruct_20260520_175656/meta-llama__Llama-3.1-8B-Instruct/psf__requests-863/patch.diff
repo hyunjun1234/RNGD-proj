@@ -1,0 +1,144 @@
+--- a/requests/models.py
++++ b/requests/models.py
+@@ -150,6 +150,7 @@
+ 
+         for (k, v) in list(hooks.items()):
+             self.register_hook(event=k, hook=v)
++
+         #: Session.
+         self.session = session
+         
+         #: SSL Verification.
+@@ -154,6 +155,7 @@
+         self.verify = verify
+         
+         #: SSL Certificate
+         self.cert = cert
++
+         #: Prefetch response content
+         self.prefetch = prefetch
+         
+         if headers:
+@@ -166,6 +168,7 @@
+         else:
+             headers = CaseInsensitiveDict()
+         
+         # Add configured base headers.
+         for (k, v) in list(self.config.get('base_headers', {}).items()):
+             if k not in headers:
+                 headers[k] = v
++
+         self.headers = headers
+         self._poolmanager = _poolmanager
+         
+     def __repr__(self):
+@@ -464,6 +467,7 @@
+         self.hooks[event].append(hook)
+         
+     def deregister_hook(self, event, hook):
+         """Deregister a previously registered hook.
+         Returns True if the hook existed, False if not.
+         """
+         try:
+             self.hooks[event].remove(hook)
+             return True
+         except ValueError:
+             return False
++
+     def send(self, anyway=False, prefetch=None):
+         """Sends the request. Returns True if successful, False if not.
+         If there was an HTTPError during transmission,
+         self.response.status_code will contain the HTTPError code.
+@@ -499,6 +503,7 @@
+         # Logging
+         if self.config.get('verbose'):
+             self.config.get('verbose').write('%s   %s   %s\n' % (
+                 datetime.now().isoformat(), self.method, url
+             ))
++
+         # Use .netrc auth if none was provided.
+         if not self.auth and self.config.get('trust_env'):
+             self.auth = get_netrc_auth(url)
+@@ -514,6 +519,7 @@
+         # Nottin' on you.
+         body = None
+         content_type = None
+         
+         # Multi-part file uploads.
+         if self.files:
+             (body, content_type) = self._encode_files(self.files)
+         else:
+@@ -528,6 +534,7 @@
+         # Add content-type if it wasn't explicitly provided.
+         if (content_type) and (not 'content-type' in self.headers):
+             self.headers['Content-Type'] = content_type
++
+         _p = urlparse(url)
+         no_proxy = filter(lambda x: x.strip(), self.proxies.get('no', '').split(','))
+         proxy = self.proxies.get(_p.scheme)
+@@ -544,6 +551,7 @@
+         # Check to see if keep_alive is allowed.
+         try:
+             if self.config.get('keep_alive'):
+                 conn = self._poolmanager.connection_from_url(url)
+             else:
+                 conn = connectionpool.connection_from_url(url)
+                 self.headers['Connection'] = 'close'
++
+         except LocationParseError as e:
+             raise InvalidURL(e)
+         
+         if url.startswith('https') and self.verify:
+@@ -565,6 +573,7 @@
+         # Look for configuration.
+         if not cert_loc and self.config.get('trust_env'):
+             cert_loc = os.environ.get('REQUESTS_CA_BUNDLE')
++
+         # Curl compatibility.
+         if not cert_loc and self.config.get('trust_env'):
+             cert_loc = os.environ.get('CURL_CA_BUNDLE')
+         
+         if not cert_loc:
+@@ -579,6 +588,7 @@
+         conn.cert_reqs = 'CERT_REQUIRED'
+         conn.ca_certs = cert_loc
+         else:
+             conn.cert_reqs = 'CERT_NONE'
+             conn.ca_certs = None
++
+         if self.cert:
+             if len(self.cert) == 2:
+                 conn.cert_file = self.cert[0]
+                 conn.key_file = self.cert[1]
+@@ -600,6 +610,7 @@
+         # Skip if 'cookie' header is explicitly set.
+         if 'cookie' not in self.headers:
+             cookie_header = get_cookie_header(self.cookies, self)
+             if cookie_header is not None:
+                 self.headers['Cookie'] = cookie_header
++
+         # Pre-send hook.
+         r = dispatch_hook('pre_send', self.hooks, self)
+         self.__dict__.update(r.__dict__)
+         
+         # catch urllib3 exceptions and throw Requests exceptions
+@@ -623,6 +634,7 @@
+         # build_response can throw TooManyRedirects
+         self._build_response(r)
++
+         # Response manipulation hook.
+         self.response = dispatch_hook('response', self.hooks, self.response)
+         # Post-request hook.
+@@ -648,6 +660,7 @@
+         # If prefetch is True, mark content as consumed.
+         if prefetch is None:
+             prefetch = self.prefetch
++
+         if prefetch:
+             # Save the response.
+             self.response.content
++
+         if self.config.get('danger_mode'):
+             self.response.raise_for_status()
++
+         return self.sent

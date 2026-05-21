@@ -1,0 +1,56 @@
+2026-05-20 18:04:44,696 - INFO - Creating container for sphinx-doc__sphinx-11445...
+2026-05-20 18:04:46,661 - INFO - Container for sphinx-doc__sphinx-11445 created: 169313e419a0d037df41801e19095c5b313501d920c008767048dbde69bbb983
+2026-05-20 18:04:46,865 - INFO - Container for sphinx-doc__sphinx-11445 started: 169313e419a0d037df41801e19095c5b313501d920c008767048dbde69bbb983
+2026-05-20 18:04:46,865 - INFO - Intermediate patch for sphinx-doc__sphinx-11445 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260520_175656/meta-llama__Llama-3.1-8B-Instruct/sphinx-doc__sphinx-11445/patch.diff, now applying to container...
+2026-05-20 18:04:47,024 - INFO - >>>>> Applied Patch:
+Checking patch sphinx/util/rst.py...
+Hunk #1 succeeded at 88 (offset 1 line).
+Applied patch sphinx/util/rst.py cleanly.
+
+2026-05-20 18:04:47,306 - INFO - Git diff before:
+diff --git a/sphinx/util/rst.py b/sphinx/util/rst.py
+index 7a1538325..03a2204dd 100644
+--- a/sphinx/util/rst.py
++++ b/sphinx/util/rst.py
+@@ -90,6 +90,12 @@ def prepend_prolog(content: StringList, prolog: str) -> None:
+             content.insert(pos, '', '<generated>', 0)
+             pos += 1
+ 
++        # Check if the first line is a domain directive
++        if prolog and prolog.splitlines()[0].startswith(':'):
++            # If it is, insert the prolog after the first line
++            pos = 1
++        else:
++            pos = 0
+         # insert prolog (after docinfo if exists)
+         for lineno, line in enumerate(prolog.splitlines()):
+             content.insert(pos + lineno, line, '<rst_prolog>', lineno)
+2026-05-20 18:04:47,307 - INFO - Eval script for sphinx-doc__sphinx-11445 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260520_175656/meta-llama__Llama-3.1-8B-Instruct/sphinx-doc__sphinx-11445/eval.sh; copying to container...
+2026-05-20 18:04:51,156 - INFO - Test runtime: 3.79 seconds
+2026-05-20 18:04:51,156 - INFO - Test output for sphinx-doc__sphinx-11445 written to logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260520_175656/meta-llama__Llama-3.1-8B-Instruct/sphinx-doc__sphinx-11445/test_output.txt
+2026-05-20 18:04:51,214 - INFO - Git diff after:
+diff --git a/sphinx/util/rst.py b/sphinx/util/rst.py
+index 7a1538325..03a2204dd 100644
+--- a/sphinx/util/rst.py
++++ b/sphinx/util/rst.py
+@@ -90,6 +90,12 @@ def prepend_prolog(content: StringList, prolog: str) -> None:
+             content.insert(pos, '', '<generated>', 0)
+             pos += 1
+ 
++        # Check if the first line is a domain directive
++        if prolog and prolog.splitlines()[0].startswith(':'):
++            # If it is, insert the prolog after the first line
++            pos = 1
++        else:
++            pos = 0
+         # insert prolog (after docinfo if exists)
+         for lineno, line in enumerate(prolog.splitlines()):
+             content.insert(pos + lineno, line, '<rst_prolog>', lineno)
+2026-05-20 18:04:51,214 - INFO - Grading answer for sphinx-doc__sphinx-11445...
+2026-05-20 18:04:51,218 - INFO - report: {'sphinx-doc__sphinx-11445': {'patch_is_None': False, 'patch_exists': True, 'patch_successfully_applied': True, 'resolved': False, 'tests_status': {'FAIL_TO_PASS': {'success': [], 'failure': ['tests/test_util_rst.py::test_prepend_prolog_with_roles_in_sections_with_newline', 'tests/test_util_rst.py::test_prepend_prolog_with_roles_in_sections_without_newline']}, 'PASS_TO_PASS': {'success': ['tests/test_util_rst.py::test_escape', 'tests/test_util_rst.py::test_append_epilog', 'tests/test_util_rst.py::test_prepend_prolog_with_CR', 'tests/test_util_rst.py::test_prepend_prolog_without_CR', 'tests/test_util_rst.py::test_textwidth', 'tests/test_util_rst.py::test_heading'], 'failure': ['tests/test_util_rst.py::test_prepend_prolog', 'tests/test_util_rst.py::test_prepend_prolog_with_roles_in_sections']}, 'FAIL_TO_FAIL': {'success': [], 'failure': []}, 'PASS_TO_FAIL': {'success': [], 'failure': []}}}}
+Result for sphinx-doc__sphinx-11445: resolved: False
+2026-05-20 18:04:51,218 - INFO - Attempting to stop container sweb.eval.sphinx-doc__sphinx-11445.meta-llama__Llama-3.1-8B-Instruct_20260520_175656...
+2026-05-20 18:05:06,501 - INFO - Attempting to remove container sweb.eval.sphinx-doc__sphinx-11445.meta-llama__Llama-3.1-8B-Instruct_20260520_175656...
+2026-05-20 18:05:07,276 - INFO - Container sweb.eval.sphinx-doc__sphinx-11445.meta-llama__Llama-3.1-8B-Instruct_20260520_175656 removed.
+2026-05-20 18:05:07,276 - INFO - Attempting to remove image swebench/sweb.eval.x86_64.sphinx-doc_1776_sphinx-11445:latest...
+2026-05-20 18:05:08,156 - INFO - Image swebench/sweb.eval.x86_64.sphinx-doc_1776_sphinx-11445:latest removed.

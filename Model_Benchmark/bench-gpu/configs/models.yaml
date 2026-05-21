@@ -1,0 +1,83 @@
+# 모델 매트릭스 (NVIDIA GPU / vLLM). enabled:false는 SKIP.
+# id는 Hugging Face 모델 id (RNGD prebuilt 아티팩트가 아닌 원본 HF 모델).
+# 하드웨어: RTX A6000 48GB ×3. GPU 0·1은 타작업 점유 → 비어 있는 GPU 2 사용(cuda_visible_devices).
+# 측정 대상: RNGD 벤치와 동일 모델로 비교 — Qwen2.5-0.5B·Llama-3.1-8B만 enabled.
+# gated 모델(meta-llama/*)은 HF_TOKEN 필요.
+
+models:
+  - id: Qwen/Qwen2.5-0.5B-Instruct
+    revision: null
+    role: baseline        # 비교 대상
+    gen: true
+    enabled: true
+    serve_args: ["--port", "8001"]
+
+  - id: meta-llama/Llama-3.1-8B-Instruct
+    revision: null
+    role: baseline
+    gen: true
+    enabled: true         # gated — `hf auth login` 필요
+    serve_args: []
+
+  - id: Qwen/Qwen3-32B
+    revision: null
+    role: main
+    gen: true
+    enabled: false        # 보류. bf16 ~64GB > A6000 48GB 1장 → 켜려면 FP8(--quantization fp8) 또는 TP=2
+    serve_args: []
+
+  - id: meta-llama/Llama-3.3-70B-Instruct
+    revision: null
+    role: large
+    gen: true
+    enabled: false        # bf16 ~140GB > 96GB → 켜려면 FP8 양자화 필요(아래 serve_args)
+    serve_args: ["--quantization", "fp8"]
+
+  - id: LGAI-EXAONE/EXAONE-4.0-32B
+    revision: null
+    role: main
+    gen: true
+    enabled: false        # 모델 id·라이선스 확인 후 enable. 커스텀 코드면 trust-remote-code.
+    serve_args: ["--trust-remote-code"]
+
+  # ---- retrieval helpers ----
+  - id: Qwen/Qwen3-Embedding-8B
+    revision: null
+    role: embedding
+    gen: false
+    enabled: false        # 보류. vLLM 0.21은 --task 삭제 → 켤 때 아래 --runner pooling 그대로 사용
+    serve_args: ["--runner", "pooling"]
+
+  - id: Qwen/Qwen3-Reranker-8B
+    revision: null
+    role: reranker
+    gen: false
+    enabled: false        # 보류. vLLM 0.21은 --task 삭제 → 켤 때 --runner pooling + --hf-overrides + jinja 템플릿 필요
+    serve_args: ["--task", "score"]
+
+# 모든 모델 공통 vllm serve 인자
+common_serve_args:
+  - "--host"
+  - "0.0.0.0"
+  - "--port"
+  - "8000"
+
+# 사용할 GPU (CUDA_VISIBLE_DEVICES). GPU 0·1은 타작업 점유 → 비어 있는 GPU 2 사용.
+# 다중 GPU면 "1,2" + 모델 serve_args에 ["--tensor-parallel-size","2"] 추가.
+cuda_visible_devices: "2"
+
+# Request shape sweep (tps/sweep 태스크)
+sweep:
+  batch_sizes: [1, 2, 4, 8, 16, 32, 64, 128]
+  prompt_lens: [256, 1024, 4096]
+  max_tokens: 256
+  warmup_requests: 5
+  measured_requests: 50
+
+# Memsweep — vllm serve 옵션 OFAT 스윕 (baseline에서 한 축씩 변경, 조합마다 서버 재기동)
+memsweep:
+  baseline: {}
+  axes:
+    max_model_len: [4096, 8192, 16384]
+    max_num_seqs: [64, 256]
+    gpu_memory_utilization: [0.85, 0.95]

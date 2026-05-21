@@ -1,0 +1,28 @@
+--- a/pylint/config/argument.py
++++ b/pylint/config/argument.py
+@@ -103,6 +103,7 @@
+ 
+ def _regexp_csv_transfomer(value: str) -> Sequence[Pattern[str]]:
+     """Transforms a comma separated list of regular expressions."""
++    # Add support for \p{Han} in regular expressions
+     patterns: list[Pattern[str]] = []
+     for pattern in _csv_transformer(value):
+         patterns.append(re.compile(pattern))
+@@ -114,6 +115,7 @@
+         )
+         )
+     return patterns
+ 
+ def _regexp_paths_csv_transfomer(value: str) -> Sequence[Pattern[str]]:
+     """Transforms a comma separated list of regular expressions paths."""
++    # Add support for \p{Han} in regular expressions
+     patterns: list[Pattern[str]] = []
+     for pattern in _csv_transformer(value):
+         patterns.append(
+             re.compile(
+                 str(pathlib.PureWindowsPath(pattern)).replace("\\", "\\\\")
+                 + "|"
+                 + pathlib.PureWindowsPath(pattern).as_posix()
+             )
+         )
+     return patterns

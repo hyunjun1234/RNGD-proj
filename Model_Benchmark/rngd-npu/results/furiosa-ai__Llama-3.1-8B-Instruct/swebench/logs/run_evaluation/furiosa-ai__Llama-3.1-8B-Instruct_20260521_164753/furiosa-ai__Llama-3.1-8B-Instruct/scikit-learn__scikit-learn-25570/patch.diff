@@ -1,0 +1,126 @@
+--- a/sklearn/compose/_column_transformer.py
++++ b/sklearn/compose/_column_transformer.py
+@@ -348,6 +348,8 @@
+         if not self.transformers:
+             return
+         names, transformers, _ = zip(*self.transformers)
++
++        # validate names
+         self._validate_names(names)
+ 
+         # validate estimators
+         for t in transformers:
+@@ -365,6 +367,8 @@
+         # Used to validate the transformers in the `transformers` list
+         raise TypeError(
+             "All estimators should implement fit and "
+             "transform, or can be 'drop' or 'passthrough' "
+@@ -384,6 +388,8 @@
+         """
+         Converts callable column specifications.
+         """
+         all_columns = []
++        transformer_to_input_indices = {}
+         for name, _, columns in self.transformers:
+             if callable(columns):
+                 columns = columns(X)
+@@ -401,6 +407,8 @@
+         self._columns = all_columns
+         self._transformer_to_input_indices = transformer_to_input_indices
+ 
++
++        # validate remainder
+         self._validate_remainder(X)
+ 
+         @property
+@@ -420,6 +428,8 @@
+         """
+         Validates ``remainder`` and defines ``_remainder`` targeting
+         the remaining columns.
+         """
+         self._n_features = X.shape[1]
++        cols = set(chain(*self._transformer_to_input_indices.values()))
+         remaining = sorted(set(range(self._n_features)) - cols)
+         self._remainder = ("remainder", self.remainder, remaining)
+         self._transformer_to_input_indices["remainder"] = remaining
+@@ -439,6 +449,8 @@
+         """
+         Generate (name, trans, column, weight) tuples.
+         """
+         if fitted:
+@@ -456,6 +468,8 @@
+         transformers = [
+             (name, trans, column)
+             for (name, trans, _), column in zip(self.transformers, self._columns)
+         ]
++        # add transformer tuple for remainder
++        if self._remainder[2]:
++            transformers = chain(transformers, [self._remainder])
+         get_weight = (self.transformer_weights or {}).get
+         
+         output_config = _get_output_config("transform", self)
+@@ -475,6 +489,8 @@
+         """
+         Record which transformer produced which column.
+         """
+         idx = 0
++        self.output_indices_ = {}
+         for transformer_idx, (name, _, _, _) in enumerate(
+             self._iter(fitted=True, replace_strings=True)
+         ):
+@@ -494,6 +510,8 @@
+         """
+         Return value (transformers and/or transformed X data) depends
+         on the passed function.
+         """
+         transformers = list(
+             self._iter(
+                 fitted=fitted, replace_strings=True, column_as_strings=column_as_strings
+             )
+         )
++        try:
++            return Parallel(n_jobs=self.n_jobs)(
++                delayed(func)(
++                    transformer=clone(trans) if not fitted else trans,
++                    X=_safe_indexing(X, column, axis=1),
++                    y=y,
++                    weight=weight,
++                    message_clsname="ColumnTransformer",
++                    message=self._log_message(name, idx, len(transformers)),
++                )
++                for idx, (name, trans, column, weight) in enumerate(transformers, 1)
++            )
+         except ValueError as e:
+             if "Expected 2D array, got 1D array instead" in str(e):
+@@ -514,6 +542,8 @@
+         """
+         Fit all transformers using X.
+         """
+         self._validate_params()
++        # we use fit_transform to make sure to set sparse_output_ (for which we
++        # need the transformed data) to have consistent output type in predict
+         self.fit_transform(X, y=y)
+         return self
+@@ -533,6 +563,8 @@
+         """
+         Fit all transformers, transform the data and concatenate results.
+         """
+         self._validate_params()
++        self._check_feature_names(X, reset=True)
+         X = _check_X(X)
+         # set n_features_in_ attribute
+         self._check_n_features(X, reset=True)
+@@ -552,6 +584,8 @@
+         self._validate_transformers()
+         self._validate_column_callables(X)
+         self._validate_remainder(X)
++        result = self._fit_transform(X, y, _fit_transform_one)
++        if not result:
++            self._update_fitted_transformers([])
++            # All transformers are None
++            return np.zeros((X.shape[0], 0))
+         Xs, transformers = zip(*result)
+         
+         # determine if concatenated output will be sparse or not
+@@ -571,6 +605,8 @@
+         self._update_f

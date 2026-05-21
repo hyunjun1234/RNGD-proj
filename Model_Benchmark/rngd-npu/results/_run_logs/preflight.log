@@ -1,0 +1,53 @@
+=== NPU (furiosa-smi) ===
++------+--------+-------------------+---------+---------+--------------+
+| Arch | Device | Firmware          | Temp.   | Power   | PCI-BDF      |
++------+--------+-------------------+---------+---------+--------------+
+| rngd | npu0   | 2026.2.0, a5db283 | 35.66°C | 38.00 W | 0000:b4:00.0 |
++------+--------+-------------------+---------+---------+--------------+
+| rngd | npu1   | 2026.2.0, a5db283 | 35.78°C | 39.00 W | 0000:c6:00.0 |
++------+--------+-------------------+---------+---------+--------------+
+
+=== SDK / Driver / Firmware ===
+Python platform              : Linux-6.17.0-23-generic-x86_64-with-glibc2.39
+  firmware_version: 2026.2.0, a5db283
+  firmware_version: 2026.2.0, a5db283
+[pip3] furiosa-llm==2026.2.0
+[pip3] furiosa-torch==2026.2.0
+[pip3] furiosa-torch-ext==2026.2.0
+[pip3] torch==2.10.0
+      furiosa-llm Info
+furiosa-llm Version          : 2026.2.0-release (rev: 9f92da0)
+TORCHINDUCTOR_CACHE_DIR=/tmp/torchinductor_root
+
+=== Python 의존성 ===
+/home/jun/furiosa/lib/python3.12/site-packages/requests/__init__.py:113: RequestsDependencyWarning: urllib3 (2.6.3) or chardet (7.4.3)/charset_normalizer (3.4.7) doesn't match a supported version!
+  warnings.warn(
+/home/jun/furiosa/lib/python3.12/site-packages/furiosa/models/core/attention/attention.py:6: UserWarning: LTW Backend is provided temporarily for compatibility purposes only. This feature may be removed without notice in future versions. (Default behavior, set USE_WTL_BACKEND=1 to use WTL backend)
+  from furiosa.models.core.attention.backends import LLMAttentionBackend
+  ok      furiosa_llm
+  ok      httpx
+  ok      yaml
+  ok      openai
+  ok      datasets
+  ok      transformers
+  ok      swebench (swebench 태스크용)
+
+=== Docker (SWE-bench 채점용) ===
+  ok — docker 동작
+
+=== 디스크 (모델 다운로드 + Docker 이미지 캐시) ===
+/dev/nvme0n1p2  1.8T  229G  1.5T  14% /
+/dev/nvme0n1p2  1.8T  229G  1.5T  14% /
+
+=== HF 모델별 가용성 (각 모델의 SDK 호환 revision 자동 추정) ===
+  furiosa-ai/Qwen2.5-0.5B-Instruct  tags=['v2026.2', 'v2026.1'] ✓ v2026.2 ready
+  furiosa-ai/Llama-3.1-8B-Instruct  tags=['v2026.2', 'v2026.1', 'v2025.3.0', 'v2025.3.0-pre0', 'v2025.2.0', 'v2025.2.1', 'v2025.2.0-pre0'] ✓ v2026.2 ready
+  furiosa-ai/Qwen3-32B-FP8  tags=['v2026.2', 'v2026.1'] ✓ v2026.2 ready
+  furiosa-ai/EXAONE-4.0-32B-FP8  tags=['v2026.2', 'v2026.1'] ✓ v2026.2 ready
+  furiosa-ai/Llama-3.3-70B-Instruct  tags=['v2026.2', 'v2026.1', 'v2025.3.0', 'v2025.3.0-pre0'] ✓ v2026.2 ready
+  furiosa-ai/Qwen3-Embedding-8B  tags=['v2026.2', 'v2026.1'] ✓ v2026.2 ready
+  furiosa-ai/Qwen3-Reranker-8B  tags=['v2026.2', 'v2026.1'] ✓ v2026.2 ready
+
+=== 다음 단계 ===
+  ./run_all.sh                                                                # 전체 파이프라인
+  python orchestrator.py configs/models.yaml --tasks tps --models Qwen2.5-0.5B  # 단일 확인

@@ -1,0 +1,132 @@
+--- a/pylint/checkers/misc.py
++++ b/pylint/checkers/misc.py
+@@ -123,6 +123,7 @@
+         if self.config.notes_rgx:
+             regex_string = rf"#\s*({notes}|{self.config.notes_rgx})\b"
+         else:
++            regex_string = rf"#\s*({notes})\b"
+             regex_string = rf"#\s*({notes})\b"
+         self._fixme_pattern = re.compile(regex_string, re.I)
+ 
+@@ -191,6 +192,7 @@
+             comment_text = comment.string[1:].lstrip()  # trim '#' and whitespaces
+         # handle pylint disable clauses
+         disable_option_match = OPTION_PO.search(comment_text)
++        if disable_option_match:
+         try:
+             values = []
+             try:
+@@ -200,6 +202,7 @@
+                 if set(values) & set(self.config.notes):
+                     continue
+             except ValueError:
++                self.add_message(
+                 "bad-inline-option",
+                 args=disable_option_match.group(1).strip(),
+                 line=comment.start[0],
+@@ -192,6 +195,7 @@
+             match = self._fixme_pattern.search("#" + comment_text.lower())
+         if match:
+             self.add_message(
++                "fixme",
+                 "fixme",
+                 col_offset=comment.start[1] + 1,
+                 args=comment_text,
+                 line=comment.start[0],
+@@ -194,6 +198,7 @@
+                 line=comment.start[0],
+             )
+         # emit warnings if necessary
++        if match:
+         match = self._fixme_pattern.search("#" + comment_text.lower())
+         if match:
+             self.add_message(
+                 "fixme",
+                 col_offset=comment.start[1] + 1,
+                 args=comment_text,
+                 line=comment.start[0],
+@@ -196,6 +201,7 @@
+                 line=comment.start[0],
+             )
+         # emit warnings if necessary
++        if match:
+         match = self._fixme_pattern.search("#" + comment_text.lower())
+         if match:
+             self.add_message(
+                 "fixme",
+                 col_offset=comment.start[1] + 1,
+                 args=comment_text,
+                 line=comment.start[0],
+@@ -198,6 +204,7 @@
+                 line=comment.start[0],
+             )
+         # emit warnings if necessary
++        if match:
+         match = self._fixme_pattern.search("#" + comment_text.lower())
+         if match:
+             self.add_message(
+                 "fixme",
+                 col_offset=comment.start[1] + 1,
+                 args=comment_text,
+                 line=comment.start[0],
+@@ -200,6 +207,7 @@
+                 line=comment.start[0],
+             )
+         # emit warnings if necessary
++        if match:
+         match = self._fixme_pattern.search("#" + comment_text.lower())
+         if match:
+             self.add_message(
+                 "fixme",
+                 col_offset=comment.start[1] + 1,
+                 args=comment_text,
+                 line=comment.start[0],
+@@ -202,6 +210,7 @@
+                 line=comment.start[0],
+             )
+         # emit warnings if necessary
++        if match:
+         match = self._fixme_pattern.search("#" + comment_text.lower())
+         if match:
+             self.add_message(
+                 "fixme",
+                 col_offset=comment.start[1] + 1,
+                 args=comment_text,
+                 line=comment.start[0],
+@@ -204,6 +213,7 @@
+                 line=comment.start[0],
+             )
+         # emit warnings if necessary
++        if match:
+         match = self._fixme_pattern.search("#" + comment_text.lower())
+         if match:
+             self.add_message(
+                 "fixme",
+                 col_offset=comment.start[1] + 1,
+                 args=comment_text,
+                 line=comment.start[0],
+@@ -206,6 +216,7 @@
+                 line=comment.start[0],
+             )
+         # emit warnings if necessary
++        if match:
+         match = self._fixme_pattern.search("#" + comment_text.lower())
+         if match:
+             self.add_message(
+                 "fixme",
+                 col_offset=comment.start[1] + 1,
+                 args=comment_text,
+                 line=comment.start[0],
+@@ -208,6 +219,7 @@
+                 line=comment.start[0],
+             )
+         # emit warnings if necessary
++        if match:
+         match = self._fixme_pattern.search("#" + comment_text.lower())
+         if match:
+             self.add_message(
+                 "fixme",
+                 col_offset=comment.start[1] + 1,
+                 args=comment_text,
+                 line=comment.start[0],
+@@ -210,6 +

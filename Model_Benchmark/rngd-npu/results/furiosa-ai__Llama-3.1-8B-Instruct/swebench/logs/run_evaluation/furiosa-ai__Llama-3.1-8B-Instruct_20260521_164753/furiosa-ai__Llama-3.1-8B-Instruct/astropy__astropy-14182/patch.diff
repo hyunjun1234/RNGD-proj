@@ -1,0 +1,52 @@
+--- a/astropy/io/ascii/rst.py
++++ b/astropy/io/ascii/rst.py
+@@ -55,6 +55,7 @@
+ 
+ class RST(FixedWidth):
+     """reStructuredText simple format table.
+ 
++    See: https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#simple-tables
+     See: https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#tables
+     Example::
+ 
+@@ -64,6 +65,7 @@
+         ==== ===== ======
+         Col1  Col2  Col3
+         ==== ===== ======
++        |  wave | response |
+         ==== ===== ======
+           1    2.3  Hello
+           2    4.5  Worlds
+@@ -73,6 +75,7 @@
+         ==== ===== ======
+ 
+     Currently there is no support for reading tables which utilize continuation lines,
+-    or for ones which define column spans through the use of an additional
+-    line of dashes in the header.
++    or for ones which define column spans through the use of an additional
++    line of dashes in the header.
+ 
+     """
+ 
+@@ -83,6 +86,7 @@
+     _format_name = "rst"
+     _description = "reStructuredText simple table"
+     data_class = SimpleRSTData
++    header_class = SimpleRSTHeader
+     header_class = SimpleRSTHeader
+ 
+     def __init__(self):
+         super().__init__(delimiter_pad=None, bookend=False)
+@@ -94,6 +98,7 @@
+         lines = super().write(lines)
+         lines = [lines[1]] + lines + [lines[1]]
+         return lines
+ 
++    def write(self, lines):
++        if 'header_rows' in self._kwargs:
++            header = self.header_class(self._kwargs['header_rows'])
++            lines = header.write(lines)
++        return super().write(lines)
+ 
+     def read(self, lines):
+         return super().read(lines)

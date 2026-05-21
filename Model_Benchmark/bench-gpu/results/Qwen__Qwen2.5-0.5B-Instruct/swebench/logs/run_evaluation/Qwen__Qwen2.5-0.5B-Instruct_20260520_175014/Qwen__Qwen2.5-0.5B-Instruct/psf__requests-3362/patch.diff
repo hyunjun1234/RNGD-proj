@@ -1,0 +1,29 @@
+diff --git a/requestscfg.py b/requestscfg.py
+--- a/requestscfg.py
++++ b/requestscfg.py
+@@ -1,10 +1,10 @@
+ # -*- coding: utf-8 -*-
+ 
+ from requests.compat import *
+ from requests.exceptions import *
+-from requests.utils import *
++from requests.utils import parse_list_header, guess_filename, \
++                           get_encoding_from_headers, \
++                           get_unicode_from_response, \
++                           requote_uri, \
++                           address_in_network, \
++                           dotted_netmask, \
++                           is_ipv4_address, \
++                           is_valid_cidr, \
++                           should_bypass_proxies, \
++                           get_environ_proxies, \
++                           select_proxy, \
++                           get_environ_proxies, \
++                           default_user_agent, \
++                           default_headers, \
++                           parse_header_links, \
++                           guess_json_utf, \
++                           prepend_scheme_if_needed, \
++                           get_auth_from_url, \
++                           to_native_string, \
++                           urldefragauth

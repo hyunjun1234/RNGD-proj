@@ -1,0 +1,61 @@
+<patch>
+diff --git a/django/contrib/admin/templatetags/admin_modify.py b/django/contrib/admin/templatetags/admin_modify.py
+--- a/django/contrib/admin/templatetags/admin_modify.py
++++ b/django/contrib/admin/templatetags/admin_modify.py
+@@ -102,6 +102,7 @@ def prepopulated_fields_js(context):
+         prepopulated_fields_json.append(
+             {
+                 "id": "#%s" % field["field"].auto_id,
++                "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "name": field["field"].name,
+             "dependency_ids": [
+                 "#%s" % dependency.auto_id for dependency in field["dependencies"]
+@@ -108,6 +109,7 @@ def prepopulated_fields_js(context):
+             "dependency_list": [
+                 dependency.name for dependency in field["dependencies"]
+             ],
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "maxLength": field["field"].field.max_length or 50,
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+@@ -114,6 +116,7 @@ def prepopulated_fields_js(context):
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+@@ -120,6 +123,7 @@ def prepopulated_fields_js(context):
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+@@ -126,6 +129,7 @@ def prepopulated_fields_js(context):
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+@@ -132,6 +136,7 @@ def prepopulated_fields_js(context):
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+@@ -138,6 +143,7 @@ def prepopulated_fields_js(context):
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+@@ -

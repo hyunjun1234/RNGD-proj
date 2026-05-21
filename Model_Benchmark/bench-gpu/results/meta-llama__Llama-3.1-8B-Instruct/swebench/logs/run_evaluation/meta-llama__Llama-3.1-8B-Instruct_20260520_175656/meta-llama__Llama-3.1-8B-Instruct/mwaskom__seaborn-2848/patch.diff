@@ -1,0 +1,92 @@
+--- a/seaborn/_oldcore.py
++++ b/seaborn/_oldcore.py
+@@ -1433,6 +1433,7 @@ class HueMapping(SemanticMapping):
+         self.map_type = map_type
+         self.lookup_table = lookup_table
+         self.palette = palette
++        self.levels = levels
+         self.norm = norm
+         self.cmap = cmap
+ 
+     def _lookup_single(self, key):
+@@ -1459,6 +1460,7 @@ class HueMapping(SemanticMapping):
+         return value
+     def infer_map_type(self, palette, norm, input_format, var_type):
+         if palette in QUAL_PALETTES:
+             map_type = "categorical"
+         elif norm is not None:
+             map_type = "numeric"
+         elif isinstance(palette, (dict, list)):
+             map_type = "categorical"
+         elif input_format == "wide":
+             map_type = "categorical"
+         else:
+             map_type = var_type
+@@ -1478,6 +1480,7 @@ class HueMapping(SemanticMapping):
+         return levels, lookup_table, norm, cmap
+     def categorical_mapping(self, data, palette, order):
+         levels = categorical_order(data, order)
+         n_colors = len(levels)
+@@ -1493,6 +1496,7 @@ class HueMapping(SemanticMapping):
+         lookup_table = dict(zip(levels, colors))
+         return levels, lookup_table
+     def numeric_mapping(self, data, palette, norm):
+         if isinstance(palette, dict):
+@@ -1511,6 +1515,7 @@ class HueMapping(SemanticMapping):
+         lookup_table = dict(zip(levels, cmap(norm(levels))))
+         return levels, lookup_table, norm, cmap
+ 
+ class SizeMapping(SemanticMapping):
+@@ -1534,6 +1539,7 @@ class SizeMapping(SemanticMapping):
+         self.map_type = map_type
+         self.levels = levels
+         self.norm = norm
+         self.sizes = sizes
+         self.size_range = size_range
+         self.lookup_table = lookup_table
+@@ -1554,6 +1560,7 @@ class SizeMapping(SemanticMapping):
+         lookup_table = dict(zip(levels, sizes))
+         return levels, lookup_table
+     def numeric_mapping(self, data, sizes, norm):
+         if isinstance(sizes, dict):
+@@ -1573,6 +1579,7 @@ class SizeMapping(SemanticMapping):
+         lookup_table = dict(zip(levels, sizes))
+         return levels, lookup_table, norm, size_range
+ 
+ class VariableType(UserString):
+@@ -1591,6 +1598,7 @@ class VariableType(UserString):
+         assert data in self.allowed, data
+         super().__init__(data)
+     def __eq__(self, other):
+         assert other in self.allowed, other
+         return self.data == other
+@@ -1601,6 +1609,7 @@ def variable_type(vector, boolean_type="numeric"):
+         return VariableType("numeric")
+     if pd.api.types.is_datetime64_dtype(vector):
+         return VariableType("datetime")
+     # --- If we get to here, we need to check the entries
+@@ -1621,6 +1630,7 @@ def variable_type(vector, boolean_type="numeric"):
+         return VariableType("numeric")
+     # Check for a collection where everything is a datetime
+     def all_datetime(x):
+         for x_i in x:
+@@ -1632,6 +1642,7 @@ def variable_type(vector, boolean_type="numeric"):
+         return True
+     if all_datetime(vector):
+         return VariableType("datetime")
+     # Otherwise, our final fallback is to consider things categorical
+@@ -1643,6 +1654,7 @@ def variable_type(vector, boolean_type="numeric"):
+         return VariableType("categorical")
+ 
+ def categorical_order(vector, order=None):
+     """Return a list of unique data values.
+@@ -1655,6 +1667,7 @@ def categorical_order(vector, order=None):
+         order = vector.categories
+     else:
+         try:
+             order = vector.cat.categories
+@@ -1667,6 +1679,7 @@ def categorical_order(vector, order=None):
+         order = pd.unique(vector)
+     if variable_type(vector) == "numeric":
+         order = np.sort(order)
+     return list(order)

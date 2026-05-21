@@ -1,0 +1,139 @@
+2026-05-21 16:55:13,704 - INFO - Creating container for django__django-16527...
+2026-05-21 16:55:13,819 - INFO - Container for django__django-16527 created: 84e4467576c2a612cf49d829bcd23df57f7b0e8c2fe8d21e79b45f1641bedaa3
+2026-05-21 16:55:14,004 - INFO - Container for django__django-16527 started: 84e4467576c2a612cf49d829bcd23df57f7b0e8c2fe8d21e79b45f1641bedaa3
+2026-05-21 16:55:14,004 - INFO - Intermediate patch for django__django-16527 written to logs/run_evaluation/furiosa-ai__Qwen2.5-0.5B-Instruct_20260521_165439/furiosa-ai__Qwen2.5-0.5B-Instruct/django__django-16527/patch.diff, now applying to container...
+2026-05-21 16:55:14,161 - INFO - Failed to apply patch to container: git apply --verbose
+2026-05-21 16:55:14,259 - INFO - Failed to apply patch to container: git apply --verbose --reject
+2026-05-21 16:55:14,344 - INFO - >>>>> Applied Patch:
+patching file django/contrib/admin/templatetags/admin_modify.py
+Hunk #1 succeeded at 102 with fuzz 3.
+Hunk #2 succeeded at 109 with fuzz 3.
+Hunk #3 succeeded at 116 with fuzz 3.
+Hunk #4 succeeded at 123 with fuzz 3.
+Hunk #5 succeeded at 130 with fuzz 3.
+Hunk #6 succeeded at 137 with fuzz 3.
+Hunk #7 succeeded at 144 with fuzz 3.
+patch unexpectedly ends in middle of line
+patch unexpectedly ends in middle of line
+
+2026-05-21 16:55:14,981 - INFO - Git diff before:
+diff --git a/django/contrib/admin/templatetags/admin_modify.py b/django/contrib/admin/templatetags/admin_modify.py
+index 9df4b7aadb..eb6d3de05a 100644
+--- a/django/contrib/admin/templatetags/admin_modify.py
++++ b/django/contrib/admin/templatetags/admin_modify.py
+@@ -102,42 +102,49 @@ def submit_row(context):
+             "show_save_as_new": not is_popup
+             and has_change_permission
+             and change
++                "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             and save_as,
+             "show_save_and_add_another": can_save_and_add_another,
+             "show_save_and_continue": can_save_and_continue,
+             "show_save": show_save and can_save,
+             "show_close": not (show_save and can_save),
+         }
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+     )
+     return ctx
+ 
+ 
+ @register.tag(name="submit_row")
+ def submit_row_tag(parser, token):
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+     return InclusionAdminNode(
+         parser, token, func=submit_row, template_name="submit_line.html"
+     )
+ 
+ 
+ @register.tag(name="change_form_object_tools")
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+ def change_form_object_tools_tag(parser, token):
+     """Display the row of change form object tools."""
+     return InclusionAdminNode(
+         parser,
+         token,
+         func=lambda context: context,
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+         template_name="change_form_object_tools.html",
+     )
+ 
+ 
+ @register.filter
+ def cell_count(inline_admin_form):
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+     """Return the number of cells used in a tabular inline."""
+     count = 1  # Hidden cell with hidden 'id' field
+     for fieldset in inline_admin_form:
+         # Count all visible fields.
+         for line in fieldset:
+             for field in line:
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+                 try:
+                     is_hidden = field.field.is_hidden
+                 except AttributeError:
+2026-05-21 16:55:14,981 - INFO - Eval script for django__django-16527 written to logs/run_evaluation/furiosa-ai__Qwen2.5-0.5B-Instruct_20260521_165439/furiosa-ai__Qwen2.5-0.5B-Instruct/django__django-16527/eval.sh; copying to container...
+2026-05-21 16:55:19,498 - INFO - Test runtime: 4.42 seconds
+2026-05-21 16:55:19,499 - INFO - Test output for django__django-16527 written to logs/run_evaluation/furiosa-ai__Qwen2.5-0.5B-Instruct_20260521_165439/furiosa-ai__Qwen2.5-0.5B-Instruct/django__django-16527/test_output.txt
+2026-05-21 16:55:19,595 - INFO - Git diff after:
+diff --git a/django/contrib/admin/templatetags/admin_modify.py b/django/contrib/admin/templatetags/admin_modify.py
+index 9df4b7aadb..eb6d3de05a 100644
+--- a/django/contrib/admin/templatetags/admin_modify.py
++++ b/django/contrib/admin/templatetags/admin_modify.py
+@@ -102,42 +102,49 @@ def submit_row(context):
+             "show_save_as_new": not is_popup
+             and has_change_permission
+             and change
++                "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+             and save_as,
+             "show_save_and_add_another": can_save_and_add_another,
+             "show_save_and_continue": can_save_and_continue,
+             "show_save": show_save and can_save,
+             "show_close": not (show_save and can_save),
+         }
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+     )
+     return ctx
+ 
+ 
+ @register.tag(name="submit_row")
+ def submit_row_tag(parser, token):
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+     return InclusionAdminNode(
+         parser, token, func=submit_row, template_name="submit_line.html"
+     )
+ 
+ 
+ @register.tag(name="change_form_object_tools")
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+ def change_form_object_tools_tag(parser, token):
+     """Display the row of change form object tools."""
+     return InclusionAdminNode(
+         parser,
+         token,
+         func=lambda context: context,
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+         template_name="change_form_object_tools.html",
+     )
+ 
+ 
+ @register.filter
+ def cell_count(inline_admin_form):
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+     """Return the number of cells used in a tabular inline."""
+     count = 1  # Hidden cell with hidden 'id' field
+     for fieldset in inline_admin_form:
+         # Count all visible fields.
+         for line in fieldset:
+             for field in line:
++            "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+                 try:
+                     is_hidden = field.field.is_hidden
+                 except AttributeError:
+2026-05-21 16:55:19,596 - INFO - Grading answer for django__django-16527...
+2026-05-21 16:55:19,603 - INFO - report: {'django__django-16527': {'patch_is_None': False, 'patch_exists': True, 'patch_successfully_applied': True, 'resolved': False, 'tests_status': {'FAIL_TO_PASS': {'success': [], 'failure': ['test_submit_row_save_as_new_add_permission_required (admin_views.test_templatetags.AdminTemplateTagsTest.test_submit_row_save_as_new_add_permission_required)']}, 'PASS_TO_PASS': {'success': [], 'failure': ['test_choice_links (admin_views.test_templatetags.DateHierarchyTests.test_choice_links)', 'test_choice_links_datetime (admin_views.test_templatetags.DateHierarchyTests.test_choice_links_datetime)', 'admin_modify template tags follow the standard search pattern', 'admin_list template tags follow the standard search pattern', 'test_override_show_save_and_add_another (admin_views.test_templatetags.AdminTemplateTagsTest.test_override_show_save_and_add_another)', 'submit_row template tag should pass whole context.']}, 'FAIL_TO_FAIL': {'success': [], 'failure': []}, 'PASS_TO_FAIL': {'success': [], 'failure': []}}}}
+Result for django__django-16527: resolved: False
+2026-05-21 16:55:19,603 - INFO - Attempting to stop container sweb.eval.django__django-16527.furiosa-ai__Qwen2.5-0.5B-Instruct_20260521_165439...
+2026-05-21 16:55:34,862 - INFO - Attempting to remove container sweb.eval.django__django-16527.furiosa-ai__Qwen2.5-0.5B-Instruct_20260521_165439...
+2026-05-21 16:55:34,880 - INFO - Container sweb.eval.django__django-16527.furiosa-ai__Qwen2.5-0.5B-Instruct_20260521_165439 removed.
+2026-05-21 16:55:34,880 - INFO - Attempting to remove image swebench/sweb.eval.x86_64.django_1776_django-16527:latest...
+2026-05-21 16:55:35,542 - INFO - Image swebench/sweb.eval.x86_64.django_1776_django-16527:latest removed.

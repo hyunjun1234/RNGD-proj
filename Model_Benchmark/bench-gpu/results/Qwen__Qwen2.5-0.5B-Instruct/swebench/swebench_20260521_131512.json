@@ -1,0 +1,163 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "dataset": "oracle-subset",
+  "n_requested_instances": 50,
+  "n_instances": 43,
+  "n_filtered_context": 7,
+  "filtered_context_ids": [
+    "matplotlib__matplotlib-24970",
+    "pydata__xarray-4094",
+    "astropy__astropy-7746",
+    "matplotlib__matplotlib-25079",
+    "matplotlib__matplotlib-24149",
+    "pydata__xarray-4493",
+    "scikit-learn__scikit-learn-14087"
+  ],
+  "filtered_context": [
+    {
+      "instance_id": "matplotlib__matplotlib-24970",
+      "prompt_tokens": 36001,
+      "max_input_tokens": 31744,
+      "requested_tokens": 37025,
+      "max_model_len": 32768
+    },
+    {
+      "instance_id": "pydata__xarray-4094",
+      "prompt_tokens": 50384,
+      "max_input_tokens": 31744,
+      "requested_tokens": 51408,
+      "max_model_len": 32768
+    },
+    {
+      "instance_id": "astropy__astropy-7746",
+      "prompt_tokens": 43501,
+      "max_input_tokens": 31744,
+      "requested_tokens": 44525,
+      "max_model_len": 32768
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-25079",
+      "prompt_tokens": 36546,
+      "max_input_tokens": 31744,
+      "requested_tokens": 37570,
+      "max_model_len": 32768
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-24149",
+      "prompt_tokens": 110626,
+      "max_input_tokens": 31744,
+      "requested_tokens": 111650,
+      "max_model_len": 32768
+    },
+    {
+      "instance_id": "pydata__xarray-4493",
+      "prompt_tokens": 36583,
+      "max_input_tokens": 31744,
+      "requested_tokens": 37607,
+      "max_model_len": 32768
+    },
+    {
+      "instance_id": "scikit-learn__scikit-learn-14087",
+      "prompt_tokens": 33596,
+      "max_input_tokens": 31744,
+      "requested_tokens": 34620,
+      "max_model_len": 32768
+    }
+  ],
+  "max_model_len": 32768,
+  "max_input_tokens": 31744,
+  "max_tokens": 1024,
+  "n_nonempty_patch": 43,
+  "n_error": 0,
+  "n_invalid_patch": 34,
+  "invalid_patch_examples": [
+    {
+      "instance_id": "astropy__astropy-12907",
+      "reason": "hunk line count mismatch old=27/27 new=44/35"
+    },
+    {
+      "instance_id": "astropy__astropy-14182",
+      "reason": "hunk line count mismatch old=94/27 new=2/35"
+    },
+    {
+      "instance_id": "astropy__astropy-14365",
+      "reason": "bad hunk line prefix"
+    },
+    {
+      "instance_id": "astropy__astropy-14995",
+      "reason": "bad hunk line prefix"
+    },
+    {
+      "instance_id": "django__django-12915",
+      "reason": "hunk line count mismatch old=27/27 new=39/35"
+    },
+    {
+      "instance_id": "django__django-13551",
+      "reason": "hunk line count mismatch old=38/27 new=46/35"
+    },
+    {
+      "instance_id": "django__django-14016",
+      "reason": "hunk line count mismatch old=27/27 new=36/35"
+    },
+    {
+      "instance_id": "django__django-16527",
+      "reason": "hunk line count mismatch old=7/6 new=8/7"
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-22835",
+      "reason": "bad hunk line prefix"
+    },
+    {
+      "instance_id": "matplotlib__matplotlib-25498",
+      "reason": "hunk line count mismatch old=25/27 new=29/35"
+    }
+  ],
+  "instance_ids": [
+    "astropy__astropy-12907",
+    "astropy__astropy-14182",
+    "astropy__astropy-14365",
+    "astropy__astropy-14995",
+    "django__django-12915",
+    "django__django-13551",
+    "django__django-14016",
+    "django__django-16139",
+    "django__django-16527",
+    "matplotlib__matplotlib-22835",
+    "matplotlib__matplotlib-25498",
+    "mwaskom__seaborn-2848",
+    "mwaskom__seaborn-3010",
+    "mwaskom__seaborn-3190",
+    "mwaskom__seaborn-3407",
+    "pallets__flask-4045",
+    "pallets__flask-4992",
+    "pallets__flask-5063",
+    "psf__requests-1963",
+    "psf__requests-2674",
+    "psf__requests-3362",
+    "psf__requests-863",
+    "pydata__xarray-3364",
+    "pydata__xarray-5131",
+    "pylint-dev__pylint-5859",
+    "pylint-dev__pylint-7080",
+    "pylint-dev__pylint-7228",
+    "pylint-dev__pylint-7993",
+    "pytest-dev__pytest-11148",
+    "pytest-dev__pytest-5413",
+    "pytest-dev__pytest-5495",
+    "pytest-dev__pytest-7373",
+    "scikit-learn__scikit-learn-13496",
+    "scikit-learn__scikit-learn-13584",
+    "scikit-learn__scikit-learn-25570",
+    "sphinx-doc__sphinx-10451",
+    "sphinx-doc__sphinx-11445",
+    "sphinx-doc__sphinx-8506",
+    "sphinx-doc__sphinx-8627",
+    "sympy__sympy-17630",
+    "sympy__sympy-18532",
+    "sympy__sympy-21847",
+    "sympy__sympy-24066"
+  ],
+  "gen_s_p50": 4.1,
+  "gen_s_p95": 12.0,
+  "preds_file": "/home/etri/jun/bench-gpu/results/Qwen__Qwen2.5-0.5B-Instruct/swebench/preds/Qwen__Qwen2.5-0.5B-Instruct__preds.jsonl"
+}

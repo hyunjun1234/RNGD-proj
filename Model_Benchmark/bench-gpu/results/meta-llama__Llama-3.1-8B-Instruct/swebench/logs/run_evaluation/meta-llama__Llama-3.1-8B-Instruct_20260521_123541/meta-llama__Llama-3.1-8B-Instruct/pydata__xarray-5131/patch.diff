@@ -1,0 +1,110 @@
+--- a/xarray/core/groupby.py
++++ b/xarray/core/groupby.py
+@@ -439,7 +439,7 @@
+         return "{}, grouped over {!r} \n{!r} groups with labels {}.".format(
+             self.__class__.__name__,
+             self._unique_coord.name,
+-            self._unique_coord.size,
++            self._unique_coord.size,
+             ", ".join(format_array_flat(self._unique_coord, 30).split()),
+         )
+ 
+     def _get_index_and_items(self, index, grouper):
+@@ -446,7 +446,7 @@
+         full_index = first_items.index
+         if first_items.isnull().any():
+             first_items = first_items.dropna()
+-        return full_index, first_items
++        return full_index, first_items
+     def _iter_grouped(self):
+         """Iterate over each element in this group"""
+         for indices in self._group_indices:
+@@ -456,7 +456,7 @@
+         applied = (maybe_wrap_array(arr, func(arr, *args, **kwargs)) for arr in grouped)
+         return self._combine(applied, shortcut=shortcut)
+ 
+     def apply(self, func, shortcut=False, args=(), **kwargs):
+-        """
+-        Backward compatible implementation of ``map``
+-        """
+-        warnings.warn(
+-            "GroupBy.apply may be deprecated in the future. Using GroupBy.map is encouraged",
+-            PendingDeprecationWarning,
+-            stacklevel=2,
+-        )
+-        return self.map(func, shortcut=shortcut, args=args, **kwargs)
++        # Backward compatible implementation of ``map``
++        warnings.warn(
++            "GroupBy.apply may be deprecated in the future. Using GroupBy.map is encouraged",
++            PendingDeprecationWarning,
++            stacklevel=2,
++        )
++        return self.map(func, shortcut=shortcut, args=args, **kwargs)
+ 
+     def _combine(self, applied, shortcut=False):
+         """Recombine the applied objects like the original."""
+         applied_example, applied = peek_at(applied)
+@@ -465,7 +465,7 @@
+         combined = concat(applied, dim)
+         combined = _maybe_reorder(combined, dim, positions)
+         # assign coord when the applied function does not return that coord
+-        if coord is not None and dim not in applied_example.dims:
++        if coord is not None and dim not in applied_example.dims:
+             if shortcut:
+                 coord_var = as_variable(coord)
+                 combined._coords[coord.name] = coord_var
+@@ -475,7 +475,7 @@
+         combined = self._maybe_restore_empty_groups(combined)
+         combined = self._maybe_unstack(combined)
+         return combined
+ 
+     def reduce(
+-        self, func, dim=None, axis=None, keep_attrs=None, shortcut=True, **kwargs
+-    ):
++        self, func, dim=None, axis=None, keep_attrs=None, shortcut=True, **kwargs
+         """Reduce the items in this group by applying `func` along some
+         dimension(s).
+ 
+@@ -485,7 +485,7 @@
+         axis : int or sequence of int, optional
+             Axis(es) over which to apply `func`. Only one of the 'dimension'
+             and 'axis' arguments can be supplied. If neither are supplied, then
+-            `func` is calculated over all dimension for each group item.
++            `func` is calculated over all dimension for each group item.
+         keep_attrs : bool, optional
+             If True, the datasets's attributes (`attrs`) will be copied from
+             the original object to the new one.  If False (default), the new
+@@ -495,7 +495,7 @@
+         **kwargs : dict
+             Additional keyword arguments passed on to `func`.
+ 
+         Returns
+-        -------
++        self
+         reduced : Array
+             Array with summarized data and the indicated dimension(s)
+             removed.
+         """
+@@ -506,7 +506,7 @@
+         def reduce_array(ar):
+             return ar.reduce(func, dim, axis, keep_attrs=keep_attrs, **kwargs)
+ 
+         check_reduce_dims(dim, self.dims)
+-        return self.map(reduce_array, shortcut=shortcut)
++        return self.map(reduce_array, shortcut=shortcut)
+ 
+     def assign(self, **kwargs):
+         """Assign data variables by group.
+@@ -516,7 +516,7 @@
+         See Also
+         --------
+         Dataset.assign
+         """
+-        return self.map(lambda ds: ds.assign(**kwargs))
++        return self.map(lambda ds: ds.assign(**kwargs))
+ 
+     def _combine(self, applied):
+         """Recombine the applied objects like the original."""
+         applied_example, applied = peek_at(applied)
+@@ -525,7 +525,7 @@
+         combined = concat(applied, dim

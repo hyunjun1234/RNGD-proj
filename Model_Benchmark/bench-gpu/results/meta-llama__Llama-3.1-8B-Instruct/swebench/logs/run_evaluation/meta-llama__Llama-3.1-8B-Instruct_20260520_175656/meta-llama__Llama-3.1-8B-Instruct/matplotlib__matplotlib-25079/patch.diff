@@ -1,0 +1,38 @@
+--- a/lib/matplotlib/colors.py
++++ b/lib/matplotlib/colors.py
+@@ -295,6 +295,7 @@ def to_rgba(c, alpha=None):
+         return rgba
+     except (ValueError, TypeError):
+         pass
+     # Handle single values.
+     # Note that this occurs *after* handling inputs that are already arrays, as
+     # `to_rgba(c, alpha)` (below) is expensive for such inputs, due to the need
+     # to format the array in the ValueError message(!).
+     if cbook._str_lower_equal(c, "none"):
+         return np.zeros((0, 4), float)
+     try:
+         if np.iterable(alpha):
+             return np.array([to_rgba(c, a) for a in alpha], float)
+         else:
+             return np.array([to_rgba(c, alpha)], float)
+     except (ValueError, TypeError):
+         pass
++    if isinstance(c, str):
++        raise ValueError(f"{c!r} is not a valid color value.")
+     if len(c) == 0:
+         return np.zeros((0, 4), float)
+     # Quick path if the whole sequence can be directly converted to a numpy
+     # array in one shot.
+     if isinstance(c, Sequence):
+         lens = {len(cc) if isinstance(cc, (list, tuple)) else -1 for cc in c}
+         if lens == {3}:
+             rgba = np.column_stack([c, np.ones(len(c))])
+         elif lens == {4}:
+             rgba = np.array(c)
+         else:
+             rgba = np.array([to_rgba(cc) for cc in c])
+     else:
+         rgba = np.array([to_rgba(cc) for cc in c])
+     if alpha is not None:
+         rgba[:, 3] = alpha
+     return rgba

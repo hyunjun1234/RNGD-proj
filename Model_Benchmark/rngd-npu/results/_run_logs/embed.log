@@ -1,0 +1,14 @@
+== SKIP furiosa-ai/Qwen2.5-0.5B-Instruct (no applicable task: tasks={'rerank', 'embed'}, role=smoke) ==
+== SKIP furiosa-ai/Llama-3.1-8B-Instruct (no applicable task: tasks={'rerank', 'embed'}, role=baseline) ==
+== SKIP furiosa-ai/Qwen3-32B-FP8 (disabled) ==
+== SKIP furiosa-ai/EXAONE-4.0-32B-FP8 (disabled) ==
+== SKIP furiosa-ai/Llama-3.3-70B-Instruct (disabled) ==
+
+== furiosa-ai/Qwen3-Embedding-8B ==  devices=npu:0  tasks=['embed']
+  [embed] {"model": "furiosa-ai/Qwen3-Embedding-8B", "n_inputs": 100, "batch_size": 1, "wall_clock_s": 86.27, "throughput_inputs_per_s": 1.16, "p50_latency_s": 0.8616, "p95_latency_s": 0.8657}
+  [embed] {"model": "furiosa-ai/Qwen3-Embedding-8B", "n_inputs": 100, "batch_size": 4, "wall_clock_s": 85.659, "throughput_inputs_per_s": 1.17, "p50_latency_s": 3.4266, "p95_latency_s": 3.4332}
+  [embed] {"model": "furiosa-ai/Qwen3-Embedding-8B", "n_inputs": 100, "batch_size": 16, "wall_clock_s": 85.501, "throughput_inputs_per_s": 1.17, "p50_latency_s": 13.6682, "p95_latency_s": 13.7523}
+  [embed] {"model": "furiosa-ai/Qwen3-Embedding-8B", "n_inputs": 100, "batch_size": 64, "wall_clock_s": 85.331, "throughput_inputs_per_s": 1.17, "p50_latency_s": 42.6654, "p95_latency_s": 54.6108}
+
+== furiosa-ai/Qwen3-Reranker-8B ==  devices=npu:0  tasks=['rerank']
+  [rerank] {"model": "furiosa-ai/Qwen3-Reranker-8B", "method": "rerank", "pairs": 2000, "wall_clock_s": 1707.712, "throughput_pairs_per_s": 1.17, "p50_latency_s": 85.1354, "p95_latency_s": 85.2473}

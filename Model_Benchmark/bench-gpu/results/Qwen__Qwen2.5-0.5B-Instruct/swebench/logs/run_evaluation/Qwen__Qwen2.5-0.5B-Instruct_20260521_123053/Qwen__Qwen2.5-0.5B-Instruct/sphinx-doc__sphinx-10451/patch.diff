@@ -1,0 +1,102 @@
+<patch>
+diff --git a/sphinx/ext/autodoc/typehints.py b/sphinx/ext/autodoc/typehints.py
+--- a/sphinx/ext/autodoc/typehints.py
++++ b/sphinx/ext/autodoc/typehints.py
+@@ -1,10 +1,10 @@
+ from sphinx import addnodes
+ from sphinx.application import Sphinx
+-from sphinx.ext.autodoc.typehints import record_typehints
++from sphinx.ext.autodoc.typehints import merge_typehints
+ from sphinx.application import Sphinx
+ from sphinx.util import inspect, typing
+ 
+@@ -10,10 +10,10 @@
+ class RecordTypeHints(type):
+     def __new__(cls, clsname, bases, dct):
+         if 'record_typehints' in dct:
+-            return super().__new__(cls, clsname, bases, dct)
++            return super().__new__(cls, clsname, bases, dct)
+         raise TypeError("Autodoc typehints already registered")
+ 
+-    @classmethod
++    @classmethod
+     def register(cls, app: Sphinx, objtype: str, name: str, obj: Any,
+                  options: Dict, args: str, retann: str) -> None:
+         if app.config.autodoc_typehints_format == 'short':
+@@ -20,10 +20,10 @@
+         if app.config.autodoc_typehints not in ('both', 'description'):
+             return
+         try:
+-            signature = cast(addnodes.desc_signature, dct['signature'])
++            signature = cast(addnodes.desc_signature, dct['signature'])
+             if signature['module']:
+                 fullname = '.'.join([signature['module'], signature['fullname']])
+             else:
+@@ -30,10 +30,10 @@
+                 fullname = signature['fullname']
+             except KeyError:
+                 # signature node does not have valid context info for the target object
+-                return
++                return
+             annotations = app.env.temp_data.get('annotations', {})
+             if annotations.get(fullname, {}):
+                 field_lists = [n for n in dct['fields'] if isinstance(n, addnodes.desc)]
+@@ -40,10 +40,10 @@
+                 if field_lists == []:
+                     field_list = insert_field_list(dct['fields'][0])
+                     field_lists.append(field_list)
+-                    for field_list in field_lists:
++                    for field_list in field_lists:
+                         if app.config.autodoc_typehints_description_target == "all":
+                             if objtype == 'class':
+                                 modify_field_list(field_list, annotations[fullname], suppress_rtype=True)
+@@ -50,10 +50,10 @@
+                         elif app.config.autodoc_typehints_description_target == "documented_params":
+                             augment_descriptions_with_types(
+                                 field_list, annotations[fullname], force_rtype=True
+-                                )
++                                )
+                         else:
+                             augment_descriptions_with_types(
+                                 field_list, annotations[fullname], force_rtype=False
+-                                )
++                                )
+ 
+         for name, annotation in annotations.items():
+             if name == 'return':
+@@ -60,10 +60,10 @@
+                 continue
+             if name in ('return', 'returns'):
+                 continue
+-            field = nodes.field()
++            field = nodes.field()
+             field += nodes.field_name('', 'rtype')
+             field += nodes.field_body('', nodes.paragraph('', annotation))
+             node += field
+-            if 'return' in annotations and 'return' not in field:
++            if 'return' in annotations and 'return' not in field:
+                 annotation = annotations['return']
+                 if annotation == 'None' and suppress_rtype:
+                     return
+@@ -70,10 +70,10 @@
+                 if 'return' not in annotations and 'return' in field:
+                     field = nodes.field()
+                     field += nodes.field_name('', 'rtype')
+-                    field += nodes.field_body('', nodes.paragraph('', annotation))
++                    field += nodes.field_body('', nodes.paragraph('', annotation))
+                     node += field
+                 if 'rtype' in annotations and 'rtype' not in field:
+                     field = nodes.field()
+@@ -80,10 +80,10 @@
+                     if 'rtype' not in annotations and 'rtype' in field:
+                         field = nodes.field()
+                         field += nodes.field_name('', 'rtype')
+-                        field += nodes.field_body('', nodes.paragraph('', annotation))
++                        field += nodes.field_body('', nodes.paragraph('', annotation))
+                         node += field
+                     if 'rtype' in annotations and 'rtype' in field:
+                         field = nodes.field()
+@@ -90,10 +90,10 @@
+                         if 'rtype' not in annotations and 'rtype' in field:
+                             field = nodes.field()
+                             field += nodes.field_name('',

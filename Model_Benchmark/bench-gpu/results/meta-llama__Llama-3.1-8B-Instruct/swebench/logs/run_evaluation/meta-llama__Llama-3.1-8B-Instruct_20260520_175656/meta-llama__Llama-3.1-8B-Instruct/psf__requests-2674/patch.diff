@@ -1,0 +1,12 @@
+--- a/requests/adapters.py
++++ b/requests/adapters.py
+@@ -414,6 +414,10 @@
+         except MaxRetryError as e:
+             if isinstance(e.reason, ConnectTimeoutError):
+                 raise ConnectTimeout(e, request=request)
++            elif isinstance(e.reason, (DecodeError, TimeoutError)):
++                raise ConnectionError(e, request=request)
+             elif isinstance(e.reason, ResponseError):
+                 raise RetryError(e, request=request)
+ 
+         except _ProxyError as e:

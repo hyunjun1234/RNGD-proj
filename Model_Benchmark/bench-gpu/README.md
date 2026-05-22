@@ -1,150 +1,129 @@
 # NVIDIA GPU 코드 생성 모델 벤치마크 (vLLM)
 
-RNGD NPU에서 수행한 측정(**토큰 속도 · 동시성 스케일링 · serve 옵션 · SWE-bench · 임베딩/리랭커**)을
-**NVIDIA GPU + vLLM** 위에서 그대로 재현해 NPU와 동일 축으로 비교하기 위한 자동화 폴더.
-이 폴더 하나만 GPU 서버에 복사하면 끝난다 — `setup.sh`가 모든 의존성을 깐다.
+RNGD NPU에서 했던 측정(토큰 속도, 동시성 스케일링, 서버 옵션, SWE-bench, 임베딩·리랭커)을
+NVIDIA GPU와 vLLM 위에서 똑같이 재현하는 폴더입니다. NPU와 같은 기준으로 비교하기 위한 것입니다.
+이 폴더 하나만 GPU 서버에 복사하면 `setup.sh`가 필요한 것을 모두 설치합니다.
 
-> **사용 하드웨어**: RTX A6000 48GB ×3 중 GPU 2를 사용 (`cuda_visible_devices: "2"` in `configs/models.yaml`).
-> GPU 0·1은 타작업이 점유 중이라 비워 둔다. 96GB 클래스로 올리면 70B FP16도 1장에 적재 가능.
+측정에는 RTX A6000 48GB 3장 중 2번 GPU를 씁니다(`configs/models.yaml`의 `cuda_visible_devices: "2"`).
+0번과 1번은 다른 작업이 쓰고 있어 비워 둡니다. 전제 조건은 NVIDIA 드라이버 설치뿐이고
+(`nvidia-smi`가 동작하면 됩니다), vLLM과 PyTorch, CUDA 휠, swebench는 `setup.sh`가 설치합니다.
 
-전제: **NVIDIA 드라이버만** 설치돼 있으면 됨(`nvidia-smi` 동작). vLLM·PyTorch·CUDA 휠·swebench는 `setup.sh`가 깐다.
-
----
-
-## 목차
-
-1. [빠른 시작](#1-빠른-시작)
-2. [폴더 구조](#2-폴더-구조)
-3. [측정 태스크 — 무엇을 왜 재나](#3-측정-태스크--무엇을-왜-재나)
-4. [모델 설정](#4-모델-설정--configsmodelsyaml)
-5. [실행 단계](#5-실행-단계)
-6. [결과 보기](#6-결과-보기)
-7. **[SWE-bench Lite 깊이 분석 — LLM을 어떻게 채점하나](#7-swe-bench-lite-깊이-분석--llm을-어떻게-채점하나)**
-8. [RNGD 버전과의 차이](#8-rngd-버전과의-차이)
-9. [트러블슈팅](#9-트러블슈팅)
-
----
-
-## 1. 빠른 시작
+## 빠른 시작
 
 ```bash
-# 0. 이 폴더를 GPU 서버로 복사
-scp -r bench-gpu/  user@gpu-server:~/        # 또는 git/rsync
+# 이 폴더를 GPU 서버로 복사
+scp -r bench-gpu/  user@gpu-server:~/
 
-# 1. 환경 구축 (한 번만 — vLLM 0.10.0 cu126 휠 + torch + swebench 설치, 수 분)
+# 환경 구축 (한 번만, 수 분 소요)
 cd ~/bench-gpu
 bash setup.sh
 
-# 2. 가상환경 활성화 (이후 매 세션)
+# 가상환경 활성화 (이후 매번)
 source .venv/bin/activate
 
-# 3. gated 모델(meta-llama/*) 쓸 때만 — HF 토큰 로그인
+# 접근 제한 모델(meta-llama/*)을 쓸 때만
 hf auth login
 
-# 4. 점검 → 전체 측정 → 리포트
+# 점검하고 전체 측정
 bash preflight.sh
-./run_all.sh                    # 측정 종료 후 REPORT.md 자동 생성
+./run_all.sh
 ```
 
-장시간 실행은 백그라운드 권장:
+오래 걸리는 측정은 백그라운드로 돌리는 편이 낫습니다.
 
 ```bash
 nohup ./run_all.sh > results/_run_logs/run.log 2>&1 &
 tail -f results/_run_logs/run.log
 ```
 
----
-
-## 2. 폴더 구조
+## 폴더 구조
 
 ```
 bench-gpu/
-├── setup.sh              # 프레시 서버 환경 구축 (한 번)
-├── preflight.sh          # GPU/vLLM/Docker/모델 점검
-├── run_all.sh            # 전체 파이프라인 (STAGE 단계별)
-├── eval_swebench.sh      # SWE-bench Docker 채점 드라이버
-├── requirements.txt      # vllm 0.10.0+cu126 휠 고정 + 측정 의존성
-├── orchestrator.py       # 모델 × 태스크 자동 실행 (vllm serve 라이프사이클)
-├── analyze.py            # 결과 집계 / CSV
-├── report.py             # 종합 리포트 → REPORT.md
-├── swebench_eval.py      # 예측 jsonl → Docker harness 채점 드라이버
+├── setup.sh              환경 구축 (한 번)
+├── preflight.sh          GPU·vLLM·Docker·모델 점검
+├── run_all.sh            전체 측정 파이프라인
+├── eval_swebench.sh      SWE-bench 채점
+├── requirements.txt      vllm 0.10.0+cu126 휠 고정
+├── orchestrator.py       모델별로 테스트를 자동 실행
+├── analyze.py            결과 모아서 표로 정리
+├── report.py             종합 리포트(REPORT.md) 생성
+├── swebench_eval.py      예측 파일을 Docker로 채점
 ├── configs/
-│   └── models.yaml       # 모델 목록 + vllm serve 인자 + sweep/memsweep grid
+│   └── models.yaml       모델 목록, 서버 인자, 측정 설정
 ├── runners/
-│   ├── server.py         # VllmServer — vllm serve 라이프사이클 / health 대기 / 정리
-│   ├── tps.py            # TTFT·ITL·합산 TPS 측정 (stream)
-│   ├── memory_sweep.py   # serve 옵션 OFAT 스윕 (서버 재기동 반복)
-│   ├── embed_bench.py    # 임베딩/리랭커 throughput
-│   └── swebench_run.py   # SWE-bench 추론 (oracle 프롬프트 + 컨텍스트 필터 + patch sanity)
+│   ├── server.py         vllm serve 띄우고 내리는 관리
+│   ├── tps.py            첫 토큰 지연, 토큰 간격, 처리량 측정
+│   ├── memory_sweep.py   서버 옵션을 바꿔가며 측정
+│   ├── embed_bench.py    임베딩·리랭커 처리량 측정
+│   └── swebench_run.py   SWE-bench 추론
 ├── docs/
-│   └── SWEBENCH_SETUP.md # SWE-bench 설치/포맷/채점 명령 레퍼런스
-└── results/              # 측정 결과 (자동 생성)
-    ├── <model_safe>/
-    │   ├── tps/<timestamp>.json
-    │   ├── sweep/<timestamp>.json
-    │   ├── memsweep/<n>.json + memsweep_summary.json
+│   └── SWEBENCH_SETUP.md SWE-bench 설치와 채점 명령 정리
+└── results/              측정 결과 (자동 생성)
+    ├── <모델>/
+    │   ├── tps/
+    │   ├── sweep/
+    │   ├── memsweep/
     │   └── swebench/
-    │       ├── swebench_<ts>.json       # 추론 단계 요약
-    │       ├── preds/<model>__preds.jsonl
-    │       ├── eval_result.json         # harness 채점 결과
-    │       └── logs/                    # Docker harness 인스턴스 로그
-    ├── _server_logs/                    # vllm serve stderr
-    └── _run_logs/                       # run_all.sh 단계별 로그
+    ├── _server_logs/     vllm serve 로그
+    ├── _run_logs/        단계별 실행 로그
+    └── _archive_pre_match/   조건 정렬 전 측정 보관
 ```
 
----
+## 측정 항목
 
-## 3. 측정 태스크 — 무엇을 왜 재나
+다섯 가지를 측정합니다.
 
-| 태스크 | 무엇을 재나 | 왜 재나 | 산출 핵심 지표 |
-|---|---|---|---|
-| `tps` | concurrency=1, 단일 요청을 stream으로 받아 TTFT·ITL·출력 TPS | **사용자 1명 체감 속도**. 첫 토큰까지 얼마나 빠른가, 토큰이 얼마나 부드럽게 흐르는가 | `ttft_s_p50/p95`, `itl_s_p50`, `output_tps_per_request_p50` |
-| `sweep` | concurrency × prompt_len 매트릭스 (1~128 동시성, prompt 256/1024/4096) | **동시 사용자 N명 처리량**. 어디서 saturate되고 어디서 latency가 SLA를 넘는가 | `aggregate_output_tps`, `failures` |
-| `memsweep` | `--max-model-len` · `--max-num-seqs` · `--max-num-batched-tokens` OFAT 스윕 | 기본값이 정말 최적인가, KV 캐시·배치 한도를 만지면 처리량이 얼마나 움직이는가 (NPU memsweep 축과 정렬) | combo별 `aggregate_output_tps` |
-| `swebench` | SWE-bench Lite oracle + single-shot으로 코드 패치 생성 → Docker harness 채점 | **모델이 실제로 코드를 고칠 수 있는가**. 속도가 빨라도 정확도가 0이면 의미 없다 | `resolved` / `total` |
-| `embed` | `/v1/embeddings`로 batch=1/4/16/64 throughput | **RAG·시멘틱 검색**의 대표 부하 — embedding 모델 비교용 | `throughput_inputs_per_s`, `p50/p95_latency_s` |
-| `rerank` | `/v1/rerank` (지원 안 하면 임베딩+코사인 fallback) | RAG 파이프라인의 rerank 단계 부하 | `throughput_pairs_per_s` |
+| 항목 | 측정 내용 | 보는 것 |
+|---|---|---|
+| tps | 요청 한 건을 보내며 첫 토큰 지연, 토큰 간격, 출력 속도 측정 | 사용자 한 명의 체감 속도 |
+| sweep | 동시 요청 1~128명, 프롬프트 길이 256/1024/4096 조합 측정 | 동시 사용자를 받는 처리량 |
+| memsweep | 서버 옵션을 한 번에 하나씩 바꿔가며 처리량 측정 | 옵션 튜닝의 효과 |
+| swebench | SWE-bench Lite로 코드 패치를 만들고 Docker로 채점 | 실제 코드 수정 능력 |
+| embed | 임베딩 모델의 배치별 처리량 측정 | 검색 단계 부하 |
+| rerank | 리랭커 모델의 처리량 측정 | 검색 순위 매기기 부하 |
 
-> **읽는 순서**: `tps`(개인 속도) → `sweep`(다중 사용자) → `memsweep`(튜닝 여지) → `swebench`(정확도). 정확도가 0이면 다른 지표는 의미가 줄어든다.
+읽는 순서는 tps(개인 속도), sweep(다중 사용자), memsweep(튜닝 여지), swebench(정확도)입니다.
+정확도가 0이면 다른 지표의 의미가 줄어듭니다.
 
-### 측정 의도
+몇 가지 측정 의도를 적어둡니다. 속도가 빠르다고 품질이 좋은 것은 아닙니다. 0.5B 모델은 단일 속도가
+250 tok/s나 되지만 SWE-bench 점수는 0%입니다. 작고 빠른 모델이 정확하지는 않다는 것을 수치로 보여주려는
+것입니다. sweep은 GPU가 동시 사용자를 늘려도 처리량이 떨어지지 않는 구간을 봅니다. peak의 90%에
+도달하는 동시성을 효율 배치로 정의합니다(`report.py`의 `EFFICIENT_FRAC`). memsweep은 한 번에 한 옵션만
+바꾸는 방식이라 옵션 하나하나의 효과는 보지만 옵션끼리의 상호작용은 보지 못합니다. 대신 결과 해석이
+쉽습니다. SWE-bench는 고칠 파일을 미리 알려주는 oracle 방식을 써서, 검색 능력은 빼고 순수한
+코드 편집 능력만 봅니다. NPU와 GPU를 비교할 때 변수를 줄이려는 것입니다.
 
-- **속도 ≠ 품질**: 0.5B 모델은 단일 TPS가 250, 8B는 42지만 SWE-bench resolved는 둘 다 0%. 작은 모델은 **빠르고 멍청**하다는 사실을 수치로 보여준다.
-- **batch 효율**: `sweep`은 "GPU가 한 번에 몇 명을 받아도 처리량이 줄지 않는가"를 본다. 90% peak에 도달하는 동시성을 **효율 배치(efficient_c)** 로 정의한다(`report.py` `EFFICIENT_FRAC=0.90`).
-- **memsweep은 OFAT**: baseline에서 한 축씩 움직인다. 그리드 전수가 아니라 "옵션 하나당 영향"을 본다 — 결합 효과는 보지 못하지만 디버깅이 쉽다.
-- **SWE-bench oracle**: "올바른 파일이 주어졌을 때 패치를 만들 수 있는가"를 본다. 검색 능력은 빠지고 **순수 코드 편집 능력**만 측정 → NPU/GPU 비교에서 인프라 변수를 줄이려는 목적.
+## 모델 설정 (configs/models.yaml)
 
----
+기본으로 켜져 있는 모델은 두 개입니다.
 
-## 4. 모델 설정 — `configs/models.yaml`
+| 모델 | 역할 | serve_args |
+|---|---|---|
+| Qwen/Qwen2.5-0.5B-Instruct | 동작 확인용 | `--port 8001 --max-model-len 4096` |
+| meta-llama/Llama-3.1-8B-Instruct | 코드 생성 후보 | `--max-model-len 32768 --tool-call-parser llama3_json` |
 
-`id`는 Hugging Face 모델 id (원본 HF 모델 — RNGD prebuilt 아티팩트가 아님). 기본 활성:
+`--max-model-len`은 NPU prebuilt 모델의 컨텍스트 한도에 맞춘 값입니다. Qwen은 4,096(NPU 모델의
+실행 한도), Llama는 32,768(NPU 모델 문서의 최대 컨텍스트)입니다. `--tool-call-parser`와
+`--enable-prefix-caching`도 NPU 쪽 furiosa-llm 서버 인자와 똑같이 맞췄습니다. 이렇게 해야
+NPU와 GPU 결과를 같은 표에서 비교할 수 있습니다. 자세한 내용은
+[../README_npu_gpu_result.md](../README_npu_gpu_result.md)에 있습니다.
 
-| 모델 | 역할 | `serve_args` | 비고 |
-|---|---|---|---|
-| `Qwen/Qwen2.5-0.5B-Instruct` | smoke | `--port 8001 --max-model-len 4096` | NPU artifact 4K 한도에 맞춤 |
-| `meta-llama/Llama-3.1-8B-Instruct` | baseline | `--max-model-len 32768 --tool-call-parser llama3_json` | gated — `hf auth login` 필수 |
+기본으로 꺼져 있는 모델은 필요할 때 yaml에서 `enabled: true`로 바꿉니다.
 
-> **NPU 조건 정렬**: `--max-model-len`은 NPU prebuilt artifact의 컨텍스트 한도와 동일하게 고정했다
-> (Qwen 4,096 = artifact `max_executable_length` / Llama 32,768 = artifact "Maximum Context Length").
-> `--tool-call-parser llama3_json`·`--enable-prefix-caching`도 NPU(`furiosa-llm`) 서버 인자와 맞춰
-> NPU vs GPU를 같은 표 위에서 비교할 수 있게 했다 — [`../README_npu_gpu_result.md`](../README_npu_gpu_result.md) 참조.
-
-기본 비활성(`enabled: false`) — 켜려면 yaml에서 `true`로:
-
-| 모델 | 켜는 조건 |
+| 모델 | 켤 때 필요한 것 |
 |---|---|
-| `Qwen/Qwen3-32B` | bf16 ~64GB > A6000 48GB 1장 → `--quantization fp8` 또는 `--tensor-parallel-size 2` 필요 |
-| `meta-llama/Llama-3.3-70B-Instruct` | bf16 ~140GB → `--quantization fp8` (이미 yaml에 포함) 또는 다중 GPU |
-| `LGAI-EXAONE/EXAONE-4.0-32B` | 라이선스 확인 후 enable. 커스텀 코드면 `--trust-remote-code` |
-| `Qwen/Qwen3-Embedding-8B` | vLLM 0.21 기준 `--runner pooling` 필요 |
-| `Qwen/Qwen3-Reranker-8B` | vLLM 0.21은 `--task score`만 가능 / pooling+jinja 템플릿 셋업 필요 |
+| Qwen/Qwen3-32B | bf16로 약 64GB라 A6000 한 장에 안 들어감. `--quantization fp8` 또는 GPU 2장 |
+| meta-llama/Llama-3.3-70B-Instruct | bf16로 약 140GB. FP8 양자화 필요 (yaml에 이미 포함) |
+| LGAI-EXAONE/EXAONE-4.0-32B | 라이선스 확인 후. 커스텀 코드면 `--trust-remote-code` |
+| Qwen/Qwen3-Embedding-8B | vLLM 0.21 기준 `--runner pooling` 필요 |
+| Qwen/Qwen3-Reranker-8B | vLLM 0.21에서는 `--task score`, pooling과 템플릿 설정 필요 |
 
-**새 모델 추가**: `models:` 리스트에 항목 추가 (`id`/`role`/`gen`/`enabled`/`serve_args`). 측정 코드 수정 불필요.
+새 모델을 추가하려면 `models:` 목록에 항목을 넣기만 하면 됩니다. 측정 코드는 건드릴 필요가 없습니다.
+GPU를 여러 장 쓰려면 yaml 위쪽 `cuda_visible_devices`를 `"0,1"` 식으로 바꾸고 해당 모델 serve_args에
+`--tensor-parallel-size 2`를 넣습니다.
 
-**다중 GPU**: yaml 최상단 `cuda_visible_devices: "0,1"` + 해당 모델 `serve_args`에 `["--tensor-parallel-size","2"]`.
-
-### 공통 serve 인자 / sweep / memsweep grid
+공통 서버 인자와 측정 설정은 다음과 같습니다.
 
 ```yaml
 common_serve_args:           # 모든 모델에 적용
@@ -152,142 +131,121 @@ common_serve_args:           # 모든 모델에 적용
   - "0.0.0.0"
   - "--port"
   - "8000"
-  - "--enable-prefix-caching"   # NPU(furiosa-llm)와 동일하게 명시
+  - "--enable-prefix-caching"
 
 sweep:
   batch_sizes: [1, 2, 4, 8, 16, 32, 64, 128]
-  prompt_lens: [256, 1024, 4096]   # Qwen(4K)은 prompt 4096 셀 전건 실패 — NPU와 동일 거동
+  prompt_lens: [256, 1024, 4096]   # Qwen은 4K 한도라 4096 항목이 전부 실패함
   max_tokens: 256
   warmup_requests: 5
   measured_requests: 50
 
-memsweep:                    # NPU memsweep 8 combo와 직접 비교 가능하도록 축·값 정렬
+memsweep:                    # NPU memsweep과 비교할 수 있게 축을 맞춤
   baseline: {}
   axes:
     max_model_len: [4096, 8192, 16384]
-    max_num_seqs: [8, 32]            # NPU max_batch_size 대응
-    max_num_batched_tokens: [4096, 16384]   # NPU와 동일 키
+    max_num_seqs: [8, 32]            # NPU의 max_batch_size에 대응
+    max_num_batched_tokens: [4096, 16384]
 ```
 
-> `gpu_memory_utilization`은 NPU에 등가 옵션이 없어 비교용 memsweep에서 제외했다.
-> GPU 단독 메모리 튜닝이 필요하면 별도 yaml로 분리하면 된다.
+`gpu_memory_utilization`은 NPU에 대응하는 옵션이 없어서 비교용 memsweep에서는 뺐습니다.
 
----
+## 측정 실행
 
-## 5. 실행 단계
-
-`run_all.sh`는 단계로 나뉜다 — 환경변수 `STAGE`로 부분 실행 가능.
+`run_all.sh`는 단계로 나뉘어 있고, `STAGE` 환경변수로 일부만 실행할 수 있습니다.
 
 | STAGE | 내용 |
 |---|---|
-| `preflight` | GPU·vLLM·torch CUDA·Docker·HF 모델 가용성 점검 |
-| `smoke` | `preflight` + Qwen2.5-0.5B tps 1회 (~30s, 파이프라인 검증) |
-| `gen` | `preflight` + `smoke` + 모든 생성 모델 tps/sweep/memsweep |
-| `embed` | embedding/reranker 측정 |
-| `swebench` | SWE-bench 추론 + Docker 채점 (Docker 필요) |
-| `report` | `analyze.py` + `report.py` → CSV + REPORT.md |
-| `all` (기본) | preflight → smoke → gen → embed → swebench → report |
+| preflight | GPU, vLLM, Docker, 모델 접근 가능 여부 점검 |
+| smoke | 작은 모델로 tps 한 번 (약 30초, 파이프라인 점검) |
+| gen | 생성 모델 tps, sweep, memsweep 측정 |
+| embed | 임베딩·리랭커 측정 |
+| swebench | SWE-bench 추론과 채점 |
+| report | analyze와 report 실행, REPORT.md 생성 |
+| all (기본) | 위 전부 |
 
 ```bash
-# 단계별 실행
 STAGE=smoke ./run_all.sh
 STAGE=gen ./run_all.sh
 
-# 특정 모델/태스크만 (모델은 substring 매칭)
+# 특정 모델, 특정 항목만 (모델은 이름 일부로 지정)
 python orchestrator.py configs/models.yaml --tasks tps,sweep --models Llama-3.1-8B
 
 # 무엇이 실행될지 미리보기
 python orchestrator.py configs/models.yaml --tasks tps --dry-run
 ```
 
-### SWE-bench 환경변수 (orchestrator의 `swebench` 태스크)
+SWE-bench는 환경변수로 범위를 조정합니다.
 
 | 변수 | 기본값 | 의미 |
 |---|---|---|
-| `SWEBENCH_DATASET` | `princeton-nlp/SWE-bench_Lite_oracle` | 추론용 oracle 데이터셋 (text 컬럼에 프롬프트 prebuilt) |
-| `SWEBENCH_N` | `50` | 추론 인스턴스 수 (repo별 stratified). `0` 또는 미설정 시 전체 300 |
-| `SWEBENCH_MAXTOK` | `1024` | 응답 max_tokens |
-| `SWEBENCH_CONC` | `8` | 동시 추론 요청 수 |
-| `SWEBENCH_FILTER_CONTEXT` | `1` | 서버 max_model_len 초과 인스턴스 사전 제외 |
-| `SWEBENCH_MAX_INPUT_TOKENS` | (자동) | 입력 토큰 상한 override |
-| `SWEBENCH_DROP_INVALID_PATCH` | `0` | 형식상 깨진 diff를 빈 패치로 저장 |
-| `SWEBENCH_RETRY_INVALID` | `0` | 깨진 diff 재생성 횟수 |
+| SWEBENCH_DATASET | princeton-nlp/SWE-bench_Lite_oracle | 추론에 쓸 데이터셋 |
+| SWEBENCH_N | 50 | 측정할 인스턴스 수. 0이면 전체 300건 |
+| SWEBENCH_MAXTOK | 1024 | 응답 최대 토큰 |
+| SWEBENCH_CONC | 8 | 동시 추론 요청 수 |
+| SWEBENCH_FILTER_CONTEXT | 1 | 컨텍스트 한도를 넘는 인스턴스를 미리 제외 |
+| SWEBENCH_RETRY_INVALID | 0 | 형식이 깨진 패치를 다시 만드는 횟수 |
 
-예: 전체 300건을 8동시로:
+전체 300건을 측정하려면 이렇게 합니다.
 
 ```bash
 SWEBENCH_N=300 python orchestrator.py configs/models.yaml --tasks swebench
 bash eval_swebench.sh
 ```
 
----
-
-## 6. 결과 보기
+## 결과 보기
 
 ```bash
-python analyze.py                   # task별 결과 표 (stdout)
-python analyze.py --csv out.csv     # CSV
-python report.py                    # 종합 리포트 → REPORT.md
+python analyze.py                 # 항목별 결과를 표로 출력
+python analyze.py --csv out.csv   # CSV로 저장
+python report.py                  # 종합 리포트(REPORT.md) 생성
 ```
 
-원본 데이터 경로:
-- 측정 JSON: `results/<model_safe>/<task>/<timestamp>.json`
-- 서버 로그: `results/_server_logs/<model_safe>_<ts>.log`
-- 단계 로그: `results/_run_logs/{preflight,smoke,gen,embed,swebench,report}.log`
+측정 원본은 `results/<모델>/<항목>/<시각>.json`에, 서버 로그는 `results/_server_logs/`에,
+단계별 로그는 `results/_run_logs/`에 쌓입니다.
 
-`REPORT.md` 8 섹션: TL;DR → 단일 TPS → 스케일링 → memsweep → SWE-bench → embed/rerank → 권장 서빙 → 종합 점수.
+`REPORT.md`는 여덟 부분으로 나뉩니다. 핵심 지표 요약, 단일 요청 속도, 동시성 스케일링, 서버 옵션,
+SWE-bench, 임베딩·리랭커, 권장 설정, 종합 점수 순입니다. 종합 점수는 정확도(SWE-bench) 0.5,
+peak 처리량 0.3, 단일 속도 0.2의 가중합으로 계산하고, 각 지표는 측정 모델 중 최댓값을 기준으로
+정규화합니다.
 
-### 종합 점수(`report.py` §8) 공식
+## SWE-bench Lite 자세히 보기
 
-```
-score = 0.5 * (SWE-bench_resolved% / max)      # 정확도
-      + 0.3 * (peak_aggregate_TPS / max)        # 다중 사용자 처리량
-      + 0.2 * (single_TPS / max)                # 단일 사용자 속도
-```
+SWE-bench는 이 프로젝트에서 가장 복잡한 테스트라 따로 정리합니다.
+데이터셋은 [HuggingFace의 SWE-bench_Lite](https://huggingface.co/datasets/SWE-bench/SWE-bench_Lite),
+원 논문은 [Jimenez et al. 2023](https://arxiv.org/abs/2310.06770)입니다.
 
-(embedding/reranker·smoke 모델은 점수 계산에서 제외)
+### 한 줄로 말하면
 
----
+SWE-bench Lite는 실제 GitHub 이슈를 LLM이 코드 패치로 해결할 수 있는지를 실제 테스트로 채점하는
+벤치마크입니다. 객관식이 아니고, "코드가 잘 짜인 것 같다"는 식의 판단도 아닙니다. 모델이 만든 패치를
+진짜 저장소에 적용하고, 진짜 pytest를 돌려서, 그 결과로 점수가 매겨집니다.
 
-## 7. SWE-bench Lite 깊이 분석 — LLM을 어떻게 채점하나
+### 데이터셋 구조
 
-> 데이터셋 출처: [huggingface.co/datasets/SWE-bench/SWE-bench_Lite](https://huggingface.co/datasets/SWE-bench/SWE-bench_Lite)
-> 논문: [Jimenez et al. 2023 — *SWE-bench: Can Language Models Resolve Real-World GitHub Issues?*](https://arxiv.org/abs/2310.06770)
+테스트셋 300건과 개발셋 23건, 합쳐서 323건입니다. django, flask, sympy, scikit-learn, matplotlib,
+sphinx, pytest, requests, xarray, astropy, pylint 등 인기 있는 파이썬 저장소 11개에서 가져왔습니다.
+파일 크기는 1.22MB로 작은데, 코드 자체는 데이터셋에 없고 저장소 주소와 커밋 해시만 들어 있어서
+채점할 때 GitHub에서 코드를 받아옵니다.
 
-### 7.1 한 줄 요약
+각 인스턴스가 가진 정보는 이렇습니다.
 
-SWE-bench Lite는 **실제 GitHub 이슈를 LLM이 코드 패치로 해결할 수 있는지**를, **실제 테스트 슈트로** 채점하는 벤치마크다.
-객관식이 아니다. "이 코드 잘 짠 것 같아요"식 LLM-as-judge도 아니다. **모델이 만든 patch를 진짜 repo에 apply하고, 진짜 pytest를 돌려서, 그 결과로 점수가 매겨진다.**
+| 컬럼 | 내용 |
+|---|---|
+| instance_id | `astropy__astropy-12907` 형식의 식별자 |
+| repo | 저장소 이름 (`astropy/astropy`) |
+| base_commit | 이슈가 발생한 시점의 커밋 |
+| problem_statement | 이슈 제목과 본문. 모델 프롬프트로 들어감 |
+| patch | 사람이 만든 정답 패치 (테스트 코드 제외) |
+| test_patch | 정답 PR에 들어 있던 테스트 코드 |
+| FAIL_TO_PASS | 패치 전에는 실패하고 패치 후 통과해야 하는 테스트 목록 |
+| PASS_TO_PASS | 패치 전후 모두 통과해야 하는 테스트 목록 |
+| version, environment_setup_commit | 채점 환경을 만들 때 쓰는 정보 |
 
-### 7.2 데이터셋 구조
+### 모델에게 주는 입력과 받는 출력
 
-- **분할**: test 300건 + dev 23건 = 총 323건 (`load_dataset("princeton-nlp/SWE-bench_Lite", split="test")`)
-- **소스**: 11개 인기 Python repo (django, flask, sympy, scikit-learn, matplotlib, sphinx, pytest, requests, xarray, astropy, pylint 등)
-- **포맷**: parquet, 1.22 MB. 코드 자체는 데이터셋에 없고 `repo` + `base_commit`으로 GitHub에서 가져온다.
-
-각 인스턴스가 가진 컬럼:
-
-| 컬럼 | 내용 | 누가 쓰나 |
-|---|---|---|
-| `instance_id` | `astropy__astropy-12907` 형식의 식별자 | 모델 입력·채점 매칭 |
-| `repo` | `astropy/astropy` | Docker 이미지 선택 |
-| `base_commit` | 해당 이슈 발생 시점의 commit SHA | repo checkout |
-| `problem_statement` | 이슈 제목 + 본문 (원문 그대로) | **모델 프롬프트** |
-| `hints_text` | 이슈에 달린 사전 코멘트 (PR 전) | 보조 컨텍스트 (보통 미사용) |
-| `patch` | 사람이 만든 정답 PR 코드 patch (테스트 제외) | 채점 비교용·oracle context |
-| `test_patch` | 정답 PR에 포함된 테스트 patch | **채점**에 적용 |
-| `FAIL_TO_PASS` | 패치 전 fail → 패치 후 pass여야 하는 테스트 목록 (JSON) | **resolved 판정** |
-| `PASS_TO_PASS` | 패치 전후 모두 pass여야 하는 테스트 목록 | **회귀 판정** |
-| `version` | 환경 셋업에 쓸 repo 버전 | Docker 이미지 빌드 |
-| `environment_setup_commit` | 환경 셋업용 commit | venv·apt 의존성 결정 |
-
-### 7.3 모델에게 주는 입력 / 받는 출력
-
-**입력** (본 측정이 사용한 oracle 변형 기준):
-- 시스템 프롬프트: "expert software engineer. produce one valid unified diff patch."
-- 사용자 프롬프트(`text` 컬럼): `problem_statement` + **정답 patch가 수정한 파일들의 원문** + 패치 형식 가이드
-
-**출력**: **unified diff** 한 덩어리. 예:
+이 프로젝트가 쓰는 oracle 방식에서는, 모델에게 이슈 설명과 함께 정답 패치가 고친 파일들의 원본 코드를
+줍니다. 모델은 그 이슈를 해결하는 unified diff를 하나 만들어 돌려줍니다. 예를 들면 이런 형태입니다.
 
 ```diff
 diff --git a/astropy/modeling/separable.py b/astropy/modeling/separable.py
@@ -298,124 +256,110 @@ diff --git a/astropy/modeling/separable.py b/astropy/modeling/separable.py
 +        return _separable_compound(transform)
 ```
 
-본 프로젝트는 `swebench.inference.make_datasets.utils.extract_diff`로 응답에서 diff 블록만 추출하고,
-`runners/swebench_run.py::_patch_sanity_error`로 unified diff 구조 검증(`---`/`+++`/`@@` header, hunk 라인 카운트 일치)을 한 번 더 한다.
+본 프로젝트는 모델 응답에서 diff 부분만 추려내고(`extract_diff`), diff 구조가 제대로 됐는지
+한 번 더 확인합니다(`runners/swebench_run.py`의 `_patch_sanity_error`).
 
-### 7.4 컨텍스트 제공 방식 — oracle vs BM25 vs full
+### 컨텍스트를 주는 방식
 
-| 변형 | 모델이 보는 것 | 무엇을 측정하나 |
+SWE-bench에는 모델에게 코드를 얼마나 보여주느냐에 따라 세 가지 방식이 있습니다.
+
+| 방식 | 모델이 보는 것 | 측정하는 능력 |
 |---|---|---|
-| `oracle` | 정답 patch가 건드린 파일을 통째로 제공 | **순수 코드 편집·생성** — "올바른 파일이 있을 때 패치를 만들 수 있나" |
-| `bm25_13K` / `27K` / `40K` | BM25로 이슈와 관련 있는 파일을 N토큰 한도까지 검색해 제공 | 편집 + **검색** 능력 |
-| `full` | repo 전체 | 편집 + 검색 + 긴 컨텍스트 처리 |
+| oracle | 정답 패치가 고친 파일을 통째로 줌 | 순수한 코드 편집 능력 |
+| bm25 | 검색으로 관련 있어 보이는 파일을 토큰 한도까지 줌 | 편집 능력 + 검색 능력 |
+| full | 저장소 전체를 줌 | 편집 + 검색 + 긴 문맥 처리 |
 
-**본 측정은 `oracle` 사용** — 이유: NPU vs GPU 비교에서 검색 품질(embedding 모델 차이, BM25 인덱스 노이즈)이 변수로 들어오지 않게 하려는 것. "인프라가 같은 패치 생성 작업을 얼마나 빠르고 정확하게 처리하는가"만 본다.
+본 프로젝트는 oracle을 씁니다. NPU와 GPU를 비교할 때 검색 품질 같은 변수가 끼어들지 않게 하려는
+것입니다. 인프라가 같은 작업을 얼마나 빠르고 정확하게 처리하는지만 봅니다.
 
-대응 HF 데이터셋: `princeton-nlp/SWE-bench_Lite_oracle` (text 컬럼에 프롬프트 prebuilt).
+### 실행 방식
 
-### 7.5 실행 방식 — single-shot vs agentic
+한 번 호출해서 패치 하나를 받는 single-shot 방식과, 에이전트가 저장소를 탐색하고 수정하고 테스트하기를
+반복하는 agentic 방식이 있습니다. 리더보드 상위 점수는 대부분 agentic 방식인데, 본 프로젝트는
+single-shot을 씁니다. 에이전트 도구의 영향을 빼고 모델 자체의 능력을 봅니다.
 
-| 방식 | 흐름 | 본 측정 |
-|---|---|---|
-| **single-shot** | 1회 API 호출 → diff 1개 | ✅ 사용 |
-| **agentic** | LLM이 repo 탐색·편집·테스트·재시도 반복 (SWE-agent, Aider 등) | ❌ 미사용 |
+### 채점하는 방법
 
-리더보드 상위 점수는 거의 다 agentic이다. single-shot은 **모델 자체 능력의 lower bound**를 본다 — agent 프레임워크 변수 없이 모델만 평가.
+Docker 컨테이너 안에서 이런 순서로 진행됩니다. 먼저 base_commit으로 저장소를 받고, 환경을 설치하고,
+test_patch를 적용해 검증용 테스트를 추가합니다. 그다음 모델이 만든 패치를 적용하고,
+FAIL_TO_PASS와 PASS_TO_PASS 테스트를 모두 돌립니다.
 
-### 7.6 채점 메커니즘 — `FAIL_TO_PASS` / `PASS_TO_PASS`
+해결(resolved)로 인정받으려면 두 조건을 모두 만족해야 합니다. FAIL_TO_PASS 테스트가 전부 통과해서
+이슈가 실제로 해결됐고, PASS_TO_PASS 테스트도 전부 통과해서 기존 기능을 망가뜨리지 않았어야 합니다.
+하나라도 어기면 결과가 이렇게 나뉩니다.
 
-Docker 컨테이너 안에서 다음 순서로 실행된다:
-
-```
-1. base_commit으로 repo checkout
-2. environment_setup_commit 기준으로 venv·apt 의존성 설치
-3. test_patch 적용 → 이슈 검증용 테스트 추가
-4. model_patch 적용 → 모델이 만든 코드 변경 시도
-5. FAIL_TO_PASS + PASS_TO_PASS 테스트 전부 실행
-6. 결과 비교
-```
-
-**resolved 조건** (둘 다 만족해야 1점):
-- 모든 `FAIL_TO_PASS` 테스트가 **pass** (이슈가 실제로 해결됐다)
-- 모든 `PASS_TO_PASS` 테스트가 **pass** (기존 기능을 부수지 않았다)
-
-이 중 하나라도 어기면 카테고리로 분류:
-
-| 결과 | 의미 | 자주 보이는 케이스 |
-|---|---|---|
-| `resolved` | 위 두 조건 모두 OK | 만점 |
-| `unresolved` | patch는 적용됐지만 테스트 실패 | 코드는 변경됐으나 이슈 미해결 / 회귀 발생 |
-| `error` | patch apply 실패 (malformed diff, 잘못된 파일 경로 등) | **0.5B 모델이 가장 많이 막히는 지점** |
-| `empty_patch` | 모델이 빈 출력 | "모르겠음" |
-
-본 측정 결과(NPU 조건 정렬 후 — `REPORT.md` 참조):
-- Qwen2.5-0.5B-Instruct: resolved 0 / unresolved 1 / 적용실패 2 / **컨텍스트 제외 47** → 평가된 3건 중 0%
-- Llama-3.1-8B-Instruct: resolved 0 / unresolved 18 / 적용실패 29 / 컨텍스트 제외 3 → 평가된 47건 중 0%
-
-→ Qwen은 4K 컨텍스트라 oracle 프롬프트(평균 5K~30K 토큰) 47건이 사전 제외되고 3건만 평가됐다.
-8B는 47건이 평가됐지만 29건(62%)이 **적용실패** — 모델이 구조적으로 올바른 unified diff를 잘 못 만든다.
-두 모델 모두 resolved 0%지만, 같은 모델의 NPU 결과와 거의 일치한다 → 정확도는 디바이스 독립적임을
-보여준다. NPU vs GPU SWE-bench 대조는 [`../README_npu_gpu_result.md §6`](../README_npu_gpu_result.md#6-테스트-4--swe-bench-코드-수정-정확도) 참조.
-
-### 7.7 변형 데이터셋 비교
-
-| 데이터셋 | 인스턴스 | 특징 | 용도 |
-|---|--:|---|---|
-| `SWE-bench` (full) | 2,294 | 12개 Python repo 전체 | 원본·종합 평가 |
-| `SWE-bench_Lite` | **300** | 자체 완결적 버그만 큐레이션 | **저비용 평가용 (본 측정)** |
-| `SWE-bench_Verified` | 500 | 사람이 "해결 가능하고 테스트가 공정함"을 검증 | 신뢰도 최상 |
-| `SWE-bench_Multimodal` | 517 | JS/UI (시각 요소 포함) | 비전 LLM |
-| `SWE-bench_Multilingual` | 300 | 비-Python | 다언어 LLM |
-
-`Lite`를 고른 이유: 300건이라 8시간 안에 전체 추론·채점이 끝나고, 자체 완결적 버그만 모여 있어 single-shot oracle 평가에 적합하다.
-
-### 7.8 본 측정에서 본 한계와 우회
-
-| 한계 | 우회 |
+| 결과 | 의미 |
 |---|---|
-| `swebench.inference.run_api`는 OpenAI/Anthropic 모델명에 하드코딩(`MODEL_LIMITS`) | 자체 추론 루프 작성 (`runners/swebench_run.py`) — 로컬 OpenAI 호환 서버로 직접 호출 |
-| Lite 인스턴스 중 일부는 oracle text가 모델 max_model_len을 초과 | `_filter_by_context`로 server `/models`에서 max_model_len 읽어 사전 제외 → `n_filtered_context`로 카운트 |
-| 모델이 markdown fence/설명을 섞어 보내 patch apply 실패 | `extract_diff` + `_patch_sanity_error`로 diff만 추출 + 구조 검증 |
-| 작은 모델은 매번 깨진 diff 생성 | `SWEBENCH_RETRY_INVALID=N`으로 N회 재생성 가능 (기본 0 — single-shot 유지) |
+| resolved | 위 두 조건을 모두 만족. 만점 |
+| unresolved | 패치는 적용됐지만 테스트를 통과하지 못함 |
+| error | 패치 적용 자체가 실패 (형식이 깨진 diff 등) |
+| empty_patch | 모델이 빈 답을 냄 |
 
-### 7.9 본 측정 구성 한 줄 요약
+이 프로젝트의 측정 결과는 다음과 같습니다(`REPORT.md` 참고).
 
-> **dataset**: `princeton-nlp/SWE-bench_Lite_oracle`  ·  **subset**: repo별 stratified 50건
-> **mode**: single-shot · temperature=0.0 · max_tokens=1024 · concurrency=8
-> **grading**: `swebench.harness.run_evaluation` (Docker, `--namespace swebench` prebuilt 이미지 pull)
+- Qwen2.5-0.5B: 해결 0, 미해결 1, 적용 실패 2, 컨텍스트 초과로 제외 47건. 채점된 3건 중 0%
+- Llama-3.1-8B: 해결 0, 미해결 18, 적용 실패 29, 제외 3건. 채점된 47건 중 0%
 
----
+Qwen은 컨텍스트가 4K로 짧아 oracle 프롬프트(보통 5K~30K 토큰) 대부분이 들어가지 못해 47건이
+제외됐습니다. 8B는 47건을 채점했지만 그중 29건이 적용 실패였습니다. 모델이 형식에 맞는 unified diff를
+잘 만들지 못한다는 뜻입니다. 두 모델 모두 해결 0%인데, 같은 모델의 NPU 결과와 거의 일치합니다.
+정확도는 장비와 무관하다는 점을 보여줍니다. 자세한 NPU·GPU 대조는
+[../README_npu_gpu_result.md](../README_npu_gpu_result.md#테스트-4-코드-수정-정확도-swe-bench)에 있습니다.
 
-## 8. RNGD 버전과의 차이
+### 데이터셋 종류
 
-| 항목 | RNGD (`rngd-npu/`) | GPU (이 폴더) |
+| 데이터셋 | 건수 | 특징 |
+|---|--:|---|
+| SWE-bench (full) | 2,294 | 원본. 파이썬 저장소 12개 |
+| SWE-bench Lite | 300 | 풀기 비교적 명확한 버그만 추린 것. 이 프로젝트가 쓰는 것 |
+| SWE-bench Verified | 500 | 사람이 풀 수 있는 문제인지 검증함. 신뢰도가 가장 높음 |
+| SWE-bench Multimodal | 517 | 화면 요소가 있는 자바스크립트·UI |
+| SWE-bench Multilingual | 300 | 파이썬이 아닌 언어 |
+
+Lite를 고른 이유는 300건이라 8시간 안에 추론과 채점이 끝나고, 풀기 명확한 버그만 모여 있어
+single-shot oracle 평가에 맞기 때문입니다.
+
+### 측정하면서 손본 부분
+
+swebench 패키지의 `run_api`는 OpenAI나 Anthropic 모델 이름이 코드에 박혀 있어서 로컬 모델로는
+못 씁니다. 그래서 추론 루프를 따로 만들어 로컬 서버에 직접 요청합니다(`runners/swebench_run.py`).
+Lite 인스턴스 중 일부는 oracle 텍스트가 모델 컨텍스트 한도를 넘는데, 서버의 `/models`에서
+한도를 읽어 그런 인스턴스를 미리 제외합니다. 모델이 마크다운 표시나 설명을 섞어 보내면 패치 적용이
+실패하므로, diff만 추려내고 구조를 확인합니다.
+
+### 본 측정 설정 요약
+
+데이터셋은 `princeton-nlp/SWE-bench_Lite_oracle`, 50건을 저장소별로 고르게 뽑았습니다.
+방식은 single-shot, temperature 0, 응답 최대 1024 토큰, 동시 추론 8건입니다.
+채점은 `swebench.harness.run_evaluation`을 Docker로 돌리고, `--namespace swebench`로
+미리 빌드된 이미지를 받아 씁니다.
+
+## RNGD 버전과 다른 점
+
+| 항목 | RNGD (rngd-npu/) | GPU (이 폴더) |
 |---|---|---|
-| 서빙 | `furiosa-llm serve` | `vllm serve` |
-| 모델 | furiosa prebuilt 아티팩트 (`furiosa-ai/*`) | 원본 HF 모델 |
-| 디바이스 | NPU PE 고정 (tp 컴파일됨, `--devices npu:0`) | `CUDA_VISIBLE_DEVICES` + `--tensor-parallel-size` 자유 |
-| 컨텍스트 한도 | artifact 컴파일 시 고정 (Qwen 4K · Llama 32K) | `--max-model-len`으로 NPU 한도에 맞춤 |
-| serve 옵션 (memsweep) | `max-model-len`, `max-batch-size`, `max-num-batched-tokens` | `max-model-len`, `max-num-seqs`, `max-num-batched-tokens` |
-| 측정 러너 | 동일 — OpenAI 호환 API 공유 | 동일 — `tps/sweep/swebench/embed` 코드 공유 |
-| SWE-bench 흐름 | 동일 (`runners/swebench_run.py` 공유) | 동일 |
+| 서빙 | furiosa-llm serve | vllm serve |
+| 모델 | furiosa prebuilt 모델 | 원본 HuggingFace 모델 |
+| 디바이스 지정 | NPU PE 고정 (`--devices npu:0`) | `CUDA_VISIBLE_DEVICES`와 `--tensor-parallel-size` |
+| 컨텍스트 한도 | 모델 컴파일 시 고정 (Qwen 4K, Llama 32K) | `--max-model-len`으로 NPU에 맞춤 |
+| memsweep 옵션 | max-model-len, max-batch-size, max-num-batched-tokens | max-model-len, max-num-seqs, max-num-batched-tokens |
+| 측정 코드 | 동일 (OpenAI 호환 API 사용) | 동일 |
 
-서버 계층만 다르고 측정 코드는 100% 공유한다 — 측정 축이 같아 NPU/GPU 결과를 직접 비교 가능.
-실제 비교 분석은 [`../README_npu_gpu_result.md`](../README_npu_gpu_result.md) 참조.
+서버 계층만 다르고 측정 코드는 똑같이 씁니다. 측정 기준이 같으므로 NPU와 GPU 결과를 직접 비교할 수
+있습니다. 비교 분석은 [../README_npu_gpu_result.md](../README_npu_gpu_result.md)를 보시면 됩니다.
 
----
-
-## 9. 트러블슈팅
+## 문제 해결
 
 | 증상 | 조치 |
 |---|---|
-| `nvidia-smi` 없음 | NVIDIA 드라이버 설치 후 재부팅. Ubuntu: `sudo apt-get install -y nvidia-driver-560` |
-| vLLM import 실패 | `setup.sh` 재실행. `requirements.txt`가 vLLM 0.10.0+cu126 휠을 고정 — 드라이버 575+로 올리면 더 최신 vLLM 가능 |
-| `cudaErrorInsufficientDriver(35)` 샘플링 단계 | `run_all.sh`가 이미 `VLLM_USE_FLASHINFER_SAMPLER=0` 설정. flashinfer가 더 새 CUDA로 빌드돼 발생 |
-| vLLM 기동 OOM | 모델 `serve_args`에 `--max-model-len 8192` 또는 `--gpu-memory-utilization 0.85` 추가 |
-| gated 모델 403 | `hf auth login` + HuggingFace 웹에서 모델 페이지 라이선스 동의 |
-| 70B 안 올라감 | `--quantization fp8` (이미 yaml에 포함) 또는 다중 GPU `--tensor-parallel-size 2` |
-| 서버 기동 실패 일반 | `results/_server_logs/<model_safe>_*.log` 확인 |
-| SWE-bench 채점 단계 멈춤 | Docker 필요 — `docker info` 확인. 첫 실행은 prebuilt 이미지 pull로 수십 GB 다운로드 |
-| 임베딩/리랭커 task 오류 | vLLM 버전별 task 인자 차이 — 0.21은 `--runner pooling`, 이전은 `--task embed/score` |
-| `transformers` AttributeError | `requirements.txt`가 `transformers==4.53.2`로 고정. 최신으로 올리지 말 것 (vLLM 0.10.0과 토크나이저 API 불일치) |
+| nvidia-smi가 없음 | NVIDIA 드라이버 설치 후 재부팅 |
+| vLLM import 실패 | `setup.sh` 다시 실행. requirements.txt가 vLLM 0.10.0+cu126 휠로 고정돼 있음 |
+| 샘플링 단계에서 CUDA 드라이버 오류 | `run_all.sh`가 `VLLM_USE_FLASHINFER_SAMPLER=0`을 이미 설정함 |
+| vLLM 기동 중 메모리 부족 | 모델 serve_args에 `--max-model-len 8192`이나 `--gpu-memory-utilization 0.85` 추가 |
+| 접근 제한 모델 403 | `hf auth login` 후 HuggingFace 웹에서 라이선스 동의 |
+| 70B 모델이 안 올라감 | `--quantization fp8` 또는 GPU 여러 장 사용 |
+| 서버 기동 실패 | `results/_server_logs/`의 해당 모델 로그 확인 |
+| SWE-bench 채점이 멈춤 | Docker가 켜져 있는지 확인. 첫 실행은 이미지 받느라 수십 GB 다운로드 |
+| transformers 관련 오류 | requirements.txt가 `transformers==4.53.2`로 고정. 최신으로 올리지 말 것 |
 
-추가 SWE-bench 환경 셋업·트러블슈팅은 [`docs/SWEBENCH_SETUP.md`](docs/SWEBENCH_SETUP.md).
+SWE-bench 설치와 채점 명령은 [docs/SWEBENCH_SETUP.md](docs/SWEBENCH_SETUP.md)에 더 정리돼 있습니다.

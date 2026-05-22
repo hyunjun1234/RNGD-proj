@@ -1,246 +1,180 @@
-# Model_Benchmark — RNGD NPU vs NVIDIA GPU LLM 서빙 벤치마크
+# Model_Benchmark
 
-Furiosa **RNGD NPU**와 **NVIDIA GPU(vLLM)** 위에서 같은 모델·같은 측정 축으로 LLM 서빙 성능을 재고,
-NPU 도입의 정량적 근거를 만드는 자동화 프로젝트.
+Furiosa RNGD NPU와 NVIDIA GPU에서 같은 모델을 같은 방식으로 측정해, LLM 서빙 성능을 비교하는
+프로젝트입니다. NPU를 도입할 때 판단 근거가 될 수치를 만드는 것이 목적입니다.
 
-> **핵심 아이디어**: 측정 러너(`tps/sweep/swebench/embed`)는 **OpenAI 호환 API**를 통해 동일 코드로 동작한다.
-> 서버 계층(furiosa-llm vs vllm)만 바뀌므로 두 결과를 같은 표 위에 올려놓고 비교할 수 있다.
+측정 도구는 OpenAI 호환 API만 호출하기 때문에, 서버를 furiosa-llm으로 띄우든 vLLM으로 띄우든
+같은 코드로 측정할 수 있습니다. 덕분에 NPU와 GPU 결과를 같은 표 위에 놓고 비교할 수 있습니다.
+
+## 폴더 구성
 
 | 폴더 / 문서 | 내용 |
 |---|---|
-| [`README_npu_gpu_result.md`](README_npu_gpu_result.md) | **★ NPU vs GPU 결과 비교 분석** — 가장 먼저 볼 문서 |
-| [`rngd-npu/`](rngd-npu/README.md) | Furiosa RNGD NPU 벤치 (`furiosa-llm serve`) — 측정 본진 |
-| [`bench-gpu/`](bench-gpu/README.md) | NVIDIA GPU 벤치 (`vllm serve`) — 동일 측정 축 포팅 |
-| [`ppt/`](ppt/) | 발표 자료 (`pptxgenjs` 빌드) + 디자인 스펙(`Design.md`) + 폰트 + `RNGD_Benchmark.pdf` |
-
----
-
-## 📊 측정 결과 한눈에 — NPU vs GPU
-
-NPU(RNGD)와 GPU(A6000)에서 **같은 모델·같은 조건**으로 측정한 결과:
-
-1. **8B 모델 단일 사용자 속도는 NPU가 30% 빠르다** — Llama-3.1-8B 단일 출력 54.5(NPU) vs 41.9(GPU) tok/s. RNGD는 지연(latency) 최적화 디바이스.
-2. **동시 사용자 32명 부근에서 GPU가 역전** — c128에서 GPU가 66% 앞선다. A6000은 처리량(throughput) 최적화 디바이스.
-3. **코드 정확도(SWE-bench)는 둘 다 0%** — 정확도는 하드웨어가 아닌 모델 크기가 결정.
-
-→ 상세 분석: **[`README_npu_gpu_result.md`](README_npu_gpu_result.md)**
-
----
-
-## 목차
-
-1. [무엇을 측정했나 — 그리고 왜](#1-무엇을-측정했나--그리고-왜)
-2. [폴더 구조](#2-폴더-구조)
-3. [공용 환경 — Furiosa venv·모델 캐시](#3-공용-환경--furiosa-venv모델-캐시)
-4. [실행 흐름](#4-실행-흐름)
-5. **[SWE-bench 처음 시작하기 — 공식 quickstart 기반](#5-swe-bench-처음-시작하기--공식-quickstart-기반)**
-6. [결과·리포트 보는 법](#6-결과리포트-보는-법)
-
----
-
-## 1. 무엇을 측정했나 — 그리고 왜
-
-총 **5개 축**으로 측정. 각 축은 "사용자가 실제로 신경 쓰는 질문 하나"에 대응한다.
-
-| # | 태스크 | 질문 | 무엇으로 답하나 |
-|---|---|---|---|
-| 1 | `tps` | "혼자 쓸 때 얼마나 빠른가?" | concurrency=1로 TTFT(첫 토큰 지연), ITL(토큰 간 지연), 출력 TPS |
-| 2 | `sweep` | "동시 사용자 N명을 안정적으로 받을 수 있나?" | concurrency 1~128 × prompt 256/1024/4096 매트릭스로 처리량과 latency 동시 측정 |
-| 3 | `memsweep` | "기본 serve 옵션이 정말 최적인가?" | KV 캐시/배치/메모리 옵션 OFAT 스윕 (한 축씩) |
-| 4 | `swebench` | "이 모델이 실제로 코드를 고칠 수 있나?" | SWE-bench Lite oracle single-shot — 실제 GitHub 이슈를 패치로 해결한 비율 |
-| 5 | `embed`/`rerank` | "RAG 검색 단계는 얼마나 빨리 도나?" | embedding/reranker throughput (batch별) |
-
-### 왜 이 5개인가
-
-> **속도 + 정확도 + 운영성** 세 축을 모두 본다 — 어느 하나라도 빠지면 NPU 도입 결정에 답이 안 된다.
-
-#### 1·2번 — 속도 (tps + sweep)
-
-- **혼자 쓸 때(`tps`)와 다중 사용자(`sweep`)는 완전히 다른 시나리오**다.
-- 챗봇은 `tps`(체감 응답 속도)가 중요하고, 사내 코드 어시스턴트는 `sweep`(동시성 처리량)이 중요하다.
-- `sweep`에서 **처리량이 saturate되는 지점**과 **latency가 SLA를 깨는 지점**을 같이 본다 → 운영에서 "안전한 최대 동시성"이 나온다.
-
-#### 3번 — 운영 튜닝 여지 (memsweep)
-
-- vLLM/furiosa-llm 기본값이 정말 우리 워크로드에 맞는지는 미리 모른다.
-- `--max-model-len`을 줄이면 KV 캐시 메모리가 풀려 더 큰 배치를 받을 수 있는 **trade-off**가 있는데, 그 영향이 모델마다 다르다.
-- **OFAT(One-Factor-At-a-Time)** 로 한 축씩 움직여서 옵션 하나의 효과를 분리해 본다 — 전체 grid는 시간이 폭발하고, 결과 디버깅도 어렵다.
-
-#### 4번 — 정확도 (swebench)
-
-- **속도가 빨라도 코드 수정이 안 되면 무용지물**이다. 작은 모델(0.5B)은 단일 TPS가 250이지만 SWE-bench 0%다.
-- SWE-bench는 **실제 GitHub 이슈를 받아 실제 pytest로 채점**하는 — 산업계에서 가장 가까운 코드 벤치마크.
-- `oracle` + `single-shot`을 선택한 이유: NPU vs GPU 비교에서 **인프라 외 변수**(검색 품질·에이전트 프레임워크)를 빼고 모델 자체의 코드 편집 능력만 본다.
-
-#### 5번 — RAG 보조 (embed/rerank)
-
-- 코드 어시스턴트의 실제 파이프라인은 "embedding 검색 → rerank → LLM 생성"의 3단 구조.
-- 생성 모델만 빨라도 검색/rerank가 병목이면 전체가 느려진다 → 같은 디바이스에서 embedding/reranker도 잴 필요가 있다.
-
-### 사용한 모델
-
-NPU와 GPU 양쪽 모두 같은 두 생성 모델을 baseline으로 측정 — 비교의 기준선:
-
-| 모델 | 의도 | NPU id | GPU id | 컨텍스트(맞춤) |
-|---|---|---|---|--:|
-| `Qwen2.5-0.5B-Instruct` | smoke (파이프라인 검증) | `furiosa-ai/Qwen2.5-0.5B-Instruct` | `Qwen/Qwen2.5-0.5B-Instruct` | 4,096 |
-| `Llama-3.1-8B-Instruct` | 코드 생성 후보 (gated) | `furiosa-ai/Llama-3.1-8B-Instruct` | `meta-llama/Llama-3.1-8B-Instruct` | 32,768 |
-
-> **공정 비교를 위한 조건 정렬**: NPU prebuilt artifact의 컨텍스트 한도(Qwen 4K · Llama 32K)에 맞춰
-> GPU도 `--max-model-len`을 동일하게 고정했다. prefix caching·sweep 그리드·SWE-bench 설정도 일치.
-> 정렬 근거와 검증은 [`README_npu_gpu_result.md §2`](README_npu_gpu_result.md#2-비교가-공정한-이유--조건-정렬) 참조.
-
-- **임베딩/리랭커**(`Qwen3-Embedding-8B`·`Qwen3-Reranker-8B`)는 NPU에서 측정됨 — GPU 측은 보류(`enabled: false`).
-- **32B·70B**(`Qwen3-32B`·`EXAONE-4.0-32B`·`Llama-3.3-70B`)는 NPU prebuilt artifact가 `tensor_parallel=32`(RNGD 4카드)로 컴파일돼 현 2카드 환경에서 서빙 불가 → 제외. `configs/models.yaml`에 정의돼 있어 4카드 환경에서 `enabled: true`로 켜면 코드 수정 없이 측정된다.
-
----
-
-## 2. 폴더 구조
+| [README_npu_gpu_result.md](README_npu_gpu_result.md) | NPU와 GPU 결과를 비교한 문서. 먼저 읽어보면 좋습니다 |
+| [rngd-npu/](rngd-npu/README.md) | RNGD NPU 벤치마크 (furiosa-llm) |
+| [bench-gpu/](bench-gpu/README.md) | NVIDIA GPU 벤치마크 (vLLM) |
+| [ppt/](ppt/) | 발표 자료. `RNGD_Benchmark.pdf`와 빌드 스크립트 |
 
 ```
 Model_Benchmark/
-├── README.md                       # 이 문서 — 프로젝트 진입점
-├── README_npu_gpu_result.md        # ★ NPU vs GPU 결과 비교 분석
-├── rngd-npu/                       # ── NPU 벤치 ────────────────────
-│   ├── README.md                   #     상세 사용법
-│   ├── REPORT.md                   #     NPU 실측 결과 리포트 (자동 생성)
-│   ├── configs/models.yaml         #     모델·sweep·memsweep grid
-│   ├── orchestrator.py             #     모델 × 태스크 자동 실행
-│   ├── runners/                    #     tps/sweep/memsweep/swebench/embed
-│   ├── docs/                       #     SWE-bench 셋업, 모델 컴파일 가이드
-│   └── results/                    #     원본 측정 JSON + 로그
-├── bench-gpu/                      # ── GPU 벤치 (NPU 포트) ─────────
-│   ├── README.md                   #     상세 사용법 + SWE-bench 깊이 분석
-│   ├── REPORT.md                   #     GPU 실측 결과 리포트 (자동 생성)
-│   ├── configs/models.yaml         #     동일 구조 — vllm 인자 사용
-│   ├── orchestrator.py             #     NPU와 동일 — server 계층만 다름
-│   ├── runners/                    #     동일 측정 코드 (vllm 호환)
-│   ├── docs/SWEBENCH_SETUP.md
-│   └── results/                    #     _archive_pre_match/ = 조건 정렬 전 측정 보존
-└── ppt/                            # ── 발표 자료 ───────────────────
-    ├── Design.md                   #     디자인 스펙
-    ├── build.js                    #     pptxgenjs 빌드 스크립트
-    ├── RNGD_Benchmark.pdf           #     발표자료 (PDF)
-    └── RNGD_Benchmark.pptx          #     발표자료 (PowerPoint)
+├── README.md                  이 문서
+├── README_npu_gpu_result.md   NPU vs GPU 결과 비교
+├── rngd-npu/                  NPU 벤치마크
+│   ├── README.md
+│   ├── REPORT.md              측정 결과 리포트 (자동 생성)
+│   ├── configs/models.yaml    모델 목록과 측정 설정
+│   ├── orchestrator.py        모델별 테스트 자동 실행
+│   ├── runners/               테스트별 측정 코드
+│   └── results/               측정 결과 원본 (JSON)
+├── bench-gpu/                 GPU 벤치마크. 구조는 rngd-npu와 같음
+│   └── results/_archive_pre_match/   조건 정렬 전 측정 (보관용)
+└── ppt/
+    ├── RNGD_Benchmark.pdf
+    └── RNGD_Benchmark.pptx
 ```
 
-각 측정 폴더는 **자기 완결적**이다 — `bench-gpu/`만 들고 GPU 서버에 가서 `setup.sh` → `run_all.sh`로 끝난다.
+각 측정 폴더는 따로 떼어서 쓸 수 있습니다. `bench-gpu/` 폴더만 GPU 서버에 복사하면
+`setup.sh`로 환경을 만들고 `run_all.sh`로 측정까지 끝낼 수 있습니다.
 
----
+## 무엇을 측정했나
 
-## 3. 공용 환경 — Furiosa venv·모델 캐시
+다섯 가지를 측정했습니다. 각 항목은 실제로 궁금한 질문 하나에 대응합니다.
 
-### NPU 쪽
+| 테스트 | 질문 | 측정 내용 |
+|---|---|---|
+| 1. 토큰 생성 속도 | 혼자 쓸 때 얼마나 빠른가 | 요청 한 건의 첫 토큰 지연, 토큰 생성 속도 |
+| 2. 동시성 스케일링 | 동시 사용자 여러 명을 받을 수 있나 | 동시 요청 1~128명일 때의 처리량과 지연 |
+| 3. 서버 옵션 | 기본 설정이 최선인가 | 서버 옵션을 바꿔가며 처리량 변화 측정 |
+| 4. SWE-bench | 실제로 코드를 고칠 수 있나 | GitHub 이슈를 패치로 해결한 비율 |
+| 5. 임베딩 / 리랭커 | 검색 단계는 얼마나 빠른가 | 임베딩·리랭커 모델의 처리량 |
+
+### 왜 이렇게 측정하나
+
+속도, 정확도, 운영 편의성을 모두 봐야 NPU 도입 여부에 답할 수 있기 때문입니다.
+
+테스트 1과 2는 속도를 봅니다. 혼자 쓸 때의 속도와 동시 사용자가 많을 때의 속도는 완전히 다른 이야기입니다.
+챗봇은 한 사람의 응답 속도가 중요하고, 사내 코드 도구는 동시 처리량이 중요합니다. 동시성 측정에서는
+처리량이 한계에 다다르는 지점과 지연이 너무 길어지는 지점을 같이 보는데, 여기서 안전하게 받을 수 있는
+최대 동시 사용자 수가 나옵니다.
+
+테스트 3은 운영할 때 튜닝할 여지가 있는지를 봅니다. 서버 옵션의 기본값이 우리 작업에 맞는지는 미리 알 수 없어서,
+한 번에 한 가지 옵션만 바꿔가며 그 효과를 따로따로 확인합니다. 전체 조합을 다 돌리면 시간이 너무 오래 걸리고
+결과 해석도 어렵기 때문에 이 방식을 씁니다.
+
+테스트 4는 정확도를 봅니다. 속도가 빨라도 코드를 못 고치면 의미가 없습니다. SWE-bench는 실제 GitHub 이슈를
+받아 실제 테스트로 채점하기 때문에, 산업 현장에 가장 가까운 코드 평가입니다.
+
+테스트 5는 검색 보조 모델을 봅니다. 코드 어시스턴트는 보통 임베딩으로 관련 코드를 찾고, 리랭커로 순서를 매기고,
+LLM이 답을 만드는 3단계로 돕니다. 생성 모델만 빨라도 검색 단계가 느리면 전체가 느려지므로 같이 측정합니다.
+
+### 측정한 모델
+
+NPU와 GPU 모두 같은 두 모델을 측정했습니다.
+
+| 모델 | 역할 | NPU 모델 id | GPU 모델 id | 컨텍스트 |
+|---|---|---|---|--:|
+| Qwen2.5-0.5B-Instruct | 동작 확인용 | furiosa-ai/Qwen2.5-0.5B-Instruct | Qwen/Qwen2.5-0.5B-Instruct | 4,096 |
+| Llama-3.1-8B-Instruct | 코드 생성 후보 | furiosa-ai/Llama-3.1-8B-Instruct | meta-llama/Llama-3.1-8B-Instruct | 32,768 |
+
+NPU prebuilt 모델은 컴파일할 때 컨텍스트 길이가 고정됩니다. 공정하게 비교하려고 GPU 쪽도 같은 길이로
+맞췄습니다. 컨텍스트 외에 prefix caching, 동시성 측정 범위, SWE-bench 설정도 모두 일치시켰습니다.
+맞춘 근거는 [README_npu_gpu_result.md의 측정 조건 항목](README_npu_gpu_result.md#측정-조건을-맞춘-방법)에 정리해 두었습니다.
+
+임베딩·리랭커 모델(Qwen3-Embedding-8B, Qwen3-Reranker-8B)은 NPU에서만 측정했습니다.
+32B, 70B 모델은 NPU prebuilt가 RNGD 4카드를 요구해서 현재 2카드 환경에서는 빠졌습니다.
+`configs/models.yaml`에 정의는 되어 있어서, 4카드 환경이라면 `enabled: true`로 바꾸기만 하면
+코드 수정 없이 측정됩니다.
+
+## 측정 환경 준비
+
+NPU 쪽은 furiosa-llm이 설치된 가상환경이 필요합니다.
 
 ```bash
-# Furiosa SDK·furiosa-llm 설치된 venv 활성화 (NPU 측정의 전제)
 source ~/furiosa/bin/activate
 furiosa-llm --version
 furiosa-smi info
 ```
 
-### GPU 쪽
+GPU 쪽은 `bench-gpu/` 안에 별도 가상환경을 만듭니다.
 
 ```bash
-# 별도 venv (bench-gpu/.venv) — setup.sh가 생성
 cd bench-gpu
 bash setup.sh
 source .venv/bin/activate
 nvidia-smi
 ```
 
-### 공통
+모델 가중치는 HuggingFace 캐시(`~/.cache/huggingface/hub`)를 공유합니다.
+`meta-llama/*` 같은 접근 제한 모델은 양쪽 모두 `hf auth login`이 필요합니다.
+Docker는 SWE-bench 채점에만 쓰이고 다른 측정에는 필요 없습니다.
 
-- **모델 캐시**: HuggingFace는 `~/.cache/huggingface/hub` 공유. NPU/GPU 양쪽 모두 같은 가중치를 받는다.
-- **gated 모델**(`meta-llama/*`): 두 환경 모두 `hf auth login` 필요.
-- **Docker**: SWE-bench 채점에만 필요. 측정 자체에는 불필요.
+## 측정 실행
 
----
+측정은 `preflight → smoke → gen → embed → swebench → report` 순서로 진행됩니다.
+환경 점검을 하고, 작은 모델로 파이프라인이 도는지 확인한 뒤, 생성 모델을 측정하고,
+임베딩과 SWE-bench를 거쳐 마지막에 리포트를 만듭니다.
 
-## 4. 실행 흐름
-
-NPU와 GPU 각각 동일 흐름:
-
-```
-preflight  →  smoke  →  gen  →  embed  →  swebench  →  report
-   ↑             ↑        ↑          ↑           ↑           ↑
-환경 점검    파이프라인   tps+sweep   embedding   추론+채점   REPORT.md
-(GPU/NPU·    검증(작은    +memsweep   /reranker  (Docker)    자동 생성
- SDK·docker  모델 1회)   (생성 모델)
- ·HF 모델)
-```
-
-각 단계는 환경변수 `STAGE`로 분리 실행 가능:
+`STAGE` 환경변수로 일부만 실행할 수 있습니다.
 
 ```bash
-STAGE=smoke ./run_all.sh        # 30초 — 파이프라인이 망가지지 않았는지만 확인
-STAGE=gen ./run_all.sh          # 생성 모델 전부 (수 시간)
-STAGE=swebench ./run_all.sh     # 추론 + 채점만 (수 시간 — 첫 실행은 Docker 빌드/pull 시간 추가)
-STAGE=report ./run_all.sh       # JSON 결과 → REPORT.md만 다시 생성
+STAGE=smoke ./run_all.sh        # 30초, 파이프라인 점검만
+STAGE=gen ./run_all.sh          # 생성 모델 측정 (수 시간)
+STAGE=swebench ./run_all.sh     # SWE-bench 추론과 채점만
+STAGE=report ./run_all.sh       # 결과 JSON으로 REPORT.md만 다시 생성
 ```
 
-자세한 환경변수·플래그·트러블슈팅은 각 폴더 README를 본다.
+자세한 옵션과 문제 해결은 각 폴더의 README를 참고하시면 됩니다.
 
----
+## SWE-bench 처음 시작하기
 
-## 5. SWE-bench 처음 시작하기 — 공식 quickstart 기반
+SWE-bench는 이 프로젝트에서 가장 복잡한 테스트라 따로 정리합니다. 본 프로젝트의 `orchestrator.py`가
+이 과정을 자동으로 처리하지만, 원리를 알아두면 문제가 생겼을 때 대응하기 쉽습니다.
+공식 안내는 [swebench.com 빠른 시작](https://www.swebench.com/SWE-bench/guides/quickstart/)에 있습니다.
 
-> 출처: [swebench.com/SWE-bench/guides/quickstart](https://www.swebench.com/SWE-bench/guides/quickstart/) · [github.com/SWE-bench/SWE-bench](https://github.com/SWE-bench/SWE-bench)
->
-> 이 섹션은 SWE-bench를 처음 접하는 사람이 **30분 안에 첫 채점 결과를 본 적이 있다고 말할 수 있게** 한다.
-> 본 프로젝트에서는 `rngd-npu/` · `bench-gpu/`의 `orchestrator swebench` 태스크가 이 흐름을 자동화하지만, 원리를 알면 디버깅이 쉬워진다.
+### SWE-bench가 무엇인가
 
-### 5.1 SWE-bench를 한 문장으로
+LLM이 GitHub 이슈를 코드 패치로 해결할 수 있는지를, 실제 테스트로 채점하는 벤치마크입니다.
+객관식이 아니라 실행으로 확인합니다. 모델이 만든 코드가 표면적으로 그럴듯한지가 아니라,
+실제로 동작하는지를 봅니다.
 
-> "**LLM이 GitHub 이슈를 코드 패치로 해결할 수 있는지를, 실제 pytest로 채점하는** 벤치마크."
+### 준비물
 
-객관식이 아니라 **실행 기반(execution-based)** 평가다 → 모델 출력의 표면적 유사성이 아니라 "코드가 실제로 동작하는가"를 본다.
+| 항목 | 이유 |
+|---|---|
+| x86_64 리눅스 | 채점 도구가 Docker 이미지를 만듭니다 |
+| 실행 중인 Docker | 인스턴스마다 격리된 컨테이너에서 테스트를 돌립니다 |
+| Python 3.10 이상 | swebench 패키지가 요구합니다 |
+| 디스크 100GB 이상 | Docker 이미지와 인스턴스별 코드가 쌓입니다 |
 
-### 5.2 사전 준비물
+macOS나 ARM은 공식 지원이 아닙니다. 이 프로젝트는 x86_64 리눅스를 전제로 합니다.
 
-| 항목 | 왜 필요 | 확인 |
-|---|---|---|
-| Linux x86_64 | swebench harness가 Docker 이미지를 만든다 | `uname -m` → `x86_64` |
-| Docker (실행 중) | 인스턴스별 격리 컨테이너에서 테스트 실행 | `docker info` |
-| Python 3.10+ | swebench 패키지 의존 | `python --version` |
-| 디스크 ~120GB | prebuilt Docker 이미지 + 인스턴스별 코드 | `df -h .` |
-| (옵션) HF 토큰 | gated 모델 사용 시 | `hf auth login` |
+### 30분 안에 첫 채점 결과 보기
 
-> ⚠️ **macOS / ARM은 비공식 지원**. 본 측정은 x86_64 Linux 전제.
-
-### 5.3 30분 워크스루 — 0건에서 채점 결과까지
-
-#### 1단계. 설치 (한 번)
+먼저 swebench를 설치합니다.
 
 ```bash
-# 옵션 A: 안정 버전
 pip install swebench
-
-# 옵션 B: 최신 main (개발용)
+# 또는 최신 버전이 필요하면
 git clone https://github.com/SWE-bench/SWE-bench.git
 cd SWE-bench && pip install -e .
 ```
 
-#### 2단계. 데이터셋 로드해 보기
+데이터셋을 불러와 구조를 살펴봅니다.
 
 ```python
 from datasets import load_dataset
 
-# 300건 Lite (저비용 평가용 — 본 측정이 쓰는 것)
+# 300건짜리 Lite 데이터셋. 이 프로젝트가 쓰는 데이터셋입니다.
 ds = load_dataset("princeton-nlp/SWE-bench_Lite", split="test")
 print(len(ds), ds.column_names)
-# 300, ['repo', 'instance_id', 'base_commit', 'patch', 'test_patch',
-#       'problem_statement', 'hints_text', 'created_at', 'version',
-#       'FAIL_TO_PASS', 'PASS_TO_PASS', 'environment_setup_commit']
 
-# 추론용 oracle (text 컬럼에 프롬프트가 prebuilt돼 있음)
+# 추론용 oracle 데이터셋. text 컬럼에 프롬프트가 미리 들어 있습니다.
 ds_oracle = load_dataset("princeton-nlp/SWE-bench_Lite_oracle", split="test")
 print(ds_oracle[0]["text"][:500])
 ```
 
-#### 3단계. gold patch로 "harness 자체가 동작하는가" 검증
-
-모델 없이도 정답 patch(`gold`)로 채점기를 굴려볼 수 있다 — 환경이 깨졌는지 가장 빨리 확인하는 방법:
+모델 없이 정답 패치로 채점기가 제대로 도는지 먼저 확인하면 좋습니다. 환경이 망가졌는지를
+가장 빨리 알 수 있는 방법입니다.
 
 ```bash
 python -m swebench.harness.run_evaluation \
@@ -251,25 +185,20 @@ python -m swebench.harness.run_evaluation \
     --run_id validate-gold
 ```
 
-`gold`는 정답 patch라서 **resolved=1**이 나와야 정상이다. 안 나오면 Docker / 디스크 / 권한 문제.
+`gold`는 정답 패치라서 해결 1건이 나와야 정상입니다. 안 나오면 Docker나 디스크,
+권한 문제일 가능성이 높습니다.
 
-#### 4단계. 예측 파일 만들기 (`predictions.jsonl`)
-
-채점기는 **한 줄에 한 인스턴스**의 JSONL을 받는다:
+다음으로 모델이 만든 패치를 담은 예측 파일을 만듭니다. 한 줄에 인스턴스 하나씩 들어가는 JSONL 형식입니다.
 
 ```jsonl
-{"instance_id": "astropy__astropy-12907", "model_name_or_path": "my-model", "model_patch": "diff --git a/...\n--- a/...\n+++ b/...\n@@ ... @@\n..."}
-{"instance_id": "django__django-13551",  "model_name_or_path": "my-model", "model_patch": "diff --git a/...\n..."}
+{"instance_id": "astropy__astropy-12907", "model_name_or_path": "my-model", "model_patch": "diff --git a/...\n..."}
 ```
 
-필수 키 3개:
-- `instance_id` — 데이터셋의 인스턴스 식별자와 정확히 일치
-- `model_name_or_path` — 보고서에 모델 이름이 들어가는 용도
-- `model_patch` — **valid unified diff** 문자열 (markdown 펜스·설명 금지)
+`instance_id`는 데이터셋의 식별자와 정확히 같아야 하고, `model_patch`에는 형식에 맞는 unified diff
+문자열이 들어가야 합니다. 마크다운 표시나 설명을 섞으면 안 됩니다. 본 프로젝트에서는
+`runners/swebench_run.py`가 로컬 서버에 프롬프트를 보내고 응답에서 diff만 추려 이 형식으로 저장합니다.
 
-> 본 프로젝트는 `runners/swebench_run.py`가 로컬 OpenAI 호환 서버(furiosa-llm 또는 vllm)에 oracle 텍스트를 보내고 `extract_diff`로 diff만 추려서 이 포맷으로 자동 저장한다.
-
-#### 5단계. 채점 실행
+이제 채점을 실행합니다.
 
 ```bash
 python -m swebench.harness.run_evaluation \
@@ -281,111 +210,45 @@ python -m swebench.harness.run_evaluation \
     --run_id my_first_eval
 ```
 
-**주요 플래그**:
+`--namespace swebench`는 미리 빌드된 Docker 이미지를 받아오는 옵션입니다. 이 옵션이 없으면
+12개 저장소의 기본 이미지를 직접 빌드하느라 몇 시간이 걸리므로, 항상 켜는 것이 좋습니다.
+`--max_workers`는 동시에 돌릴 컨테이너 수인데, 워커마다 메모리를 몇 GB씩 쓰므로 메모리에 맞춰 정합니다.
 
-| 플래그 | 의미 | 권장값 |
-|---|---|---|
-| `--dataset_name` | 채점에 쓸 데이터셋 | `princeton-nlp/SWE-bench_Lite` (추론과 일치) |
-| `--predictions_path` | jsonl 경로. 특수값 `gold`는 정답 patch | 직접 만든 jsonl |
-| `--max_workers` | 동시 컨테이너 수 | CPU/16, 메모리/8GB 중 작은 값 |
-| `--namespace swebench` | Docker Hub의 **prebuilt 이미지를 pull** — 12개 repo × N개 버전 base 이미지를 로컬 빌드하는 수 시간을 절약 | 항상 `swebench` 권장 |
-| `--cache_level env` | 환경 이미지까지만 캐시(인스턴스 이미지는 재사용 안 함) | `env`(기본) 또는 `instance`(디스크 더 씀, 재실행 빠름) |
-| `--run_id` | 결과 파일명에 들어감 | `<날짜>_<모델>` 같이 식별 가능하게 |
-| `--instance_ids ID1 ID2 ...` | 일부만 채점 | 디버깅 시 |
+채점이 끝나면 요약 리포트(`<모델이름>.<run_id>.json`)와 인스턴스별 실행 로그가 생깁니다.
+요약 리포트에는 전체 건수, 해결 건수, 미해결 건수, 적용 실패 건수가 들어 있고,
+해결 건수를 전체 건수로 나눈 값이 모델 점수입니다.
 
-#### 6단계. 결과 읽기
+문제가 생기면 다음 순서로 확인합니다. 먼저 정답 패치(`gold`)로 다시 채점해서 환경 문제인지
+모델 문제인지 가립니다. 그다음 실패한 인스턴스의 로그(`logs/run_evaluation/.../run_instance.log`)를
+열어봅니다. 패치 형식이 깨졌다면 모델 응답에 마크다운 표시나 설명이 섞이지 않았는지 봅니다.
+컨테이너를 만들 때 메모리가 부족하면 `--max_workers`를 줄입니다.
 
-채점이 끝나면 두 파일이 생긴다:
+### 데이터셋 종류
 
-```
-<model_name_or_path safe>.<run_id>.json      # 요약 리포트
-logs/run_evaluation/<run_id>/<model>/<instance>/   # 인스턴스별 실행 로그
-```
-
-요약 리포트 핵심 필드:
-
-```json
-{
-  "total_instances": 50,
-  "submitted_instances": 50,
-  "completed_instances": 17,        // patch가 적용되어 테스트까지 돈 수
-  "resolved_instances": 0,          // 이슈 해결한 수 (resolved=만점)
-  "unresolved_instances": 17,       // 적용됐으나 테스트 실패
-  "empty_patch_instances": 0,       // 빈 patch
-  "error_instances": 33,            // patch apply 실패 (malformed diff 등)
-  "resolved_ids": [],
-  "unresolved_ids": ["..."],
-  "error_ids": ["..."]
-}
-```
-
-**resolved 비율** = `resolved_instances / total_instances` — 이게 모델 점수.
-
-#### 7단계. 막혔을 때 디버깅 순서
-
-1. **gold로 다시 검증** — 환경이 깨진 건지 모델 문제인지 분리
-2. **error 인스턴스 하나 골라 로그 보기** — `logs/run_evaluation/<run_id>/<model>/<instance>/test_output.txt` / `report.json`
-3. **invalid patch면 모델 응답 본문 확인** — markdown 펜스·설명문이 섞였는지, `---`/`+++`/`@@` 줄이 있는지
-4. **Docker 컨테이너 만들 때 OOM 나면** — `--max_workers` 줄이기 (각 워커가 수 GB 사용)
-5. **인스턴스 이미지 pull 실패** — `docker pull swebench/sweb.eval.x86_64.<repo>__<instance>:latest` 수동 시도
-
-### 5.4 변형 / 더 어려운 평가
-
-| 데이터셋 | 사용 시점 |
+| 데이터셋 | 쓰는 경우 |
 |---|---|
-| `SWE-bench_Lite` (300) | **처음 평가** — 비용·시간 적당 |
-| `SWE-bench_Verified` (500) | 신뢰도 최상 — 사람이 "해결 가능 + 테스트 공정"을 검증 |
-| `SWE-bench` (2,294) | 종합 점수 비교 — 시간 많이 듬 |
-| `SWE-bench_Multimodal` (517) | 비전 LLM (JS/UI) |
-| `SWE-bench_Multilingual` (300) | 비-Python |
+| SWE-bench Lite (300건) | 처음 평가할 때. 비용과 시간이 적당합니다 |
+| SWE-bench Verified (500건) | 사람이 검증한 데이터라 신뢰도가 가장 높습니다 |
+| SWE-bench (2,294건) | 종합 점수를 비교할 때. 시간이 많이 듭니다 |
+| SWE-bench Multimodal (517건) | 화면 요소가 있는 자바스크립트·UI 평가 |
 
-### 5.5 본 프로젝트에서 한 줄 실행
-
-자동화된 본 프로젝트 파이프라인에서는 위 4·5단계가 한 줄로 끝난다:
+본 프로젝트의 자동화 파이프라인에서는 위 과정이 한 줄로 끝납니다.
 
 ```bash
-# NPU
 cd rngd-npu && SWEBENCH_N=50 python orchestrator.py configs/models.yaml --tasks swebench
 bash eval_swebench.sh
-
-# GPU
-cd bench-gpu && SWEBENCH_N=50 python orchestrator.py configs/models.yaml --tasks swebench
-bash eval_swebench.sh
 ```
 
-데이터셋·context 방식·channel별 세부 작동 원리는 [`bench-gpu/README.md §7`](bench-gpu/README.md#7-swe-bench-lite-깊이-분석--llm을-어떻게-채점하나) 참조.
+SWE-bench의 동작 원리는 [bench-gpu/README.md](bench-gpu/README.md)에 더 자세히 정리해 두었습니다.
 
----
+## 결과 보기
 
-## 6. 결과·리포트 보는 법
-
-각 폴더의 `REPORT.md`가 자동 생성되는 8-섹션 비교 리포트다:
-
-1. **TL;DR** — 모델별 핵심 지표 한 표
-2. **단일 요청 토큰 속도** (`tps`)
-3. **배치/동시성 스케일링** (`sweep`, prompt_len=1024 기준)
-4. **serve 옵션 스윕** (`memsweep`)
-5. **SWE-bench** — resolved / unresolved / error / 빈 패치 / 컨텍스트 제외 카운트
-6. **Embedding / Reranker** — batch별 throughput
-7. **GPU/NPU & 동시 접속자별 권장 서빙 설정**
-8. **종합 점수** — `정확도 0.5 + peak TPS 0.3 + 단일 TPS 0.2` 가중합
-
-원본 데이터:
+각 폴더의 `REPORT.md`가 측정 결과를 정리한 리포트입니다. 모델별 핵심 지표, 단일 요청 속도,
+동시성 스케일링, 서버 옵션, SWE-bench, 임베딩·리랭커 처리량, 권장 설정, 종합 점수 순으로 들어 있습니다.
 
 ```bash
-# CSV로 모든 task 결과 일괄 export
-python analyze.py --csv all.csv
-
-# 종합 리포트 다시 생성
-python report.py
+python analyze.py --csv all.csv   # 모든 측정 결과를 CSV로 내보내기
+python report.py                  # REPORT.md 다시 생성
 ```
 
----
-
-## 다음 단계
-
-- **NPU vs GPU 결과 비교** → [`README_npu_gpu_result.md`](README_npu_gpu_result.md)
-- NPU 실행 → [`rngd-npu/README.md`](rngd-npu/README.md)
-- GPU 실행 → [`bench-gpu/README.md`](bench-gpu/README.md)
-- SWE-bench 깊이 이해 → [`bench-gpu/README.md §7`](bench-gpu/README.md#7-swe-bench-lite-깊이-분석--llm을-어떻게-채점하나)
-- 발표 자료 → [`ppt/RNGD_Benchmark.pdf`](ppt/RNGD_Benchmark.pdf)
+NPU와 GPU 결과를 함께 보려면 [README_npu_gpu_result.md](README_npu_gpu_result.md)를 참고하시면 됩니다.

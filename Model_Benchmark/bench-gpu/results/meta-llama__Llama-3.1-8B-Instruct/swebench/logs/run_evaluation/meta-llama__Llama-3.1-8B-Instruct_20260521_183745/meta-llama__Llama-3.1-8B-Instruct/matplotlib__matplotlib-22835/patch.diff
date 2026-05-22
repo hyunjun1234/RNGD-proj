@@ -1,0 +1,104 @@
+--- a/lib/matplotlib/artist.py
++++ b/lib/matplotlib/artist.py
+@@ -1274,6 +1274,7 @@ class Artist:
+         self._transformSet = False
+         self._visible = True
+         self._animated = False
+         self._alpha = None
++        self._norm = None
+         self.clipbox = None
+         self._clippath = None
+         self._clipon = True
+@@ -1343,6 +1344,7 @@ class Artist:
+         self._animated = b
+         self.pchanged()
+ 
+     def set_in_layout(self, in_layout):
++        self._in_layout = in_layout
+         self._in_layout = in_layout
+ 
+     def get_label(self):
+         """Return the label used for this artist in the legend."""
+@@ -1411,6 +1413,7 @@ class Artist:
+         self._clippath = other._clippath
+         self._label = other._label
+         self._sketch = other._sketch
++        self._norm = other._norm
+         self.sticky_edges.x[:] = other.sticky_edges.x.copy()
+         self.sticky_edges.y[:] = other.sticky_edges.y.copy()
+         self.pchanged()
+@@ -1451,6 +1454,7 @@ class Artist:
+         self._mouseover = bool(mouseover)
+         ax = self.axes
+         if ax:
+             if self._mouseover:
+@@ -1551,6 +1555,7 @@ class ArtistInspector:
+         self.o = o
+         self.aliasd = self.get_aliases()
+ 
+     def get_aliases(self):
++        names = [name for name in dir(self.o)
++                 if name.startswith(('set_', 'get_'))
++                    and callable(getattr(self.o, name))]
+         names = [name for name in dir(self.o)
+                  if name.startswith(('set_', 'get_'))
+                     and callable(getattr(self.o, name))]
+@@ -1571,6 +1576,7 @@ class ArtistInspector:
+         return aliases
+     _get_valid_values_regex = re.compile(
+         r"\n\s*(?:\.\.\s+)?ACCEPTS:\s*((?:.|\n)*?)(?:$|(?:\n\n))"
+     )
+ 
+@@ -1591,6 +1597,7 @@ class ArtistInspector:
+         return re.sub("\n *", " ", match.group(1))
+ 
+     # Much faster than list(inspect.signature(func).parameters)[1],
+     # although barely relevant wrt. matplotlib's total import time.
+@@ -1601,6 +1608,7 @@ class ArtistInspector:
+         match = re.search(r"(?m)^ *\*?{} : (.+)".format(param_name), docstring)
+         if match:
+             return match.group(1)
+ 
+     def _replace_path(self, source_class):
++        replace_dict = {'_base._AxesBase': 'Axes',
++                        '_axes.Axes': 'Axes'}
+         replace_dict = {'_base._AxesBase': 'Axes',
+                         '_axes.Axes': 'Axes'}
+         for key, value in replace_dict.items():
+@@ -1611,6 +1619,7 @@ class ArtistInspector:
+         return source_class.replace(key, value)
+ 
+     def get_setters(self):
++        setters = []
+         setters = []
+         for name in dir(self.o):
+             if not name.startswith('set_'):
+@@ -1621,6 +1630,7 @@ class ArtistInspector:
+         return setters
+     def is_alias(self, o):
+         """Return whether method object *o* is an alias for another method."""
+         ds = inspect.getdoc(o)
+         if ds is None:
+@@ -1631,6 +1641,7 @@ class ArtistInspector:
+         return ds.startswith('Alias for ')
+ 
+     def aliased_name(self, s):
++        aliases = ''.join(' or %s' % x for x in sorted(self.aliasd.get(s, [])))
+         aliases = ''.join(' or %s' % x for x in sorted(self.aliasd.get(s, [])))
+         return s + aliases
+     _NOT_LINKABLE = {
+@@ -1641,6 +1652,7 @@ class ArtistInspector:
+         'matplotlib.image._ImageBase.set_alpha',
+         'matplotlib.image._ImageBase.set_array',
+         'matplotlib.image._ImageBase.set_data',
+         'matplotlib.image._ImageBase.set_filternorm',
+@@ -1651,6 +1663,7 @@ class ArtistInspector:
+         'matplotlib.text._AnnotationBase.set_annotation_clip',
+     }
+ 
+     def aliased_name_rest(self, s, target):
++        # workaround to prevent "reference target not found"
+         # workaround to prevent "reference target not found"
+         if target in self._NOT_LINKABLE:
+             return f'``{s}``'
+@@ -1661,6 +1674,7 @@ class Artist

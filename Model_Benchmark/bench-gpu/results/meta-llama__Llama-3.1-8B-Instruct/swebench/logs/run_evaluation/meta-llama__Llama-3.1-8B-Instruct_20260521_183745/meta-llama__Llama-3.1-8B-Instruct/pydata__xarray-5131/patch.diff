@@ -1,0 +1,104 @@
+--- a/xarray/core/groupby.py
++++ b/xarray/core/groupby.py
+@@ -439,7 +439,7 @@
+         return "{}, grouped over {!r} \n{!r} groups with labels {}.".format(
+             self.__class__.__name__,
+             self._unique_coord.name,
+-            self._unique_coord.size,
++            self._unique_coord.size,
+             ", ".join(format_array_flat(self._unique_coord, 30).split()),
+         )
+ 
+     def _get_index_and_items(self, index, grouper):
+@@ -446,7 +446,7 @@
+         full_index, first_items = self._get_index_and_items(index, grouper)
+         sbins = first_items.values.astype(np.int64)
+         group_indices = [slice(i, j) for i, j in zip(sbins[:-1], sbins[1:])] + [
+-            slice(sbins[-1], None)
++            slice(sbins[-1], None)
+         ]
+         unique_coord = IndexVariable(group.name, first_items.index)
+     elif group.dims == (group.name,) and _unique_and_monotonic(group):
+         # no need to factorize
+         group_indices = np.arange(group.size)
+         if not squeeze:
+             # use slices to do views instead of fancy indexing
+             # equivalent to: group_indices = group_indices.reshape(-1, 1)
+             group_indices = [slice(i, i + 1) for i in group_indices]
+         unique_coord = group
+     else:
+         if group.isnull().any():
+             # drop any NaN valued groups.
+             # also drop obj values where group was NaN
+             # Use where instead of reindex to account for duplicate coordinate labels.
+             obj = obj.where(group.notnull(), drop=True)
+             group = group.dropna(group_dim)
+ 
+@@ -456,7 +456,7 @@
+             unique_values, group_indices = unique_value_groups(
+                 group_as_index, sort=sort
+             )
+             unique_coord = IndexVariable(group.name, unique_values)
+-        if len(group_indices) == 0:
++        if len(group_indices) == 0:
+             if bins is not None:
+                 raise ValueError(
+                     "None of the data falls within bins with edges %r" % bins
+@@ -467,7 +467,7 @@
+         # specification for the groupby operation
+         self._obj = obj
+         self._group = group
+         self._group_dim = group_dim
+-        self._group_indices = group_indices
++        self._group_indices = group_indices
+         self._unique_coord = unique_coord
+         self._stacked_dim = stacked_dim
+         self._inserted_dims = inserted_dims
+         self._full_index = full_index
+@@ -476,7 +476,7 @@
+         self._dims = None
+ 
+     @property
+-    def groups(self):
++    def groups(self):
+         """
+         Mapping from group labels to indices. The indices can be used to index the underlying object.
+         """
+         # provided to mimic pandas.groupby
+@@ -485,7 +485,7 @@
+         return self._groups
+     def __getitem__(self, key):
+         """
+         Get DataArray or Dataset corresponding to a particular group label.
+@@ -494,7 +494,7 @@
+         return self._obj.isel({self._group_dim: self.groups[key]})
+     def __len__(self):
+         return self._unique_coord.size
+-    def __iter__(self):
++    def __iter__(self):
+         return zip(self._unique_coord.values, self._iter_grouped())
+     def __repr__(self):
+         return "{}, grouped over {!r} \n{!r} groups with labels {}.".format(
+@@ -503,7 +503,7 @@
+         return "{}, grouped over {!r} \n{!r} groups with labels {}.".format(
+             self.__class__.__name__,
+             self._unique_coord.name,
+-            self._unique_coord.size,
++            self._unique_coord.size,
+             ", ".join(format_array_flat(self._unique_coord, 30).split()),
+         )
+ 
+     def _get_index_and_items(self, index, grouper):
+@@ -510,7 +510,7 @@
+         full_index, first_items = self._get_index_and_items(index, grouper)
+         sbins = first_items.values.astype(np.int64)
+         group_indices = [slice(i, j) for i, j in zip(sbins[:-1], sbins[1:])] + [
+-            slice(sbins[-1], None)
++            slice(sbins[-1], None)
+         ]
+         unique_coord = IndexVariable(group.name, first_items.index)
+     elif group.dims == (group.name,) and _unique_and_monotonic(group):
+         # no need to factorize
+         group_indices = np.arange(group.size)
+         if not squeeze:
+             # use

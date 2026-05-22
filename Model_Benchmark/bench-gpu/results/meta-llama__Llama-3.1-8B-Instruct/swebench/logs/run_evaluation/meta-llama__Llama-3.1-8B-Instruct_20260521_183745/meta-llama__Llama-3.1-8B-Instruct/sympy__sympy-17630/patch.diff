@@ -1,0 +1,129 @@
+--- a/sympy/matrices/expressions/matexpr.py
++++ b/sympy/matrices/expressions/matexpr.py
+@@ -1,27 +1,35 @@
+ from __future__ import print_function, division
+ 
+ from functools import wraps, reduce
+ import collections
+ 
+ from sympy.core import S, Symbol, Tuple, Integer, Basic, Expr, Eq, Mul, Add
+ from sympy.core.decorators import call_highest_priority
+ from sympy.core.compatibility import range, SYMPY_INTS, default_sort_key, string_types
+ from sympy.core.sympify import SympifyError, _sympify
+ from sympy.functions import conjugate, adjoint
+ from sympy.functions.special.tensor_functions import KroneckerDelta
+ from sympy.matrices import ShapeError
+ from sympy.simplify import simplify
+ from sympy.utilities.misc import filldedent
+ 
+ def _sympifyit(arg, retval=None):
+     # This version of _sympifyit sympifies MutableMatrix objects
+     def deco(func):
+         @wraps(func)
+         def __sympifyit_wrapper(a, b):
+             try:
+-                 b = _sympify(b)
++                 b = _sympify(b, rational=True)
+                 return func(a, b)
+             except SympifyError:
+                 return retval
+ 
+         return __sympifyit_wrapper
+ 
+     return deco
+ 
+ class MatrixExpr(Expr):
+     """Superclass for Matrix Expressions
+ 
+     MatrixExprs represent abstract matrices, linear transformations represented
+     within a particular basis.
+ 
+     Examples
+     ========
+ 
+     >>> from sympy import MatrixSymbol
+     >>> A = MatrixSymbol('A', 3, 3)
+     >>> y = MatrixSymbol('y', 3, 1)
+     >>> x = (A.T*A).I * A * y
+ 
+     See Also
+     ========
+ 
+     MatrixSymbol, MatAdd, MatMul, Transpose, Inverse
+     """
+ 
+     # Should not be considered iterable by the
+     # sympy.core.compatibility.iterable function. Subclass that actually are
+     # iterable (i.e., explicit matrices) should set this to True.
+     _iterable = False
+ 
+     _op_priority = 11.0
+ 
+     is_Matrix = True
+     is_MatrixExpr = True
+     is_Identity = None
+     is_Inverse = False
+     is_Transpose = False
+     is_ZeroMatrix = False
+     is_MatAdd = False
+     is_MatMul = False
+ 
+     is_commutative = False
+     is_number = False
+     is_symbol = False
+     is_scalar = False
+ 
+     def __new__(cls, *args, **kwargs):
+         args = map(_sympify, args)
+         return Basic.__new__(cls, *args, **kwargs)
+ 
+     # The following is adapted from the core Expr object
+     def __neg__(self):
+         return MatMul(S.NegativeOne, self).doit()
+ 
+     def __abs__(self):
+         raise NotImplementedError
+ 
+     @_sympifyit('other', NotImplemented)
+     @call_highest_priority('__radd__')
+     def __add__(self, other):
+         return MatAdd(self, other, check=True).doit()
+ 
+     @_sympifyit('other', NotImplemented)
+     @call_highest_priority('__add__')
+     def __radd__(self, other):
+         return MatAdd(other, self, check=True).doit()
+ 
+     @_sympifyit('other', NotImplemented)
+     @call_highest_priority('__rsub__')
+     def __sub__(self, other):
+         return MatAdd(self, -other, check=True).doit()
+ 
+     @_sympifyit('other', NotImplemented)
+     @call_highest_priority('__sub__')
+     def __rsub__(self, other):
+         return MatAdd(other, -self, check=True).doit()
+ 
+     @_sympifyit('other', NotImplemented)
+     @call_highest_priority('__rmul__')
+     def __mul__(self, other):
+         return MatMul(self, other).doit()
+ 
+     @_sympifyit('other', NotImplemented)
+     @call_highest_priority('__rmul__')
+     def __matmul__(self, other):
+         return MatMul(self, other).doit()
+ 
+     @_sympifyit('other', NotImplemented)
+     @call_highest_priority('__mul__')
+     def __rmul__(self, other):
+         return MatMul(other, self).doit()
+ 
+     @_sympifyit('other', NotImplemented)
+     @call_highest_priority('__mul__')
+     def __rmatmul__(self, other):
+         return MatMul(other, self).doit()
+ 
+     @_sympifyit('other', NotImplemented)
+     @call_highest_priority('__rpow__')
+    

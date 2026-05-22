@@ -1,0 +1,138 @@
+Here is the patch that resolves the issue with pairplot and MultiIndex DataFrame:
+
+```patch
+--- a/seaborn/axisgrid.py
++++ b/seaborn/axisgrid.py
+@@ -1498,6 +1498,7 @@
+     def map(self, func, *args, **kwargs):
+         """Apply a plotting function to each facet's subset of the data.
+ 
+         Parameters
+         ----------
+         func : callable
+             A plotting function that takes data and keyword arguments. It
+@@ -1511,6 +1512,7 @@
+         """
+         # If color was a keyword argument, grab it here
+         kw_color = kwargs.pop("color", None)
+ 
++        # Flatten the column names
++        args = ["".join(col) for col in args]
+ 
+         # How we use the function depends on where it comes from
+         func_module = str(getattr(func, "__module__", ""))
+ 
+@@ -1553,6 +1555,7 @@
+         self._finalize_grid(args[:2])
+ 
+         return self
+ 
++    def _flatten_columns(self, data):
++        return data.rename(columns=lambda x: "".join(x))
+ 
+     def map_dataframe(self, func, *args, **kwargs):
+         """Like ``.map`` but passes args as strings and inserts data in kwargs.
+ 
+@@ -1571,6 +1574,7 @@
+         """
+         # If color was a keyword argument, grab it here
+         kw_color = kwargs.pop("color", None)
+ 
++        # Flatten the column names
++        args = ["".join(col) for col in args]
+ 
+         # Iterate over the data subsets
+         for (row_i, col_j, hue_k), data_ijk in self.facet_data():
+@@ -1621,6 +1625,7 @@
+         self._finalize_grid(axis_labels)
+ 
+         return self
+ 
++    def _flatten_columns(self, data):
++        return data.rename(columns=lambda x: "".join(x))
+ 
+     def _facet_color(self, hue_index, kw_color):
+         """
+         Get the color for a given hue index.
+@@ -1641,6 +1646,7 @@
+         """
+         color = self._colors[hue_index]
+         if kw_color is not None:
+             return kw_color
++        elif isinstance(color, tuple):
++            return "".join(color)
+         elif color is not None:
+             return color
+ 
+@@ -1661,6 +1667,7 @@
+         self._update_legend_data(ax)
+ 
+     def _finalize_grid(self, axlabels):
+         """Finalize the annotations and layout."""
++        self._flatten_columns(self.data)
+         self.set_axis_labels(*axlabels)
+         self.tight_layout()
+ 
+@@ -1681,6 +1688,7 @@
+         self._finalize_grid(axlabels)
+ 
+         return self
+ 
++    def _flatten_columns(self, data):
++        return data.rename(columns=lambda x: "".join(x))
+ 
+     def _facet_plot(self, func, ax, plot_args, plot_kwargs):
+         """
+         Draw a plot on the specified axes.
+@@ -1701,6 +1709,7 @@
+         """
+         if str(func.__module__).startswith("seaborn"):
+             plot_kwargs = plot_kwargs.copy()
+             semantics = ["x", "y", "hue", "size", "style"]
++            plot_args = ["".join(col) for col in plot_args]
+             for key, val in zip(semantics, plot_args):
+                 plot_kwargs[key] = val
+             plot_args = []
+@@ -1721,6 +1730,7 @@
+         self._update_legend_data(ax)
+ 
+     def _finalize_grid(self, axlabels):
++        self._flatten_columns(self.data)
+         self.set_axis_labels(*axlabels)
+         self.tight_layout()
+ 
+@@ -1741,6 +1751,7 @@
+         self._finalize_grid(axlabels)
+ 
+         return self
+ 
++    def _flatten_columns(self, data):
++        return data.rename(columns=lambda x: "".join(x))
+ 
+     def _facet_color(self, hue_index, kw_color):
+         """
+         Get the color for a given hue index.
+@@ -1751,6 +1762,7 @@
+         """
+         color = self._colors[hue_index]
+         if kw_color is not None:
+             return kw_color
++        elif isinstance(color, tuple):
++            return "".join(color)
+         elif color is not None:
+             return color
+ 
+@@ -1771,6 +1783,7 @@
+         self._update_legend_data(ax)
+ 
+     def _finalize_grid(self, axlabels):
++        self._flatten_columns(self.data)
+         self.set_axis_labels(*axlabels)
+         self.tight_layout()
+ 
+@@ -1791,6 +1804,7 @@
+         self._finalize_grid(axlabels)
+ 
+         return self
+ 
++    def _flatten_columns(self, data):

@@ -1,0 +1,448 @@
+[
+  {
+    "combo": {},
+    "started_at": 1779263174.6223278,
+    "server_info": {
+      "/models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "meta-llama/Llama-3.1-8B-Instruct",
+            "object": "model",
+            "created": 1779263229,
+            "owned_by": "vllm",
+            "root": "meta-llama/Llama-3.1-8B-Instruct",
+            "parent": null,
+            "max_model_len": 131072,
+            "permission": [
+              {
+                "id": "modelperm-9cffc29868ef4fa1bdd4bfe6e8d178a2",
+                "object": "model_permission",
+                "created": 1779263229,
+                "allow_create_engine": false,
+                "allow_sampling": true,
+                "allow_logprobs": true,
+                "allow_search_indices": false,
+                "allow_view": true,
+                "allow_fine_tuning": false,
+                "organization": "*",
+                "group": null,
+                "is_blocking": false
+              }
+            ]
+          }
+        ]
+      },
+      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 10879.0\npython_gc_objects_collected_total{generation=\"1\"} 1737.0\npython_gc_objects_collected_total{generation=\"2\"} 1076.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1436.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
+    },
+    "bench": {
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "concurrency": 128,
+      "prompt_tokens_target": 1024,
+      "max_tokens": 256,
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 15.459,
+      "ttft_s_p50": 0.1921,
+      "ttft_s_p95": 0.2689,
+      "itl_s_p50": 0.03328,
+      "itl_s_p95": 0.03342,
+      "output_tps_per_request_p50": 29.5,
+      "aggregate_output_tps": 3606.71,
+      "total_output_tokens": 55755
+    },
+    "status": "ok"
+  },
+  {
+    "combo": {
+      "max_model_len": 4096
+    },
+    "started_at": 1779263251.8871624,
+    "server_info": {
+      "/models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "meta-llama/Llama-3.1-8B-Instruct",
+            "object": "model",
+            "created": 1779263300,
+            "owned_by": "vllm",
+            "root": "meta-llama/Llama-3.1-8B-Instruct",
+            "parent": null,
+            "max_model_len": 4096,
+            "permission": [
+              {
+                "id": "modelperm-bc6adce4639e41b1a7eabb598abef178",
+                "object": "model_permission",
+                "created": 1779263300,
+                "allow_create_engine": false,
+                "allow_sampling": true,
+                "allow_logprobs": true,
+                "allow_search_indices": false,
+                "allow_view": true,
+                "allow_fine_tuning": false,
+                "organization": "*",
+                "group": null,
+                "is_blocking": false
+              }
+            ]
+          }
+        ]
+      },
+      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 10826.0\npython_gc_objects_collected_total{generation=\"1\"} 1804.0\npython_gc_objects_collected_total{generation=\"2\"} 1063.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1435.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
+    },
+    "bench": {
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "concurrency": 128,
+      "prompt_tokens_target": 1024,
+      "max_tokens": 256,
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 15.245,
+      "ttft_s_p50": 0.1858,
+      "ttft_s_p95": 0.2737,
+      "itl_s_p50": 0.03327,
+      "itl_s_p95": 0.03353,
+      "output_tps_per_request_p50": 29.85,
+      "aggregate_output_tps": 3631.37,
+      "total_output_tokens": 55359
+    },
+    "status": "ok"
+  },
+  {
+    "combo": {
+      "max_model_len": 8192
+    },
+    "started_at": 1779263322.548251,
+    "server_info": {
+      "/models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "meta-llama/Llama-3.1-8B-Instruct",
+            "object": "model",
+            "created": 1779263392,
+            "owned_by": "vllm",
+            "root": "meta-llama/Llama-3.1-8B-Instruct",
+            "parent": null,
+            "max_model_len": 8192,
+            "permission": [
+              {
+                "id": "modelperm-0079cbff1126409aba64179f41be5e5b",
+                "object": "model_permission",
+                "created": 1779263392,
+                "allow_create_engine": false,
+                "allow_sampling": true,
+                "allow_logprobs": true,
+                "allow_search_indices": false,
+                "allow_view": true,
+                "allow_fine_tuning": false,
+                "organization": "*",
+                "group": null,
+                "is_blocking": false
+              }
+            ]
+          }
+        ]
+      },
+      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 10826.0\npython_gc_objects_collected_total{generation=\"1\"} 1804.0\npython_gc_objects_collected_total{generation=\"2\"} 1063.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1435.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
+    },
+    "bench": {
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "concurrency": 128,
+      "prompt_tokens_target": 1024,
+      "max_tokens": 256,
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 14.956,
+      "ttft_s_p50": 0.2048,
+      "ttft_s_p95": 0.298,
+      "itl_s_p50": 0.03276,
+      "itl_s_p95": 0.03289,
+      "output_tps_per_request_p50": 29.97,
+      "aggregate_output_tps": 3678.25,
+      "total_output_tokens": 55012
+    },
+    "status": "ok"
+  },
+  {
+    "combo": {
+      "max_model_len": 16384
+    },
+    "started_at": 1779263414.1631563,
+    "server_info": {
+      "/models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "meta-llama/Llama-3.1-8B-Instruct",
+            "object": "model",
+            "created": 1779263483,
+            "owned_by": "vllm",
+            "root": "meta-llama/Llama-3.1-8B-Instruct",
+            "parent": null,
+            "max_model_len": 16384,
+            "permission": [
+              {
+                "id": "modelperm-00d942b745474063bfa16c8211cf92dc",
+                "object": "model_permission",
+                "created": 1779263483,
+                "allow_create_engine": false,
+                "allow_sampling": true,
+                "allow_logprobs": true,
+                "allow_search_indices": false,
+                "allow_view": true,
+                "allow_fine_tuning": false,
+                "organization": "*",
+                "group": null,
+                "is_blocking": false
+              }
+            ]
+          }
+        ]
+      },
+      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 10826.0\npython_gc_objects_collected_total{generation=\"1\"} 1804.0\npython_gc_objects_collected_total{generation=\"2\"} 1063.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1435.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
+    },
+    "bench": {
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "concurrency": 128,
+      "prompt_tokens_target": 1024,
+      "max_tokens": 256,
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 15.159,
+      "ttft_s_p50": 0.1959,
+      "ttft_s_p95": 0.2909,
+      "itl_s_p50": 0.03292,
+      "itl_s_p95": 0.03312,
+      "output_tps_per_request_p50": 29.84,
+      "aggregate_output_tps": 3642.32,
+      "total_output_tokens": 55214
+    },
+    "status": "ok"
+  },
+  {
+    "combo": {
+      "max_num_seqs": 64
+    },
+    "started_at": 1779263506.003283,
+    "server_info": {
+      "/models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "meta-llama/Llama-3.1-8B-Instruct",
+            "object": "model",
+            "created": 1779263551,
+            "owned_by": "vllm",
+            "root": "meta-llama/Llama-3.1-8B-Instruct",
+            "parent": null,
+            "max_model_len": 131072,
+            "permission": [
+              {
+                "id": "modelperm-7cdb25657f474ff1adffe5e8e14abfa1",
+                "object": "model_permission",
+                "created": 1779263551,
+                "allow_create_engine": false,
+                "allow_sampling": true,
+                "allow_logprobs": true,
+                "allow_search_indices": false,
+                "allow_view": true,
+                "allow_fine_tuning": false,
+                "organization": "*",
+                "group": null,
+                "is_blocking": false
+              }
+            ]
+          }
+        ]
+      },
+      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 10879.0\npython_gc_objects_collected_total{generation=\"1\"} 1737.0\npython_gc_objects_collected_total{generation=\"2\"} 1076.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1436.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
+    },
+    "bench": {
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "concurrency": 128,
+      "prompt_tokens_target": 1024,
+      "max_tokens": 256,
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 26.259,
+      "ttft_s_p50": 6.5142,
+      "ttft_s_p95": 6.7625,
+      "itl_s_p50": 0.02993,
+      "itl_s_p95": 0.03008,
+      "output_tps_per_request_p50": 33.17,
+      "aggregate_output_tps": 2096.08,
+      "total_output_tokens": 55040
+    },
+    "status": "ok"
+  },
+  {
+    "combo": {
+      "max_num_seqs": 256
+    },
+    "started_at": 1779263584.9980304,
+    "server_info": {
+      "/models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "meta-llama/Llama-3.1-8B-Instruct",
+            "object": "model",
+            "created": 1779263633,
+            "owned_by": "vllm",
+            "root": "meta-llama/Llama-3.1-8B-Instruct",
+            "parent": null,
+            "max_model_len": 131072,
+            "permission": [
+              {
+                "id": "modelperm-ea61dc588a2945beb86968bfaafc3737",
+                "object": "model_permission",
+                "created": 1779263633,
+                "allow_create_engine": false,
+                "allow_sampling": true,
+                "allow_logprobs": true,
+                "allow_search_indices": false,
+                "allow_view": true,
+                "allow_fine_tuning": false,
+                "organization": "*",
+                "group": null,
+                "is_blocking": false
+              }
+            ]
+          }
+        ]
+      },
+      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 10826.0\npython_gc_objects_collected_total{generation=\"1\"} 1804.0\npython_gc_objects_collected_total{generation=\"2\"} 1063.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1435.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
+    },
+    "bench": {
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "concurrency": 128,
+      "prompt_tokens_target": 1024,
+      "max_tokens": 256,
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 15.057,
+      "ttft_s_p50": 0.1993,
+      "ttft_s_p95": 0.2932,
+      "itl_s_p50": 0.03322,
+      "itl_s_p95": 0.03335,
+      "output_tps_per_request_p50": 29.58,
+      "aggregate_output_tps": 3662.8,
+      "total_output_tokens": 55149
+    },
+    "status": "ok"
+  },
+  {
+    "combo": {
+      "gpu_memory_utilization": 0.85
+    },
+    "started_at": 1779263655.515539,
+    "server_info": {
+      "/models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "meta-llama/Llama-3.1-8B-Instruct",
+            "object": "model",
+            "created": 1779263704,
+            "owned_by": "vllm",
+            "root": "meta-llama/Llama-3.1-8B-Instruct",
+            "parent": null,
+            "max_model_len": 131072,
+            "permission": [
+              {
+                "id": "modelperm-2de6d805994b4619939d65aafb9abf5b",
+                "object": "model_permission",
+                "created": 1779263704,
+                "allow_create_engine": false,
+                "allow_sampling": true,
+                "allow_logprobs": true,
+                "allow_search_indices": false,
+                "allow_view": true,
+                "allow_fine_tuning": false,
+                "organization": "*",
+                "group": null,
+                "is_blocking": false
+              }
+            ]
+          }
+        ]
+      },
+      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 10826.0\npython_gc_objects_collected_total{generation=\"1\"} 1804.0\npython_gc_objects_collected_total{generation=\"2\"} 1063.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1435.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
+    },
+    "bench": {
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "concurrency": 128,
+      "prompt_tokens_target": 1024,
+      "max_tokens": 256,
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 15.126,
+      "ttft_s_p50": 0.206,
+      "ttft_s_p95": 0.3161,
+      "itl_s_p50": 0.0333,
+      "itl_s_p95": 0.03364,
+      "output_tps_per_request_p50": 29.52,
+      "aggregate_output_tps": 3646.28,
+      "total_output_tokens": 55152
+    },
+    "status": "ok"
+  },
+  {
+    "combo": {
+      "gpu_memory_utilization": 0.95
+    },
+    "started_at": 1779263726.1235085,
+    "server_info": {
+      "/models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "meta-llama/Llama-3.1-8B-Instruct",
+            "object": "model",
+            "created": 1779263774,
+            "owned_by": "vllm",
+            "root": "meta-llama/Llama-3.1-8B-Instruct",
+            "parent": null,
+            "max_model_len": 131072,
+            "permission": [
+              {
+                "id": "modelperm-a718e9efd236485881ae2fb5c5da93b0",
+                "object": "model_permission",
+                "created": 1779263774,
+                "allow_create_engine": false,
+                "allow_sampling": true,
+                "allow_logprobs": true,
+                "allow_search_indices": false,
+                "allow_view": true,
+                "allow_fine_tuning": false,
+                "organization": "*",
+                "group": null,
+                "is_blocking": false
+              }
+            ]
+          }
+        ]
+      },
+      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 10826.0\npython_gc_objects_collected_total{generation=\"1\"} 1804.0\npython_gc_objects_collected_total{generation=\"2\"} 1063.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1435.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
+    },
+    "bench": {
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "concurrency": 128,
+      "prompt_tokens_target": 1024,
+      "max_tokens": 256,
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 16.199,
+      "ttft_s_p50": 0.2389,
+      "ttft_s_p95": 0.3,
+      "itl_s_p50": 0.03335,
+      "itl_s_p95": 0.03409,
+      "output_tps_per_request_p50": 29.51,
+      "aggregate_output_tps": 3512.38,
+      "total_output_tokens": 56897
+    },
+    "status": "ok"
+  }
+]

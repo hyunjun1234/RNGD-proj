@@ -1,0 +1,100 @@
+--- a/sklearn/ensemble/iforest.py
++++ b/sklearn/ensemble/iforest.py
+@@ -166,6 +166,7 @@
+         super().__init__(
+             base_estimator=ExtraTreeRegressor(
+                 max_features=1,
++                warm_start=True,
+                 splitter='random',
+                 random_state=random_state),
+             # here above max_features has no links with self.max_features
+             bootstrap=bootstrap,
+             bootstrap_features=False,
+@@ -193,6 +194,7 @@
+         self.behaviour = behaviour
+         self.contamination = contamination
+ 
+         self.warm_start = warm_start
++
+         if self.contamination == "legacy":
+             warn('default contamination parameter 0.1 will change '
+                  'in version 0.22 to "auto". This will change the '
+@@ -221,6 +223,7 @@
+         if self.behaviour == 'old':
+             warn('behaviour="old" is deprecated and will be removed '
+                  'in version 0.22. Please use behaviour="new", which '
+                  'makes the decision_function change to match '
+@@ -242,6 +245,7 @@
+         X = check_array(X, accept_sparse=['csc'])
+         if issparse(X):
+             # Pre-sort indices to avoid that each individual tree of the
+@@ -255,6 +259,7 @@
+         rnd = check_random_state(self.random_state)
+         y = rnd.uniform(size=X.shape[0])
+ 
+         # ensure that max_sample is in [1, n_samples]:
+@@ -273,6 +278,7 @@
+         elif isinstance(self.max_samples, INTEGER_TYPES):
+             if self.max_samples > n_samples:
+                 warn("max_samples (%s) is greater than the "
+@@ -283,6 +289,7 @@
+         else:  # float
+             if not (0. < self.max_samples <= 1.):
+                 raise ValueError("max_samples must be in (0, 1], got %r"
+@@ -301,6 +308,7 @@
+         self.max_samples_ = max_samples
+         max_depth = int(np.ceil(np.log2(max(max_samples, 2))))
+         super()._fit(X, y, max_samples,
+@@ -319,6 +327,7 @@
+         if self.behaviour == 'old':
+             # in this case, decision_function = 0.5 + self.score_samples(X):
+             if self._contamination == "auto":
+                 raise ValueError("contamination parameter cannot be set to "
+@@ -332,6 +341,7 @@
+         # else, self.behaviour == 'new':
+         if self._contamination == "auto":
+             # 0.5 plays a special role as described in the original paper.
+@@ -346,6 +356,7 @@
+         self.offset_ = np.percentile(self.score_samples(X),
+                                      100. * self._contamination)
+ 
+         return self
+@@ -357,6 +368,7 @@
+         check_is_fitted(self, ["offset_"])
+         X = check_array(X, accept_sparse='csr')
+         is_inlier = np.ones(X.shape[0], dtype=int)
+@@ -373,6 +385,7 @@
+         threshold = self.threshold_ if self.behaviour == 'old' else 0
+         is_inlier[self.decision_function(X) < threshold] = -1
+         return is_inlier
+@@ -384,6 +397,7 @@
+         self.n_features_ != X.shape[1]:
+             raise ValueError("Number of features of the model must "
+@@ -396,6 +410,7 @@
+         # Take the opposite of the scores as bigger is better (here less
+         return -self._compute_chunked_score_samples(X)
+@@ -407,6 +422,7 @@
+         n_samples_leaf = tree.tree_.n_node_samples[leaves_index]
+         depths += (
+             np.ravel(node_indicator.sum(axis=1))
+@@ -423,6 +439,7 @@
+         scores = 2 ** (
+             -depths
+@@ -436,6 +453,7 @@
+         return scores
+@@ -443,6 +461,7 @@
+         n_samples_leaf = check_array(n_samples_leaf, ensure_2d=False)
+         n_samples_leaf_shape = n_samples_leaf.shape
+         n_samples_leaf = n_samples_leaf.reshape((1, -1))
+@@ -457,6 +475,7 @@
+         average_path_length = np.zeros(n_samples_leaf.shape)
+ 
+         mask_1 = n_samples_leaf <= 1
+         mask_2 = n_samples_leaf == 2
+@@ -469,6 +488,7 @@
+         average_path_length[not_mask] = (
+             2.0 * (np.log(n_samples_leaf[not_mask] - 1.0) + np.euler_gamma)
+@@ -476,6 +496,7 @@
+         return average_path_length.reshape(n_samples_leaf_shape)
+ 
+@@ -494,6 +515

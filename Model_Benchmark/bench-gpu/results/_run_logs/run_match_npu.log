@@ -1,0 +1,622 @@
+[2026-05-21 17:18:56] === preflight ===
+=== GPU ===
+name, memory.total [MiB], memory.used [MiB], driver_version
+NVIDIA RTX A6000, 49140 MiB, 44694 MiB, 580.159.03
+NVIDIA RTX A6000, 49140 MiB, 44694 MiB, 580.159.03
+NVIDIA RTX A6000, 49140 MiB, 8 MiB, 580.159.03
+NVIDIA RTX A6000, 49140 MiB, 8 MiB, 580.159.03
+
+=== vLLM / torch CUDA ===
+  ok      vllm 0.10.0
+  ok      torch 2.7.1+cu126 (CUDA build 12.6)
+  ok      torch.cuda — GPU 4개 인식
+
+=== Python 의존성 ===
+  ok      httpx
+  ok      yaml
+  ok      openai
+  ok      datasets
+  ok      swebench (swebench 태스크용)
+
+=== Docker (SWE-bench 채점용) ===
+  ok — docker 동작
+
+=== 디스크 ===
+/dev/nvme0n1p2  1.8T  901G  839G  52% /
+/dev/nvme0n1p2  1.8T  901G  839G  52% /
+
+=== HF 모델 접근 확인 ===
+  ok   Qwen/Qwen2.5-0.5B-Instruct
+  ok   meta-llama/Llama-3.1-8B-Instruct (gated — HF_TOKEN 필요할 수 있음)
+  ok   Qwen/Qwen3-32B
+  ok   meta-llama/Llama-3.3-70B-Instruct (gated — HF_TOKEN 필요할 수 있음)
+  ok   LGAI-EXAONE/EXAONE-4.0-32B
+  ok   Qwen/Qwen3-Embedding-8B
+  ok   Qwen/Qwen3-Reranker-8B
+
+=== 다음 단계 ===
+  ./run_all.sh                                    # 전체 파이프라인
+  python orchestrator.py configs/models.yaml --tasks tps --models Qwen2.5-0.5B   # 단일 확인
+[2026-05-21 17:19:01] === smoke (Qwen2.5-0.5B, tps) ===
+
+== Qwen/Qwen2.5-0.5B-Instruct ==  cuda=2  tasks=['tps']
+  [tps] {"model": "Qwen/Qwen2.5-0.5B-Instruct", "concurrency": 1, "prompt_tokens_target": 256, "max_tokens": 256, "successes": 50, "failures": 0, "wall_clock_s": 50.306, "ttft_s_p50": 0.0141, "ttft_s_p95": 0.0175, "itl_s_p50": 0.00386, "itl_s_p95": 0.00395, "output_tps_per_request_p50": 259.2, "aggregate_output_tps": 254.34, "total_output_tokens": 12795}
+[2026-05-21 17:20:34] === 생성 모델: tps + sweep + memsweep ===
+
+== Qwen/Qwen2.5-0.5B-Instruct ==  cuda=2  tasks=['memsweep', 'sweep', 'tps']
+
+[memsweep 1/8] combo={}
+
+[memsweep 2/8] combo={'max_model_len': 4096}
+
+[memsweep 3/8] combo={'max_model_len': 8192}
+
+[memsweep 4/8] combo={'max_model_len': 16384}
+
+[memsweep 5/8] combo={'max_num_seqs': 8}
+
+[memsweep 6/8] combo={'max_num_seqs': 32}
+
+[memsweep 7/8] combo={'max_num_batched_tokens': 4096}
+
+[memsweep 8/8] combo={'max_num_batched_tokens': 16384}
+  [memsweep] 8 combos done
+  [tps] {"model": "Qwen/Qwen2.5-0.5B-Instruct", "concurrency": 1, "prompt_tokens_target": 256, "max_tokens": 256, "successes": 50, "failures": 0, "wall_clock_s": 51.717, "ttft_s_p50": 0.0135, "ttft_s_p95": 0.0212, "itl_s_p50": 0.00401, "itl_s_p95": 0.00404, "output_tps_per_request_p50": 249.04, "aggregate_output_tps": 247.5, "total_output_tokens": 12800}
+  [sweep] concurrency=1, prompt_len=256
+  [sweep] concurrency=2, prompt_len=256
+  [sweep] concurrency=4, prompt_len=256
+  [sweep] concurrency=8, prompt_len=256
+  [sweep] concurrency=16, prompt_len=256
+  [sweep] concurrency=32, prompt_len=256
+  [sweep] concurrency=64, prompt_len=256
+  [sweep] concurrency=128, prompt_len=256
+  [sweep] concurrency=1, prompt_len=1024
+  [sweep] concurrency=2, prompt_len=1024
+  [sweep] concurrency=4, prompt_len=1024
+  [sweep] concurrency=8, prompt_len=1024
+  [sweep] concurrency=16, prompt_len=1024
+  [sweep] concurrency=32, prompt_len=1024
+  [sweep] concurrency=64, prompt_len=1024
+  [sweep] concurrency=128, prompt_len=1024
+  [sweep] concurrency=1, prompt_len=4096
+  [sweep] concurrency=2, prompt_len=4096
+  [sweep] concurrency=4, prompt_len=4096
+  [sweep] concurrency=8, prompt_len=4096
+  [sweep] concurrency=16, prompt_len=4096
+  [sweep] concurrency=32, prompt_len=4096
+  [sweep] concurrency=64, prompt_len=4096
+  [sweep] concurrency=128, prompt_len=4096
+
+== meta-llama/Llama-3.1-8B-Instruct ==  cuda=2  tasks=['memsweep', 'sweep', 'tps']
+
+[memsweep 1/8] combo={}
+
+[memsweep 2/8] combo={'max_model_len': 4096}
+
+[memsweep 3/8] combo={'max_model_len': 8192}
+
+[memsweep 4/8] combo={'max_model_len': 16384}
+
+[memsweep 5/8] combo={'max_num_seqs': 8}
+
+[memsweep 6/8] combo={'max_num_seqs': 32}
+
+[memsweep 7/8] combo={'max_num_batched_tokens': 4096}
+
+[memsweep 8/8] combo={'max_num_batched_tokens': 16384}
+  [memsweep] 8 combos done
+  [tps] {"model": "meta-llama/Llama-3.1-8B-Instruct", "concurrency": 1, "prompt_tokens_target": 256, "max_tokens": 256, "successes": 50, "failures": 0, "wall_clock_s": 307.011, "ttft_s_p50": 0.0359, "ttft_s_p95": 0.0411, "itl_s_p50": 0.02393, "itl_s_p95": 0.02394, "output_tps_per_request_p50": 41.93, "aggregate_output_tps": 41.69, "total_output_tokens": 12800}
+  [sweep] concurrency=1, prompt_len=256
+  [sweep] concurrency=2, prompt_len=256
+  [sweep] concurrency=4, prompt_len=256
+  [sweep] concurrency=8, prompt_len=256
+  [sweep] concurrency=16, prompt_len=256
+  [sweep] concurrency=32, prompt_len=256
+  [sweep] concurrency=64, prompt_len=256
+  [sweep] concurrency=128, prompt_len=256
+  [sweep] concurrency=1, prompt_len=1024
+  [sweep] concurrency=2, prompt_len=1024
+  [sweep] concurrency=4, prompt_len=1024
+  [sweep] concurrency=8, prompt_len=1024
+  [sweep] concurrency=16, prompt_len=1024
+  [sweep] concurrency=32, prompt_len=1024
+  [sweep] concurrency=64, prompt_len=1024
+  [sweep] concurrency=128, prompt_len=1024
+  [sweep] concurrency=1, prompt_len=4096
+  [sweep] concurrency=2, prompt_len=4096
+  [sweep] concurrency=4, prompt_len=4096
+  [sweep] concurrency=8, prompt_len=4096
+  [sweep] concurrency=16, prompt_len=4096
+  [sweep] concurrency=32, prompt_len=4096
+  [sweep] concurrency=64, prompt_len=4096
+  [sweep] concurrency=128, prompt_len=4096
+== SKIP Qwen/Qwen3-32B (disabled) ==
+== SKIP meta-llama/Llama-3.3-70B-Instruct (disabled) ==
+== SKIP LGAI-EXAONE/EXAONE-4.0-32B (disabled) ==
+== SKIP Qwen/Qwen3-Embedding-8B (disabled) ==
+== SKIP Qwen/Qwen3-Reranker-8B (disabled) ==
+[2026-05-21 18:29:49] === embedding + reranker ===
+== SKIP Qwen/Qwen2.5-0.5B-Instruct (no applicable task: tasks={'rerank', 'embed'}, role=smoke) ==
+== SKIP meta-llama/Llama-3.1-8B-Instruct (no applicable task: tasks={'rerank', 'embed'}, role=baseline) ==
+== SKIP Qwen/Qwen3-32B (disabled) ==
+== SKIP meta-llama/Llama-3.3-70B-Instruct (disabled) ==
+== SKIP LGAI-EXAONE/EXAONE-4.0-32B (disabled) ==
+== SKIP Qwen/Qwen3-Embedding-8B (disabled) ==
+== SKIP Qwen/Qwen3-Reranker-8B (disabled) ==
+[2026-05-21 18:29:49] === SWE-bench 추론 + 채점 ===
+
+== Qwen/Qwen2.5-0.5B-Instruct ==  cuda=2  tasks=['swebench']
+  [swebench] dataset=princeton-nlp/SWE-bench_Lite_oracle subset=50
+2026-05-21 18:30:34,274 - httpx - INFO - HTTP Request: GET http://127.0.0.1:8001/v1/models "HTTP/1.1 200 OK"
+    [swebench] context-filtered 47/50 (max_input_tokens=3072, max_model_len=4096)
+2026-05-21 18:30:42,268 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:30:43,083 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:30:43,770 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8001/v1/chat/completions "HTTP/1.1 200 OK"
+  [swebench] {"model": "Qwen/Qwen2.5-0.5B-Instruct", "dataset": "oracle-subset", "n_requested_instances": 50, "n_instances": 3, "n_filtered_context": 47, "filtered_context_ids": ["astropy__astropy-14995", "matplotlib__matplotlib-24970", "mwaskom__seaborn-2848", "pallets__flask-5063", "psf__requests-1963", "pydata__xarray-4094", "pylint-dev__pylint-7080", "pytest-dev__pytest-5495", "scikit-learn__scikit-learn-25570", "sphinx-doc__sphinx-10451", "sympy__sympy-24066", "astropy__astropy-7746", "django__django-16139", "matplotlib__matplotlib-25079", "mwaskom__seaborn-3407", "pallets__flask-4045", "psf__requests-3362", "pydata__xarray-3364", "pylint-dev__pylint-5859", "pytest-dev__pytest-5413", "scikit-learn__scikit-learn-13496", "sphinx-doc__sphinx-8627", "sympy__sympy-21847", "astropy__astropy-12907", "matplotlib__matplotlib-25498", "mwaskom__seaborn-3190", "pallets__flask-4992", "psf__requests-863", "pydata__xarray-5131", "pylint-dev__pylint-7228", "pytest-dev__pytest-7373", "scikit-learn__scikit-learn-13584", "sphinx-doc__sphinx-8506", "sympy__sympy-17630", "astropy__astropy-14182", "matplotlib__matplotlib-24149", "mwaskom__seaborn-3010", "psf__requests-2674", "pydata__xarray-4493", "pylint-dev__pylint-7993", "pytest-dev__pytest-11148", "scikit-learn__scikit-learn-14087", "sphinx-doc__sphinx-11445", "sympy__sympy-18532", "astropy__astropy-14365", "django__django-14016", "matplotlib__matplotlib-22835"], "filtered_context": [{"instance_id": "astropy__astropy-14995", "prompt_tokens": 11748, "max_input_tokens": 3072, "requested_tokens": 12772, "max_model_len": 4096}, {"instance_id": "matplotlib__matplotlib-24970", "prompt_tokens": 36001, "max_input_tokens": 3072, "requested_tokens": 37025, "max_model_len": 4096}, {"instance_id": "mwaskom__seaborn-2848", "prompt_tokens": 22892, "max_input_tokens": 3072, "requested_tokens": 23916, "max_model_len": 4096}, {"instance_id": "pallets__flask-5063", "prompt_tokens": 12669, "max_input_tokens": 3072, "requested_tokens": 13693, "max_model_len": 4096}, {"instance_id": "psf__requests-1963", "prompt_tokens": 7734, "max_input_tokens": 3072, "requested_tokens": 8758, "max_model_len": 4096}, {"instance_id": "pydata__xarray-4094", "prompt_tokens": 50384, "max_input_tokens": 3072, "requested_tokens": 51408, "max_model_len": 4096}, {"instance_id": "pylint-dev__pylint-7080", "prompt_tokens": 12326, "max_input_tokens": 3072, "requested_tokens": 13350, "max_model_len": 4096}, {"instance_id": "pytest-dev__pytest-5495", "prompt_tokens": 6390, "max_input_tokens": 3072, "requested_tokens": 7414, "max_model_len": 4096}, {"instance_id": "scikit-learn__scikit-learn-25570", "prompt_tokens": 17880, "max_input_tokens": 3072, "requested_tokens": 18904, "max_model_len": 4096}, {"instance_id": "sphinx-doc__sphinx-10451", "prompt_tokens": 4606, "max_input_tokens": 3072, "requested_tokens": 5630, "max_model_len": 4096}, {"instance_id": "sympy__sympy-24066", "prompt_tokens": 7012, "max_input_tokens": 3072, "requested_tokens": 8036, "max_model_len": 4096}, {"instance_id": "astropy__astropy-7746", "prompt_tokens": 43501, "max_input_tokens": 3072, "requested_tokens": 44525, "max_model_len": 4096}, {"instance_id": "django__django-16139", "prompt_tokens": 6226, "max_input_tokens": 3072, "requested_tokens": 7250, "max_model_len": 4096}, {"instance_id": "matplotlib__matplotlib-25079", "prompt_tokens": 36546, "max_input_tokens": 3072, "requested_tokens": 37570, "max_model_len": 4096}, {"instance_id": "mwaskom__seaborn-3407", "prompt_tokens": 31047, "max_input_tokens": 3072, "requested_tokens": 32071, "max_model_len": 4096}, {"instance_id": "pallets__flask-4045", "prompt_tokens": 7460, "max_input_tokens": 3072, "requested_tokens": 8484, "max_model_len": 4096}, {"instance_id": "psf__requests-3362", "prompt_tokens": 9517, "max_input_tokens": 3072, "requested_tokens": 10541, "max_model_len": 4096}, {"instance_id": "pydata__xarray-3364", "prompt_tokens": 7183, "max_input_tokens": 3072, "requested_tokens": 8207, "max_model_len": 4096}, {"instance_id": "pylint-dev__pylint-5859", "prompt_tokens": 5510, "max_input_tokens": 3072, "requested_tokens": 6534, "max_model_len": 4096}, {"instance_id": "pytest-dev__pytest-5413", "prompt_tokens": 13942, "max_input_tokens": 3072, "requested_tokens": 14966, "max_model_len": 4096}, {"instance_id": "scikit-learn__scikit-learn-13496", "prompt_tokens": 8816, "max_input_tokens": 3072, "requested_tokens": 9840, "max_model_len": 4096}, {"instance_id": "sphinx-doc__sphinx-8627", "prompt_tokens": 8483, "max_input_tokens": 3072, "requested_tokens": 9507, "max_model_len": 4096}, {"instance_id": "sympy__sympy-21847", "prompt_tokens": 12190, "max_input_tokens": 3072, "requested_tokens": 13214, "max_model_len": 4096}, {"instance_id": "astropy__astropy-12907", "prompt_tokens": 5707, "max_input_tokens": 3072, "requested_tokens": 6731, "max_model_len": 4096}, {"instance_id": "matplotlib__matplotlib-25498", "prompt_tokens": 21907, "max_input_tokens": 3072, "requested_tokens": 22931, "max_model_len": 4096}, {"instance_id": "mwaskom__seaborn-3190", "prompt_tokens": 12182, "max_input_tokens": 3072, "requested_tokens": 13206, "max_model_len": 4096}, {"instance_id": "pallets__flask-4992", "prompt_tokens": 5288, "max_input_tokens": 3072, "requested_tokens": 6312, "max_model_len": 4096}, {"instance_id": "psf__requests-863", "prompt_tokens": 10215, "max_input_tokens": 3072, "requested_tokens": 11239, "max_model_len": 4096}, {"instance_id": "pydata__xarray-5131", "prompt_tokens": 14116, "max_input_tokens": 3072, "requested_tokens": 15140, "max_model_len": 4096}, {"instance_id": "pylint-dev__pylint-7228", "prompt_tokens": 8940, "max_input_tokens": 3072, "requested_tokens": 9964, "max_model_len": 4096}, {"instance_id": "pytest-dev__pytest-7373", "prompt_tokens": 3853, "max_input_tokens": 3072, "requested_tokens": 4877, "max_model_len": 4096}, {"instance_id": "scikit-learn__scikit-learn-13584", "prompt_tokens": 8175, "max_input_tokens": 3072, "requested_tokens": 9199, "max_model_len": 4096}, {"instance_id": "sphinx-doc__sphinx-8506", "prompt_tokens": 16450, "max_input_tokens": 3072, "requested_tokens": 17474, "max_model_len": 4096}, {"instance_id": "sympy__sympy-17630", "prompt_tokens": 18405, "max_input_tokens": 3072, "requested_tokens": 19429, "max_model_len": 4096}, {"instance_id": "astropy__astropy-14182", "prompt_tokens": 3230, "max_input_tokens": 3072, "requested_tokens": 4254, "max_model_len": 4096}, {"instance_id": "matplotlib__matplotlib-24149", "prompt_tokens": 110626, "max_input_tokens": 3072, "requested_tokens": 111650, "max_model_len": 4096}, {"instance_id": "mwaskom__seaborn-3010", "prompt_tokens": 3405, "max_input_tokens": 3072, "requested_tokens": 4429, "max_model_len": 4096}, {"instance_id": "psf__requests-2674", "prompt_tokens": 6262, "max_input_tokens": 3072, "requested_tokens": 7286, "max_model_len": 4096}, {"instance_id": "pydata__xarray-4493", "prompt_tokens": 36583, "max_input_tokens": 3072, "requested_tokens": 37607, "max_model_len": 4096}, {"instance_id": "pylint-dev__pylint-7993", "prompt_tokens": 7116, "max_input_tokens": 3072, "requested_tokens": 8140, "max_model_len": 4096}, {"instance_id": "pytest-dev__pytest-11148", "prompt_tokens": 11710, "max_input_tokens": 3072, "requested_tokens": 12734, "max_model_len": 4096}, {"instance_id": "scikit-learn__scikit-learn-14087", "prompt_tokens": 33596, "max_input_tokens": 3072, "requested_tokens": 34620, "max_model_len": 4096}, {"instance_id": "sphinx-doc__sphinx-11445", "prompt_tokens": 3124, "max_input_tokens": 3072, "requested_tokens": 4148, "max_model_len": 4096}, {"instance_id": "sympy__sympy-18532", "prompt_tokens": 28056, "max_input_tokens": 3072, "requested_tokens": 29080, "max_model_len": 4096}, {"instance_id": "astropy__astropy-14365", "prompt_tokens": 10005, "max_input_tokens": 3072, "requested_tokens": 11029, "max_model_len": 4096}, {"instance_id": "django__django-14016", "prompt_tokens": 4847, "max_input_tokens": 3072, "requested_tokens": 5871, "max_model_len": 4096}, {"instance_id": "matplotlib__matplotlib-22835", "prompt_tokens": 22231, "max_input_tokens": 3072, "requested_tokens": 23255, "max_model_len": 4096}], "max_model_len": 4096, "max_input_tokens": 3072, "max_tokens": 1024, "n_nonempty_patch": 3, "n_error": 0, "n_invalid_patch": 3, "invalid_patch_examples": [{"instance_id": "django__django-12915", "reason": "hunk line count mismatch old=27/27 new=36/35"}, {"instance_id": "django__django-13551", "reason": "hunk line count mismatch old=48/27 new=56/35"}, {"instance_id": "django__django-16527", "reason": "hunk line count mismatch old=7/6 new=8/7"}], "gen_s_p50": 4.5, "gen_s_p95": 4.5, "preds_file": "/home/etri/jun/bench-gpu/results/Qwen__Qwen2.5-0.5B-Instruct/swebench/preds/Qwen__Qwen2.5-0.5B-Instruct__preds.jsonl"}
+
+== meta-llama/Llama-3.1-8B-Instruct ==  cuda=2  tasks=['swebench']
+2026-05-21 18:31:39,107 - httpx - INFO - HTTP Request: GET http://127.0.0.1:8000/health "HTTP/1.1 200 OK"
+2026-05-21 18:31:39,142 - httpx - INFO - HTTP Request: GET http://127.0.0.1:8000/v1/models "HTTP/1.1 200 OK"
+  [swebench] dataset=princeton-nlp/SWE-bench_Lite_oracle subset=50
+2026-05-21 18:31:41,175 - httpx - INFO - HTTP Request: GET http://127.0.0.1:8000/v1/models "HTTP/1.1 200 OK"
+    [swebench] context-filtered 3/50 (max_input_tokens=31744, max_model_len=32768)
+2026-05-21 18:32:22,990 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:32:27,218 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:32:39,695 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:32:49,121 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:32:50,960 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:32:53,359 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:32:55,988 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:32:57,867 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:33:12,205 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:33:14,114 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+    [swebench] 10/47 predicted
+2026-05-21 18:33:17,013 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:33:25,330 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:33:32,554 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:33:59,201 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:34:01,511 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:34:02,407 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:34:06,863 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:34:11,169 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:34:14,822 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:34:20,566 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+    [swebench] 20/47 predicted
+2026-05-21 18:34:26,845 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:34:32,371 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:34:36,125 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:34:41,174 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:34:48,329 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:34:51,244 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:35:00,418 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:35:06,540 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:35:07,388 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:35:13,017 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+    [swebench] 30/47 predicted
+2026-05-21 18:35:15,594 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:35:27,386 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:35:29,219 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:35:42,329 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:35:42,333 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:35:56,369 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:36:00,014 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:36:05,370 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:36:10,518 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:36:15,455 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+    [swebench] 40/47 predicted
+2026-05-21 18:36:27,229 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:36:27,850 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:36:29,645 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:36:33,555 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:36:46,994 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:36:48,168 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-21 18:36:51,000 - httpx - INFO - HTTP Request: POST http://127.0.0.1:8000/v1/chat/completions "HTTP/1.1 200 OK"
+  [swebench] {"model": "meta-llama/Llama-3.1-8B-Instruct", "dataset": "oracle-subset", "n_requested_instances": 50, "n_instances": 47, "n_filtered_context": 3, "filtered_context_ids": ["pydata__xarray-4094", "astropy__astropy-7746", "matplotlib__matplotlib-24149"], "filtered_context": [{"instance_id": "pydata__xarray-4094", "prompt_tokens": 41952, "max_input_tokens": 31744, "requested_tokens": 42976, "max_model_len": 32768}, {"instance_id": "astropy__astropy-7746", "prompt_tokens": 36595, "max_input_tokens": 31744, "requested_tokens": 37619, "max_model_len": 32768}, {"instance_id": "matplotlib__matplotlib-24149", "prompt_tokens": 93915, "max_input_tokens": 31744, "requested_tokens": 94939, "max_model_len": 32768}], "max_model_len": 32768, "max_input_tokens": 31744, "max_tokens": 1024, "n_nonempty_patch": 47, "n_error": 0, "n_invalid_patch": 46, "invalid_patch_examples": [{"instance_id": "astropy__astropy-12907", "reason": "hunk line count mismatch old=42/27 new=42/35"}, {"instance_id": "astropy__astropy-14182", "reason": "hunk line count mismatch old=7/6 new=8/7"}, {"instance_id": "astropy__astropy-14365", "reason": "hunk line count mismatch old=8/7 new=8/7"}, {"instance_id": "astropy__astropy-14995", "reason": "hunk line count mismatch old=8/7 new=8/7"}, {"instance_id": "django__django-12915", "reason": "hunk line count mismatch old=9/6 new=10/7"}, {"instance_id": "django__django-13551", "reason": "hunk line count mismatch old=15/8 new=18/10"}, {"instance_id": "django__django-14016", "reason": "hunk line count mismatch old=7/6 new=9/7"}, {"instance_id": "django__django-16139", "reason": "hunk line count mismatch old=9/7 new=9/7"}, {"instance_id": "django__django-16527", "reason": "bad hunk line prefix"}, {"instance_id": "matplotlib__matplotlib-22835", "reason": "hunk line count mismatch old=7/6 new=8/7"}], "gen_s_p50": 55.2, "gen_s_p95": 73.6, "preds_file": "/home/etri/jun/bench-gpu/results/meta-llama__Llama-3.1-8B-Instruct/swebench/preds/meta-llama__Llama-3.1-8B-Instruct__preds.jsonl"}
+== SKIP Qwen/Qwen3-32B (disabled) ==
+== SKIP meta-llama/Llama-3.3-70B-Instruct (disabled) ==
+== SKIP LGAI-EXAONE/EXAONE-4.0-32B (disabled) ==
+== SKIP Qwen/Qwen3-Embedding-8B (disabled) ==
+== SKIP Qwen/Qwen3-Reranker-8B (disabled) ==
+<frozen runpy>:128: RuntimeWarning: 'swebench.harness.run_evaluation' found in sys.modules after import of package 'swebench.harness', but prior to execution of 'swebench.harness.run_evaluation'; this may result in unpredictable behaviour
+Found 1 existing instance images. Will reuse them.
+Running 3 instances...
+Evaluation:   0%|          | 0/3 [00:00<?, ?it/s, error=0, ✓=0, ✖=0]Evaluation:   0%|          | 0/3 [00:24<?, ?it/s, ✓=0, ✖=1, error=0]Evaluation:  33%|███▎      | 1/3 [00:24<00:49, 24.89s/it, ✓=0, ✖=1, error=0]Evaluation:  33%|███▎      | 1/3 [00:42<00:49, 24.89s/it, ✓=0, ✖=1, error=1]Evaluation:  67%|██████▋   | 2/3 [00:42<00:20, 20.64s/it, ✓=0, ✖=1, error=1]Evaluation:  67%|██████▋   | 2/3 [00:43<00:20, 20.64s/it, ✓=0, ✖=1, error=2]Evaluation: 100%|██████████| 3/3 [00:43<00:00, 11.66s/it, ✓=0, ✖=1, error=2]Evaluation: 100%|██████████| 3/3 [00:43<00:00, 14.51s/it, ✓=0, ✖=1, error=2]
+django__django-13551: >>>>> Patch Apply Failed:
+patching file django/contrib/auth/tokens.py
+Hunk #1 FAILED at 1.
+1 out of 1 hunk FAILED -- saving rejects to file django/contrib/auth/tokens.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_183652/Qwen__Qwen2.5-0.5B-Instruct/django__django-13551/run_instance.log) for more information.
+django__django-12915: >>>>> Patch Apply Failed:
+patching file django/contrib/staticfiles/handlers.py
+patch: **** malformed patch at line 56:      return points
+
+
+Check (logs/run_evaluation/Qwen__Qwen2.5-0.5B-Instruct_20260521_183652/Qwen__Qwen2.5-0.5B-Instruct/django__django-12915/run_instance.log) for more information.
+All instances run.
+Cleaning cached images...
+Removed 0 images.
+Total instances: 3
+Instances submitted: 3
+Instances completed: 1
+Instances incomplete: 0
+Instances resolved: 0
+Instances unresolved: 1
+Instances with empty patches: 0
+Instances with errors: 2
+Unstopped containers: 0
+Unremoved images: 1
+Report written to Qwen__Qwen2.5-0.5B-Instruct.Qwen__Qwen2.5-0.5B-Instruct_20260521_183652.json
+<frozen runpy>:128: RuntimeWarning: 'swebench.harness.run_evaluation' found in sys.modules after import of package 'swebench.harness', but prior to execution of 'swebench.harness.run_evaluation'; this may result in unpredictable behaviour
+Found 6 existing instance images. Will reuse them.
+Running 47 instances...
+Evaluation:   0%|          | 0/47 [00:00<?, ?it/s, error=0, ✓=0, ✖=0]Evaluation:   0%|          | 0/47 [00:45<?, ?it/s, ✓=0, ✖=0, error=1]Evaluation:   2%|▏         | 1/47 [00:45<34:51, 45.48s/it, ✓=0, ✖=0, error=1]Evaluation:   2%|▏         | 1/47 [00:53<34:51, 45.48s/it, ✓=0, ✖=0, error=2]Evaluation:   4%|▍         | 2/47 [00:53<17:27, 23.27s/it, ✓=0, ✖=0, error=2]Evaluation:   4%|▍         | 2/47 [00:54<17:27, 23.27s/it, ✓=0, ✖=0, error=3]Evaluation:   6%|▋         | 3/47 [00:54<09:37, 13.12s/it, ✓=0, ✖=0, error=3]Evaluation:   6%|▋         | 3/47 [01:01<09:37, 13.12s/it, ✓=0, ✖=0, error=4]Evaluation:   9%|▊         | 4/47 [01:01<07:47, 10.86s/it, ✓=0, ✖=0, error=4]Evaluation:   9%|▊         | 4/47 [01:08<07:47, 10.86s/it, ✓=0, ✖=1, error=4]Evaluation:  11%|█         | 5/47 [01:08<06:34,  9.39s/it, ✓=0, ✖=1, error=4]Evaluation:  11%|█         | 5/47 [01:20<06:34,  9.39s/it, ✓=0, ✖=2, error=4]Evaluation:  13%|█▎        | 6/47 [01:20<07:03, 10.33s/it, ✓=0, ✖=2, error=4]Evaluation:  13%|█▎        | 6/47 [01:20<07:03, 10.33s/it, ✓=0, ✖=3, error=4]Evaluation:  15%|█▍        | 7/47 [01:25<06:53, 10.33s/it, ✓=0, ✖=3, error=5]Evaluation:  17%|█▋        | 8/47 [01:25<04:15,  6.55s/it, ✓=0, ✖=3, error=5]Evaluation:  17%|█▋        | 8/47 [01:33<04:15,  6.55s/it, ✓=0, ✖=4, error=5]Evaluation:  19%|█▉        | 9/47 [01:33<04:16,  6.75s/it, ✓=0, ✖=4, error=5]Evaluation:  19%|█▉        | 9/47 [01:34<04:16,  6.75s/it, ✓=0, ✖=5, error=5]Evaluation:  21%|██▏       | 10/47 [01:34<03:17,  5.33s/it, ✓=0, ✖=5, error=5]Evaluation:  21%|██▏       | 10/47 [01:36<03:17,  5.33s/it, ✓=0, ✖=5, error=6]Evaluation:  23%|██▎       | 11/47 [01:36<02:37,  4.37s/it, ✓=0, ✖=5, error=6]Evaluation:  23%|██▎       | 11/47 [01:41<02:37,  4.37s/it, ✓=0, ✖=5, error=7]Evaluation:  26%|██▌       | 12/47 [01:41<02:42,  4.64s/it, ✓=0, ✖=5, error=7]Evaluation:  26%|██▌       | 12/47 [01:51<02:42,  4.64s/it, ✓=0, ✖=5, error=8]Evaluation:  28%|██▊       | 13/47 [01:51<03:22,  5.97s/it, ✓=0, ✖=5, error=8]Evaluation:  28%|██▊       | 13/47 [01:52<03:22,  5.97s/it, ✓=0, ✖=6, error=8]Evaluation:  30%|██▉       | 14/47 [01:52<02:29,  4.54s/it, ✓=0, ✖=6, error=8]Evaluation:  30%|██▉       | 14/47 [01:52<02:29,  4.54s/it, ✓=0, ✖=6, error=9]Evaluation:  32%|███▏      | 15/47 [01:52<01:46,  3.34s/it, ✓=0, ✖=6, error=9]Evaluation:  32%|███▏      | 15/47 [01:56<01:46,  3.34s/it, ✓=0, ✖=6, error=10]Evaluation:  34%|███▍      | 16/47 [01:56<01:43,  3.34s/it, ✓=0, ✖=6, error=10]Evaluation:  34%|███▍      | 16/47 [01:57<01:43,  3.34s/it, ✓=0, ✖=7, error=10]Evaluation:  36%|███▌      | 17/47 [01:57<01:24,  2.81s/it, ✓=0, ✖=7, error=10]Evaluation:  36%|███▌      | 17/47 [02:01<01:24,  2.81s/it, ✓=0, ✖=7, error=11]Evaluation:  38%|███▊      | 18/47 [02:01<01:35,  3.28s/it, ✓=0, ✖=7, error=11]Evaluation:  38%|███▊      | 18/47 [02:28<01:35,  3.28s/it, ✓=0, ✖=7, error=12]Evaluation:  40%|████      | 19/47 [02:28<04:50, 10.36s/it, ✓=0, ✖=7, error=12]Evaluation:  40%|████      | 19/47 [02:29<04:50, 10.36s/it, ✓=0, ✖=7, error=13]Evaluation:  43%|████▎     | 20/47 [02:29<03:23,  7.53s/it, ✓=0, ✖=7, error=13]Evaluation:  43%|████▎     | 20/47 [02:29<03:23,  7.53s/it, ✓=0, ✖=7, error=14]Evaluation:  45%|████▍     | 21/47 [03:26<03:15,  7.53s/it, ✓=0, ✖=7, error=15]Evaluation:  47%|████▋     | 22/47 [03:26<07:08, 17.12s/it, ✓=0, ✖=7, error=15]Evaluation:  47%|████▋     | 22/47 [03:26<07:08, 17.12s/it, ✓=0, ✖=7, error=16]Evaluation:  49%|████▉     | 23/47 [03:27<06:50, 17.12s/it, ✓=0, ✖=7, error=17]Evaluation:  51%|█████     | 24/47 [03:27<04:01, 10.51s/it, ✓=0, ✖=7, error=17]Evaluation:  51%|█████     | 24/47 [03:49<04:01, 10.51s/it, ✓=0, ✖=7, error=18]Evaluation:  53%|█████▎    | 25/47 [03:49<04:48, 13.13s/it, ✓=0, ✖=7, error=18]Evaluation:  53%|█████▎    | 25/47 [03:59<04:48, 13.13s/it, ✓=0, ✖=8, error=18]Evaluation:  55%|█████▌    | 26/47 [03:59<04:19, 12.36s/it, ✓=0, ✖=8, error=18]Evaluation:  55%|█████▌    | 26/47 [04:06<04:19, 12.36s/it, ✓=0, ✖=9, error=18]Evaluation:  57%|█████▋    | 27/47 [04:06<03:36, 10.84s/it, ✓=0, ✖=9, error=18]django__django-13551: >>>>> Patch Apply Failed:
+patching file django/contrib/auth/tokens.py
+patch: **** malformed patch at line 13:             a password reset.
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/django__django-13551/run_instance.log) for more information.
+astropy__astropy-12907: >>>>> Patch Apply Failed:
+patching file astropy/modeling/separable.py
+patch: **** malformed patch at line 51: -        if isinstance(input, Model):
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/astropy__astropy-12907/run_instance.log) for more information.
+django__django-14016: >>>>> Patch Apply Failed:
+patching file django/db/models/query_utils.py
+Hunk #1 succeeded at 43 with fuzz 3.
+patch: **** malformed patch at line 19:  
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/django__django-14016/run_instance.log) for more information.
+django__django-16527: >>>>> Patch Apply Failed:
+patching file django/contrib/admin/templatetags/admin_modify.py
+patch: **** malformed patch at line 14:      show_save = context.get("show_save", True)
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/django__django-16527/run_instance.log) for more information.
+matplotlib__matplotlib-25498: >>>>> Patch Apply Failed:
+patching file lib/matplotlib/colorbar.py
+Hunk #1 succeeded at 507 (offset 13 lines).
+Hunk #2 succeeded at 528 with fuzz 3 (offset 13 lines).
+Hunk #3 succeeded at 559 with fuzz 3 (offset 13 lines).
+Hunk #4 succeeded at 581 with fuzz 3 (offset 13 lines).
+Hunk #5 succeeded at 603 with fuzz 3 (offset 13 lines).
+Hunk #6 succeeded at 625 with fuzz 3 (offset 13 lines).
+Hunk #7 succeeded at 647 with fuzz 3 (offset 13 lines).
+Hunk #8 succeeded at 669 with fuzz 3 (offset 13 lines).
+Hunk #9 succeeded at 691 with fuzz 3 (offset 13 lines).
+Hunk #10 succeeded at 713 with fuzz 3 (offset 13 lines).
+Hunk #11 succeeded at 735 with fuzz 3 (offset 13 lines).
+Hunk #12 succeeded at 757 with fuzz 3 (offset 13 lines).
+Hunk #13 succeeded at 779 with fuzz 3 (offset 13 lines).
+Hunk #14 succeeded at 801 with fuzz 3 (offset 13 lines).
+patch unexpectedly ends in middle of line
+patch: **** unexpected end of file in patch
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/matplotlib__matplotlib-25498/run_instance.log) for more information.
+mwaskom__seaborn-3010: >>>>> Patch Apply Failed:
+patching file seaborn/_stats/regression.py
+patch: **** malformed patch at line 11: @@ -36,7 +36,7 @@
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/mwaskom__seaborn-3010/run_instance.log) for more information.
+mwaskom__seaborn-3190: >>>>> Patch Apply Failed:
+patching file seaborn/_core/scales.py
+Hunk #1 succeeded at 352 with fuzz 3 (offset 1 line).
+Hunk #2 FAILED at 359.
+1 out of 2 hunks FAILED -- saving rejects to file seaborn/_core/scales.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/mwaskom__seaborn-3190/run_instance.log) for more information.
+pallets__flask-4045: >>>>> Patch Apply Failed:
+patching file src/flask/blueprints.py
+Hunk #2 FAILED at 371.
+Hunk #3 FAILED at 380.
+2 out of 3 hunks FAILED -- saving rejects to file src/flask/blueprints.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/pallets__flask-4045/run_instance.log) for more information.
+pallets__flask-4992: >>>>> Patch Apply Failed:
+patching file src/flask/config.py
+Hunk #1 FAILED at 234.
+1 out of 1 hunk FAILED -- saving rejects to file src/flask/config.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/pallets__flask-4992/run_instance.log) for more information.
+mwaskom__seaborn-3407: >>>>> Patch Apply Failed:
+patching file seaborn/axisgrid.py
+patch: **** malformed patch at line 13:              A plotting function that takes data and keyword arguments. It
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/mwaskom__seaborn-3407/run_instance.log) for more information.
+pallets__flask-5063: >>>>> Patch Apply Failed:
+patching file src/flask/cli.py
+patch: **** malformed patch at line 31:  
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/pallets__flask-5063/run_instance.log) for more information.
+psf__requests-3362: >>>>> Patch Apply Failed:
+patching file requests/utils.py
+patch unexpectedly ends in middle of line
+patch: **** unexpected end of file in patch
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/psf__requests-3362/run_instance.log) for more information.
+psf__requests-2674: >>>>> Patch Apply Failed:
+patching file requests/adapters.py
+Hunk #1 succeeded at 15 (offset -7 lines).
+patch: **** malformed patch at line 22:              raise ProxyError(e)
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/psf__requests-2674/run_instance.log) for more information.
+psf__requests-863: >>>>> Patch Apply Failed:
+patching file requests/models.py
+Hunk #1 FAILED at 150.
+Hunk #2 succeeded at 507 with fuzz 1 (offset -516 lines).
+patch: **** malformed patch at line 29: @@ -1061,7 +1061,7 @@
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/psf__requests-863/run_instance.log) for more information.
+pylint-dev__pylint-7080: >>>>> Patch Apply Failed:
+patching file pylint/lint/expand_modules.py
+patch: **** malformed patch at line 9:  from collections.abc import Sequence
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/pylint-dev__pylint-7080/run_instance.log) for more information.
+matplotlib__matplotlib-24970: >>>>> Patch Apply Failed:
+patching file lib/matplotlib/colors.py
+Hunk #1 FAILED at 731.
+Hunk #2 FAILED at 732.
+Hunk #3 FAILED at 734.
+Hunk #4 FAILED at 736.
+4 out of 4 hunks FAILED -- saving rejects to file lib/matplotlib/colors.py.rej
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/matplotlib__matplotlib-24970/run_instance.log) for more information.
+pylint-dev__pylint-5859: >>>>> Patch Apply Failed:
+patching file pylint/checkers/misc.py
+Hunk #1 succeeded at 123 with fuzz 2.
+Hunk #2 succeeded at 192 with fuzz 3.
+Hunk #3 succeeded at 202 with fuzz 3.
+misordered hunks! output would be garbled
+Hunk #4 FAILED at 184.
+1 out of 4 hunks FAILED -- saving rejects to file pylint/checkers/misc.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/pylint-dev__pylint-5859/run_instance.log) for more information.
+pydata__xarray-4493: >>>>> Patch Apply Failed:
+patching file xarray/core/variable.py
+Hunk #1 succeeded at 469 with fuzz 2 (offset -574 lines).
+patch: **** malformed patch at line 19:          from dask.base import normalize_token
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/pydata__xarray-4493/run_instance.log) for more information.
+pytest-dev__pytest-5413: >>>>> Patch Apply Failed:
+patching file src/_pytest/_code/code.py
+Hunk #1 FAILED at 416.
+Hunk #2 succeeded at 470 (offset 26 lines).
+Hunk #3 FAILED at 455.
+Hunk #4 succeeded at 696 with fuzz 1 (offset 223 lines).
+Hunk #5 succeeded at 706 (offset 223 lines).
+2 out of 5 hunks FAILED -- saving rejects to file src/_pytest/_code/code.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/pytest-dev__pytest-5413/run_instance.log) for more information.Evaluation:  57%|█████▋    | 27/47 [04:07<03:36, 10.84s/it, ✓=0, ✖=10, error=18]Evaluation:  60%|█████▉    | 28/47 [04:07<02:36,  8.22s/it, ✓=0, ✖=10, error=18]Evaluation:  60%|█████▉    | 28/47 [04:12<02:36,  8.22s/it, ✓=0, ✖=11, error=18]Evaluation:  62%|██████▏   | 29/47 [04:12<02:15,  7.51s/it, ✓=0, ✖=11, error=18]Evaluation:  62%|██████▏   | 29/47 [04:14<02:15,  7.51s/it, ✓=0, ✖=12, error=18]Evaluation:  64%|██████▍   | 30/47 [04:14<01:37,  5.75s/it, ✓=0, ✖=12, error=18]Evaluation:  64%|██████▍   | 30/47 [04:22<01:37,  5.75s/it, ✓=0, ✖=12, error=19]Evaluation:  66%|██████▌   | 31/47 [04:22<01:44,  6.51s/it, ✓=0, ✖=12, error=19]Evaluation:  66%|██████▌   | 31/47 [04:24<01:44,  6.51s/it, ✓=0, ✖=12, error=20]Evaluation:  68%|██████▊   | 32/47 [04:24<01:19,  5.27s/it, ✓=0, ✖=12, error=20]Evaluation:  68%|██████▊   | 32/47 [04:49<01:19,  5.27s/it, ✓=0, ✖=12, error=21]Evaluation:  70%|███████   | 33/47 [04:49<02:33, 10.93s/it, ✓=0, ✖=12, error=21]Evaluation:  70%|███████   | 33/47 [04:50<02:33, 10.93s/it, ✓=0, ✖=12, error=22]Evaluation:  72%|███████▏  | 34/47 [04:50<01:43,  7.94s/it, ✓=0, ✖=12, error=22]Evaluation:  72%|███████▏  | 34/47 [05:15<01:43,  7.94s/it, ✓=0, ✖=13, error=22]Evaluation:  74%|███████▍  | 35/47 [05:15<02:35, 13.00s/it, ✓=0, ✖=13, error=22]Evaluation:  74%|███████▍  | 35/47 [05:24<02:35, 13.00s/it, ✓=0, ✖=13, error=23]Evaluation:  77%|███████▋  | 36/47 [05:24<02:12, 12.06s/it, ✓=0, ✖=13, error=23]Evaluation:  77%|███████▋  | 36/47 [05:27<02:12, 12.06s/it, ✓=0, ✖=13, error=24]Evaluation:  79%|███████▊  | 37/47 [05:27<01:33,  9.34s/it, ✓=0, ✖=13, error=24]Evaluation:  79%|███████▊  | 37/47 [05:29<01:33,  9.34s/it, ✓=0, ✖=14, error=24]Evaluation:  81%|████████  | 38/47 [05:29<01:02,  6.98s/it, ✓=0, ✖=14, error=24]Evaluation:  81%|████████  | 38/47 [05:31<01:02,  6.98s/it, ✓=0, ✖=15, error=24]Evaluation:  83%|████████▎ | 39/47 [05:31<00:43,  5.42s/it, ✓=0, ✖=15, error=24]Evaluation:  83%|████████▎ | 39/47 [05:39<00:43,  5.42s/it, ✓=0, ✖=15, error=25]Evaluation:  85%|████████▌ | 40/47 [05:39<00:44,  6.40s/it, ✓=0, ✖=15, error=25]Evaluation:  85%|████████▌ | 40/47 [05:42<00:44,  6.40s/it, ✓=0, ✖=15, error=26]Evaluation:  87%|████████▋ | 41/47 [05:42<00:31,  5.20s/it, ✓=0, ✖=15, error=26]Evaluation:  87%|████████▋ | 41/47 [05:56<00:31,  5.20s/it, ✓=0, ✖=16, error=26]Evaluation:  89%|████████▉ | 42/47 [05:56<00:40,  8.03s/it, ✓=0, ✖=16, error=26]Evaluation:  89%|████████▉ | 42/47 [05:57<00:40,  8.03s/it, ✓=0, ✖=16, error=27]Evaluation:  91%|█████████▏| 43/47 [05:57<00:22,  5.71s/it, ✓=0, ✖=16, error=27]Evaluation:  91%|█████████▏| 43/47 [05:57<00:22,  5.71s/it, ✓=0, ✖=16, error=28]Evaluation:  94%|█████████▎| 44/47 [05:57<00:17,  5.71s/it, ✓=0, ✖=16, error=29]Evaluation:  96%|█████████▌| 45/47 [05:57<00:06,  3.24s/it, ✓=0, ✖=16, error=29]Evaluation:  96%|█████████▌| 45/47 [06:09<00:06,  3.24s/it, ✓=0, ✖=17, error=29]Evaluation:  98%|█████████▊| 46/47 [06:09<00:05,  5.41s/it, ✓=0, ✖=17, error=29]Evaluation:  98%|█████████▊| 46/47 [06:10<00:05,  5.41s/it, ✓=0, ✖=18, error=29]Evaluation: 100%|██████████| 47/47 [06:10<00:00,  4.18s/it, ✓=0, ✖=18, error=29]Evaluation: 100%|██████████| 47/47 [06:10<00:00,  7.88s/it, ✓=0, ✖=18, error=29]
+
+pytest-dev__pytest-5495: >>>>> Patch Apply Failed:
+patching file src/_pytest/assertion/util.py
+Hunk #1 FAILED at 167.
+1 out of 1 hunk FAILED -- saving rejects to file src/_pytest/assertion/util.py.rej
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/pytest-dev__pytest-5495/run_instance.log) for more information.
+matplotlib__matplotlib-25079: >>>>> Patch Apply Failed:
+patching file lib/matplotlib/colors.py
+Hunk #1 succeeded at 1968 with fuzz 1 (offset 623 lines).
+Hunk #2 succeeded at 1988 (offset 626 lines).
+Hunk #3 succeeded at 1996 with fuzz 1 (offset 583 lines).
+Hunk #4 succeeded at 2010 (offset 584 lines).
+Hunk #5 succeeded at 2020 (offset 573 lines).
+patch: **** malformed patch at line 48: @@ -1463,6 +1469,7 @@
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/matplotlib__matplotlib-25079/run_instance.log) for more information.
+pytest-dev__pytest-7373: >>>>> Patch Apply Failed:
+patch: **** malformed patch at line 11:  
+
+patching file src/_pytest/mark/evaluate.py
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/pytest-dev__pytest-7373/run_instance.log) for more information.
+scikit-learn__scikit-learn-14087: >>>>> Patch Apply Failed:
+patching file sklearn/linear_model/logistic.py
+Hunk #1 FAILED at 2192.
+1 out of 1 hunk FAILED -- saving rejects to file sklearn/linear_model/logistic.py.rej
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/scikit-learn__scikit-learn-14087/run_instance.log) for more information.
+sphinx-doc__sphinx-11445: >>>>> Patch Apply Failed:
+patching file sphinx/util/rst.py
+patch: **** malformed patch at line 17:  
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/sphinx-doc__sphinx-11445/run_instance.log) for more information.
+scikit-learn__scikit-learn-13584: >>>>> Patch Apply Failed:
+patch: **** malformed patch at line 31:      def _pprint_estimator(self, object, stream, indent, allowance, context,
+
+patching file sklearn/utils/_pprint.py
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/scikit-learn__scikit-learn-13584/run_instance.log) for more information.
+sphinx-doc__sphinx-8627: >>>>> Patch Apply Failed:
+patching file sphinx/util/typing.py
+patch: **** malformed patch at line 34:  def restify(cls: Optional["Type"]) -> str:
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/sphinx-doc__sphinx-8627/run_instance.log) for more information.
+sympy__sympy-21847: >>>>> Patch Apply Failed:
+patching file sympy/polys/monomials.py
+Hunk #1 FAILED at 88.
+Hunk #2 succeeded at 143 with fuzz 2 (offset 32 lines).
+Hunk #3 succeeded at 151 with fuzz 4 (offset 17 lines).
+1 out of 3 hunks FAILED -- saving rejects to file sympy/polys/monomials.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/sympy__sympy-21847/run_instance.log) for more information.
+sympy__sympy-17630: >>>>> Patch Apply Failed:
+patching file sympy/matrices/expressions/matexpr.py
+patch: **** malformed patch at line 32:  
+
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/sympy__sympy-17630/run_instance.log) for more information.
+sympy__sympy-24066: >>>>> Patch Apply Failed:
+patching file sympy/physics/units/unitsystem.py
+Hunk #1 FAILED at 151.
+Hunk #2 FAILED at 162.
+Hunk #3 FAILED at 173.
+Hunk #4 FAILED at 184.
+4 out of 4 hunks FAILED -- saving rejects to file sympy/physics/units/unitsystem.py.rej
+patch unexpectedly ends in middle of line
+
+Check (logs/run_evaluation/meta-llama__Llama-3.1-8B-Instruct_20260521_183745/meta-llama__Llama-3.1-8B-Instruct/sympy__sympy-24066/run_instance.log) for more information.
+All instances run.
+Cleaning cached images...
+Removed 0 images.
+Total instances: 47
+Instances submitted: 47
+Instances completed: 18
+Instances incomplete: 0
+Instances resolved: 0
+Instances unresolved: 18
+Instances with empty patches: 0
+Instances with errors: 29
+Unstopped containers: 0
+Unremoved images: 6
+Report written to meta-llama__Llama-3.1-8B-Instruct.meta-llama__Llama-3.1-8B-Instruct_20260521_183745.json
+=== eval Qwen__Qwen2.5-0.5B-Instruct  (3 instances) ===
+  resolved 0/3  -> /home/etri/jun/bench-gpu/results/Qwen__Qwen2.5-0.5B-Instruct/swebench/eval_result.json
+=== eval meta-llama__Llama-3.1-8B-Instruct  (47 instances) ===
+  resolved 0/47  -> /home/etri/jun/bench-gpu/results/meta-llama__Llama-3.1-8B-Instruct/swebench/eval_result.json
+[2026-05-21 18:44:08] === 집계 + 리포트 ===
+wrote results/_run_logs/summary.csv (89 rows)
+# NVIDIA GPU (vLLM) — 코드 생성 모델 벤치마크 리포트
+
+- 결과 데이터: `/home/etri/jun/bench-gpu/results`
+- 측정 축: 단일 토큰 속도(tps) / 동시성 스케일링(sweep) / serve 옵션(memsweep) / SWE-bench / Embedding·Reranker
+- 스케일링 분석 기준: prompt_len=1024, 효율배치=peak의 90% 도달 동시성, 감소판정=실패발생·처리량하락·TTFT_p95>10.0s
+
+## 1. TL;DR — 모델별 핵심 지표
+
+| 모델 | TTFT p50(s) | 단일 TPS | peak 합산 TPS@c | 효율 배치 | SWE-bench resolved |
+|---|--:|--:|--:|--:|--:|
+| `Qwen/Qwen2.5-0.5B-Instruct` | 0.0135 | 249.04 | 11423@c128 | c128 | 0/3 (0.0%) |
+| `meta-llama/Llama-3.1-8B-Instruct` | 0.0359 | 41.93 | 3634@c128 | c128 | 0/47 (0.0%) |
+
+## 2. 단일 요청 토큰 생성 속도 (concurrency=1)
+
+| 모델 | TTFT p50(s) | TTFT p95(s) | ITL p50(s) | 출력 TPS p50 | 합산 TPS |
+|---|--:|--:|--:|--:|--:|
+| `Qwen/Qwen2.5-0.5B-Instruct` | 0.0135 | 0.0212 | 0.00401 | 249.04 | 247.5 |
+| `meta-llama/Llama-3.1-8B-Instruct` | 0.0359 | 0.0411 | 0.02393 | 41.93 | 41.69 |
+
+## 3. 배치/동시성 스케일링 (prompt_len=1024)
+
+### Qwen/Qwen2.5-0.5B-Instruct
+
+| 동시성 | 합산 TPS | 요청당 TPS p50 | TTFT p95(s) | ITL p50(s) | 실패 |
+|--:|--:|--:|--:|--:|--:|
+| 1 | 243.95 | 248.14 | 0.0199 | 0.00403 | 0 |
+| 2 | 439.62 | 223.42 | 0.0237 | 0.00448 | 0 |
+| 4 | 838.69 | 222.17 | 0.0306 | 0.00449 | 0 |
+| 8 | 1481.89 | 211.0 | 0.0469 | 0.00472 | 0 |
+| 16 | 3003.72 | 196.69 | 0.0708 | 0.00507 | 0 |
+| 32 | 5535.3 | 182.83 | 0.1199 | 0.00546 | 0 |
+| 64 | 7147.12 | 124.63 | 0.495 | 0.00796 | 0 |
+| 128 | 11422.89 | 97.04 | 0.2385 | 0.01004 | 0 |
+
+- **효율 배치**: 동시성 128 (합산 11423 TPS, peak 11423 TPS@c128)
+- **무감소 최대 동시성**: 128 · **성능 감소 시작**: 관측 안 됨
+
+### meta-llama/Llama-3.1-8B-Instruct
+
+| 동시성 | 합산 TPS | 요청당 TPS p50 | TTFT p95(s) | ITL p50(s) | 실패 |
+|--:|--:|--:|--:|--:|--:|
+| 1 | 41.27 | 41.59 | 0.0461 | 0.02403 | 0 |
+| 2 | 79.54 | 40.24 | 0.0491 | 0.02485 | 0 |
+| 4 | 151.25 | 39.72 | 0.0734 | 0.02516 | 0 |
+| 8 | 271.85 | 38.47 | 0.0836 | 0.02597 | 0 |
+| 16 | 579.54 | 37.02 | 0.1021 | 0.02699 | 0 |
+| 32 | 1122.48 | 36.09 | 0.1388 | 0.02758 | 0 |
+| 64 | 2047.87 | 32.93 | 0.2087 | 0.03018 | 0 |
+| 128 | 3633.89 | 29.45 | 0.3177 | 0.03366 | 0 |
+
+- **효율 배치**: 동시성 128 (합산 3634 TPS, peak 3634 TPS@c128)
+- **무감소 최대 동시성**: 128 · **성능 감소 시작**: 관측 안 됨
+
+## 4. serve 옵션 스윕 (memsweep)
+
+baseline(vLLM 기본값)에서 한 축씩 변경. 합산 TPS 기준 정렬.
+
+### Qwen/Qwen2.5-0.5B-Instruct
+
+| serve 옵션 조합 | 합산 TPS | 실패 |
+|---|--:|--:|
+| `baseline` | 11854 | 0 |
+| `{"max_model_len": 4096}` | 11691 | 0 |
+| `{"max_model_len": 8192}` | 11433 | 0 |
+| `{"max_num_batched_tokens": 16384}` | 11416 | 0 |
+| `{"max_model_len": 16384}` | 11229 | 0 |
+| `{"max_num_batched_tokens": 4096}` | 11183 | 0 |
+| `{"max_num_seqs": 32}` | 5589 | 0 |
+| `{"max_num_seqs": 8}` | 1649 | 0 |
+
+- **최적 조합**: `{}` → 11854.02 TPS
+
+### meta-llama/Llama-3.1-8B-Instruct
+
+| serve 옵션 조합 | 합산 TPS | 실패 |
+|---|--:|--:|
+| `{"max_model_len": 4096}` | 3671 | 0 |
+| `{"max_model_len": 8192}` | 3656 | 0 |
+| `baseline` | 3616 | 0 |
+| `{"max_num_batched_tokens": 16384}` | 3613 | 0 |
+| `{"max_num_batched_tokens": 4096}` | 3611 | 0 |
+| `{"max_model_len": 16384}` | 3604 | 0 |
+| `{"max_num_seqs": 32}` | 1144 | 0 |
+| `{"max_num_seqs": 8}` | 306 | 0 |
+
+- **최적 조합**: `{"max_model_len": 4096}` → 3671.33 TPS
+
+## 5. SWE-bench (코드 수정 정확도)
+
+SWE-bench Lite oracle, single-shot. resolved=테스트 통과, unresolved=적용됐으나 미해결, 적용실패=malformed diff, 컨텍스트제외=서버 context 한계를 넘어 사전 제외.
+
+| 모델 | resolved | unresolved | 적용실패 | 빈 패치 | 추론오류 | 컨텍스트제외 | 형식의심 | total | resolved % |
+|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
+| `Qwen/Qwen2.5-0.5B-Instruct` | 0 | 1 | 2 | 0 | 0 | 47 | 3 | 3 | 0.0% |
+| `meta-llama/Llama-3.1-8B-Instruct` | 0 | 18 | 29 | 0 | 0 | 3 | 46 | 47 | 0.0% |
+
+## 6. Embedding / Reranker 처리량
+
+| 모델 | 종류 | batch=1 | batch=16 | batch=64 |
+|---|---|--:|--:|--:|
+
+## 7. GPU & 동시 접속자별 권장 서빙 설정
+
+- GPU: `CUDA_VISIBLE_DEVICES=2`
+
+| 모델 | 권장 동시성(효율) | 무감소 한계 | 권장 serve 옵션 |
+|---|--:|--:|---|
+| `Qwen/Qwen2.5-0.5B-Instruct` | 128 | 128 | `baseline` |
+| `meta-llama/Llama-3.1-8B-Instruct` | 128 | 128 | `{"max_model_len": 4096}` |
+
+## 8. 종합 — 코드 생성 적합도 점수
+
+정확도(SWE-bench 0.5) + peak 합산 TPS(0.3) + 단일 TPS(0.2) 가중합 (각 지표는 측정 모델 중 최대값 대비 정규화). embedding/reranker·smoke 제외.
+
+| 순위 | 모델 | 종합점수 | SWE-bench % | 단일 TPS | peak 합산 TPS |
+|--:|---|--:|--:|--:|--:|
+| 1 | `meta-llama/Llama-3.1-8B-Instruct` | 0.500 | 0.0 | 41.9 | 3634 |
+
+> **종합 1위: `meta-llama/Llama-3.1-8B-Instruct`** (종합점수 0.500).
+
+
+wrote /home/etri/jun/bench-gpu/REPORT.md
+[2026-05-21 18:44:09] done.

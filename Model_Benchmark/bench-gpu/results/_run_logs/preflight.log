@@ -1,13 +1,14 @@
 === GPU ===
 name, memory.total [MiB], memory.used [MiB], driver_version
-NVIDIA RTX A6000, 49140 MiB, 44670 MiB, 570.211.01
-NVIDIA RTX A6000, 49140 MiB, 44670 MiB, 570.211.01
-NVIDIA RTX A6000, 49140 MiB, 10 MiB, 570.211.01
+NVIDIA RTX A6000, 49140 MiB, 44694 MiB, 580.159.03
+NVIDIA RTX A6000, 49140 MiB, 44694 MiB, 580.159.03
+NVIDIA RTX A6000, 49140 MiB, 8 MiB, 580.159.03
+NVIDIA RTX A6000, 49140 MiB, 8 MiB, 580.159.03
 
 === vLLM / torch CUDA ===
   ok      vllm 0.10.0
   ok      torch 2.7.1+cu126 (CUDA build 12.6)
-  ok      torch.cuda — GPU 3개 인식
+  ok      torch.cuda — GPU 4개 인식
 
 === Python 의존성 ===
   ok      httpx
@@ -20,8 +21,8 @@ NVIDIA RTX A6000, 49140 MiB, 10 MiB, 570.211.01
   ok — docker 동작
 
 === 디스크 ===
-/dev/nvme0n1p2  1.8T  861G  878G  50% /
-/dev/nvme0n1p2  1.8T  861G  878G  50% /
+/dev/nvme0n1p2  1.8T  901G  839G  52% /
+/dev/nvme0n1p2  1.8T  901G  839G  52% /
 
 === HF 모델 접근 확인 ===
   ok   Qwen/Qwen2.5-0.5B-Instruct

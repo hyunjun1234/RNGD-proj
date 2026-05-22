@@ -1,7 +1,7 @@
 [
   {
     "combo": {},
-    "started_at": 1779262272.3436468,
+    "started_at": 1779351634.6381004,
     "server_info": {
       "/models": {
         "object": "list",
@@ -9,16 +9,16 @@
           {
             "id": "Qwen/Qwen2.5-0.5B-Instruct",
             "object": "model",
-            "created": 1779262311,
+            "created": 1779351674,
             "owned_by": "vllm",
             "root": "Qwen/Qwen2.5-0.5B-Instruct",
             "parent": null,
-            "max_model_len": 32768,
+            "max_model_len": 4096,
             "permission": [
               {
-                "id": "modelperm-274519e7a60347e69b8c283d39158418",
+                "id": "modelperm-7bb3c1420868443ba5e9b8d8d98e19e3",
                 "object": "model_permission",
-                "created": 1779262311,
+                "created": 1779351674,
                 "allow_create_engine": false,
                 "allow_sampling": true,
                 "allow_logprobs": true,
@@ -42,14 +42,14 @@
       "max_tokens": 256,
       "successes": 256,
       "failures": 0,
-      "wall_clock_s": 5.573,
-      "ttft_s_p50": 0.2022,
-      "ttft_s_p95": 0.2596,
-      "itl_s_p50": 0.01219,
-      "itl_s_p95": 0.01226,
-      "output_tps_per_request_p50": 99.97,
-      "aggregate_output_tps": 11750.47,
-      "total_output_tokens": 65480
+      "wall_clock_s": 5.528,
+      "ttft_s_p50": 0.2017,
+      "ttft_s_p95": 0.2489,
+      "itl_s_p50": 0.0126,
+      "itl_s_p95": 0.01302,
+      "output_tps_per_request_p50": 100.64,
+      "aggregate_output_tps": 11854.02,
+      "total_output_tokens": 65530
     },
     "status": "ok"
   },
@@ -57,7 +57,7 @@
     "combo": {
       "max_model_len": 4096
     },
-    "started_at": 1779262320.992515,
+    "started_at": 1779351683.1030042,
     "server_info": {
       "/models": {
         "object": "list",
@@ -65,16 +65,16 @@
           {
             "id": "Qwen/Qwen2.5-0.5B-Instruct",
             "object": "model",
-            "created": 1779262360,
+            "created": 1779351722,
             "owned_by": "vllm",
             "root": "Qwen/Qwen2.5-0.5B-Instruct",
             "parent": null,
             "max_model_len": 4096,
             "permission": [
               {
-                "id": "modelperm-d623760b26984ba884eb3944dc2c90bd",
+                "id": "modelperm-e9715c655e6a4850a2565b04ccc28887",
                 "object": "model_permission",
-                "created": 1779262360,
+                "created": 1779351722,
                 "allow_create_engine": false,
                 "allow_sampling": true,
                 "allow_logprobs": true,
@@ -90,286 +90,6 @@
         ]
       },
       "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 11015.0\npython_gc_objects_collected_total{generation=\"1\"} 1627.0\npython_gc_objects_collected_total{generation=\"2\"} 1063.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1436.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
-    },
-    "bench": {
-      "model": "Qwen/Qwen2.5-0.5B-Instruct",
-      "concurrency": 128,
-      "prompt_tokens_target": 1024,
-      "max_tokens": 256,
-      "successes": 256,
-      "failures": 0,
-      "wall_clock_s": 5.614,
-      "ttft_s_p50": 0.1985,
-      "ttft_s_p95": 0.2431,
-      "itl_s_p50": 0.00975,
-      "itl_s_p95": 0.00985,
-      "output_tps_per_request_p50": 99.01,
-      "aggregate_output_tps": 11664.83,
-      "total_output_tokens": 65492
-    },
-    "status": "ok"
-  },
-  {
-    "combo": {
-      "max_model_len": 8192
-    },
-    "started_at": 1779262369.634669,
-    "server_info": {
-      "/models": {
-        "object": "list",
-        "data": [
-          {
-            "id": "Qwen/Qwen2.5-0.5B-Instruct",
-            "object": "model",
-            "created": 1779262409,
-            "owned_by": "vllm",
-            "root": "Qwen/Qwen2.5-0.5B-Instruct",
-            "parent": null,
-            "max_model_len": 8192,
-            "permission": [
-              {
-                "id": "modelperm-35f30c10ca394c79b38c763136e1c910",
-                "object": "model_permission",
-                "created": 1779262409,
-                "allow_create_engine": false,
-                "allow_sampling": true,
-                "allow_logprobs": true,
-                "allow_search_indices": false,
-                "allow_view": true,
-                "allow_fine_tuning": false,
-                "organization": "*",
-                "group": null,
-                "is_blocking": false
-              }
-            ]
-          }
-        ]
-      },
-      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 11015.0\npython_gc_objects_collected_total{generation=\"1\"} 1627.0\npython_gc_objects_collected_total{generation=\"2\"} 1063.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1436.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
-    },
-    "bench": {
-      "model": "Qwen/Qwen2.5-0.5B-Instruct",
-      "concurrency": 128,
-      "prompt_tokens_target": 1024,
-      "max_tokens": 256,
-      "successes": 256,
-      "failures": 0,
-      "wall_clock_s": 5.534,
-      "ttft_s_p50": 0.1817,
-      "ttft_s_p95": 0.2399,
-      "itl_s_p50": 0.00975,
-      "itl_s_p95": 0.00982,
-      "output_tps_per_request_p50": 100.69,
-      "aggregate_output_tps": 11830.85,
-      "total_output_tokens": 65477
-    },
-    "status": "ok"
-  },
-  {
-    "combo": {
-      "max_model_len": 16384
-    },
-    "started_at": 1779262418.290049,
-    "server_info": {
-      "/models": {
-        "object": "list",
-        "data": [
-          {
-            "id": "Qwen/Qwen2.5-0.5B-Instruct",
-            "object": "model",
-            "created": 1779262457,
-            "owned_by": "vllm",
-            "root": "Qwen/Qwen2.5-0.5B-Instruct",
-            "parent": null,
-            "max_model_len": 16384,
-            "permission": [
-              {
-                "id": "modelperm-6b9facc2bee4477187bd5db39f5bd371",
-                "object": "model_permission",
-                "created": 1779262457,
-                "allow_create_engine": false,
-                "allow_sampling": true,
-                "allow_logprobs": true,
-                "allow_search_indices": false,
-                "allow_view": true,
-                "allow_fine_tuning": false,
-                "organization": "*",
-                "group": null,
-                "is_blocking": false
-              }
-            ]
-          }
-        ]
-      },
-      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 11015.0\npython_gc_objects_collected_total{generation=\"1\"} 1627.0\npython_gc_objects_collected_total{generation=\"2\"} 1063.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1436.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
-    },
-    "bench": {
-      "model": "Qwen/Qwen2.5-0.5B-Instruct",
-      "concurrency": 128,
-      "prompt_tokens_target": 1024,
-      "max_tokens": 256,
-      "successes": 256,
-      "failures": 0,
-      "wall_clock_s": 5.565,
-      "ttft_s_p50": 0.202,
-      "ttft_s_p95": 0.2577,
-      "itl_s_p50": 0.00982,
-      "itl_s_p95": 0.0099,
-      "output_tps_per_request_p50": 100.05,
-      "aggregate_output_tps": 11773.87,
-      "total_output_tokens": 65525
-    },
-    "status": "ok"
-  },
-  {
-    "combo": {
-      "max_num_seqs": 64
-    },
-    "started_at": 1779262466.9838562,
-    "server_info": {
-      "/models": {
-        "object": "list",
-        "data": [
-          {
-            "id": "Qwen/Qwen2.5-0.5B-Instruct",
-            "object": "model",
-            "created": 1779262503,
-            "owned_by": "vllm",
-            "root": "Qwen/Qwen2.5-0.5B-Instruct",
-            "parent": null,
-            "max_model_len": 32768,
-            "permission": [
-              {
-                "id": "modelperm-a4a2397cd2614d208bc2379018590d41",
-                "object": "model_permission",
-                "created": 1779262503,
-                "allow_create_engine": false,
-                "allow_sampling": true,
-                "allow_logprobs": true,
-                "allow_search_indices": false,
-                "allow_view": true,
-                "allow_fine_tuning": false,
-                "organization": "*",
-                "group": null,
-                "is_blocking": false
-              }
-            ]
-          }
-        ]
-      },
-      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 10891.0\npython_gc_objects_collected_total{generation=\"1\"} 1737.0\npython_gc_objects_collected_total{generation=\"2\"} 1076.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1437.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
-    },
-    "bench": {
-      "model": "Qwen/Qwen2.5-0.5B-Instruct",
-      "concurrency": 128,
-      "prompt_tokens_target": 1024,
-      "max_tokens": 256,
-      "successes": 256,
-      "failures": 0,
-      "wall_clock_s": 8.391,
-      "ttft_s_p50": 2.0484,
-      "ttft_s_p95": 2.2607,
-      "itl_s_p50": 0.00788,
-      "itl_s_p95": 0.00794,
-      "output_tps_per_request_p50": 126.3,
-      "aggregate_output_tps": 7794.64,
-      "total_output_tokens": 65408
-    },
-    "status": "ok"
-  },
-  {
-    "combo": {
-      "max_num_seqs": 256
-    },
-    "started_at": 1779262515.3228016,
-    "server_info": {
-      "/models": {
-        "object": "list",
-        "data": [
-          {
-            "id": "Qwen/Qwen2.5-0.5B-Instruct",
-            "object": "model",
-            "created": 1779262554,
-            "owned_by": "vllm",
-            "root": "Qwen/Qwen2.5-0.5B-Instruct",
-            "parent": null,
-            "max_model_len": 32768,
-            "permission": [
-              {
-                "id": "modelperm-f5cc05efe14d412cb212690c7cd98e58",
-                "object": "model_permission",
-                "created": 1779262554,
-                "allow_create_engine": false,
-                "allow_sampling": true,
-                "allow_logprobs": true,
-                "allow_search_indices": false,
-                "allow_view": true,
-                "allow_fine_tuning": false,
-                "organization": "*",
-                "group": null,
-                "is_blocking": false
-              }
-            ]
-          }
-        ]
-      },
-      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 11015.0\npython_gc_objects_collected_total{generation=\"1\"} 1627.0\npython_gc_objects_collected_total{generation=\"2\"} 1063.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1436.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
-    },
-    "bench": {
-      "model": "Qwen/Qwen2.5-0.5B-Instruct",
-      "concurrency": 128,
-      "prompt_tokens_target": 1024,
-      "max_tokens": 256,
-      "successes": 256,
-      "failures": 0,
-      "wall_clock_s": 5.551,
-      "ttft_s_p50": 0.1856,
-      "ttft_s_p95": 0.2739,
-      "itl_s_p50": 0.00973,
-      "itl_s_p95": 0.00976,
-      "output_tps_per_request_p50": 100.78,
-      "aggregate_output_tps": 11775.66,
-      "total_output_tokens": 65364
-    },
-    "status": "ok"
-  },
-  {
-    "combo": {
-      "gpu_memory_utilization": 0.85
-    },
-    "started_at": 1779262563.9070356,
-    "server_info": {
-      "/models": {
-        "object": "list",
-        "data": [
-          {
-            "id": "Qwen/Qwen2.5-0.5B-Instruct",
-            "object": "model",
-            "created": 1779262603,
-            "owned_by": "vllm",
-            "root": "Qwen/Qwen2.5-0.5B-Instruct",
-            "parent": null,
-            "max_model_len": 32768,
-            "permission": [
-              {
-                "id": "modelperm-914276a15501480f8e9e3e9a04a808ba",
-                "object": "model_permission",
-                "created": 1779262603,
-                "allow_create_engine": false,
-                "allow_sampling": true,
-                "allow_logprobs": true,
-                "allow_search_indices": false,
-                "allow_view": true,
-                "allow_fine_tuning": false,
-                "organization": "*",
-                "group": null,
-                "is_blocking": false
-              }
-            ]
-          }
-        ]
-      },
-      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 10891.0\npython_gc_objects_collected_total{generation=\"1\"} 1737.0\npython_gc_objects_collected_total{generation=\"2\"} 1076.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1437.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
     },
     "bench": {
       "model": "Qwen/Qwen2.5-0.5B-Instruct",
@@ -379,21 +99,21 @@
       "successes": 256,
       "failures": 0,
       "wall_clock_s": 5.602,
-      "ttft_s_p50": 0.2078,
-      "ttft_s_p95": 0.2335,
-      "itl_s_p50": 0.0096,
-      "itl_s_p95": 0.0097,
-      "output_tps_per_request_p50": 99.67,
-      "aggregate_output_tps": 11674.1,
-      "total_output_tokens": 65402
+      "ttft_s_p50": 0.2259,
+      "ttft_s_p95": 0.276,
+      "itl_s_p50": 0.00954,
+      "itl_s_p95": 0.00958,
+      "output_tps_per_request_p50": 100.65,
+      "aggregate_output_tps": 11690.94,
+      "total_output_tokens": 65494
     },
     "status": "ok"
   },
   {
     "combo": {
-      "gpu_memory_utilization": 0.95
+      "max_model_len": 8192
     },
-    "started_at": 1779262612.580438,
+    "started_at": 1779351731.6996863,
     "server_info": {
       "/models": {
         "object": "list",
@@ -401,16 +121,16 @@
           {
             "id": "Qwen/Qwen2.5-0.5B-Instruct",
             "object": "model",
-            "created": 1779262655,
+            "created": 1779351771,
             "owned_by": "vllm",
             "root": "Qwen/Qwen2.5-0.5B-Instruct",
             "parent": null,
-            "max_model_len": 32768,
+            "max_model_len": 8192,
             "permission": [
               {
-                "id": "modelperm-255f01ad8aac40a190161d87341ca4ee",
+                "id": "modelperm-218052ee49aa4c8b834d60c0f923079e",
                 "object": "model_permission",
-                "created": 1779262655,
+                "created": 1779351771,
                 "allow_create_engine": false,
                 "allow_sampling": true,
                 "allow_logprobs": true,
@@ -434,14 +154,294 @@
       "max_tokens": 256,
       "successes": 256,
       "failures": 0,
-      "wall_clock_s": 5.853,
-      "ttft_s_p50": 0.1947,
-      "ttft_s_p95": 0.2741,
-      "itl_s_p50": 0.0103,
-      "itl_s_p95": 0.01035,
-      "output_tps_per_request_p50": 95.11,
-      "aggregate_output_tps": 11173.23,
-      "total_output_tokens": 65399
+      "wall_clock_s": 5.731,
+      "ttft_s_p50": 0.1783,
+      "ttft_s_p95": 0.2442,
+      "itl_s_p50": 0.01003,
+      "itl_s_p95": 0.01006,
+      "output_tps_per_request_p50": 96.52,
+      "aggregate_output_tps": 11432.53,
+      "total_output_tokens": 65516
+    },
+    "status": "ok"
+  },
+  {
+    "combo": {
+      "max_model_len": 16384
+    },
+    "started_at": 1779351780.2824395,
+    "server_info": {
+      "/models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "Qwen/Qwen2.5-0.5B-Instruct",
+            "object": "model",
+            "created": 1779351819,
+            "owned_by": "vllm",
+            "root": "Qwen/Qwen2.5-0.5B-Instruct",
+            "parent": null,
+            "max_model_len": 16384,
+            "permission": [
+              {
+                "id": "modelperm-1a6479f7553245dd9d869493850ae78f",
+                "object": "model_permission",
+                "created": 1779351819,
+                "allow_create_engine": false,
+                "allow_sampling": true,
+                "allow_logprobs": true,
+                "allow_search_indices": false,
+                "allow_view": true,
+                "allow_fine_tuning": false,
+                "organization": "*",
+                "group": null,
+                "is_blocking": false
+              }
+            ]
+          }
+        ]
+      },
+      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 11015.0\npython_gc_objects_collected_total{generation=\"1\"} 1627.0\npython_gc_objects_collected_total{generation=\"2\"} 1063.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1436.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
+    },
+    "bench": {
+      "model": "Qwen/Qwen2.5-0.5B-Instruct",
+      "concurrency": 128,
+      "prompt_tokens_target": 1024,
+      "max_tokens": 256,
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 5.834,
+      "ttft_s_p50": 0.2101,
+      "ttft_s_p95": 0.2482,
+      "itl_s_p50": 0.01006,
+      "itl_s_p95": 0.01017,
+      "output_tps_per_request_p50": 95.54,
+      "aggregate_output_tps": 11229.22,
+      "total_output_tokens": 65512
+    },
+    "status": "ok"
+  },
+  {
+    "combo": {
+      "max_num_seqs": 8
+    },
+    "started_at": 1779351829.1037576,
+    "server_info": {
+      "/models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "Qwen/Qwen2.5-0.5B-Instruct",
+            "object": "model",
+            "created": 1779351868,
+            "owned_by": "vllm",
+            "root": "Qwen/Qwen2.5-0.5B-Instruct",
+            "parent": null,
+            "max_model_len": 4096,
+            "permission": [
+              {
+                "id": "modelperm-7b0ee1b01add4a91ae0879e472503a53",
+                "object": "model_permission",
+                "created": 1779351868,
+                "allow_create_engine": false,
+                "allow_sampling": true,
+                "allow_logprobs": true,
+                "allow_search_indices": false,
+                "allow_view": true,
+                "allow_fine_tuning": false,
+                "organization": "*",
+                "group": null,
+                "is_blocking": false
+              }
+            ]
+          }
+        ]
+      },
+      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 10891.0\npython_gc_objects_collected_total{generation=\"1\"} 1737.0\npython_gc_objects_collected_total{generation=\"2\"} 1076.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1436.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
+    },
+    "bench": {
+      "model": "Qwen/Qwen2.5-0.5B-Instruct",
+      "concurrency": 128,
+      "prompt_tokens_target": 1024,
+      "max_tokens": 256,
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 39.714,
+      "ttft_s_p50": 18.4992,
+      "ttft_s_p95": 18.5852,
+      "itl_s_p50": 0.00476,
+      "itl_s_p95": 0.00478,
+      "output_tps_per_request_p50": 208.26,
+      "aggregate_output_tps": 1649.38,
+      "total_output_tokens": 65504
+    },
+    "status": "ok"
+  },
+  {
+    "combo": {
+      "max_num_seqs": 32
+    },
+    "started_at": 1779351911.7688246,
+    "server_info": {
+      "/models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "Qwen/Qwen2.5-0.5B-Instruct",
+            "object": "model",
+            "created": 1779351951,
+            "owned_by": "vllm",
+            "root": "Qwen/Qwen2.5-0.5B-Instruct",
+            "parent": null,
+            "max_model_len": 4096,
+            "permission": [
+              {
+                "id": "modelperm-6db13fce9f0447849c33119d4c1a483e",
+                "object": "model_permission",
+                "created": 1779351951,
+                "allow_create_engine": false,
+                "allow_sampling": true,
+                "allow_logprobs": true,
+                "allow_search_indices": false,
+                "allow_view": true,
+                "allow_fine_tuning": false,
+                "organization": "*",
+                "group": null,
+                "is_blocking": false
+              }
+            ]
+          }
+        ]
+      },
+      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 11015.0\npython_gc_objects_collected_total{generation=\"1\"} 1627.0\npython_gc_objects_collected_total{generation=\"2\"} 1063.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1436.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
+    },
+    "bench": {
+      "model": "Qwen/Qwen2.5-0.5B-Instruct",
+      "concurrency": 128,
+      "prompt_tokens_target": 1024,
+      "max_tokens": 256,
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 11.691,
+      "ttft_s_p50": 4.3112,
+      "ttft_s_p95": 4.527,
+      "itl_s_p50": 0.00551,
+      "itl_s_p95": 0.00557,
+      "output_tps_per_request_p50": 179.4,
+      "aggregate_output_tps": 5589.43,
+      "total_output_tokens": 65344
+    },
+    "status": "ok"
+  },
+  {
+    "combo": {
+      "max_num_batched_tokens": 4096
+    },
+    "started_at": 1779351966.5906696,
+    "server_info": {
+      "/models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "Qwen/Qwen2.5-0.5B-Instruct",
+            "object": "model",
+            "created": 1779352006,
+            "owned_by": "vllm",
+            "root": "Qwen/Qwen2.5-0.5B-Instruct",
+            "parent": null,
+            "max_model_len": 4096,
+            "permission": [
+              {
+                "id": "modelperm-5fd93f4dec7d41afa9f392669344cf04",
+                "object": "model_permission",
+                "created": 1779352006,
+                "allow_create_engine": false,
+                "allow_sampling": true,
+                "allow_logprobs": true,
+                "allow_search_indices": false,
+                "allow_view": true,
+                "allow_fine_tuning": false,
+                "organization": "*",
+                "group": null,
+                "is_blocking": false
+              }
+            ]
+          }
+        ]
+      },
+      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 11015.0\npython_gc_objects_collected_total{generation=\"1\"} 1627.0\npython_gc_objects_collected_total{generation=\"2\"} 1063.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1436.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
+    },
+    "bench": {
+      "model": "Qwen/Qwen2.5-0.5B-Instruct",
+      "concurrency": 128,
+      "prompt_tokens_target": 1024,
+      "max_tokens": 256,
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 5.845,
+      "ttft_s_p50": 0.1889,
+      "ttft_s_p95": 0.2376,
+      "itl_s_p50": 0.01009,
+      "itl_s_p95": 0.01029,
+      "output_tps_per_request_p50": 94.92,
+      "aggregate_output_tps": 11182.97,
+      "total_output_tokens": 65370
+    },
+    "status": "ok"
+  },
+  {
+    "combo": {
+      "max_num_batched_tokens": 16384
+    },
+    "started_at": 1779352015.4625359,
+    "server_info": {
+      "/models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "Qwen/Qwen2.5-0.5B-Instruct",
+            "object": "model",
+            "created": 1779352054,
+            "owned_by": "vllm",
+            "root": "Qwen/Qwen2.5-0.5B-Instruct",
+            "parent": null,
+            "max_model_len": 4096,
+            "permission": [
+              {
+                "id": "modelperm-f1e49688064542dc8d524fb503878fc2",
+                "object": "model_permission",
+                "created": 1779352054,
+                "allow_create_engine": false,
+                "allow_sampling": true,
+                "allow_logprobs": true,
+                "allow_search_indices": false,
+                "allow_view": true,
+                "allow_fine_tuning": false,
+                "organization": "*",
+                "group": null,
+                "is_blocking": false
+              }
+            ]
+          }
+        ]
+      },
+      "/../metrics": "# HELP python_gc_objects_collected_total Objects collected during gc\n# TYPE python_gc_objects_collected_total counter\npython_gc_objects_collected_total{generation=\"0\"} 11015.0\npython_gc_objects_collected_total{generation=\"1\"} 1627.0\npython_gc_objects_collected_total{generation=\"2\"} 1063.0\n# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC\n# TYPE python_gc_objects_uncollectable_total counter\npython_gc_objects_uncollectable_total{generation=\"0\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"1\"} 0.0\npython_gc_objects_uncollectable_total{generation=\"2\"} 0.0\n# HELP python_gc_collections_total Number of times this generation was collected\n# TYPE python_gc_collections_total counter\npython_gc_collections_total{generation=\"0\"} 1436.0\npython_gc_collections_total{generation=\"1\"} 130.0\npython_gc_collections_total{generation=\"2\"} 10.0\n# HELP python_info Python platform information\n# TYPE python_info gauge\npython_info{implementation=\"CPython\",major=\"3\",minor=\""
+    },
+    "bench": {
+      "model": "Qwen/Qwen2.5-0.5B-Instruct",
+      "concurrency": 128,
+      "prompt_tokens_target": 1024,
+      "max_tokens": 256,
+      "successes": 256,
+      "failures": 0,
+      "wall_clock_s": 5.739,
+      "ttft_s_p50": 0.192,
+      "ttft_s_p95": 0.2645,
+      "itl_s_p50": 0.01005,
+      "itl_s_p95": 0.01011,
+      "output_tps_per_request_p50": 97.31,
+      "aggregate_output_tps": 11416.39,
+      "total_output_tokens": 65515
     },
     "status": "ok"
   }

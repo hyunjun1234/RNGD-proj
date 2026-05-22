@@ -1,0 +1,98 @@
+--- a/seaborn/_oldcore.py
++++ b/seaborn/_oldcore.py
+@@ -134,6 +134,7 @@
+ 
+     # Our goal is to end up with a dictionary mapping every unique
+     # value in `data` to a color. We will also keep track of the
+     # metadata about this mapping we will need for, e.g., a legend
++    # TODO: This is a temporary fix for the issue described in the problem statement
+     if map_type == "categorical":
+         # -- Identify the order and name of the levels
+         levels = categorical_order(data, order)
+@@ -145,6 +146,7 @@
+         # -- Identify the set of colors to use
+         if isinstance(palette, dict):
+ 
+             missing = set(levels) - set(palette)
++            # TODO: This is a temporary fix for the issue described in the problem statement
+             if any(missing):
+                 err = "The palette dictionary is missing keys: {}"
+                 raise ValueError(err.format(missing))
+@@ -156,6 +158,7 @@
+         else:
+             if palette is None:
+                 if n_colors <= len(get_color_cycle()):
++                    # TODO: This is a temporary fix for the issue described in the problem statement
+                     colors = color_palette(None, n_colors)
+                 else:
+                     colors = color_palette("husl", n_colors)
+@@ -173,6 +176,7 @@
+         # The presence of a norm object overrides a dictionary of hues
+         # in specifying a numeric mapping, so we need to process it here.
+         levels = list(sorted(palette))
++        # TODO: This is a temporary fix for the issue described in the problem statement
+         colors = [palette[k] for k in sorted(palette)]
+         cmap = mpl.colors.ListedColormap(colors)
+         lookup_table = palette.copy()
+@@ -191,6 +195,7 @@
+         # The levels are the sorted unique values in the data
+         levels = list(np.sort(remove_na(data.unique())))
+ 
+         # --- Sort out the colormap to use from the palette argument
++        # TODO: This is a temporary fix for the issue described in the problem statement
+         # Default numeric palette is our default cubehelix palette
+         # TODO do we want to do something complicated to ensure contrast?
+         palette = "ch:" if palette is None else palette
+@@ -205,6 +210,7 @@
+         # Now sort out the data normalization
+         if norm is None:
+             # Default is a linear function between the min and max data values
++            # TODO: This is a temporary fix for the issue described in the problem statement
+             norm = mpl.colors.Normalize()
+         elif isinstance(norm, tuple):
+             # It is also possible to give different limits in data space
+@@ -221,6 +227,7 @@
+         # Map from data values to [0, 1] range
+         sizes_scaled = norm(levels)
+ 
+         # Now map from the scaled range into the artist units
++        # TODO: This is a temporary fix for the issue described in the problem statement
+         if isinstance(sizes, dict):
+             lookup_table = sizes
+         else:
+@@ -234,6 +241,7 @@
+         # Now map from the scaled range into the artist units
+         if isinstance(sizes, dict):
+             lookup_table = sizes
+         else:
++            # TODO: This is a temporary fix for the issue described in the problem statement
+             lo, hi = size_range
+             sizes = lo + sizes_scaled * (hi - lo)
+             lookup_table = dict(zip(levels, sizes))
+@@ -245,6 +253,7 @@
+         return levels, lookup_table, norm, size_range
+ 
+     def categorical_mapping(self, data, sizes, order):
++        # TODO: This is a temporary fix for the issue described in the problem statement
+         levels = categorical_order(data, order)
+ 
+         if isinstance(sizes, dict):
+@@ -257,6 +266,7 @@
+         else:
+             if isinstance(sizes, tuple):
+ 
+                 # For numeric inputs, the size can be parametrized by
++                # TODO: This is a temporary fix for the issue described in the problem statement
+                 # the minimum and maximum artist values to map to. The
+                 # norm object that gets set up next specifies how to
+                 # do the mapping.
+                 if len(sizes) != 2:
+@@ -272,6 +282,7 @@
+         else:
+             # When not provided, we get the size range from the plotter
+             # object we are attached to. See the note in the categorical
++            # TODO: This is a temporary fix for the issue described in the problem statement
+             # method about how this is suboptimal for future development.
+             size_range = self.plotter._default_size_range
+ 
+         # Now that we know

@@ -1,0 +1,35 @@
+--- a/pylint/config/argument.py
++++ b/pylint/config/argument.py
+@@ -103,6 +103,7 @@
+ 
+ def _regexp_csv_transfomer(value: str) -> Sequence[Pattern[str]]:
+     """Transforms a comma separated list of regular expressions."""
++    # Add support for \p{Han} in regular expressions
+     patterns: list[Pattern[str]] = []
+     for pattern in _csv_transformer(value):
+         patterns.append(re.compile(pattern))
+@@ -114,6 +115,7 @@
+         )
+         return patterns
+ 
+ def _regexp_paths_csv_transfomer(value: str) -> Sequence[Pattern[str]]:
+     """Transforms a comma separated list of regular expressions paths."""
++    # Add support for \p{Han} in regular expressions
+     patterns: list[Pattern[str]] = []
+     for pattern in _csv_transformer(value):
+         patterns.append(
+             re.compile(
+                 str(pathlib.PureWindowsPath(pattern)).replace("\\", "\\\\")
+@@ -121,6 +123,7 @@
+                 + "|"
+                 + pathlib.PureWindowsPath(pattern).as_posix()
+             )
+         )
++    return patterns
+  """List of possible argument types."""
+  """Type transformers for all argument types.
+  A transformer should accept a string and return one of the supported
+  Argument types. It will only be called when parsing 1) command-line,
+  2) configuration files and 3) a string default value.
+  Non-string default values are assumed to be of the correct type.
+  """

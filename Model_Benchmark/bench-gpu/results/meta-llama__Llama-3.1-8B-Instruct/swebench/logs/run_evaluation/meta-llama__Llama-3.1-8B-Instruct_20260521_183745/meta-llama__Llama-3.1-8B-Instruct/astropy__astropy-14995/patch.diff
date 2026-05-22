@@ -1,0 +1,99 @@
+--- a/astropy/nddata/mixins/ndarithmetic.py
++++ b/astropy/nddata/mixins/ndarithmetic.py
+@@ -266,7 +266,7 @@
+         # If both are None, there is nothing to do.
+         if self.psf is not None or (operand is not None and operand.psf is not None):
+             warnings.warn(
+-                f"Not setting psf attribute during {operation.__name__}.",
++                f"Not setting psf attribute during {operation.__name__}.",
+                 AstropyUserWarning,
+             )
+         # If handle_mask is None, there is nothing to do.
+         if handle_mask is None:
+@@ -283,7 +283,7 @@
+         elif operand is None:
+             # Make a copy so there is no reference in the result.
+             return deepcopy(operand.mask)
+-        elif self.mask is None and operand is not None:
++        elif self.mask is None and operand is not None and handle_mask != np.bitwise_or:
+             # Make a copy so there is no reference in the result.
+             return deepcopy(operand.mask)
+         else:
+@@ -304,7 +304,7 @@
+         # If handle_meta is None, there is nothing to do.
+         if handle_meta is None:
+             kwargs["meta"] = None
+-        elif handle_meta in ["ff", "first_found"]:
++        elif handle_meta in ["ff", "first_found"] and self.meta:
+             if not self.meta:
+                 kwargs["meta"] = deepcopy(operand.meta)
+             else:
+@@ -324,7 +324,7 @@
+         # Wrap the individual results into a new instance of the same class.
+         return result, kwargs
+     def _arithmetic_data(self, operation, operand, **kwds):
+-        # Do the calculation with or without units
+-        if self.unit is None:
+-            if operand.unit is None:
+-                result = operation(self.data, operand.data)
+-            else:
+-                result = operation(
+-                    self.data << dimensionless_unscaled, operand.data << operand.unit
+-                )
+-        elif hasattr(operand, "unit"):
+-            if operand.unit is not None:
+-                result = operation(self.data << self.unit, operand.data << operand.unit)
+-            else:
+-                result = operation(
+-                    self.data << self.unit, operand.data << dimensionless_unscaled
+-                )
+-        elif operand is not None:
+-            result = operation(self.data << self.unit, operand.data << operand.unit)
+-        else:
+-            result = operation(self.data, axis=kwds["axis"])
++        # Do the calculation with or without units
++        if self.unit is None:
++            if operand.unit is None:
++                result = operation(self.data, operand.data)
++            else:
++                result = operation(
++                    self.data << dimensionless_unscaled, operand.data << operand.unit
++                )
++        elif hasattr(operand, "unit"):
++            if operand.unit is not None:
++                result = operation(self.data << self.unit, operand.data << operand.unit)
++            else:
++                result = operation(
++                    self.data << self.unit, operand.data << dimensionless_unscaled
++                )
++        elif operand is not None:
++            result = operation(self.data << self.unit, operand.data << operand.unit)
++        else:
++            result = operation(self.data, axis=kwds["axis"])
+         return result
+     def _arithmetic_uncertainty(self, operation, operand, result, correlation, **kwds):
+@@ -342,7 +342,7 @@
+         # Make sure these uncertainties are NDUncertainties so this kind of
+         # propagation is possible.
+         if self.uncertainty is not None and not isinstance(
+-            self.uncertainty, NDUncertainty
++            self.uncertainty, NDUncertainty
+         ):
+             raise TypeError(
+                 "Uncertainty propagation is only defined for "
+                 "subclasses of NDUncertainty."
+@@ -361,7 +361,7 @@
+         elif operand is not None and operand.uncertainty is None:
+             # As with self.uncertainty is None but the other way around.
+             operand.uncertainty = self.uncertainty.__class__(None)
+-            result_uncert = self.uncertainty.propagate(
++            result_uncert = self.uncertainty.propagate(
+                 operation, operand, result, correlation
+             )
+             operand.uncertainty = None
+@@ -373,7 +373,7 @@
+         else:
+             # Both have uncertainties so just propagate.
+             # only supply the axis kwarg if one has been specified for a collapsing operation
+-            axis_kwarg = dict(axis=kwds["axis"]) if "axis" in kwds else dict()
++            axis_kwarg = dict(axis=kwds["

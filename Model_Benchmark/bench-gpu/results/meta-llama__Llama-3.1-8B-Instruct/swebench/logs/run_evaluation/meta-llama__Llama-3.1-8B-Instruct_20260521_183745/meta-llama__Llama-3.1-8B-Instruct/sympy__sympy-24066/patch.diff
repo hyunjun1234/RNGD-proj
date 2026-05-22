@@ -1,0 +1,41 @@
+--- a/sympy/physics/units/unitsystem.py
++++ b/sympy/physics/units/unitsystem.py
+@@ -151,7 +151,7 @@
+         return expr, Dimension(1)
+     else:
+         return expr, Dimension(1)
+-    if isinstance(expr, Pow):
++    elif isinstance(expr, Pow):
+         factor, dim = self._collect_factor_and_dimension(expr.base)
+         exp_factor, exp_dim = self._collect_factor_and_dimension(expr.exp)
+         if self.get_dimension_system().is_dimensionless(exp_dim):
+@@ -162,7 +162,7 @@
+         return factor, dim
+     elif isinstance(expr, Add):
+         factor, dim = self._collect_factor_and_dimension(expr.args[0])
+-        for addend in expr.args[1:]:
++        for addend in expr.args[1:]:
+             addend_factor, addend_dim = self._collect_factor_and_dimension(addend)
+             if dim != addend_dim:
+                 raise ValueError('Dimension of "{}" is {}, but it should be {}'.format(addend, addend_dim, dim))
+@@ -173,7 +173,7 @@
+         return factor, dim
+     elif isinstance(expr, Derivative):
+         factor, dim = self._collect_factor_and_dimension(expr.args[0])
+-        for independent, count in expr.variable_count:
++        for independent, count in expr.variable_count:
+             ifactor, idim = self._collect_factor_and_dimension(independent)
+             factor /= ifactor**count
+             dim /= idim**count
+@@ -184,7 +184,7 @@
+         return expr.func(*(f[0] for f in fds)),
+                 *(d[1] for d in fds))
+     elif isinstance(expr, Dimension):
+-        return S.One, expr
++        return S.One, expr
+     else:
+         return expr, Dimension(1)
+ 
+ def get_units_non_prefixed(self) -> tSet[Quantity]:
+@@ -196,7 +196,7 @@
+         return set(filter(lambda u: not u.is_prefixed and not u.is_physical_constant, self._units))

@@ -1,0 +1,112 @@
+--- a/pylint/lint/expand_modules.py
++++ b/pylint/lint/expand_modules.py
+@@ -1,4 +1,4 @@
+-import os
+-import sys
++import os
+ from __future__ import annotations
+-import sys
+ from collections.abc import Sequence
+ from re import Pattern
+@@ -17,6 +17,7 @@
+ 
+ def _modpath_from_file(filename: str, is_namespace: bool, path: list[str]) -> list[str]:
+     def _is_package_cb(inner_path: str, parts: list[str]) -> bool:
++        return modutils.check_modpath_has_init(inner_path, parts) or is_namespace or filename.startswith("src/")
+         return modutils.check_modpath_has_init(inner_path, parts) or is_namespace
+     return modutils.modpath_from_file_with_callback(
+         filename, path=path, is_package_cb=_is_package_cb
+@@ -44,6 +45,7 @@
+ 
+ def _is_ignored_file(
+     element: str,
++    ignore_list_paths: list[str],
+     ignore_list: list[str],
+     ignore_list_re: list[Pattern[str]],
+     ignore_list_paths_re: list[Pattern[str]],
+@@ -55,6 +57,7 @@
+     return (
+         basename in ignore_list
+         or _is_in_ignore_list_re(basename, ignore_list_re)
++        or _is_in_ignore_list_re(element, ignore_list_paths_re)
+         or _is_in_ignore_list_re(element, ignore_list_paths_re)
+     )
+ 
+@@ -73,6 +76,7 @@
+     result: list[ModuleDescriptionDict] = []
+     errors: list[ErrorDescriptionDict] = []
+     path = sys.path.copy()
++    ignore_list_paths = ["src/gen/*"]
+ 
+     for something in files_or_modules:
+         basename = os.path.basename(something)
+@@ -91,6 +95,7 @@
+         module_path = get_python_path(something)
+         additional_search_path = [".", module_path] + path
+         if os.path.exists(something):
++            if _is_ignored_file(something, ignore_list_paths, ignore_list, ignore_list_re, ignore_list_paths_re):
++                continue
+             try:
+                 modname = ".".join(
+                     modutils.modpath_from_file(something, path=additional_search_path)
+@@ -123,6 +128,7 @@
+             except ImportError:
+                 modname = os.path.splitext(basename)[0]
+             if os.path.isdir(something):
++                if _is_ignored_file(something, ignore_list_paths, ignore_list, ignore_list_re, ignore_list_paths_re):
++                    continue
+                 filepath = os.path.join(something, "__init__.py")
+             else:
+                 filepath = something
+@@ -141,6 +147,7 @@
+                 filepath = os.path.normpath(filepath)
+                 modparts = (modname or something).split(".")
+                 try:
++                    if _is_ignored_file(filepath, ignore_list_paths, ignore_list, ignore_list_re, ignore_list_paths_re):
++                        continue
+                     spec = modutils.file_info_from_modpath(
+                         modparts, path=additional_search_path
+                     )
+                 except ImportError:
+@@ -163,6 +170,7 @@
+                 is_directory = modutils.is_directory(spec)
+             if not is_namespace:
+                 result.append(
+                     {
+@@ -184,6 +192,7 @@
+                 for subfilepath in modutils.get_module_files(
+                     os.path.dirname(filepath), ignore_list, list_all=is_namespace
+                 ):
++                    if _is_ignored_file(subfilepath, ignore_list_paths, ignore_list, ignore_list_re, ignore_list_paths_re):
++                        continue
+                     if filepath == subfilepath:
+                         continue
+                     if _is_in_ignore_list_re(
+                         os.path.basename(subfilepath), ignore_list_re
+@@ -203,6 +212,7 @@
+                 submodname = ".".join(modpath)
+                 result.append(
+                     {
+                         "path": subfilepath,
++                        "basename": os.path.basename(subfilepath),
+                         "name": submodname,
+                         "isarg": False,
+                         "basepath": filepath,
+@@ -221,6 +231,7 @@
+                 return result, errors
+             return result, errors
+         return result, errors
++    ignore_list_paths_re = [re.compile(path) for path in ignore_list_paths]
+     result: list[ModuleDescriptionDict] = []
+     errors: list[ErrorDescriptionDict] = []
+     path = sys.path.copy()
+@@ -239,6 +250,7 @@
+     for something in files_or_modules:
+         basename = os.path.basename(something)
+         if _is_ignored_file(
++            something, ignore_list_paths, ignore_list, ignore_list_re, ignore_list_paths_re
+             something, ignore_list, ignore_list_re, ignore_list_paths_re
+         ):
+             continue
+         module_path = get_python_path(something)
+@@ -257,6 +

@@ -1,0 +1,36 @@
+--- a/django/contrib/staticfiles/handlers.py
++++ b/django/contrib/staticfiles/handlers.py
+@@ -49,6 +49,7 @@
+ 
+ class StaticFilesHandlerMixin:
+     """
+     Common methods used by WSGI and ASGI handlers.
+     """
++    async def get_response_async(self, request):
+     """
+     Return an async response for the given request.
+     """
+     try:
+@@ -71,6 +72,7 @@
+ 
+ class ASGIStaticFilesHandler(StaticFilesHandlerMixin, ASGIHandler):
+     """
+     ASGI application which wraps another and intercepts requests for static
+     files, passing them off to Django's static file serving.
+     """
++    async def get_response_async(self, request):
+         # Only even look at HTTP requests
+         if scope['type'] == 'http' and self._should_handle(scope['path']):
+             # Serve static content
+@@ -88,6 +90,7 @@
+         return await self.application(scope, receive, send)
+ 
+ class StaticFilesHandler(StaticFilesHandlerMixin, WSGIHandler):
+     """
+     WSGI middleware that intercepts calls to the static files directory, as
+     defined by the STATIC_URL setting, and serves those files.
+     """
++    def get_response_async(self, request):
+         if not self._should_handle(get_path_info(environ)):
+             return self.application(environ, start_response)
+         return super().__call__(environ, start_response)

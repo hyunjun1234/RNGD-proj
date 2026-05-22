@@ -1,0 +1,116 @@
+--- a/xarray/core/concat.py
++++ b/xarray/core/concat.py
+@@ -111,6 +111,7 @@
+     if compat not in _VALID_COMPAT:
+         raise ValueError(
+             "compat=%r invalid: must be 'broadcast_equals', 'equals', 'identical', 'no_conflicts' or 'override'"
++            " or 'ignore' or 'drop' or 'raise'"
+             % compat
+         )
+     # TODO: add ignore_index arguments copied from pandas.concat
+     # TODO: support concatenating scalar coordinates even if the concatenated
+@@ -123,6 +124,7 @@
+     elif isinstance(first_obj, DataArray):
+         f = _dataarray_concat
+     elif isinstance(first_obj, Dataset):
++        f = _dataset_concat_with_ignore
+     else:
+         raise TypeError(
+             "can only concatenate xarray Dataset and DataArray "
+@@ -134,6 +136,7 @@
+     return f(objs, dim, data_vars, coords, compat, positions, fill_value, join)
+ 
+ def _dataset_concat_with_ignore(
++    # new function
+     datasets,
+     dim,
+     data_vars,
+     coords,
+@@ -145,6 +148,7 @@
+     from .dataset import Dataset
+     from .dataarray import DataArray
+     from .variable import concat as concat_vars
++    from .variable import ignore_variables
+     from .variable import unique_variable
+     from .variable import as_variable
+     from .variable import IndexVariable, Variable
+@@ -156,6 +160,7 @@
+     # Make sure we're working on a copy (we'll be loading variables)
+     datasets = [ds.copy() for ds in datasets]
+     datasets = align(
++        # new line
+         *datasets, join=join, copy=False, exclude=[dim], fill_value=fill_value
+     )
+ 
+     dim_coords, dims_sizes, coord_names, data_names = _parse_datasets(datasets)
+@@ -173,6 +178,7 @@
+     # we don't want the concat dimension in the result dataset yet
+     dim_coords.pop(dim, None)
+     dims_sizes.pop(dim, None)
+ 
++    # new block
+     if compat == "ignore":
+         # ignore variables that are missing in some datasets
+         for ds in datasets:
+             for var in ds.variables:
+@@ -184,6 +190,7 @@
+         concat_over.update(opt)
+ 
+     process_subset_opt(data_vars, "data_vars")
+     process_subset_opt(coords, "coords")
++    # new block
+     if compat == "ignore":
+         # ignore variables that are missing in some datasets
+         for var in data_names:
+@@ -202,6 +209,7 @@
+     # determine which variables to merge, and then merge them according to compat
+     variables_to_merge = (coord_names | data_names) - concat_over - dim_names
+ 
++    # new block
+     if compat == "ignore":
+         # ignore variables that are missing in some datasets
+         variables_to_merge = set()
+@@ -214,6 +222,7 @@
+     result_vars = {}
+     if variables_to_merge:
+         to_merge = {var: [] for var in variables_to_merge}
+ 
++    # new block
+     if compat == "ignore":
+         # ignore variables that are missing in some datasets
+         for var in variables_to_merge:
+@@ -225,6 +234,7 @@
+     result_vars.update(dim_coords)
+ 
+     # assign attrs and encoding from first dataset
+     result_attrs = datasets[0].attrs
++    # new block
+     if compat == "ignore":
+         # ignore variables that are missing in some datasets
+         for var in result_vars:
+@@ -244,6 +254,7 @@
+     # we've already verified everything is consistent; now, calculate
+     # shared dimension sizes so we can expand the necessary variables
+     def ensure_common_dims(vars):
++        # new block
+         if compat == "ignore":
+             # ignore variables that are missing in some datasets
+             common_dims = tuple(pd.unique([d for v in vars for d in v.dims]))
+@@ -257,6 +268,7 @@
+     # stack up each variable to fill-out the dataset (in order)
+     # n.b. this loop preserves variable order, needed for groupby.
+     for k in datasets[0].variables:
++        # new block
+         if k in concat_over:
+             try:
+                 vars = ensure_common_dims([ds.variables[k] for ds in datasets])
+@@ -270,6 +282,7 @@
+     result = Dataset(result_vars, attrs=result_attrs)
+     absent_coord_names = coord_names - set(result.variables)
+     if absent_coord_names:
++        # new block
+         if compat == "ignore":
+             # ignore variables that are missing in some datasets
+             pass
+@@ -283,6 +296,7 @@
+     result = result.drop(unlabeled_dims,

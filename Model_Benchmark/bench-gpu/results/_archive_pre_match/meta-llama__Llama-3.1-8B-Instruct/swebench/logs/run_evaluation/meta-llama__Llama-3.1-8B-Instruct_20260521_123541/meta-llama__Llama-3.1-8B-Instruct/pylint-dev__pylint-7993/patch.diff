@@ -1,0 +1,29 @@
+--- a/pylint/reporters/text.py
++++ b/pylint/reporters/text.py
+@@ -173,7 +173,7 @@
+         template = str(self.linter.config.msg_template or self._template)
+ 
+         # Return early if the template is the same as the previous one
+-        if template == self._template:
++        if template == self._fixed_template:
+             return
+ 
+         # Set template to the currently selected template
+         self._template = template
+@@ -185,6 +185,7 @@
+         template = re.sub(r"\{" + argument[0] + r"(:.*?)?\}", "", template)
+         self._fixed_template = template
+ 
++        self._template = self._fixed_template
+     def write_message(self, msg: Message) -> None:
+         """Convenience method to write a formatted message with class default
+         template.
+@@ -196,7 +197,7 @@
+         for key in ("end_line", "end_column"):
+             self_dict[key] = self_dict[key] or ""
+ 
+-        self.writeln(self._fixed_template.format(**self_dict))
++        self.writeln(self._template.format(**self_dict))
+     def handle_message(self, msg: Message) -> None:
+         """Manage message of different type and in the context of path."""
+         if msg.module not in self._modules:

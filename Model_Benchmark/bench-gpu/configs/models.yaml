@@ -7,17 +7,20 @@
 models:
   - id: Qwen/Qwen2.5-0.5B-Instruct
     revision: null
-    role: baseline        # 비교 대상
+    role: smoke           # NPU(RNGD) 측과 role 통일 — furiosa-llm artifact가 4K bucket이라 smoke 용도
     gen: true
     enabled: true
-    serve_args: ["--port", "8001"]
+    # NPU max_executable_length=4096과 동일하게 vLLM도 4K context로 맞춤.
+    serve_args: ["--port", "8001", "--max-model-len", "4096"]
 
   - id: meta-llama/Llama-3.1-8B-Instruct
     revision: null
     role: baseline
     gen: true
     enabled: true         # gated — `hf auth login` 필요
-    serve_args: []
+    # NPU README "Maximum Context Length: 32k"와 일치.
+    # llama3_json tool parser는 NPU(furiosa-llm) 서버 인자와 동일 — 함수 호출 응답 포맷 통일.
+    serve_args: ["--max-model-len", "32768", "--tool-call-parser", "llama3_json"]
 
   - id: Qwen/Qwen3-32B
     revision: null
@@ -61,6 +64,7 @@ common_serve_args:
   - "0.0.0.0"
   - "--port"
   - "8000"
+  - "--enable-prefix-caching"   # NPU(furiosa-llm)와 동일하게 명시. vLLM 기본도 ON이지만 비교 정합성을 위해 명시.
 
 # 사용할 GPU (CUDA_VISIBLE_DEVICES). GPU 0·1은 타작업 점유 → 비어 있는 GPU 2 사용.
 # 다중 GPU면 "1,2" + 모델 serve_args에 ["--tensor-parallel-size","2"] 추가.
@@ -75,9 +79,14 @@ sweep:
   measured_requests: 50
 
 # Memsweep — vllm serve 옵션 OFAT 스윕 (baseline에서 한 축씩 변경, 조합마다 서버 재기동)
+# NPU(furiosa-llm) memsweep 8 combo와 직접 비교 가능하도록 축·값을 정렬.
+#   NPU max_batch_size           ↔ vLLM --max-num-seqs
+#   NPU max_num_batched_tokens   ↔ vLLM --max-num-batched-tokens (동일 키)
+# gpu_memory_utilization은 NPU 등가 옵션이 없어 직접 비교용에서는 제외.
+# (GPU 단독 메모리 튜닝이 필요하면 별도 yaml로 분리하면 됨.)
 memsweep:
   baseline: {}
   axes:
     max_model_len: [4096, 8192, 16384]
-    max_num_seqs: [64, 256]
-    gpu_memory_utilization: [0.85, 0.95]
+    max_num_seqs: [8, 32]
+    max_num_batched_tokens: [4096, 16384]

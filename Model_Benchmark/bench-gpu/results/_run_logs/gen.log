@@ -9,15 +9,15 @@
 
 [memsweep 4/8] combo={'max_model_len': 16384}
 
-[memsweep 5/8] combo={'max_num_seqs': 64}
+[memsweep 5/8] combo={'max_num_seqs': 8}
 
-[memsweep 6/8] combo={'max_num_seqs': 256}
+[memsweep 6/8] combo={'max_num_seqs': 32}
 
-[memsweep 7/8] combo={'gpu_memory_utilization': 0.85}
+[memsweep 7/8] combo={'max_num_batched_tokens': 4096}
 
-[memsweep 8/8] combo={'gpu_memory_utilization': 0.95}
+[memsweep 8/8] combo={'max_num_batched_tokens': 16384}
   [memsweep] 8 combos done
-  [tps] {"model": "Qwen/Qwen2.5-0.5B-Instruct", "concurrency": 1, "prompt_tokens_target": 256, "max_tokens": 256, "successes": 50, "failures": 0, "wall_clock_s": 51.742, "ttft_s_p50": 0.014, "ttft_s_p95": 0.0147, "itl_s_p50": 0.00399, "itl_s_p95": 0.00401, "output_tps_per_request_p50": 250.65, "aggregate_output_tps": 247.34, "total_output_tokens": 12798}
+  [tps] {"model": "Qwen/Qwen2.5-0.5B-Instruct", "concurrency": 1, "prompt_tokens_target": 256, "max_tokens": 256, "successes": 50, "failures": 0, "wall_clock_s": 51.717, "ttft_s_p50": 0.0135, "ttft_s_p95": 0.0212, "itl_s_p50": 0.00401, "itl_s_p95": 0.00404, "output_tps_per_request_p50": 249.04, "aggregate_output_tps": 247.5, "total_output_tokens": 12800}
   [sweep] concurrency=1, prompt_len=256
   [sweep] concurrency=2, prompt_len=256
   [sweep] concurrency=4, prompt_len=256
@@ -53,15 +53,15 @@
 
 [memsweep 4/8] combo={'max_model_len': 16384}
 
-[memsweep 5/8] combo={'max_num_seqs': 64}
+[memsweep 5/8] combo={'max_num_seqs': 8}
 
-[memsweep 6/8] combo={'max_num_seqs': 256}
+[memsweep 6/8] combo={'max_num_seqs': 32}
 
-[memsweep 7/8] combo={'gpu_memory_utilization': 0.85}
+[memsweep 7/8] combo={'max_num_batched_tokens': 4096}
 
-[memsweep 8/8] combo={'gpu_memory_utilization': 0.95}
+[memsweep 8/8] combo={'max_num_batched_tokens': 16384}
   [memsweep] 8 combos done
-  [tps] {"model": "meta-llama/Llama-3.1-8B-Instruct", "concurrency": 1, "prompt_tokens_target": 256, "max_tokens": 256, "successes": 50, "failures": 0, "wall_clock_s": 307.169, "ttft_s_p50": 0.0356, "ttft_s_p95": 0.0369, "itl_s_p50": 0.02394, "itl_s_p95": 0.02396, "output_tps_per_request_p50": 41.91, "aggregate_output_tps": 41.67, "total_output_tokens": 12800}
+  [tps] {"model": "meta-llama/Llama-3.1-8B-Instruct", "concurrency": 1, "prompt_tokens_target": 256, "max_tokens": 256, "successes": 50, "failures": 0, "wall_clock_s": 307.011, "ttft_s_p50": 0.0359, "ttft_s_p95": 0.0411, "itl_s_p50": 0.02393, "itl_s_p95": 0.02394, "output_tps_per_request_p50": 41.93, "aggregate_output_tps": 41.69, "total_output_tokens": 12800}
   [sweep] concurrency=1, prompt_len=256
   [sweep] concurrency=2, prompt_len=256
   [sweep] concurrency=4, prompt_len=256

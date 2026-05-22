@@ -1,0 +1,20 @@
+--- a/sphinx/util/rst.py
++++ b/sphinx/util/rst.py
+@@ -87,8 +87,11 @@
+ 
+         if pos > 0:
+             # insert a blank line after docinfo
+-            content.insert(pos, '', '<generated>', 0)
+-            pos += 1
++            content.insert(pos, '', '<generated>', 0)
++            pos += 1
++            # check if the first line is a domain directive
++            if docinfo_re.match(content[pos]):
++                pos += 1
++                # insert a blank line after docinfo
++                content.insert(pos, '', '<generated>', 0)
++                pos += 1
+ 
+         # insert prolog (after docinfo if exists)
+         for lineno, line in enumerate(prolog.splitlines()):
+             content.insert(pos + lineno, line, '<rst_prolog>', lineno)

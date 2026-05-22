@@ -1,0 +1,52 @@
+
+--- a/sympy/core/basic.py
++++ b/sympy/core/basic.py
+@@ -444,7 +444,7 @@
+         return any(arg == pattern for arg in preorder_traversal(self))
+ 
+     def _has_matcher(self):
+-        """Helper for .has()"""
++        """Helper for .has()"""
+         return lambda other: self == other
+ 
+     def replace(self, query, value, map=False, simultaneous=True, exact=None):
+@@ -1133,7 +1133,7 @@
+         return self
+ 
+     def _eval_derivative_n_times(self, s, n):
+-        # This is the default evaluator for derivatives (as called by `diff`
++        # This is the default evaluator for derivatives (as called by `diff`
+         # and `Derivative`), it will attempt a loop to derive the expression
+         # `n` times by calling the corresponding `_eval_derivative` method,
+         # while leaving the derivative unevaluated if `n` is symbolic.  This
+@@ -1143,7 +1143,7 @@
+         else:
+             return None
+ 
+     def rewrite(self, *args, **hints):
+-        """ Rewrite functions in terms of other functions.
++        """ Rewrite functions in terms of other functions.
+         # ...
+ 
+     def _exec_constructor_postprocessors(cls, obj):
+         # ...
+@@ -1243,7 +1243,7 @@
+         return self
+ 
+     def _eval_simplify(self, **kwargs):
+-        return self
++        return self
+ 
+     @property
+     def _sorted_args(self):
+         # this is here as a safeguard against accidentally using _sorted_args
+@@ -1273,7 +1273,7 @@
+         return {e for e in preorder_traversal(self) if isinstance(e, Atom)}
+ 
+ def _atomic(e, recursive=False):
+-    """Return atom-like quantities as far as substitution is
++    """Return atom-like quantities as far as substitution is
+         # ...
+ 
+ class preorder_traversal(Iterator):
+     # ...

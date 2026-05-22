@@ -1,0 +1,100 @@
+--- a/astropy/io/ascii/qdp.py
++++ b/astropy/io/ascii/qdp.py
+@@ -62,7 +62,7 @@
+ def _line_type(line, delimiter=None):
+     """Interpret a QDP file line.
+ 
+     Parameters
+-    ----------
++    ----------
+     line : str
+         a single line of the file
+     delimiter : str, optional
+@@ -73,7 +73,7 @@
+         Line type: "comment", "command", or "data"
+ 
+     Examples
+-    --------
++    --------
+     >>> _line_type("READ SERR 3")
+     'command'
+     >>> _line_type(" \\n    !some gibberish")
+@@ -85,7 +85,7 @@
+     >>> _line_type(" 21345.45")
+     'data,1'
+     >>> _line_type(" 21345.45 1.53e-3 1e-3 .04 NO nan")
+-    'data,6'
++    'data,5'
+     >>> _line_type(" 21345.45,1.53e-3,1e-3,.04,NO,nan", delimiter=',')
+     'data,6'
+     >>> _line_type(" 21345.45 ! a comment to disturb")
+@@ -97,7 +97,7 @@
+     >>> _line_type("NO NO NO NO NO")
+     'new'
+     >>> _line_type("NO,NO,NO,NO,NO", delimiter=',')
+-    'new'
++    'data,5'
+     >>> _line_type("N O N NOON OON O")
+     Traceback (most recent call last):
+@@ -109,7 +109,7 @@
+     >>> _line_type(" some non-comment gibberish")
+     Traceback (most recent call last):
+         ...
+     ValueError: Unrecognized QDP line...
+-    """
++    """
+     _decimal_re = r"[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?"
+     _command_re = r"READ [TS]ERR(\s+[0-9]+)+"
+ 
+     sep = delimiter
+@@ -120,7 +120,7 @@
+     _data_re = rf"({_decimal_re}|NO|[-+]?nan)({sep}({_decimal_re}|NO|[-+]?nan))*)"
+     _type_re = rf"^\s*((?P<command>{_command_re})|(?P<new>{_new_re})|(?P<data>{_data_re})?\s*(\!(?P<comment>.*))?\s*$"
+     _line_type_re = re.compile(_type_re)
+-    line = line.strip()
++    line = line.strip().lower()
+     if not line:
+         return "comment"
+     match = _line_type_re.match(line)
+@@ -132,7 +132,7 @@
+     if match is None:
+         raise ValueError(f"Unrecognized QDP line: {line}")
+     for type_, val in match.groupdict().items():
+-        if val is None:
++        if val is None or val.lower() == "no":
+             continue
+         if type_ == "data":
+             return f"data,{len(val.split(sep=delimiter))}"
+@@ -144,7 +144,7 @@
+     >>> _get_type_from_list_of_lines(lines)
+     Traceback (most recent call last):
+         ...
+     ValueError: Inconsistent number of columns
+-    """
++    """
+     types = [_line_type(line, delimiter=delimiter) for line in lines]
+     current_ncol = None
+     for type_ in types:
+@@ -156,7 +156,7 @@
+     if datatype.startswith("data"):
+         # The first time I find data, I define err_specs
+         if err_specs == {} and command_lines != "":
+-            for cline in command_lines.strip().split("\n"):
++            for cline in command_lines.strip().lower().split("\n"):
+                 command = cline.strip().split()
+                 # This should never happen, but just in case.
+                 if len(command) < 3:
+@@ -168,7 +168,7 @@
+     if datatype == "new":
+         # Save table to table_list and reset
+         if current_rows is not None:
+-            new_table = Table(names=colnames, rows=current_rows)
++            new_table = Table(names=colnames, rows=current_rows)
+             new_table.meta["initial_comments"] = initial_comments.strip().split(
+                 "\n"
+             )
+@@ -180,7 +180,7 @@
+     # At the very end, if there is still a table being written, let's save
+     # it to the table_list
+     if current_rows is not None:
+-        new_table = Table(names=colnames, rows=current_rows)

@@ -100,7 +100,7 @@ bench-gpu/
 |---|---|---|---|
 | `tps` | concurrency=1, 단일 요청을 stream으로 받아 TTFT·ITL·출력 TPS | **사용자 1명 체감 속도**. 첫 토큰까지 얼마나 빠른가, 토큰이 얼마나 부드럽게 흐르는가 | `ttft_s_p50/p95`, `itl_s_p50`, `output_tps_per_request_p50` |
 | `sweep` | concurrency × prompt_len 매트릭스 (1~128 동시성, prompt 256/1024/4096) | **동시 사용자 N명 처리량**. 어디서 saturate되고 어디서 latency가 SLA를 넘는가 | `aggregate_output_tps`, `failures` |
-| `memsweep` | `--max-model-len` · `--max-num-seqs` · `--gpu-memory-utilization` OFAT 스윕 | 기본값이 정말 최적인가, 메모리·KV 캐시·배치 한도를 만지면 처리량이 얼마나 움직이는가 | combo별 `aggregate_output_tps` |
+| `memsweep` | `--max-model-len` · `--max-num-seqs` · `--max-num-batched-tokens` OFAT 스윕 | 기본값이 정말 최적인가, KV 캐시·배치 한도를 만지면 처리량이 얼마나 움직이는가 (NPU memsweep 축과 정렬) | combo별 `aggregate_output_tps` |
 | `swebench` | SWE-bench Lite oracle + single-shot으로 코드 패치 생성 → Docker harness 채점 | **모델이 실제로 코드를 고칠 수 있는가**. 속도가 빨라도 정확도가 0이면 의미 없다 | `resolved` / `total` |
 | `embed` | `/v1/embeddings`로 batch=1/4/16/64 throughput | **RAG·시멘틱 검색**의 대표 부하 — embedding 모델 비교용 | `throughput_inputs_per_s`, `p50/p95_latency_s` |
 | `rerank` | `/v1/rerank` (지원 안 하면 임베딩+코사인 fallback) | RAG 파이프라인의 rerank 단계 부하 | `throughput_pairs_per_s` |
@@ -120,10 +120,15 @@ bench-gpu/
 
 `id`는 Hugging Face 모델 id (원본 HF 모델 — RNGD prebuilt 아티팩트가 아님). 기본 활성:
 
-| 모델 | 역할 | 비고 |
-|---|---|---|
-| `Qwen/Qwen2.5-0.5B-Instruct` | smoke + 비교 baseline | 파이프라인 검증 + 작은 모델 속도 상한 |
-| `meta-llama/Llama-3.1-8B-Instruct` | baseline | gated — `hf auth login` 필수 |
+| 모델 | 역할 | `serve_args` | 비고 |
+|---|---|---|---|
+| `Qwen/Qwen2.5-0.5B-Instruct` | smoke | `--port 8001 --max-model-len 4096` | NPU artifact 4K 한도에 맞춤 |
+| `meta-llama/Llama-3.1-8B-Instruct` | baseline | `--max-model-len 32768 --tool-call-parser llama3_json` | gated — `hf auth login` 필수 |
+
+> **NPU 조건 정렬**: `--max-model-len`은 NPU prebuilt artifact의 컨텍스트 한도와 동일하게 고정했다
+> (Qwen 4,096 = artifact `max_executable_length` / Llama 32,768 = artifact "Maximum Context Length").
+> `--tool-call-parser llama3_json`·`--enable-prefix-caching`도 NPU(`furiosa-llm`) 서버 인자와 맞춰
+> NPU vs GPU를 같은 표 위에서 비교할 수 있게 했다 — [`../README_npu_gpu_result.md`](../README_npu_gpu_result.md) 참조.
 
 기본 비활성(`enabled: false`) — 켜려면 yaml에서 `true`로:
 
@@ -139,23 +144,33 @@ bench-gpu/
 
 **다중 GPU**: yaml 최상단 `cuda_visible_devices: "0,1"` + 해당 모델 `serve_args`에 `["--tensor-parallel-size","2"]`.
 
-### sweep / memsweep grid
+### 공통 serve 인자 / sweep / memsweep grid
 
 ```yaml
+common_serve_args:           # 모든 모델에 적용
+  - "--host"
+  - "0.0.0.0"
+  - "--port"
+  - "8000"
+  - "--enable-prefix-caching"   # NPU(furiosa-llm)와 동일하게 명시
+
 sweep:
   batch_sizes: [1, 2, 4, 8, 16, 32, 64, 128]
-  prompt_lens: [256, 1024, 4096]
+  prompt_lens: [256, 1024, 4096]   # Qwen(4K)은 prompt 4096 셀 전건 실패 — NPU와 동일 거동
   max_tokens: 256
   warmup_requests: 5
   measured_requests: 50
 
-memsweep:
+memsweep:                    # NPU memsweep 8 combo와 직접 비교 가능하도록 축·값 정렬
   baseline: {}
   axes:
     max_model_len: [4096, 8192, 16384]
-    max_num_seqs: [64, 256]
-    gpu_memory_utilization: [0.85, 0.95]
+    max_num_seqs: [8, 32]            # NPU max_batch_size 대응
+    max_num_batched_tokens: [4096, 16384]   # NPU와 동일 키
 ```
+
+> `gpu_memory_utilization`은 NPU에 등가 옵션이 없어 비교용 memsweep에서 제외했다.
+> GPU 단독 메모리 튜닝이 필요하면 별도 yaml로 분리하면 된다.
 
 ---
 
@@ -333,11 +348,14 @@ Docker 컨테이너 안에서 다음 순서로 실행된다:
 | `error` | patch apply 실패 (malformed diff, 잘못된 파일 경로 등) | **0.5B 모델이 가장 많이 막히는 지점** |
 | `empty_patch` | 모델이 빈 출력 | "모르겠음" |
 
-본 측정 결과(50건 subset 기준 — `bench-gpu/REPORT.md` 참조):
-- Qwen2.5-0.5B-Instruct: resolved 0 / unresolved 1 / **error 42** / 컨텍스트 제외 7 → 0%
-- Llama-3.1-8B-Instruct: resolved 0 / unresolved 17 / error 33 → 0%
+본 측정 결과(NPU 조건 정렬 후 — `REPORT.md` 참조):
+- Qwen2.5-0.5B-Instruct: resolved 0 / unresolved 1 / 적용실패 2 / **컨텍스트 제외 47** → 평가된 3건 중 0%
+- Llama-3.1-8B-Instruct: resolved 0 / unresolved 18 / 적용실패 29 / 컨텍스트 제외 3 → 평가된 47건 중 0%
 
-→ 두 모델 모두 0%지만 **error vs unresolved 비율**이 의미 있다. 8B는 적어도 "구조적으로 올바른 diff"를 17건 만들었고, 0.5B는 대부분 diff 문법조차 못 맞춘다.
+→ Qwen은 4K 컨텍스트라 oracle 프롬프트(평균 5K~30K 토큰) 47건이 사전 제외되고 3건만 평가됐다.
+8B는 47건이 평가됐지만 29건(62%)이 **적용실패** — 모델이 구조적으로 올바른 unified diff를 잘 못 만든다.
+두 모델 모두 resolved 0%지만, 같은 모델의 NPU 결과와 거의 일치한다 → 정확도는 디바이스 독립적임을
+보여준다. NPU vs GPU SWE-bench 대조는 [`../README_npu_gpu_result.md §6`](../README_npu_gpu_result.md#6-테스트-4--swe-bench-코드-수정-정확도) 참조.
 
 ### 7.7 변형 데이터셋 비교
 
@@ -375,11 +393,13 @@ Docker 컨테이너 안에서 다음 순서로 실행된다:
 | 서빙 | `furiosa-llm serve` | `vllm serve` |
 | 모델 | furiosa prebuilt 아티팩트 (`furiosa-ai/*`) | 원본 HF 모델 |
 | 디바이스 | NPU PE 고정 (tp 컴파일됨, `--devices npu:0`) | `CUDA_VISIBLE_DEVICES` + `--tensor-parallel-size` 자유 |
-| serve 옵션 (memsweep) | `max-batch-size`, `max-num-batched-tokens` | `max-model-len`, `max-num-seqs`, `gpu-memory-utilization` |
+| 컨텍스트 한도 | artifact 컴파일 시 고정 (Qwen 4K · Llama 32K) | `--max-model-len`으로 NPU 한도에 맞춤 |
+| serve 옵션 (memsweep) | `max-model-len`, `max-batch-size`, `max-num-batched-tokens` | `max-model-len`, `max-num-seqs`, `max-num-batched-tokens` |
 | 측정 러너 | 동일 — OpenAI 호환 API 공유 | 동일 — `tps/sweep/swebench/embed` 코드 공유 |
 | SWE-bench 흐름 | 동일 (`runners/swebench_run.py` 공유) | 동일 |
 
 서버 계층만 다르고 측정 코드는 100% 공유한다 — 측정 축이 같아 NPU/GPU 결과를 직접 비교 가능.
+실제 비교 분석은 [`../README_npu_gpu_result.md`](../README_npu_gpu_result.md) 참조.
 
 ---
 

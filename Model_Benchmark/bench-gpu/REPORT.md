@@ -1,6 +1,6 @@
 # NVIDIA GPU (vLLM) — 코드 생성 모델 벤치마크 리포트
 
-- 결과 데이터: `/home/etri/jun/bench-gpu/results`
+- 결과 데이터: `/home/jun/RNGD-proj/Model_Benchmark/bench-gpu/results`
 - 측정 축: 단일 토큰 속도(tps) / 동시성 스케일링(sweep) / serve 옵션(memsweep) / SWE-bench / Embedding·Reranker
 - 스케일링 분석 기준: prompt_len=1024, 효율배치=peak의 90% 도달 동시성, 감소판정=실패발생·처리량하락·TTFT_p95>10.0s
 

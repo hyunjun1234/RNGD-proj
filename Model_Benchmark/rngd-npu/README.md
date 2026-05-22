@@ -127,8 +127,12 @@ python report.py                  # 종합 리포트 → REPORT.md
 | 서빙 | `furiosa-llm serve` | `vllm serve` |
 | 모델 | furiosa prebuilt 아티팩트 | 원본 HF 모델 |
 | 디바이스 | NPU PE 고정(tp 컴파일됨) — `--devices npu:0` | `CUDA_VISIBLE_DEVICES` + `--tensor-parallel-size` 자유 |
-| serve 옵션 | `max-batch-size` 등 | `max-num-seqs` / `gpu-memory-utilization` 등 |
+| 컨텍스트 한도 | artifact 컴파일 시 고정 (Qwen 4K · Llama 32K) | `--max-model-len`으로 NPU 한도에 맞춤 |
+| serve 옵션(memsweep) | `max-model-len` / `max-batch-size` / `max-num-batched-tokens` | `max-model-len` / `max-num-seqs` / `max-num-batched-tokens` |
 | 측정 러너 | 동일 (OpenAI 호환 API) | 동일 — tps/sweep/swebench/embed 코드 공유 |
+
+> **NPU vs GPU 실측 비교 분석**: [`../README_npu_gpu_result.md`](../README_npu_gpu_result.md) —
+> 같은 모델·같은 조건으로 측정한 두 디바이스의 속도·동시성·SWE-bench 결과 대조.
 
 ## 트러블슈팅
 

@@ -1,6 +1,9 @@
 # HF 모델 컴파일해서 RNGD에서 실행 — 자가 수행 가이드
 
-출처: https://developer.furiosa.ai/latest/en/furiosa_llm/model-preparation.html
+출처:
+- 모델 준비: https://developer.furiosa.ai/latest/en/furiosa_llm/model-preparation.html
+- 병렬화: https://developer.furiosa.ai/latest/en/furiosa_llm/model-parallelism.html
+- 지원 모델: https://developer.furiosa.ai/latest/en/overview/supported_models.html
 
 워크플로: `HF 모델` → `[선택] FP8 양자화` → `furiosa-llm build` → `아티팩트` → `furiosa-llm serve`
 
@@ -10,7 +13,18 @@
 
 ## 지원 아키텍처
 
+`furiosa-llm build`가 받는 model_type (SDK 2026.2.0 코드 기준):
 `llama` `qwen2` `qwen3` `qwen3_moe` `exaone4` `gpt2` `gpt_oss`
+
+| 용도 | model_type / 아키텍처 | 공식 상태 |
+|---|---|---|
+| text-gen (decoder) | `llama` `qwen2` `qwen3` `exaone4` | 검증·prebuilt 제공 |
+| 임베딩 | `qwen3` / `Qwen3Model` | 검증·prebuilt 제공 |
+| 리랭킹 | `qwen3` / `Qwen3ForSequenceClassification` | 검증·prebuilt 제공 |
+| 미검증 | `qwen3_moe` `gpt2` `gpt_oss` | 공식 "planned". SDK 코드엔 존재(`qwen3_moe`는 버킷 프리셋도) — 빌드 시도는 되나 성공·정확도 미보장 |
+
+- 임베딩/리랭킹은 pooling task — 빌드·서빙 옵션이 아래 decoder 흐름(1~6절)과 다름.
+- 자동 버킷 프리셋 보유 model_type (`furiosa_llm/artifact/presets.py`): `qwen2` `exaone4` `llama` `qwen3` `qwen3_moe`. 프리셋과 `(model_type, hidden_size, intermediate_size)`가 일치하면 버킷 자동, 아니면 `-pb`/`-db` 수동.
 
 ```bash
 python3 -c "
@@ -177,6 +191,16 @@ prebuilt 아티팩트(`furiosa-ai/Qwen3-32B-FP8` 등)는 `binary_bundle.zip`이 
 그대로 32 PE용. 또한 prebuilt repo엔 `binary_bundle.zip`만 있고 재빌드용 safetensors
 weight가 **없음** → 원본 HF weight에서 다시 시작해야 함.
 
+**실측 (2026-05-18 · `artifacts/qwen3-32b-fp8-tphack/`):** prebuilt `furiosa-ai/Qwen3-32B-FP8`의
+`binary_bundle.zip`을 symlink하고 `artifact.json` 메타만 2장용으로 고친 artifact를 2장에 serve →
+패닉 (`tphack_serve.log`):
+
+```
+panicked at itertools .../zip_eq_impl.rs: .zip_eq() reached end of one iterator before the other
+```
+
+→ 메타데이터 해킹은 불가로 **확인됨**. 아래 풀 재빌드만 유효.
+
 ### 절차 (Qwen3-32B를 2장=tp16으로)
 
 ```bash
@@ -215,6 +239,7 @@ furiosa-llm serve ~/RNGD-proj/Model_Benchmark/rngd-npu/artifacts/qwen3-32b-tp16 
 ### 주의
 
 - furiosa가 prebuilt를 tp=32로 낸 데엔 이유(컴파일 버킷 제약·성능)가 있을 수 있음 → tp16 빌드/서빙 성공은 보장 안 됨. **해봐야 앎.**
+- `-tp 16`을 SDK가 거부하면 `-tp 8 -pp 2`로 분해(8×2 = 16 PE = 2장) 후 재시도.
 - 직접 빌드는 bf16/자가 FP8 → prebuilt FP8보다 성능 낮을 수 있음.
 - 32B bf16 빌드는 host RAM을 크게 씀. RAM 부족 시 경로 B(FP8) 또는 swap 확보.
 

@@ -34,8 +34,16 @@ ROUTER_STOP="$(cd "$HERE/../coding-agent" 2>/dev/null && pwd)/serve-router.sh"
 port_pid() { ss -ltnp 2>/dev/null | grep ":$PORT " | grep -oP 'pid=\K[0-9]+' | head -1; }
 # 이 UI 가 띄운 백엔드 = CHAT_ARTIFACTS 아티팩트나 furiosa-ai/* 를 서빙하는 furiosa-llm serve.
 # (라우터 백엔드와 구분하려고 --served-model-name 이 붙은 것은 제외 — 라우터만 그 옵션을 쓴다.)
+#
+# ⚠️ pgrep -f 는 명령줄 "문자열"만 본다. 그래서 `furiosa-llm serve` 라는 글자가 들어간 셸 명령
+#    (이 스크립트를 부른 셸, 그 문자열을 인자로 가진 다른 명령 등)까지 잡아서 **자기 자신을
+#    죽이는** 사고가 난다(2026-08-04 실제로 발생). 진짜 백엔드는 python 인터프리터로 뜨므로
+#    실행 파일($2)이 python/furiosa-llm 인 것만 남기고, 자기 PID 도 제외한다.
 backend_pids() {
-  pgrep -af 'furiosa-llm[ ]serve' 2>/dev/null | grep -v -- '--served-model-name' | awk '{print $1}'
+  pgrep -af 'furiosa-llm[ ]serve' 2>/dev/null \
+    | awk '$2 ~ /(python|furiosa-llm)/ { print }' \
+    | grep -v -- '--served-model-name' \
+    | awk -v self="$$" '$1 != self { print $1 }'
 }
 router_pid() { pgrep -f 'furiosa_router[.]py serve' 2>/dev/null | head -1; }
 

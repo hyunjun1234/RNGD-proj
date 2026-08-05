@@ -31,6 +31,20 @@ if [ "${1:-start}" = "stop" ]; then
   echo "종료 완료"; exit 0
 fi
 
+# ── 자동 최신화 ─────────────────────────────────────────────────────────────
+# 서버 체크아웃이 옛 브랜치(예: add-extra-models)에 있어도, start 때 origin/main 의 라우터
+# 파일만 덮어써 항상 최신 코드로 뜬다(다른 uncommitted 작업은 안 건드림 — furiosa_router.py 만).
+# → PR 을 main 에 머지하기만 하면 다음 serve-router.sh start 에서 자동 반영. 끄려면 FURIO_NO_AUTOUPDATE=1.
+# (serve-router.sh 자신은 실행 중 덮어쓰면 위험해서 안 건드림 — 이 블록은 최초 1회 수동 반영이 필요하다.)
+if [ "${FURIO_NO_AUTOUPDATE:-0}" != "1" ]; then
+  RFILE="Model_Benchmark/rngd-npu/coding-agent/furiosa_router.py"
+  if git -C ~/RNGD-proj rev-parse --git-dir >/dev/null 2>&1 && git -C ~/RNGD-proj fetch origin >/dev/null 2>&1; then
+    git -C ~/RNGD-proj checkout origin/main -- "$RFILE" 2>/dev/null \
+      && echo "[auto-update] furiosa_router.py ← origin/main" \
+      || echo "[auto-update] 건너뜀(로컬 변경/충돌) — 필요시 git checkout origin/main -- $RFILE"
+  fi
+fi
+
 echo "[..] 기존 라우터/serve 정리(라우터가 NPU 4장 전체를 스케줄링)"
 stop_router
 pkill -f 'furiosa-llm[ ]serve' 2>/dev/null || true

@@ -216,10 +216,13 @@ def par_choices(base, tp):
     reg = REGISTRY[base]
     if cards_base(tp) >= len(ALL_CARDS):       # tp32 = 4장 독점
         return [1], [1]
-    # pp_opts 지정 모델(예: bf16 코더 — 57GB 라 pp1 OOM)은 그 pp 만 노출, dp 는 1(대형이라 복제 안 함).
+    # pp_opts 지정 모델(예: bf16 코더 — 57GB 라 pp1 OOM)은 그 pp 만 노출. dp 는 최소 pp 기준으로
+    # 4장 안에 들어가는 만큼(예: tp8·pp2 → dp2 도 2복제×2장=4장 가능).
     if reg.get("pp_opts"):
+        ppmin = reg["pp_opts"][0]
         pp = [n for n in reg["pp_opts"] if variant_cards(tp, 1, n) <= len(ALL_CARDS)]
-        return [1], pp
+        dp = [n for n in (1, 2, 4) if variant_cards(tp, n, ppmin) <= len(ALL_CARDS)]
+        return dp, pp
     dp = [n for n in (1, 2, 4) if variant_cards(tp, n, 1) <= len(ALL_CARDS)]
     if is_fxb_variant(reg, tp):
         pp = [1]

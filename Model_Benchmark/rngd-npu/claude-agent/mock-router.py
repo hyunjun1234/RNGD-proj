@@ -90,8 +90,11 @@ def par_choices(base, tp):
     """주어진 tp 에서 (dp, pp) 선택지. tp32(4장 독점)면 ([1],[1]). pp 는 v2 에서만."""
     if cards_base(tp) >= CARDS:
         return [1], [1]
-    if base in PP_OPTS:                       # 1장 초과 모델 — 지정 pp 만, dp 는 1
-        return [1], [n for n in PP_OPTS[base] if variant_cards(tp, 1, n) <= CARDS]
+    if base in PP_OPTS:                       # 1장 초과 모델 — 지정 pp + 최소 pp 기준 dp
+        ppmin = PP_OPTS[base][0]
+        pp = [n for n in PP_OPTS[base] if variant_cards(tp, 1, n) <= CARDS]
+        dp = [n for n in (1, 2, 4) if variant_cards(tp, n, ppmin) <= CARDS]
+        return dp, pp
     dp = [n for n in (1, 2, 4) if variant_cards(tp, n, 1) <= CARDS]
     pp = [1] if art_of(base, tp) == "fxb" else [n for n in (1, 2, 4) if variant_cards(tp, 1, n) <= CARDS]
     return dp, pp

@@ -1,7 +1,7 @@
 From 7c67b3d2b269375ae8e115204f8570f58f03285f Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:11:42 +0900
-Subject: [PATCH 01/15] statusline: show Furiosa NPU model state with per-model
+Subject: [PATCH 01/16] statusline: show Furiosa NPU model state with per-model
  LEDs
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -381,7 +381,7 @@ index 0000000..5fb053a
 From b011b77eefa02e916e60392a3967cd48b532c531 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:19:21 +0900
-Subject: [PATCH 02/15] model picker: use backend-supplied model descriptions
+Subject: [PATCH 02/16] model picker: use backend-supplied model descriptions
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -465,7 +465,7 @@ index e901799..9bfec8b 100644
 From c7cbc97b974c40f9f73633619f18001745ab9a7e Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:29:26 +0900
-Subject: [PATCH 03/15] =?UTF-8?q?model=20picker:=20adjust=20NPU=20dp/pp=20?=
+Subject: [PATCH 03/16] =?UTF-8?q?model=20picker:=20adjust=20NPU=20dp/pp=20?=
  =?UTF-8?q?with=20=E2=86=90=20=E2=86=92?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -717,7 +717,7 @@ index 0000000..6949f79
 From e666bb3d649641c55a6416cee823024e729e36ce Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 23:52:39 +0900
-Subject: [PATCH 04/15] model picker: say why the NPU config row is absent
+Subject: [PATCH 04/16] model picker: say why the NPU config row is absent
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -769,7 +769,7 @@ index 336c021..e0f1d18 100644
 From 09e4947a165c12eb7dbe2f8a9a5cdfa27611d5ad Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:00:52 +0900
-Subject: [PATCH 05/15] model picker: pick the model and its dp/pp separately
+Subject: [PATCH 05/16] model picker: pick the model and its dp/pp separately
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1065,7 +1065,7 @@ index 6949f79..0f41e51 100644
 From f67bfeb8b414af23f564216285b953325b3991b3 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:11:30 +0900
-Subject: [PATCH 06/15] model picker: apply NPU collapsing and descriptions on
+Subject: [PATCH 06/16] model picker: apply NPU collapsing and descriptions on
  the cached path
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1167,7 +1167,7 @@ index 0f41e51..d6de5f4 100644
 From 06bb55d93406b70563a2962473fce11e8b3085de Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:30:39 +0900
-Subject: [PATCH 07/15] model picker: apply NPU presentation where every path
+Subject: [PATCH 07/16] model picker: apply NPU presentation where every path
  converges
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1274,7 +1274,7 @@ index d6de5f4..239767c 100644
 From 9ed3935fb6f14e98419841dd51a3df81818f40b4 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:48:44 +0900
-Subject: [PATCH 08/15] model picker: adjust dp and pp as separate axes
+Subject: [PATCH 08/16] model picker: adjust dp and pp as separate axes
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1554,7 +1554,7 @@ index 239767c..0f33993 100644
 From effb31cff239043a996a7aa3356fedc80a14326c Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 01:03:05 +0900
-Subject: [PATCH 09/15] model picker: stop the dp/pp row from reflowing
+Subject: [PATCH 09/16] model picker: stop the dp/pp row from reflowing
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1656,7 +1656,7 @@ index 0f33993..b00fbc3 100644
 From 27c42e3729aab78a816115b3e4c68a03c905cb77 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 01:51:34 +0900
-Subject: [PATCH 10/15] statusline: separate the current-model marker from the
+Subject: [PATCH 10/16] statusline: separate the current-model marker from the
  LED
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1693,7 +1693,7 @@ index ea77786..f6657b6 100644
 From f473f6cac85eb6191d5847cb17ecabb04e80d7aa Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 02:07:35 +0900
-Subject: [PATCH 11/15] model picker: start loading the model as soon as it is
+Subject: [PATCH 11/16] model picker: start loading the model as soon as it is
  picked
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1778,7 +1778,7 @@ index 5c7facc..8c5ff49 100644
 From 6ece7115d354facf8412c65797a85ab2bf667c2e Mon Sep 17 00:00:00 2001
 From: Claude <plab2090@gmail.com>
 Date: Thu, 23 Jul 2026 02:51:37 +0900
-Subject: [PATCH 12/15] npu: react to a model pick immediately, and show every
+Subject: [PATCH 12/16] npu: react to a model pick immediately, and show every
  loaded model
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2778,7 +2778,7 @@ index b00fbc3..efa22d3 100644
 From d5a9fb4eed6d1020b8232bf4717e210cd581af97 Mon Sep 17 00:00:00 2001
 From: Claude <plab2090@gmail.com>
 Date: Thu, 23 Jul 2026 13:53:24 +0900
-Subject: [PATCH 13/15] =?UTF-8?q?npu:=20reflect=20real=20server=20state=20?=
+Subject: [PATCH 13/16] =?UTF-8?q?npu:=20reflect=20real=20server=20state=20?=
  =?UTF-8?q?=E2=80=94=20drop=20the=20default,=20remember=20what=20was=20loa?=
  =?UTF-8?q?ded?=
 MIME-Version: 1.0
@@ -3249,7 +3249,7 @@ index 6c8bdcc..be3eb5a 100644
 From 04d6b86964adcf6e223c25e3786e8f0c0b823049 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Tue, 4 Aug 2026 13:20:47 +0900
-Subject: [PATCH 14/15] model picker: add tp as a third parallel axis
+Subject: [PATCH 14/16] model picker: add tp as a third parallel axis
  (tp/dp/pp)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3973,7 +3973,7 @@ index efa22d3..f429c2e 100644
 From 361e3daf8b625ae512e1ccfd3fbe0dd75efdc0f2 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 13:47:34 +0900
-Subject: [PATCH 15/15] model picker: support a per-model default pp (large
+Subject: [PATCH 15/16] model picker: support a per-model default pp (large
  models like bf16 coder)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4104,6 +4104,140 @@ index f429c2e..6f87b92 100644
    )
  }
  
+-- 
+2.43.0
+
+
+From 2a5386e8168b64211e2d06971a49c5c42d21263c Mon Sep 17 00:00:00 2001
+From: hyunjun1234 <plab2090@gmail.com>
+Date: Wed, 5 Aug 2026 14:43:49 +0900
+Subject: [PATCH 16/16] model picker: resolve the active pp to pp_default
+ (fixes bf16 coder showing pp1)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The parallelism row used npuConfig.pp directly, which starts at 1, so a model
+whose default build is pp2 (bf16 coder) rendered the active pp as 1 and the
+axis as [1,3,4] instead of [2,3,4]. Mirror the tp handling: npuConfig.pp is now
+optional (undefined = model default) and every use site resolves it via
+ppDefaultOf(base) — the row, the axis-step handler, and the compose step.
+
+Also covers the router now offering dp for such models (dp2 valid only at pp2),
+so the row reads `dp [1] 2   pp [2] 3 4`.
+---
+ src/components/ModelPicker.tsx | 26 ++++++++++++++------------
+ src/utils/npuVariants.test.ts  | 10 ++++++++--
+ 2 files changed, 22 insertions(+), 14 deletions(-)
+
+diff --git a/src/components/ModelPicker.tsx b/src/components/ModelPicker.tsx
+index 10d39fb..4c735b5 100644
+--- a/src/components/ModelPicker.tsx
++++ b/src/components/ModelPicker.tsx
+@@ -12,7 +12,7 @@ import { convertEffortValueToLevel, type EffortLevel, getAvailableEffortLevels,
+ import { isModelAllowed } from '../utils/model/modelAllowlist.js';
+ import { preloadNpuModel } from '../services/npuStatus.js';
+ import { useNpuStatus } from '../services/npuStatusHook.js';
+-import { applyNpuLoadColors, applyNpuPresentation, availableAxes, defaultTpOf, getDiscoveredModelIds, type NpuConfig, nextAxis, npuAxisAllValues, npuAxisValues, type NpuAxis, npuLoadStatesByBase, npuVariantsOf, parseNpuVariant, stepNpuAxis, variantId } from '../utils/npuVariants.js';
++import { applyNpuLoadColors, applyNpuPresentation, availableAxes, defaultTpOf, getDiscoveredModelIds, type NpuConfig, nextAxis, npuAxisAllValues, npuAxisValues, type NpuAxis, npuLoadStatesByBase, npuVariantsOf, parseNpuVariant, ppDefaultOf, stepNpuAxis, variantId } from '../utils/npuVariants.js';
+ import { getDefaultMainLoopModel, type ModelSetting, modelDisplayString, parseUserSpecifiedModel } from '../utils/model/model.js';
+ import { getModelOptions, type ModelOption, parseSwitchProfileValue, resolveSelectedSwitchProfileId } from '../utils/model/modelOptions.js';
+ import { getSettingsForSource, updateSettingsForSource } from '../utils/settings/settings.js';
+@@ -122,11 +122,11 @@ export function ModelPicker(t0) {
+   // NPU 병렬 구성은 모델과 '따로' 고른다. 모델 목록에는 모델당 한 줄만 두고
+   // (openaiModelDiscovery 가 변형을 접는다) 여기서 dp/pp 를 선택해, 확정할 때
+   // `base@dpN@ppM` 으로 조립해서 넘긴다.
+-  // tp 는 '미지정'(undefined)이면 모델의 기본 빌드를 뜻한다 — 사용자가 tp 축을 건드리기
+-  // 전까지는 접미사 없이 기본 tp 로 조립된다(하위호환). dp/pp 는 기존대로 1 부터.
+-  const [npuConfig, setNpuConfig] = useState<NpuConfig>({
+-    dp: 1,
+-    pp: 1
++  // tp·pp 가 '미지정'(undefined)이면 모델의 기본값을 뜻한다 — 사용자가 그 축을 건드리기
++  // 전까지는 기본 tp/pp 로 조립·표시된다. 대부분 pp 기본은 1 이지만, 1장 초과 모델(bf16 코더)은
++  // 기본 pp 가 2 라서 undefined 로 두고 ppDefaultOf 로 해석해야 활성 표시가 맞다.
++  const [npuConfig, setNpuConfig] = useState<{ tp?: number; dp: number; pp?: number }>({
++    dp: 1
+   });
+   // ←/→ 가 어느 축을 움직이는지. tab 으로 tp→dp→pp 순환.
+   const [npuAxis, setNpuAxis] = useState<NpuAxis>('dp');
+@@ -318,7 +318,7 @@ export function ModelPicker(t0) {
+         // tp 를 기본 빌드로 채워(사용자가 아직 tp 를 안 건드렸으면) dp/pp 스텝이 올바른 tp
+         // 안에서만 움직이게 한다. 결과의 tp 는 명시값이 되어 조립 때 @tp 로 반영된다.
+         const npuBase = parseNpuVariant(focusedValue).base;
+-        const resolved = { tp: npuConfig.tp ?? defaultTpOf(npuBase), dp: npuConfig.dp, pp: npuConfig.pp };
++        const resolved = { tp: npuConfig.tp ?? defaultTpOf(npuBase), dp: npuConfig.dp, pp: npuConfig.pp ?? ppDefaultOf(npuBase) };
+         const next = stepNpuAxis(focusedValue, getDiscoveredModelIds(), npuAxis, resolved, direction);
+         if (next !== null) {
+           setNpuConfig(next);
+@@ -404,7 +404,7 @@ export function ModelPicker(t0) {
+       const selectedSwitchProfileId = resolveSelectedSwitchProfileId(selectOptions, selectedValue);
+       // 고른 dp/pp 를 모델 id 에 실어 보낸다. 라우터가 이 접미사로 병렬 구성을 정한다.
+       // 백엔드가 광고하지 않은 조합이면 조립하지 않는다(있지도 않은 모델로 404 나는 것 방지).
+-      const composedValue = variantId(selectedValue, npuConfig.tp, npuConfig.dp, npuConfig.pp);
++      const composedValue = variantId(selectedValue, npuConfig.tp, npuConfig.dp, npuConfig.pp ?? ppDefaultOf(parseNpuVariant(selectedValue).base));
+       const finalValue = composedValue !== selectedValue && getDiscoveredModelIds().includes(composedValue) ? composedValue : selectedValue;
+       // 고르는 즉시 로딩을 시작시킨다. 라우터는 lazy 라 이게 없으면 첫 메시지를
+       // 보낼 때까지 아무 일도 안 일어난 것처럼 보인다.
+@@ -615,7 +615,7 @@ function NpuParallelismRow({
+   modelId: string;
+   tp?: number;
+   dp: number;
+-  pp: number;
++  pp?: number;
+   axis: NpuAxis;
+ }): React.ReactNode {
+   // 목록은 모델당 한 줄로 접혀 있으므로, 선택지는 백엔드가 광고한 전체 id 에서 읽는다.
+@@ -632,15 +632,17 @@ function NpuParallelismRow({
+         {'NPU  '}병렬 구성 고정 — 이 모델은 NPU 4장을 모두 사용합니다
+       </Text>;
+   }
+-  // 미지정 tp 는 기본 빌드로 해석해 표시(사용자가 tp 를 안 건드린 상태).
++  // 미지정 tp·pp 는 기본값으로 해석해 표시(사용자가 그 축을 안 건드린 상태).
++  // 1장 초과 모델은 기본 pp 가 2 라, 이 해석이 없으면 활성이 pp1 로 잘못 뜬다.
+   const base = parseNpuVariant(modelId).base;
+   const tpv = tp ?? defaultTpOf(base);
++  const ppv = pp ?? ppDefaultOf(base);
+   // 각 축을 '전체 값'으로 그리고, 지금 불가능한 값만 표시를 죽인다. 값을 빼버리면
+   // 옆 축이 통째로 밀려 읽기 어렵다(폭 고정). tp 는 축이 둘 이상일 때만 그린다.
+   const axes = availableAxes(modelId, allValues);
+   const showTp = axes.includes('tp');
+-  const held = { tp: tpv, dp, pp };
+-  const active = { tp: tpv, dp, pp };
++  const held = { tp: tpv, dp, pp: ppv };
++  const active = { tp: tpv, dp, pp: ppv };
+   const renderAxis = (name: NpuAxis) => {
+     const all = npuAxisAllValues(modelId, allValues, name);
+     const { [name]: _drop, ...others } = held;
+diff --git a/src/utils/npuVariants.test.ts b/src/utils/npuVariants.test.ts
+index 436b00f..df63c88 100644
+--- a/src/utils/npuVariants.test.ts
++++ b/src/utils/npuVariants.test.ts
+@@ -109,17 +109,23 @@ describe('tp axis', () => {
+ describe('pp default (models too big for one card)', () => {
+   // bf16 coder: 57GB -> needs >=2 cards, so its default build is pp2 (no pp1).
+   const META = JSON.stringify({ C: { tp_default: 8, tps: [8], pp_default: 2 } })
+-  const ids = ['C', 'C@pp3', 'C@pp4']
++  // bf16 coder: bare = dp1·pp2 (2 cards); dp2 only fits at pp2 (2 replicas x 2 cards).
++  const ids = ['C', 'C@pp3', 'C@pp4', 'C@dp2']
+   beforeEach(() => { process.env.FURIO_NPU_META = META })
+   afterEach(() => { delete process.env.FURIO_NPU_META })
+ 
+   test('the bare id resolves to the default pp build (pp2)', () => {
+     expect(parseNpuVariant('C')).toMatchObject({ base: 'C', tp: 8, dp: 1, pp: 2 })
+     expect(parseNpuVariant('C@pp3').pp).toBe(3)
++    expect(parseNpuVariant('C@dp2')).toMatchObject({ dp: 2, pp: 2 })
+   })
+ 
+-  test('the pp axis lists the offered builds, not pp1', () => {
++  test('the pp axis lists the offered builds, not pp1; dp offers 1 and 2', () => {
+     expect(npuAxisAllValues('C', ids, 'pp')).toEqual([2, 3, 4])
++    expect(npuAxisAllValues('C', ids, 'dp')).toEqual([1, 2])
++    // dp2 only reachable while pp is 2
++    expect(npuAxisValues('C', ids, 'dp', { pp: 2 })).toEqual([1, 2])
++    expect(npuAxisValues('C', ids, 'dp', { pp: 3 })).toEqual([1])
+   })
+ 
+   test('@pp is composed only when it is not the default', () => {
 -- 
 2.43.0
 

@@ -1,7 +1,7 @@
 From 7c67b3d2b269375ae8e115204f8570f58f03285f Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:11:42 +0900
-Subject: [PATCH 01/18] statusline: show Furiosa NPU model state with per-model
+Subject: [PATCH 01/19] statusline: show Furiosa NPU model state with per-model
  LEDs
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -381,7 +381,7 @@ index 0000000..5fb053a
 From b011b77eefa02e916e60392a3967cd48b532c531 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:19:21 +0900
-Subject: [PATCH 02/18] model picker: use backend-supplied model descriptions
+Subject: [PATCH 02/19] model picker: use backend-supplied model descriptions
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -465,7 +465,7 @@ index e901799..9bfec8b 100644
 From c7cbc97b974c40f9f73633619f18001745ab9a7e Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:29:26 +0900
-Subject: [PATCH 03/18] =?UTF-8?q?model=20picker:=20adjust=20NPU=20dp/pp=20?=
+Subject: [PATCH 03/19] =?UTF-8?q?model=20picker:=20adjust=20NPU=20dp/pp=20?=
  =?UTF-8?q?with=20=E2=86=90=20=E2=86=92?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -717,7 +717,7 @@ index 0000000..6949f79
 From e666bb3d649641c55a6416cee823024e729e36ce Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 23:52:39 +0900
-Subject: [PATCH 04/18] model picker: say why the NPU config row is absent
+Subject: [PATCH 04/19] model picker: say why the NPU config row is absent
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -769,7 +769,7 @@ index 336c021..e0f1d18 100644
 From 09e4947a165c12eb7dbe2f8a9a5cdfa27611d5ad Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:00:52 +0900
-Subject: [PATCH 05/18] model picker: pick the model and its dp/pp separately
+Subject: [PATCH 05/19] model picker: pick the model and its dp/pp separately
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1065,7 +1065,7 @@ index 6949f79..0f41e51 100644
 From f67bfeb8b414af23f564216285b953325b3991b3 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:11:30 +0900
-Subject: [PATCH 06/18] model picker: apply NPU collapsing and descriptions on
+Subject: [PATCH 06/19] model picker: apply NPU collapsing and descriptions on
  the cached path
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1167,7 +1167,7 @@ index 0f41e51..d6de5f4 100644
 From 06bb55d93406b70563a2962473fce11e8b3085de Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:30:39 +0900
-Subject: [PATCH 07/18] model picker: apply NPU presentation where every path
+Subject: [PATCH 07/19] model picker: apply NPU presentation where every path
  converges
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1274,7 +1274,7 @@ index d6de5f4..239767c 100644
 From 9ed3935fb6f14e98419841dd51a3df81818f40b4 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:48:44 +0900
-Subject: [PATCH 08/18] model picker: adjust dp and pp as separate axes
+Subject: [PATCH 08/19] model picker: adjust dp and pp as separate axes
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1554,7 +1554,7 @@ index 239767c..0f33993 100644
 From effb31cff239043a996a7aa3356fedc80a14326c Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 01:03:05 +0900
-Subject: [PATCH 09/18] model picker: stop the dp/pp row from reflowing
+Subject: [PATCH 09/19] model picker: stop the dp/pp row from reflowing
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1656,7 +1656,7 @@ index 0f33993..b00fbc3 100644
 From 27c42e3729aab78a816115b3e4c68a03c905cb77 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 01:51:34 +0900
-Subject: [PATCH 10/18] statusline: separate the current-model marker from the
+Subject: [PATCH 10/19] statusline: separate the current-model marker from the
  LED
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1693,7 +1693,7 @@ index ea77786..f6657b6 100644
 From f473f6cac85eb6191d5847cb17ecabb04e80d7aa Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 02:07:35 +0900
-Subject: [PATCH 11/18] model picker: start loading the model as soon as it is
+Subject: [PATCH 11/19] model picker: start loading the model as soon as it is
  picked
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1778,7 +1778,7 @@ index 5c7facc..8c5ff49 100644
 From 6ece7115d354facf8412c65797a85ab2bf667c2e Mon Sep 17 00:00:00 2001
 From: Claude <plab2090@gmail.com>
 Date: Thu, 23 Jul 2026 02:51:37 +0900
-Subject: [PATCH 12/18] npu: react to a model pick immediately, and show every
+Subject: [PATCH 12/19] npu: react to a model pick immediately, and show every
  loaded model
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2778,7 +2778,7 @@ index b00fbc3..efa22d3 100644
 From d5a9fb4eed6d1020b8232bf4717e210cd581af97 Mon Sep 17 00:00:00 2001
 From: Claude <plab2090@gmail.com>
 Date: Thu, 23 Jul 2026 13:53:24 +0900
-Subject: [PATCH 13/18] =?UTF-8?q?npu:=20reflect=20real=20server=20state=20?=
+Subject: [PATCH 13/19] =?UTF-8?q?npu:=20reflect=20real=20server=20state=20?=
  =?UTF-8?q?=E2=80=94=20drop=20the=20default,=20remember=20what=20was=20loa?=
  =?UTF-8?q?ded?=
 MIME-Version: 1.0
@@ -3249,7 +3249,7 @@ index 6c8bdcc..be3eb5a 100644
 From 04d6b86964adcf6e223c25e3786e8f0c0b823049 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Tue, 4 Aug 2026 13:20:47 +0900
-Subject: [PATCH 14/18] model picker: add tp as a third parallel axis
+Subject: [PATCH 14/19] model picker: add tp as a third parallel axis
  (tp/dp/pp)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3973,7 +3973,7 @@ index efa22d3..f429c2e 100644
 From 361e3daf8b625ae512e1ccfd3fbe0dd75efdc0f2 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 13:47:34 +0900
-Subject: [PATCH 15/18] model picker: support a per-model default pp (large
+Subject: [PATCH 15/19] model picker: support a per-model default pp (large
  models like bf16 coder)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4111,7 +4111,7 @@ index f429c2e..6f87b92 100644
 From 2a5386e8168b64211e2d06971a49c5c42d21263c Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 14:43:49 +0900
-Subject: [PATCH 16/18] model picker: resolve the active pp to pp_default
+Subject: [PATCH 16/19] model picker: resolve the active pp to pp_default
  (fixes bf16 coder showing pp1)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4245,7 +4245,7 @@ index 436b00f..df63c88 100644
 From 324f1ea888f06565c310d81893492aa5a8ac8bd1 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 15:39:27 +0900
-Subject: [PATCH 17/18] npu: fetch router metadata live + ease off status
+Subject: [PATCH 17/19] npu: fetch router metadata live + ease off status
  polling on long loads
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4465,7 +4465,7 @@ index 6f87b92..3265bf0 100644
 From 4ab56a3290a872fbb430a4ffece3c76a6eeab4e2 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 16:13:42 +0900
-Subject: [PATCH 18/18] fix: runtime router-metadata fetch hit
+Subject: [PATCH 18/19] fix: runtime router-metadata fetch hit
  /v1/router/models (404)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4500,6 +4500,228 @@ index 57f5de8..54fc369 100644
      } finally {
        clearTimeout(abort)
      }
+-- 
+2.43.0
+
+
+From 72fea10e12ae568e800140f9f826b0d5f503986a Mon Sep 17 00:00:00 2001
+From: hyunjun1234 <plab2090@gmail.com>
+Date: Thu, 6 Aug 2026 00:33:47 +0900
+Subject: [PATCH 19/19] npu: keep the LEDs alive through hiccups, and stop
+ repainting the picker on blink
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Three fixes for the Furiosa NPU UI:
+
+1. A single failed probe no longer disables the status line for the whole
+   session. pollOnce now distinguishes a real HTTP response that is not a
+   router status ('not-router' — OpenAI/Ollama, stop for good, as before) from
+   a timeout or connection error ('unreachable' — the SSH tunnel reconnecting
+   or the router restarting). Only the former stops polling. Previously any
+   first-probe failure set `stopped`, leaving `available` false, and
+   BuiltinStatusLine renders nothing at all in that state — so the per-model
+   LEDs and the multi-model row silently vanished for the rest of the session,
+   and a preload had no visible effect.
+
+2. Idle polls no longer notify. `phase` is the blink clock, so a transition
+   still ticks every poll, but when nothing is moving and nothing changed we
+   skip the notify instead of repainting the whole TUI on every tick.
+
+3. The model picker no longer re-renders on blink ticks. It subscribed to the
+   full status, whose `models` array is new on every poll, so its memo missed
+   and it rebuilt and repainted the entire option list once a second for the
+   whole cold start of a model — exactly while the user is arrowing through it.
+   New `useNpuLoadStates()` re-renders only when a model's id or state changes;
+   the status line keeps using `useNpuStatus()` for the blink.
+---
+ src/components/ModelPicker.tsx | 13 ++++----
+ src/services/npuStatus.ts      | 56 +++++++++++++++++++++++++++-------
+ src/services/npuStatusHook.ts  | 36 ++++++++++++++++++++++
+ 3 files changed, 88 insertions(+), 17 deletions(-)
+
+diff --git a/src/components/ModelPicker.tsx b/src/components/ModelPicker.tsx
+index 4c735b5..5503724 100644
+--- a/src/components/ModelPicker.tsx
++++ b/src/components/ModelPicker.tsx
+@@ -11,7 +11,7 @@ import { useAppState, useSetAppState } from '../state/AppState.js';
+ import { convertEffortValueToLevel, type EffortLevel, getAvailableEffortLevels, getDefaultEffortForModel, modelSupportsEffort, modelSupportsMaxEffort, resolvePickerEffortPersistence, toPersistableEffort } from '../utils/effort.js';
+ import { isModelAllowed } from '../utils/model/modelAllowlist.js';
+ import { preloadNpuModel } from '../services/npuStatus.js';
+-import { useNpuStatus } from '../services/npuStatusHook.js';
++import { useNpuLoadStates } from '../services/npuStatusHook.js';
+ import { applyNpuLoadColors, applyNpuPresentation, availableAxes, defaultTpOf, getDiscoveredModelIds, type NpuConfig, nextAxis, npuAxisAllValues, npuAxisValues, type NpuAxis, npuLoadStatesByBase, npuVariantsOf, parseNpuVariant, ppDefaultOf, stepNpuAxis, variantId } from '../utils/npuVariants.js';
+ import { getDefaultMainLoopModel, type ModelSetting, modelDisplayString, parseUserSpecifiedModel } from '../utils/model/model.js';
+ import { getModelOptions, type ModelOption, parseSwitchProfileValue, resolveSelectedSwitchProfileId } from '../utils/model/modelOptions.js';
+@@ -130,8 +130,9 @@ export function ModelPicker(t0) {
+   });
+   // ←/→ 가 어느 축을 움직이는지. tab 으로 tp→dp→pp 순환.
+   const [npuAxis, setNpuAxis] = useState<NpuAxis>('dp');
+-  // 어느 모델이 카드에 올라가 있는지 — 목록 색칠에 쓴다.
+-  const npuStatus = useNpuStatus();
++  // 어느 모델이 카드에 올라가 있는지 — 목록 색칠에 쓴다. 깜빡임 tick 에는 반응하지 않는
++  // 훅이라, 모델이 로딩되는 동안 목록 전체가 초당 한 번씩 다시 그려지지 않는다.
++  const npuModels = useNpuLoadStates();
+   const effortValue = useAppState(_temp2);
+   let t1;
+   if ($[0] !== effortValue) {
+@@ -165,9 +166,9 @@ export function ModelPicker(t0) {
+   // 카드에 올라가 있는 모델은 전부 초록으로 칠한다. 선택된 하나만 초록이면
+   // 어느 것이 즉시 전환이고 어느 것이 콜드 스타트인지 구분할 수가 없다.
+   let t3d;
+-  if ($[93] !== npuStatus.models) {
+-    t3d = npuLoadStatesByBase(npuStatus.models);
+-    $[93] = npuStatus.models;
++  if ($[93] !== npuModels) {
++    t3d = npuLoadStatesByBase(npuModels);
++    $[93] = npuModels;
+     $[94] = t3d;
+   } else {
+     t3d = $[94];
+diff --git a/src/services/npuStatus.ts b/src/services/npuStatus.ts
+index a4ef0c6..6054299 100644
+--- a/src/services/npuStatus.ts
++++ b/src/services/npuStatus.ts
+@@ -198,26 +198,54 @@ function withPending(models: NpuModel[], now: number): NpuModel[] {
+   return out
+ }
+ 
+-async function pollOnce(base: string): Promise<boolean> {
++type PollResult = 'ok' | 'not-router' | 'unreachable'
++
++/** Whether two model lists agree on everything the UI draws. */
++function sameModels(a: readonly NpuModel[], b: readonly NpuModel[]): boolean {
++  if (a.length !== b.length) return false
++  for (let i = 0; i < a.length; i++) {
++    const x = a[i]!
++    const y = b[i]!
++    if (x.id !== y.id || x.state !== y.state || x.dp !== y.dp || x.pp !== y.pp) return false
++    if (x.cards.length !== y.cards.length || x.cards.some((c, j) => c !== y.cards[j])) return false
++  }
++  return true
++}
++
++async function pollOnce(base: string): Promise<PollResult> {
+   const controller = new AbortController()
+   const abort = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
+   try {
+     const res = await fetch(`${base}/router/status`, { signal: controller.signal })
+-    if (!res.ok) return false
++    // A real response that is not a router status (404 from OpenAI/Ollama) is a
++    // permanent answer; a timeout or connection error is not — see PollResult.
++    if (!res.ok) return 'not-router'
+     const parsed = parseStatus((await res.json()) as RawStatus)
+-    currentNpuStatus.models = withPending(parsed.models, Date.now())
++    const nextModels = withPending(parsed.models, Date.now())
++    const changed =
++      !currentNpuStatus.available ||
++      !sameModels(currentNpuStatus.models, nextModels) ||
++      currentNpuStatus.freeCards.length !== parsed.freeCards.length ||
++      currentNpuStatus.freeCards.some((c, i) => c !== parsed.freeCards[i])
++    currentNpuStatus.models = nextModels
+     currentNpuStatus.freeCards = parsed.freeCards
+     // Remember models the router reports as fully up, so they keep showing (red)
+     // after an eviction or restart. Only `up` — a load that never finished must
+     // not be remembered as if it had.
+     const upIds = parsed.models.filter(m => m.state === 'up').map(m => m.id)
+     currentNpuStatus.remembered = rememberNpuModels(base, upIds)
+-    currentNpuStatus.phase += 1
+     currentNpuStatus.available = true
+-    notify()
+-    return true
++    // `phase` is the blink clock, so anything transitioning needs a tick per
++    // poll. When nothing is moving and nothing changed, stay silent: notifying
++    // would repaint the whole TUI on every idle poll for no visible difference,
++    // which is felt as lag while arrowing through the model picker.
++    if (changed || isTransitioning(nextModels)) {
++      currentNpuStatus.phase += 1
++      notify()
++    }
++    return 'ok'
+   } catch {
+-    return false
++    return 'unreachable'
+   } finally {
+     clearTimeout(abort)
+   }
+@@ -252,15 +280,21 @@ let everSucceeded = false
+ async function scheduledPoll(): Promise<void> {
+   const base = pollBase
+   if (base === null) return
+-  const ok = await pollOnce(base)
+-  if (ok) {
++  const result = await pollOnce(base)
++  if (result === 'ok') {
+     everSucceeded = true
+-  } else if (!everSucceeded) {
+-    stopped = true // not a Furiosa router — stay quiet
++  } else if (result === 'not-router' && !everSucceeded) {
++    // A real HTTP response that is not a router status: this backend is not a
++    // Furiosa router, so stop for good rather than polling someone else's
++    // OpenAI endpoint forever.
++    stopped = true
+     currentNpuStatus.available = false
+     notify()
+     return
+   }
++  // 'unreachable' deliberately keeps the loop alive: the SSH tunnel or the
++  // router may be back within seconds, and permanently disabling the LEDs after
++  // a single hiccup is what made them silently vanish for an entire session.
+   if (stopped) return
+   // A preload the router hasn't acknowledged is as urgent as a visible
+   // transition — that gap is exactly when the user is waiting for the LED.
+diff --git a/src/services/npuStatusHook.ts b/src/services/npuStatusHook.ts
+index 5fb053a..9b1e613 100644
+--- a/src/services/npuStatusHook.ts
++++ b/src/services/npuStatusHook.ts
+@@ -1,6 +1,7 @@
+ import { useEffect, useState } from 'react'
+ import {
+   currentNpuStatus,
++  type NpuModel,
+   type NpuStatus,
+   npuStatusListeners,
+   startNpuStatusPolling,
+@@ -28,3 +29,38 @@ export function useNpuStatus(): NpuStatus {
+ 
+   return status
+ }
++
++/**
++ * Like `useNpuStatus`, but re-renders only when a model's identity or state
++ * actually changes — never on a bare blink tick.
++ *
++ * The model picker colours its rows by load state, and rebuilds the whole
++ * option list whenever the status object changes. Subscribing it to the blink
++ * clock meant rebuilding and repainting that list once a second for the entire
++ * cold start of a model — exactly while the user is arrowing through it, which
++ * is what made the picker feel sluggish. The status line still blinks; it uses
++ * `useNpuStatus`.
++ */
++export function useNpuLoadStates(): NpuModel[] {
++  const [models, setModels] = useState<NpuModel[]>(currentNpuStatus.models)
++
++  useEffect(() => {
++    const sign = (ms: readonly NpuModel[]): string =>
++      ms.map(m => `${m.id}:${m.state}`).join('|')
++    let last = sign(currentNpuStatus.models)
++    const listener = (next: NpuStatus): void => {
++      const now = sign(next.models)
++      if (now === last) return
++      last = now
++      setModels(next.models)
++    }
++    npuStatusListeners.add(listener)
++    startNpuStatusPolling()
++
++    return () => {
++      npuStatusListeners.delete(listener)
++    }
++  }, [])
++
++  return models
++}
 -- 
 2.43.0
 

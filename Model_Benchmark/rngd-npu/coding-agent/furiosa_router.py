@@ -227,7 +227,9 @@ def par_choices(base, tp):
     if is_fxb_variant(reg, tp):
         pp = [1]
     else:
-        pp = [n for n in (1, 2, 4) if variant_cards(tp, 1, n) <= len(ALL_CARDS)]
+        # pp 는 3 도 유효하다(카드 3장 층분할) — coder-bf16@pp3 실측 OK. dp 는 카드 수로 추론되는
+        # 복제라 2의 거듭제곱만 노출한다(3복제는 쓸 일이 없고 변형만 늘어남).
+        pp = [n for n in (1, 2, 3, 4) if variant_cards(tp, 1, n) <= len(ALL_CARDS)]
     return dp, pp
 
 

@@ -16,7 +16,16 @@
 #           furio -p "..."   # 비대화형 한 줄(print 모드)
 # ───────────────────────────────────────────────────────────────────────────
 set -euo pipefail
-: "${SDI_SERVER:?SDI_SERVER 를 지정하세요 (예: http://127.0.0.1:8400  ← SSH 터널 권장)}"
+# 오프라인 설치(서버에 접속이 안 되는 PC): FURIO_OFFLINE=1
+#   · SDI_SERVER 를 안 줘도 되고(기본 127.0.0.1:8400 — 나중에 터널/목 라우터를 붙일 주소),
+#   · 서버 도달 실패가 설치를 죽이지 않는다(경고만).
+#   · NPU 기능이 든 dist 는 서버에서 못 받으므로 FURIO_CLIENT_DIST=<cli.mjs 있는 폴더> 로 준다.
+#     (미리 복사해 둔 dist. 없으면 업스트림으로 설치되어 NPU LED/위젯이 빠진다.)
+if [ "${FURIO_OFFLINE:-0}" = "1" ]; then
+  SDI_SERVER="${SDI_SERVER:-http://127.0.0.1:8400}"
+else
+  : "${SDI_SERVER:?SDI_SERVER 를 지정하세요 (예: http://127.0.0.1:8400  ← SSH 터널 권장)  |  서버가 없으면 FURIO_OFFLINE=1}"
+fi
 SDI_SERVER="${SDI_SERVER%/}"
 SDI_API_KEY="${SDI_API_KEY:-}"                       # 키는 선택 — 서버 인증 OFF 면 비워도 됨
 if [ -n "$SDI_API_KEY" ]; then
@@ -44,11 +53,28 @@ AUTH=(); [ -n "$SDI_API_KEY" ] && AUTH=(-H "Authorization: Bearer $SDI_API_KEY")
 # 서버가 NPU 기능(모델별 LED·dp/pp)이 들어간 openclaude 포크를 빌드해 두었는지 확인.
 # 있으면 npm 으로 '포크와 같은 버전'을 고정 설치한 뒤 dist 만 덮어쓴다 —
 # 개인 PC 에 bun/빌드 툴체인을 깔 필요가 없고, install.sh 한 줄이 그대로 유지된다.
-FORK_VER=$(curl -fsS --max-time 10 ${AUTH[@]+"${AUTH[@]}"} "$SDI_SERVER/router/client/manifest.json" 2>/dev/null | node -e '
+# 로컬 dist 우선: FURIO_CLIENT_DIST 로 미리 복사해 둔 포크 dist 를 주면 서버 없이도 NPU 기능이 적용된다.
+LOCAL_DIST=""
+if [ -n "${FURIO_CLIENT_DIST:-}" ]; then
+  _LD="${FURIO_CLIENT_DIST%/}"
+  if [ -f "$_LD/cli.mjs" ]; then
+    LOCAL_DIST="$_LD"
+  else
+    echo "      [warn] FURIO_CLIENT_DIST 에 cli.mjs 가 없습니다: $_LD — 무시하고 진행"
+  fi
+fi
+
+FORK_VER=""
+if [ -z "$LOCAL_DIST" ]; then
+  FORK_VER=$(curl -fsS --max-time 10 ${AUTH[@]+"${AUTH[@]}"} "$SDI_SERVER/router/client/manifest.json" 2>/dev/null | node -e '
 let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
   try{const j=JSON.parse(s);process.stdout.write(j.ok&&j.version?String(j.version):"")}catch(e){process.stdout.write("")}});' 2>/dev/null || echo "")
+fi
 
-if [ -n "$FORK_VER" ]; then
+if [ -n "$LOCAL_DIST" ]; then
+  echo "      로컬 dist 사용: $LOCAL_DIST (서버 없이 NPU 기능 적용)"
+  NPM_SPEC="@gitlawb/openclaude@${FURIO_CLIENT_VER:-latest}"
+elif [ -n "$FORK_VER" ]; then
   echo "      서버 포크 감지 — @gitlawb/openclaude@$FORK_VER 고정 설치 후 NPU 기능 dist 적용"
   NPM_SPEC="@gitlawb/openclaude@$FORK_VER"
 else
@@ -61,13 +87,23 @@ OC_BIN="$HOME_DIR/bin/openclaude"
 
 # 포크 dist 덮어쓰기. 실패하면 업스트림 dist 가 그대로 남아 furio 는 계속 동작한다
 # (NPU LED·dp/pp 위젯만 빠짐) — 설치를 통째로 실패시키지 않는다.
-if [ -n "$FORK_VER" ]; then
+if [ -n "$LOCAL_DIST" ] || [ -n "$FORK_VER" ]; then
   DIST_DIR="$HOME_DIR/lib/node_modules/@gitlawb/openclaude/dist"
   [ -d "$DIST_DIR" ] || DIST_DIR=$(dirname "$(readlink -f "$OC_BIN" 2>/dev/null || echo "$OC_BIN")")/../dist
   OK=1
   for f in cli.mjs sdk.mjs; do
-    if ! curl -fsS --max-time 300 ${AUTH[@]+"${AUTH[@]}"} -o "$DIST_DIR/$f.new" "$SDI_SERVER/router/client/$f" 2>/dev/null; then
-      OK=0; break
+    if [ -n "$LOCAL_DIST" ]; then
+      # sdk.mjs 는 없을 수도 있다(cli.mjs 만 복사한 경우) — cli.mjs 만 필수.
+      if [ ! -f "$LOCAL_DIST/$f" ]; then
+        [ "$f" = "cli.mjs" ] && { OK=0; break; }
+        echo "      [warn] $f 없음 — 건너뜀(cli.mjs 만 적용)"
+        continue
+      fi
+      cp -f "$LOCAL_DIST/$f" "$DIST_DIR/$f.new" || { OK=0; break; }
+    else
+      if ! curl -fsS --max-time 300 ${AUTH[@]+"${AUTH[@]}"} -o "$DIST_DIR/$f.new" "$SDI_SERVER/router/client/$f" 2>/dev/null; then
+        OK=0; break
+      fi
     fi
     mv -f "$DIST_DIR/$f.new" "$DIST_DIR/$f" || { OK=0; break; }
   done
@@ -75,7 +111,7 @@ if [ -n "$FORK_VER" ]; then
   if [ "$OK" = 1 ]; then
     echo "      [ok] NPU 기능 적용 (모델별 LED·dp/pp 표시)"
   else
-    echo "      [warn] 포크 dist 내려받기 실패 — 업스트림 그대로 사용(NPU LED 없음)"
+    echo "      [warn] 포크 dist 적용 실패 — 업스트림 그대로 사용(NPU LED 없음)"
   fi
 fi
 
@@ -84,12 +120,19 @@ if command -v curl >/dev/null 2>&1; then
   AUTH=(); [ -n "$SDI_API_KEY" ] && AUTH=(-H "Authorization: Bearer $SDI_API_KEY")
   # macOS 기본 bash 3.2 + set -u 에선 빈 배열 "${AUTH[@]}" 가 unbound 오류 → ${arr[@]+...} 가드로 안전 확장
   if ! curl -fsS --max-time 10 ${AUTH[@]+"${AUTH[@]}"} "$SDI_SERVER/v1/models" >/dev/null 2>&1; then
-    echo "[fail] 서버 도달 실패 $SDI_SERVER/v1/models"
-    echo "       └ 원격이면 SSH 터널이 떠 있나요?  bash furio-connect.sh  (그 후 SDI_SERVER=http://127.0.0.1:8400)"
-    echo "       └ 서버 인증 ON 이면 SDI_API_KEY=<키> 를 같이 주세요."
-    exit 1
+    if [ "${FURIO_OFFLINE:-0}" = "1" ]; then
+      echo "      [offline] 서버 미도달 — 설치는 계속합니다($SDI_SERVER)."
+      echo "                나중에 터널을 띄우거나 mock-router.py 를 이 주소로 실행하면 그대로 동작합니다."
+    else
+      echo "[fail] 서버 도달 실패 $SDI_SERVER/v1/models"
+      echo "       └ 원격이면 SSH 터널이 떠 있나요?  bash furio-connect.sh  (그 후 SDI_SERVER=http://127.0.0.1:8400)"
+      echo "       └ 서버 인증 ON 이면 SDI_API_KEY=<키> 를 같이 주세요."
+      echo "       └ 서버 없이 설치하려면:  FURIO_OFFLINE=1 FURIO_CLIENT_DIST=<dist경로> bash install.sh"
+      exit 1
+    fi
+  else
+    echo "      [ok] /v1/models 응답"
   fi
-  echo "      [ok] /v1/models 응답"
 fi
 
 # 키는 0600 파일에만(있을 때). 래퍼는 런타임에 읽어 env 로 — 래퍼 텍스트엔 비밀 없음.
@@ -132,6 +175,25 @@ if [ "$D" -gt 0 ]; then
   echo "      [ok] 모델 설명 ${D}개 기록 (desc.json — /model 목록에 tp·dp·pp·카드 수 표시)"
 else
   rm -f "$HOME_DIR/desc.json"
+fi
+
+# 모델별 tp 선택지를 라우터에서 받아 meta.json 에 저장 → /model 의 tp 화살표 축.
+# 맨이름(접미사 없는 id)의 tp 는 id 에 안 들어 있어(=기본 빌드), 클라이언트가 이 맵으로 기본 tp 와
+# 고를 수 있는 tp 목록을 안다. base 별 {tp_default, tps} 한 벌.
+M=$(curl -fsS --max-time 10 ${AUTH[@]+"${AUTH[@]}"} "$SDI_SERVER/router/models" 2>/dev/null | node -e '
+const fs=require("fs"); let s=""; process.stdin.on("data",d=>s+=d).on("end",()=>{
+  try{ const j=JSON.parse(s), m={};
+    for (const x of (j.data||[])) if (x && x.base && typeof x.tp_default==="number" && Array.isArray(x.tp_choices))
+      m[x.base]={tp_default:x.tp_default, tps:x.tp_choices, ...(typeof x.pp_default==="number"?{pp_default:x.pp_default}:{})};
+    const n=Object.keys(m).length;
+    if (n) fs.writeFileSync(process.argv[1], JSON.stringify(m));
+    process.stdout.write(String(n));
+  }catch(e){ process.stdout.write("0") }});' "$HOME_DIR/meta.json" 2>/dev/null || echo 0)
+case "${M:-0}" in ''|*[!0-9]*) M=0 ;; esac
+if [ "$M" -gt 0 ]; then
+  echo "      [ok] 모델 tp 메타 ${M}개 기록 (meta.json — /model 에서 tp 화살표 선택)"
+else
+  rm -f "$HOME_DIR/meta.json"
 fi
 
 # 안전 자동모드(FURIO_AUTO=safe)용 규칙 파일. 사용자가 편집할 수 있게 파일로 두고, 이미 있으면 건드리지 않는다.
@@ -248,6 +310,129 @@ fs.writeFileSync(p, JSON.stringify(j,null,2)+"\n");
     || echo "      [warn] settings.json 기록 실패 — 자동모드는 FURIO_AUTO=1 로만 가능"
 fi
 
+# ── NPU 에이전트 라우팅 ──────────────────────────────────────────────────
+# openclaude 의 서브에이전트(/agents, Task 도구)는 기본적으로 부모 모델을 상속하지만,
+# frontmatter model 이 'opus' 로 지정된 에이전트는 OPENAI_MODEL 로 매핑돼 우리 라우터에
+# 없는 모델을 부를 수 있다. 그래서 서브에이전트가 항상 우리 NPU 모델을 쓰도록 라우트를
+# settings.json 에 심는다. agentModels 는 '메뉴', agentRouting 은 '에이전트→모델' 배정이다.
+#   · 이미 agentModels/agentRouting 이 있으면 건드리지 않는다(사용자 배정 보존).
+#   · 역할 베이스: orchestrator/code-writer/git-ops 에이전트 템플릿(agents/*.md)과
+#     그 이름→모델 라우팅을 깔아 둔다. 전부 1장 모델이라 동시 상주 안전.
+#   · 나중에 역할·모델을 바꾸려면 agents/*.md 와 settings.json 의 agentModels/agentRouting
+#     을 편집한다(이름이 default 보다 우선). 안내: agents/README.md.
+# 끄려면 FURIO_AGENT_ROUTING=0.
+AGENT_KEY="${SDI_API_KEY:-dummy}"
+if [ "${FURIO_AGENT_ROUTING:-1}" = "0" ]; then
+  echo "      [skip] NPU 에이전트 라우팅 비활성(FURIO_AGENT_ROUTING=0)"
+else
+  mkdir -p "$CFG_DIR"
+  node -e '
+const fs=require("fs"), p=process.argv[1], base=process.argv[2], key=process.argv[3];
+let j={};
+try{ j=JSON.parse(fs.readFileSync(p,"utf8"))||{} }catch(e){ j={} }
+if (typeof j!=="object"||Array.isArray(j)) j={};
+const m=(model)=>({base_url:base, api_key:key, model});
+let added=false;
+if (!j.agentModels || typeof j.agentModels!=="object" || Array.isArray(j.agentModels)) {
+  j.agentModels = {
+    "npu-small": m("Qwen3-4B-FP8"),                          // 1장 · 빠름 · 도구/추론 O
+    "npu-8b":    m("Qwen3-8B-FP8"),                          // 1장
+    "npu-coder": m("Qwen3-Coder-30B-A3B-Instruct-FP8"),     // 4장 독점 · 코드 특화
+    "npu-70b":   m("Llama-3.3-70B-Instruct")                // 4장 독점 · 범용 고품질
+  };
+  added=true;
+}
+if (!j.agentRouting || typeof j.agentRouting!=="object" || Array.isArray(j.agentRouting)) {
+  // 역할 골격(베이스). 전부 1장 모델이라 동시 상주 안전. 나중에 원하는 모델로 교체.
+  //   code-writer 를 진짜 코더(Qwen3-Coder-30B, tp8+pp2 재빌드=2장)로 올리려면
+  //   npu-coder 의 model 을 그 변형 id 로 바꾸고 code-writer 를 "npu-coder" 로 라우팅.
+  j.agentRouting = {
+    "orchestrator": "npu-8b",     // 총괄(위임) — 서브에이전트로 쓸 때. 메인 세션 모델은 /model
+    "code-writer":  "npu-8b",     // 코드 생성 — 재빌드 후 "npu-coder" 로 교체 권장
+    "git-ops":      "npu-small",  // git/GitHub
+    "default":      "npu-small"
+  };
+  added=true;
+}
+fs.writeFileSync(p, JSON.stringify(j,null,2)+"\n");
+process.stdout.write(added?"added":"kept");
+' "$CFG_DIR/settings.json" "$SDI_SERVER/v1" "$AGENT_KEY" 2>/dev/null | grep -q added \
+    && { echo "      [ok] NPU 에이전트 라우팅 기록 — 역할별 서브에이전트가 NPU 모델을 쓴다."
+         echo "           역할↔모델 변경: $CFG_DIR/settings.json 의 agentRouting/agentModels"; } \
+    || echo "      [ok] NPU 에이전트 라우팅 — 기존 설정 보존(agentModels/agentRouting 유지)"
+
+  # ── 역할 에이전트 템플릿 scaffold (있으면 보존) ──────────────────────
+  # 사용자가 나중에 채우도록 baseline .md 를 깐다. name=agentRouting 키와 일치.
+  ADIR="$CFG_DIR/agents"; mkdir -p "$ADIR"
+  scaffold_agent() {  # $1=파일 $2=heredoc(stdin)
+    if [ -f "$ADIR/$1" ]; then echo "      [keep] agents/$1 (기존 유지)"; return; fi
+    cat > "$ADIR/$1"; echo "      [new]  agents/$1";
+  }
+  scaffold_agent orchestrator.md <<'AGENTEOF'
+---
+name: orchestrator
+description: 사용자 요청을 받아 전체 작업을 총괄하고, 코드 생성은 code-writer, git/GitHub 작업은 git-ops 서브에이전트에게 위임한다. 여러 단계·역할 분담이 필요한 작업 전반에 사용.
+---
+당신은 총괄(orchestrator)입니다. 사용자 요청을 분석해 계획을 세우고 적절한 역할에게 위임하세요.
+- 코드 작성/수정 → Agent 도구로 subagent_type "code-writer" 호출
+- git add/commit/push/pull·PR → Agent 도구로 subagent_type "git-ops" 호출
+- 간단한 조회·정리는 직접 처리
+각 역할 결과를 종합해 다음 단계를 결정하고, 완료되면 사용자에게 한국어로 요약 보고하세요.
+(이 프롬프트·역할은 자유롭게 편집하세요.)
+AGENTEOF
+  scaffold_agent code-writer.md <<'AGENTEOF'
+---
+name: code-writer
+description: 요청받은 사양대로 코드를 생성·수정한다. 코드 작성이 필요할 때 사용.
+tools: Read, Write, Edit, Grep, Glob, Bash
+---
+당신은 코드 생성 전담입니다. 요청 사양을 받아 코드를 작성/수정하고,
+변경한 파일 경로와 핵심 변경 요약만 반환하세요. git 커밋·푸시는 하지 마세요(git-ops 역할).
+(이 프롬프트·도구 목록은 자유롭게 편집하세요.)
+AGENTEOF
+  scaffold_agent git-ops.md <<'AGENTEOF'
+---
+name: git-ops
+description: git add/commit/push/pull 과 GitHub 작업(PR 등)을 수행한다. 변경사항을 원격에 반영하거나 원격 변화를 가져올 때 사용.
+---
+당신은 git/GitHub 담당입니다. 요청에 따라 git add/commit/push/pull 을 수행하세요.
+GitHub API 작업(PR 생성·조회 등)은 등록된 MCP 도구(mcp__github__*)를 사용하세요(/mcp 로 등록).
+커밋 메시지는 변경 요약을 한국어로 간결히. 코드 내용 자체는 수정하지 마세요(그건 code-writer).
+(도구를 좁히려면 frontmatter 에 tools: 를 추가하세요 — 단 MCP 를 쓰려면 mcp 툴명도 포함.)
+AGENTEOF
+  scaffold_agent README.md <<AGENTEOF
+# furio 역할 에이전트 베이스
+
+이 폴더(\`$ADIR\`)의 \`*.md\` 하나가 역할 에이전트 하나입니다.
+frontmatter \`name\` 이 \`settings.json\` 의 \`agentRouting\` 키와 연결됩니다.
+
+## 채우는 곳 3군데
+1. **역할 정의**: 이 폴더의 \`*.md\` — frontmatter(name·description·tools) + 본문(시스템 프롬프트) 편집.
+   역할 추가는 새 \`.md\` 를 만들면 됩니다(name 을 agentRouting 에도 추가).
+2. **역할↔모델**: \`../settings.json\`
+   - \`agentModels\`: 모델 메뉴(라우트키 → base_url/api_key/model).
+   - \`agentRouting\`: 에이전트 name → 라우트키. 이름이 default 보다 우선.
+3. **모델 자체(새로 빌드/등록)**: 서버의 \`furiosa_router.py\` REGISTRY.
+   - 코더를 2장으로: Qwen3-Coder-30B 를 **v2 아티팩트**로 tp8 재빌드 → REGISTRY 에
+     \`tp=8, cards=1\` 로 등록 → \`agentModels.npu-coder.model\` 을 \`...@pp2\`(2장) 로 → serve-router.sh 재시작.
+   - ⚠️ pp 는 v2 아티팩트에서만(fxb 면 패닉).
+
+## 현재 베이스 배정 (전부 1장, 동시 안전)
+- orchestrator → npu-8b   (총괄; 서브에이전트로 쓸 때. 메인 세션 모델은 /model 로 별도 지정)
+- code-writer  → npu-8b   (재빌드 후 npu-coder 로 교체 권장)
+- git-ops      → npu-small
+- default      → npu-small
+
+## 자동화 켜기(선택)
+- 팀 협업:  \`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 furio\`
+- 코디네이터: \`CLAUDE_CODE_COORDINATOR_MODE=1 furio\`
+- 예약/폴링:  furio 안에서 CronCreate 도구
+- 조건 반복:  \`/goal <조건>\`
+- 외부 동작:  \`/mcp\` 로 github 등 MCP 서버 등록 → git-ops 가 mcp__github__* 사용
+AGENTEOF
+  echo "      [ok] 역할 에이전트 베이스: $ADIR/*.md (편집해서 사용)"
+fi
+
 echo "[4/4] '$CMD' 명령 설치: $BIN_DIR/$CMD"
 cat > "$BIN_DIR/$CMD" <<EOF
 #!/usr/bin/env bash
@@ -255,9 +440,14 @@ cat > "$BIN_DIR/$CMD" <<EOF
 set -euo pipefail
 export CLAUDE_CODE_USE_OPENAI=1
 export OPENAI_BASE_URL="$SDI_SERVER/v1"
-export OPENAI_MODEL="\${OPENAI_MODEL:-$MODEL}"
-export CLAUDE_CODE_MAX_OUTPUT_TOKENS="\${CLAUDE_CODE_MAX_OUTPUT_TOKENS:-$MAXOUT}"
 export OPENCLAUDE_CONFIG_DIR="\${OPENCLAUDE_CONFIG_DIR:-$HOME_DIR/config}"   # 유저 기존 openclaude 와 격리
+# 기본 모델 = 직전에 쓰던 모델. openclaude 는 /model 로 바꿀 때마다 그 값을 config 의
+# settings.json 에 저장한다(동기). 그걸 읽어 OPENAI_MODEL 기본값으로 쓰면, furio 를 다시
+# 켜도 마지막 모델이 그대로 뜬다. 우선순위: 명시적 OPENAI_MODEL > 직전 모델 > 설치 기본값($MODEL).
+# (furio --model 은 이와 무관하게 최우선으로 그 실행만 덮어쓴다.)
+_LAST_MODEL="\$(node -e 'try{var fs=require("fs");var s=JSON.parse(fs.readFileSync(process.env.OPENCLAUDE_CONFIG_DIR+"/settings.json","utf8"));if(s&&typeof s.model==="string"&&s.model)process.stdout.write(s.model)}catch(e){}' 2>/dev/null || true)"
+export OPENAI_MODEL="\${OPENAI_MODEL:-\${_LAST_MODEL:-$MODEL}}"
+export CLAUDE_CODE_MAX_OUTPUT_TOKENS="\${CLAUDE_CODE_MAX_OUTPUT_TOKENS:-$MAXOUT}"
 export OPENAI_API_KEY="\$( [ -f "$HOME_DIR/key" ] && cat "$HOME_DIR/key" || echo dummy )"
 # 모델별 실제 컨텍스트 창(설치 때 라우터에서 받아둔 값). 없으면 openclaude 는 128000 으로 잘못 가정한다.
 if [ -z "\${CLAUDE_CODE_OPENAI_CONTEXT_WINDOWS:-}" ] && [ -s "$HOME_DIR/ctx.json" ]; then
@@ -266,6 +456,10 @@ fi
 # 모델 선택 목록의 설명(설치 때 라우터에서 받아둔 값). 없으면 openclaude 기본 문구로 표시된다.
 if [ -z "\${FURIO_MODEL_DESCRIPTIONS:-}" ] && [ -s "$HOME_DIR/desc.json" ]; then
   export FURIO_MODEL_DESCRIPTIONS="\$(cat "$HOME_DIR/desc.json")"
+fi
+# 모델별 tp 선택지(base→{tp_default,tps}). 없으면 /model 에 tp 화살표 축이 안 뜬다(dp/pp 만).
+if [ -z "\${FURIO_NPU_META:-}" ] && [ -s "$HOME_DIR/meta.json" ]; then
+  export FURIO_NPU_META="\$(cat "$HOME_DIR/meta.json")"
 fi
 # 타임아웃: NPU 는 모델을 늦게 올려서(라우터가 최대 480초 대기) openclaude 0.25.0 기본값이 빠듯하다.
 export API_TIMEOUT_MS="\${API_TIMEOUT_MS:-900000}"                                # 응답헤더 마감(0.25.0 기본 600000)

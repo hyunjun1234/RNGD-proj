@@ -32,8 +32,13 @@ import hashlib
 import hmac
 
 ART = "/home/jun/RNGD-proj/Model_Benchmark/rngd-npu/artifacts"
+# 새로 빌드한 tp8 v2 아티팩트 8종이 사는 곳(nvme2 공용 저장소). 레지스트리의 tps 경로 접두사.
+# 옛 ART 는 이제 빈 폴더다(.gitkeep 만) — 로컬 아티팩트는 전부 여기서 온다. [[chat-service-model-catalog]]
+NVME_ART = os.environ.get("FURIO_ARTIFACTS", "/mnt/nvme2n1p1/models/artifacts")
 LOGDIR = "/home/jun/RNGD-proj/Model_Benchmark/rngd-npu/chat/serve_logs"
-FURIOSA_LLM = "/home/jun/furiosa/bin/furiosa-llm"
+# serve 바이너리. ~/furiosa venv 가 부분 업그레이드로 깨질 수 있어(import 사망) 환경변수로 뺀다.
+# 작동본: FURIOSA_LLM_BIN=/home/jun/furiosa-3.0-test/bin/furiosa-llm  [[furiosa-venv-version-skew]]
+FURIOSA_LLM = os.environ.get("FURIOSA_LLM_BIN", "/home/jun/furiosa/bin/furiosa-llm")
 ROUTER_PORT = 8400
 BACKEND_PORT_BASE = 8410
 ALL_CARDS = [0, 1, 2, 3]
@@ -69,18 +74,22 @@ REGISTRY = {
     # ── agent-ready (tool calling 검증/신뢰 순) ──
     "gpt-oss-120b":                     dict(path="furiosa-ai/gpt-oss-120b",                     tp=32, cards=4, pp=1, tool="openai",     reasoning=None,         ctx=131072),
     "Solar-Open-100B-NVFP4A16":         dict(path="furiosa-ai/Solar-Open-100B-NVFP4A16",         tp=32, cards=4, pp=1, tool="solar_open", reasoning="solar_open", ctx=131072),
-    "Qwen3-32B-FP8":                    dict(path="furiosa-ai/Qwen3-32B-FP8",                    tp=32, cards=4, pp=1, tool="hermes",     reasoning="qwen3",      ctx=40960),
+    "Qwen3-32B-FP8":                    dict(path="furiosa-ai/Qwen3-32B-FP8",                    tp=32, cards=4, pp=1, tool="hermes",     reasoning="qwen3",      ctx=40960,   tps={8: f"{NVME_ART}/qwen3-32b-tp8"}),
     "Llama-3.3-70B-Instruct":           dict(path="furiosa-ai/Llama-3.3-70B-Instruct",           tp=32, cards=4, pp=1, tool="llama3_json", reasoning=None,        ctx=131072),
     # ── chat (파서는 있으나 신뢰도 낮거나 미실측) ──
-    "EXAONE-4.0-32B-FP8":               dict(path="furiosa-ai/EXAONE-4.0-32B-FP8",               tp=32, cards=4, pp=1, tool="hermes",     reasoning="exaone4",    ctx=131072),
+    "EXAONE-4.0-32B-FP8":               dict(path="furiosa-ai/EXAONE-4.0-32B-FP8",               tp=32, cards=4, pp=1, tool="hermes",     reasoning="exaone4",    ctx=131072, tps={8: f"{NVME_ART}/exaone4-tp8"}),
     "K-EXAONE-236B-A23B-NVFP4A16":      dict(path="furiosa-ai/K-EXAONE-236B-A23B-NVFP4A16",      tp=32, cards=4, pp=1, tool="hermes",     reasoning="deepseek_v3", ctx=262144,
                                              extra=["--default-chat-template-kwargs", '{"enable_thinking": true}']),
-    "Qwen3-30B-A3B-Instruct-2507-FP8":  dict(path="furiosa-ai/Qwen3-30B-A3B-Instruct-2507-FP8",  tp=32, cards=4, pp=1, tool="hermes",     reasoning=None,         ctx=262144),
-    "Qwen3-30B-A3B-Thinking-2507-FP8":  dict(path="furiosa-ai/Qwen3-30B-A3B-Thinking-2507-FP8",  tp=32, cards=4, pp=1, tool="hermes",     reasoning="qwen3",      ctx=262144),
-    "Qwen3-30B-A3B-FP8":                dict(path="furiosa-ai/Qwen3-30B-A3B-FP8",                tp=32, cards=4, pp=1, tool="hermes",     reasoning="qwen3",      ctx=40960),
-    "Qwen3-Coder-30B-A3B-Instruct-FP8": dict(path="furiosa-ai/Qwen3-Coder-30B-A3B-Instruct-FP8", tp=32, cards=4, pp=1, tool="hermes",     reasoning=None,         ctx=262144),
+    "Qwen3-30B-A3B-Instruct-2507-FP8":  dict(path="furiosa-ai/Qwen3-30B-A3B-Instruct-2507-FP8",  tp=32, cards=4, pp=1, tool="hermes",     reasoning=None,         ctx=262144, tps={8: f"{NVME_ART}/a3b-inst-2507-tp8"}),
+    "Qwen3-30B-A3B-Thinking-2507-FP8":  dict(path="furiosa-ai/Qwen3-30B-A3B-Thinking-2507-FP8",  tp=32, cards=4, pp=1, tool="hermes",     reasoning="qwen3",      ctx=262144, tps={8: f"{NVME_ART}/a3b-think-2507-tp8"}),
+    "Qwen3-30B-A3B-FP8":                dict(path="furiosa-ai/Qwen3-30B-A3B-FP8",                tp=32, cards=4, pp=1, tool="hermes",     reasoning="qwen3",      ctx=40960,  tps={8: f"{NVME_ART}/a3b-tp8"}),
+    "Qwen3-Coder-30B-A3B-Instruct-FP8": dict(path="furiosa-ai/Qwen3-Coder-30B-A3B-Instruct-FP8", tp=32, cards=4, pp=1, tool="hermes",     reasoning=None,         ctx=262144, tps={8: f"{NVME_ART}/coder-tp8"}),
+    # BF16 코더(신규) — coder-bf16-tp8 v2. 가중치 57GB 라 1장(47.5GB) 초과 → pp1 OOM.
+    # pp_opts=[2,3,4] 로 pp1 제외하고 2·3·4장 층분할만 노출(기본 pp2, 실측 OK). qwen3_coder 파서 부재로 채팅전용. [[chat-service-model-catalog]]
+    "Qwen3-Coder-30B-A3B-Instruct":     dict(path=f"{NVME_ART}/coder-bf16-tp8",                  tp=8,  cards=2, pp=1, tool=None,         reasoning=None,         ctx=262144, pp_opts=[2, 3, 4]),
     "Qwen3-VL-32B-Instruct":            dict(path="furiosa-ai/Qwen3-VL-32B-Instruct",            tp=32, cards=4, pp=1, tool="hermes",     reasoning=None,         ctx=262144),
-    "Llama-3.1-8B-Instruct":            dict(path="furiosa-ai/Llama-3.1-8B-Instruct",            tp=8,  cards=1, pp=1, tool="llama3_json", reasoning=None,        ctx=131072),
+    # fxb→v2 재지정: 로컬 tp8 v2 아티팩트로 서빙해 -pp 층분할 잠금해제(tp 동일=8). 되돌리려면 path 원복. [[chat-service-model-catalog]]
+    "Llama-3.1-8B-Instruct":            dict(path=f"{NVME_ART}/llama31-8b-tp8",                   tp=8,  cards=1, pp=1, tool="llama3_json", reasoning=None,        ctx=131072),
     "Qwen3-8B-FP8":                     dict(path="furiosa-ai/Qwen3-8B-FP8",                     tp=8,  cards=1, pp=1, tool="hermes",     reasoning="qwen3",      ctx=40960),
     "Qwen3-4B-FP8":                     dict(path="furiosa-ai/Qwen3-4B-FP8",                     tp=8,  cards=1, pp=1, tool="hermes",     reasoning="qwen3",      ctx=40960),
     "Qwen2.5-0.5B-Instruct":            dict(path="furiosa-ai/Qwen2.5-0.5B-Instruct",            tp=4,  cards=1, pp=1, tool="hermes",     reasoning=None,         ctx=32768),
@@ -114,6 +123,7 @@ TOOL_SUPPORT = {
     "Qwen3-30B-A3B-Thinking-2507-FP8": "weak",
     "Qwen3-30B-A3B-FP8": "weak",
     "Qwen3-Coder-30B-A3B-Instruct-FP8": "no",   # 실측(2026-07-16): hermes 파서가 Qwen3-Coder XML tool 포맷을 못 읽음 → tool_calls 비고 content 로 원문 누출. 채팅 전용.
+    "Qwen3-Coder-30B-A3B-Instruct": "no",        # BF16 코더 — qwen3_coder 파서 부재로 채팅 전용(tool=None). [[chat-service-model-catalog]]
     "Qwen3-VL-32B-Instruct": "weak",
     "Llama-3.1-8B-Instruct": "weak",
     "Qwen3-8B-FP8": "weak",
@@ -142,19 +152,18 @@ def artifact_path(reg):
     return local if os.path.isdir(local) else p
 
 
-# ── 병렬화(dp/pp) 변형 ─────────────────────────────────────────────────────
-# 2026-07-22 실측으로 확정된 규칙 — 추측 금지, 아래 근거대로만 노출한다:
-#   · -tp 는 아티팩트 로드 시 무시된다("given -tp value will be ignored") → tp 선택 불가.
-#   · pp 는 FXB 아티팩트에서 패닉("FXB-based artifacts currently does not support
-#     pipeline parallelism") → fxb 모델엔 pp 변형을 만들지 않는다.
-#   · dp 는 --devices 카드 수로 자동 결정된다(1/2/4장 → 1/2/4 DP group 실측).
-#     따라서 dp 변형은 "카드를 몇 장 줄까"와 동의어이고 -dp 플래그는 불필요.
-#   · dp × pp ≤ 4 (카드 4장), tp32 는 4장 독점이라 변형 없음.
+# ── 병렬화(tp/dp/pp) 변형 ───────────────────────────────────────────────────
+# 2026-08-04 확정 규칙 — 추측 금지, 근거대로만 노출:
+#   · tp 는 아티팩트 빌드타임 고정(-tp 는 로드 시 무시). "tp 제어" = 서로 다른 빌드 선택:
+#     기본 tp(레지스트리 tp) ↔ reg["tps"][N] 의 대체 빌드(로컬 v2 tp8). [[chat-service-model-catalog]]
+#   · pp 는 FXB 아티팩트에서 PanicException → v2 에서만 pp 변형을 만든다. tp8 대체빌드는 전부 v2 → pp 허용.
+#   · dp 는 --devices 카드 수로 자동 추론(-dp 는 pp>1 일 때만 명시). pp>1 이면 -pp 명시.
+#   · 카드 4장 예산: 인스턴스 하나 = tp·pp PE, dp 개. tp<8 은 카드당 8//tp 개 패킹, tp>8 은 ceil(tp/8)장 점유.
 FXB_CACHE = os.path.expanduser("~/.cache/furiosa/llm/fxb")
 
 
 def is_fxb(reg):
-    """이 모델이 FXB 번들로 서빙되는지. fxb 캐시에 저장소 디렉토리가 있으면 FXB.
+    """이 모델의 기본 빌드가 FXB 번들인지. fxb 캐시에 저장소 디렉토리가 있으면 FXB.
     (수동 표기 대신 실제 캐시를 보므로 아티팩트가 바뀌어도 자동으로 맞다.)"""
     repo = reg["path"]
     if repo.startswith("/"):
@@ -162,65 +171,125 @@ def is_fxb(reg):
     return os.path.isdir(os.path.join(FXB_CACHE, "models--" + repo.replace("/", "--")))
 
 
-def par_choices(model_id):
-    """(dp 선택지, pp 선택지). tp32 는 4장 독점이라 선택 불가 → ([1],[1])."""
-    reg = REGISTRY[model_id]
-    cards1 = reg["cards"]          # 기본 구성이 쓰는 카드 수
-    if cards1 >= len(ALL_CARDS):   # tp32 = 4장 독점
+def tp_choices(base):
+    """이 모델이 고를 수 있는 tp 값들(오름차순). 기본 tp + reg['tps'] 대체 빌드."""
+    reg = REGISTRY[base]
+    return sorted({reg["tp"], *reg.get("tps", {}).keys()})
+
+
+def pp_default(base):
+    """이 모델의 기본 pp(맨이름이 뜻하는 pp). pp_opts 가 있으면 그 첫값(예: bf16 코더 2),
+    없으면 1. tp_default 와 대칭 — 맨이름(@pp 없음)이 pp1 이 아닐 수 있게 한다."""
+    opts = REGISTRY.get(base, {}).get("pp_opts")
+    return opts[0] if opts else 1
+
+
+def resolve_art(reg, tp):
+    """(reg, tp) → serve 할 아티팩트 경로. tp 가 대체 빌드면 그 경로, 아니면 기본 경로."""
+    if tp != reg["tp"] and tp in reg.get("tps", {}):
+        return reg["tps"][tp]
+    return artifact_path(reg)
+
+
+def is_fxb_variant(reg, tp):
+    """(reg, tp) 구성이 FXB 로 서빙되는지 = pp 불가 여부. 로컬 v2 경로면 항상 아님."""
+    p = resolve_art(reg, tp)
+    return False if p.startswith("/") else is_fxb(reg)
+
+
+def cards_base(tp):
+    """dp1·pp1 인스턴스 하나가 점유하는 카드 수. tp<=8 → 1, tp>8 → ceil(tp/8)."""
+    return 1 if tp <= 8 else (tp + 7) // 8
+
+
+def variant_cards(tp, dp, pp):
+    """(tp,dp,pp) 구성이 실제로 점유하는 카드 수(PE 패킹 반영)."""
+    slots = dp * pp
+    if tp < 8:
+        per_card = 8 // tp                     # 카드당 인스턴스 수
+        return (slots + per_card - 1) // per_card
+    return slots * cards_base(tp)              # tp>=8: 인스턴스마다 cards_base 장
+
+
+def par_choices(base, tp):
+    """주어진 tp 에서 (dp 선택지, pp 선택지). 인스턴스가 4장을 독점하면(tp32) ([1],[1])."""
+    reg = REGISTRY[base]
+    if cards_base(tp) >= len(ALL_CARDS):       # tp32 = 4장 독점
         return [1], [1]
-    dp = [n for n in (1, 2, 4) if n * cards1 <= len(ALL_CARDS)]
-    pp = [1] if is_fxb(reg) else [n for n in (1, 2, 4) if n * cards1 <= len(ALL_CARDS)]
+    # pp_opts 지정 모델(예: bf16 코더 — 57GB 라 pp1 OOM)은 그 pp 만 노출, dp 는 1(대형이라 복제 안 함).
+    if reg.get("pp_opts"):
+        pp = [n for n in reg["pp_opts"] if variant_cards(tp, 1, n) <= len(ALL_CARDS)]
+        return [1], pp
+    dp = [n for n in (1, 2, 4) if variant_cards(tp, n, 1) <= len(ALL_CARDS)]
+    if is_fxb_variant(reg, tp):
+        pp = [1]
+    else:
+        pp = [n for n in (1, 2, 4) if variant_cards(tp, 1, n) <= len(ALL_CARDS)]
     return dp, pp
 
 
-def variant_id(model_id, dp=1, pp=1):
-    """표시·요청용 모델 ID. 기본 구성(dp1·pp1)은 접미사 없이 원래 이름 그대로."""
+def variant_id(base, tp=None, dp=1, pp=1):
+    """표시·요청용 모델 ID. 기본 구성(기본 tp·dp1·기본 pp)은 접미사 없이 원래 이름.
+    접미사 순서는 @tp → @dp → @pp 로 고정(parse_variant 와 일치)."""
+    default_tp = REGISTRY[base]["tp"] if base in REGISTRY else None
     sfx = ""
+    if tp is not None and tp != default_tp:
+        sfx += f"@tp{tp}"
     if dp > 1:
         sfx += f"@dp{dp}"
-    if pp > 1:
+    if pp != pp_default(base):
         sfx += f"@pp{pp}"
-    return model_id + sfx
+    return base + sfx
 
 
 def parse_variant(mid):
-    """'Qwen3-4B-FP8@dp2@pp2' → ('Qwen3-4B-FP8', 2, 2). 모르는 접미사는 무시하지 않고
-    실패시켜서(base 가 REGISTRY 에 없음) 조용한 오작동을 막는다."""
-    base, dp, pp = mid, 1, 1
+    """'Qwen3-32B-FP8@tp8@dp2@pp2' → ('Qwen3-32B-FP8', 8, 2, 2). tp 접미사가 없으면
+    기본 tp(레지스트리)로 채운다. 모르는 접미사는 base 를 미등록으로 남겨 404 를 유도한다."""
+    base, tp, dp, pp = mid, None, 1, None
     while "@" in base:
-        base, _, tag = base.rpartition("@")
-        m = re.fullmatch(r"(dp|pp)(\d+)", tag)
+        head, _, tag = base.rpartition("@")
+        m = re.fullmatch(r"(tp|dp|pp)(\d+)", tag)
         if not m:
-            return mid, 1, 1          # 접미사 아님 → 원본 그대로(=미등록으로 404)
-        if m.group(1) == "dp":
-            dp = int(m.group(2))
+            return mid, None, 1, 1     # 접미사 아님 → 원본 그대로(=미등록으로 404)
+        base = head
+        v = int(m.group(2))
+        if m.group(1) == "tp":
+            tp = v
+        elif m.group(1) == "dp":
+            dp = v
         else:
-            pp = int(m.group(2))
-    return base, dp, pp
+            pp = v
+    if tp is None:
+        tp = REGISTRY[base]["tp"] if base in REGISTRY else 8
+    if pp is None:
+        pp = pp_default(base) if base in REGISTRY else 1
+    return base, tp, dp, pp
 
 
 def all_model_ids():
-    """/v1/models 에 노출할 전체 ID(기본 + 유효한 dp/pp 변형)."""
+    """/v1/models 에 노출할 전체 ID(기본 + 유효한 tp/dp/pp 변형)."""
     out = []
     for m, reg in REGISTRY.items():
         out.append(m)
         if reg.get("kind", "chat") != "chat":
             continue                  # embedding/reranker 는 변형 없음
-        dps, pps = par_choices(m)
-        for dp in dps:
-            for pp in pps:
-                if dp == 1 and pp == 1:
-                    continue
-                if dp * pp * reg["cards"] > len(ALL_CARDS):
-                    continue
-                out.append(variant_id(m, dp, pp))
+        default_tp = reg["tp"]
+        for tp in tp_choices(m):
+            dps, pps = par_choices(m, tp)
+            for dp in dps:
+                for pp in pps:
+                    if tp == default_tp and dp == 1 and pp == pp_default(m):
+                        continue      # 기본 = 맨이름(위에서 추가)
+                    if variant_cards(tp, dp, pp) > len(ALL_CARDS):
+                        continue
+                    out.append(variant_id(m, tp, dp, pp))
     return out
 
 
-def par_flags(reg, dp, pp):
-    """serve 에 넣을 병렬화 플래그. chat/chat_app.py 의 _par_flags 와 같은 규칙:
-    pp=1 이면 플래그 없음(dp 는 --devices 카드 수로 자동 추론), pp>1 이면 -pp 명시."""
-    if reg["cards"] >= len(ALL_CARDS) or pp <= 1:
+def par_flags(dp, pp):
+    """serve 에 넣을 병렬화 플래그. pp=1 이면 없음(dp 는 --devices 카드 수로 자동 추론),
+    pp>1 이면 -pp 명시(+ dp>1 이면 -dp 도)."""
+    if pp <= 1:
         return []
     flags = ["-pp", str(pp)]
     if dp > 1:
@@ -230,13 +299,13 @@ def par_flags(reg, dp, pp):
 
 def model_desc(model_id):
     """모델 선택 목록에 띄울 한 줄 설명 — 어떤 병렬 구성으로 서빙되는지."""
-    base, dp, pp = parse_variant(model_id)
+    base, tp, dp, pp = parse_variant(model_id)
     reg = REGISTRY[base]
-    cards = reg["cards"] * dp * pp
-    art = "fxb" if is_fxb(reg) else "v2"
+    cards = variant_cards(tp, dp, pp)
+    art = "fxb" if is_fxb_variant(reg, tp) else "v2"
     ctx = reg["ctx"]
     ctxs = f"{ctx // 1024}k" if ctx >= 1024 else str(ctx)
-    return f"tp{reg['tp']}·dp{dp}·pp{pp} · {cards}장 · ctx {ctxs} · {art}"
+    return f"tp{tp}·dp{dp}·pp{pp} · {cards}장 · ctx {ctxs} · {art}"
 
 
 # ── NPU 카드 상태 ──────────────────────────────────────────────────────────
@@ -322,6 +391,7 @@ class Backend:
         self.port = port
         self.proc = proc
         self.cards = cards           # 점유 중인 npu id 리스트
+        self.tp = 8
         self.dp = 1
         self.pp = 1
         self.last_used = time.time()
@@ -398,11 +468,14 @@ class Router:
             self._stop(victim)
 
     def _start(self, model_id):
-        base, dp, pp = parse_variant(model_id)
+        base, tp, dp, pp = parse_variant(model_id)
         reg = REGISTRY[base]
-        # 카드 수 = 기본구성 카드 × dp × pp. (dp 는 --devices 카드 수로 자동 추론되므로
-        # '카드를 몇 장 주느냐'가 곧 dp 다 — 2026-07-22 mesh 실측.)
-        need = reg["cards"] * dp * pp
+        # PE 기반 배치. 한 카드 = 8 PE. 인스턴스 하나 = tp*pp PE, dp 개.
+        #   · tp<8  → 한 카드에 8//tp 개 패킹(예: tp4 → npu:0:0-3, npu:0:4-7).
+        #   · tp==8 → 인스턴스당 카드 1장.
+        #   · tp>8  → 인스턴스당 ceil(tp/8) 장(예: tp32 → 4장 npu:0,1,2,3).
+        slots = dp * pp
+        need = variant_cards(tp, dp, pp)
         if need > len(ALL_CARDS):
             raise RuntimeError(f"{need}장 필요 — 카드는 {len(ALL_CARDS)}장뿐")
         self.state[model_id] = "loading"
@@ -412,35 +485,48 @@ class Router:
             self.state[model_id] = "error"
             raise RuntimeError(f"need {need} cards, only {len(free)} free")
         cards = free[:need]
-        tp = reg.get("tp", 8 * reg["cards"])
-        if tp < 8:   # 카드 일부만 쓰는 아티팩트(예: tp4) — 코어 범위 표기
-            devices = ",".join(f"npu:{c}:0-{tp - 1}" for c in cards)
+        if tp < 8:
+            # 각 그룹을 카드 안의 tp-크기 PE 구간에 순서대로 채운다.
+            # slot i → 카드 cards[i//per_card], 그 카드 안 (i%per_card) 번째 tp 구간.
+            per_card = 8 // tp
+            devs = []
+            for i in range(slots):
+                c = cards[i // per_card]
+                s = (i % per_card) * tp
+                devs.append(f"npu:{c}:{s}-{s + tp - 1}")
+            devices = ",".join(devs)
         else:
-            devices = ",".join(f"npu:{c}" for c in cards)
+            # 인스턴스 i 는 cards_base(tp) 장을 통째로 차지(tp8→1장, tp32→4장).
+            inst_cards = cards_base(tp)
+            devs = []
+            for i in range(slots):
+                for c in cards[i * inst_cards:(i + 1) * inst_cards]:
+                    devs.append(f"npu:{c}")
+            devices = ",".join(devs)
         port = free_port()
         safe = re.sub(r"[^A-Za-z0-9._-]", "_", model_id)
         logpath = os.path.join(LOGDIR, f"router-{safe}.log")
         cmd = [
-            FURIOSA_LLM, "serve", artifact_path(reg),
+            FURIOSA_LLM, "serve", resolve_art(reg, tp),
             "--served-model-name", model_id,
             "--devices", devices, "--host", "127.0.0.1", "--port", str(port),
             "--enable-prefix-caching",
         ]
         if reg["tool"]:
             cmd += ["--enable-auto-tool-choice", "--tool-call-parser", reg["tool"]]
-        cmd += par_flags(reg, dp, pp)
+        cmd += par_flags(dp, pp)
         if reg["reasoning"]:
             cmd += ["--reasoning-parser", reg["reasoning"]]
         if reg.get("extra"):
             cmd += reg["extra"]
-        self._log(f"start '{model_id}' devices={devices} dp={dp} pp={pp} tool={reg['tool']} reasoning={reg['reasoning']} → :{port}")
+        self._log(f"start '{model_id}' art={resolve_art(reg, tp)} devices={devices} tp={tp} dp={dp} pp={pp} tool={reg['tool']} reasoning={reg['reasoning']} → :{port}")
         logf = open(logpath, "w")
         # start_new_session=True — 라우터를 띄운 셸/프로세스그룹이 정리돼도 백엔드가
         # 딸려 죽지 않게 세션을 분리한다(chat/chat_app.py 와 동일).
         proc = subprocess.Popen(cmd, stdout=logf, stderr=subprocess.STDOUT,
                                 start_new_session=True)
         b = Backend(model_id, port, proc, cards)
-        b.dp, b.pp = dp, pp
+        b.tp, b.dp, b.pp = tp, dp, pp
         self.running[model_id] = b
         try:
             self._wait_ready(b, logpath)
@@ -477,7 +563,7 @@ class Router:
 
     def ensure(self, model_id):
         """model_id('Qwen3-4B-FP8@dp2' 같은 변형 포함)가 서빙되도록 보장하고 포트 반환(블로킹)."""
-        base, dp, pp = parse_variant(model_id)
+        base = parse_variant(model_id)[0]
         if base not in REGISTRY:
             raise KeyError(model_id)
         # fast-path: 이미 떠 있고 살아있으면 락 없이 즉시 반환. 다른 모델의 콜드스타트가
@@ -500,7 +586,7 @@ class Router:
         # 상태 조회는 블로킹되지 않는다. dict 읽기는 GIL 하에서 안전.
         # 죽은 백엔드는 보고하지 않는다 — _reap_dead 데몬이 곧 치우지만, 그 사이에도
         # 클라이언트 LED 가 '초록(up)' 으로 보이면 안 되므로 여기서 즉시 걸러낸다.
-        out = {mid: dict(port=b.port, cards=b.cards, alive=True, dp=b.dp, pp=b.pp,
+        out = {mid: dict(port=b.port, cards=b.cards, alive=True, tp=b.tp, dp=b.dp, pp=b.pp,
                          state=self.state.get(mid, "up"),
                          idle_s=round(time.time() - b.last_used, 1))
                for mid, b in list(self.running.items()) if b.alive()}
@@ -510,8 +596,8 @@ class Router:
         # 백엔드 없이 남은 up 은 죽은 것이므로 여기서 되살리면 안 된다.
         for mid, st in list(self.state.items()):
             if mid not in out and st in ("loading", "stopping", "error"):
-                base, dp, pp = parse_variant(mid)
-                out[mid] = dict(port=None, cards=[], alive=False, dp=dp, pp=pp,
+                base, tp, dp, pp = parse_variant(mid)
+                out[mid] = dict(port=None, cards=[], alive=False, tp=tp, dp=dp, pp=pp,
                                 state=st, idle_s=None)
         return out
 
@@ -636,17 +722,18 @@ def build_app():
         # 이 값으로 덮어쓴다.
         out = []
         for mid in all_model_ids():
-            base, dp, pp = parse_variant(mid)
+            base, tp, dp, pp = parse_variant(mid)
             reg = REGISTRY[base]
-            dps, pps = par_choices(base)
+            dps, pps = par_choices(base, tp)
             out.append({
                 "id": mid, "base": base, "name": model_display_name(mid),
                 "description": model_desc(mid),
                 "context": reg["ctx"], "kind": reg.get("kind", "chat"),
-                "tp": reg["tp"], "dp": dp, "pp": pp,
-                "cards": reg["cards"] * dp * pp,
+                "tp": tp, "tp_default": reg["tp"], "tp_choices": tp_choices(base),
+                "dp": dp, "pp": pp, "pp_default": pp_default(base),
+                "cards": variant_cards(tp, dp, pp),
                 "dp_choices": dps, "pp_choices": pps,
-                "artifact": "fxb" if is_fxb(reg) else "v2",
+                "artifact": "fxb" if is_fxb_variant(reg, tp) else "v2",
                 "tools": TOOL_SUPPORT.get(base, "ok"),
             })
         return {"data": out}

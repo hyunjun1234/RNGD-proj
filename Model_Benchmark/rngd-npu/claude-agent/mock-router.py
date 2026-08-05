@@ -46,6 +46,7 @@ MODELS = [
     ("Llama-3.3-70B-Instruct",           32, 4, 131072, "v2",  "ok"),
     ("K-EXAONE-236B-A23B-NVFP4A16",      32, 4, 262144, "fxb", "weak"),
     ("Qwen3-Coder-30B-A3B-Instruct-FP8", 32, 4, 262144, "fxb", "no"),
+    ("Qwen3-Coder-30B-A3B-Instruct",      8, 2, 262144, "v2",  "no"),   # bf16 57GB → pp2~4(1장 초과)
     ("Qwen3-30B-A3B-FP8",                32, 4,  40960, "fxb", "weak"),
     ("Llama-3.1-8B-Instruct",             8, 1, 131072, "v2",  "weak"),
     ("Qwen3-8B-FP8",                      8, 1,  40960, "fxb", "weak"),
@@ -54,55 +55,96 @@ MODELS = [
 ]
 REG = {m[0]: dict(tp=m[1], cards=m[2], ctx=m[3], art=m[4], tools=m[5]) for m in MODELS}
 NAME_HINT = {"ok": "", "weak": "  [tools~weak]", "no": "  [chat-only]"}
+# tp8 대체 빌드가 있는 모델(실제 라우터의 reg["tps"] 축약). tp8 은 로컬 v2 → pp 허용.
+TP8 = {"Qwen3-32B-FP8", "Qwen3-Coder-30B-A3B-Instruct-FP8", "Qwen3-30B-A3B-FP8"}
+# pp1 로는 못 뜨는(1장 초과) 모델의 pp 선택지. 첫값이 기본 pp(맨이름이 뜻하는 pp).
+PP_OPTS = {"Qwen3-Coder-30B-A3B-Instruct": [2, 3, 4]}
 
 
-def par_choices(base):
-    """실제 라우터와 같은 규칙: tp32 는 4장 독점이라 선택 불가,
-    pp 는 FXB 아티팩트에서 미지원(furiosa 런타임 패닉)."""
-    r = REG[base]
-    if r["cards"] >= CARDS:
+def tp_choices(base):
+    return sorted({REG[base]["tp"]} | ({8} if base in TP8 else set()))
+
+
+def pp_default(base):
+    return PP_OPTS[base][0] if base in PP_OPTS else 1
+
+
+def cards_base(tp):
+    return 1 if tp <= 8 else (tp + 7) // 8
+
+
+def variant_cards(tp, dp, pp):
+    slots = dp * pp
+    if tp < 8:
+        per_card = 8 // tp
+        return (slots + per_card - 1) // per_card
+    return slots * cards_base(tp)
+
+
+def art_of(base, tp):
+    # tp8 대체 빌드는 로컬 v2. 기본 빌드는 표의 art 그대로.
+    return "v2" if (tp != REG[base]["tp"] and tp in tp_choices(base)) else REG[base]["art"]
+
+
+def par_choices(base, tp):
+    """주어진 tp 에서 (dp, pp) 선택지. tp32(4장 독점)면 ([1],[1]). pp 는 v2 에서만."""
+    if cards_base(tp) >= CARDS:
         return [1], [1]
-    dp = [n for n in (1, 2, 4) if n * r["cards"] <= CARDS]
-    pp = [1] if r["art"] == "fxb" else [n for n in (1, 2, 4) if n * r["cards"] <= CARDS]
+    if base in PP_OPTS:                       # 1장 초과 모델 — 지정 pp 만, dp 는 1
+        return [1], [n for n in PP_OPTS[base] if variant_cards(tp, 1, n) <= CARDS]
+    dp = [n for n in (1, 2, 4) if variant_cards(tp, n, 1) <= CARDS]
+    pp = [1] if art_of(base, tp) == "fxb" else [n for n in (1, 2, 4) if variant_cards(tp, 1, n) <= CARDS]
     return dp, pp
 
 
 def parse_variant(mid):
-    base, dp, pp = mid, 1, 1
+    base, tp, dp, pp = mid, None, 1, None
     while "@" in base:
-        base, _, tag = base.rpartition("@")
-        m = re.fullmatch(r"(dp|pp)(\d+)", tag)
+        head, _, tag = base.rpartition("@")
+        m = re.fullmatch(r"(tp|dp|pp)(\d+)", tag)
         if not m:
-            return mid, 1, 1
-        if m.group(1) == "dp":
-            dp = int(m.group(2))
+            return mid, None, 1, 1
+        base, v = head, int(m.group(2))
+        if m.group(1) == "tp":
+            tp = v
+        elif m.group(1) == "dp":
+            dp = v
         else:
-            pp = int(m.group(2))
-    return base, dp, pp
+            pp = v
+    if tp is None:
+        tp = REG[base]["tp"] if base in REG else 8
+    if pp is None:
+        pp = pp_default(base) if base in REG else 1
+    return base, tp, dp, pp
+
+
+def variant_id(base, tp, dp, pp):
+    sfx = (f"@tp{tp}" if tp != REG[base]["tp"] else "") + (f"@dp{dp}" if dp > 1 else "") + (f"@pp{pp}" if pp != pp_default(base) else "")
+    return base + sfx
 
 
 def all_ids():
     out = []
     for base in REG:
         out.append(base)
-        dps, pps = par_choices(base)
-        for dp in dps:
-            for pp in pps:
-                if dp == 1 and pp == 1:
-                    continue
-                if dp * pp * REG[base]["cards"] > CARDS:
-                    continue
-                sfx = (f"@dp{dp}" if dp > 1 else "") + (f"@pp{pp}" if pp > 1 else "")
-                out.append(base + sfx)
+        default_tp = REG[base]["tp"]
+        for tp in tp_choices(base):
+            dps, pps = par_choices(base, tp)
+            for dp in dps:
+                for pp in pps:
+                    if tp == default_tp and dp == 1 and pp == pp_default(base):
+                        continue
+                    if variant_cards(tp, dp, pp) > CARDS:
+                        continue
+                    out.append(variant_id(base, tp, dp, pp))
     return out
 
 
 def describe(mid):
-    base, dp, pp = parse_variant(mid)
-    r = REG[base]
-    ctx = r["ctx"]
-    return (f"tp{r['tp']}·dp{dp}·pp{pp} · {r['cards'] * dp * pp}장 · "
-            f"ctx {ctx // 1024}k · {r['art']}")
+    base, tp, dp, pp = parse_variant(mid)
+    ctx = REG[base]["ctx"]
+    return (f"tp{tp}·dp{dp}·pp{pp} · {variant_cards(tp, dp, pp)}장 · "
+            f"ctx {ctx // 1024}k · {art_of(base, tp)}")
 
 
 class Fleet:
@@ -128,10 +170,10 @@ class Fleet:
 
     def request(self, mid):
         """이 모델을 서빙하도록 보장(비동기 — 즉시 반환하고 상태만 바꾼다)."""
-        base, dp, pp = parse_variant(mid)
+        base, tp, dp, pp = parse_variant(mid)
         if base not in REG:
             return False
-        need = REG[base]["cards"] * dp * pp
+        need = variant_cards(tp, dp, pp)
         with self.lock:
             self._reap()
             if mid in self.run:
@@ -158,9 +200,9 @@ class Fleet:
             out = {}
             for mid, e in self.run.items():
                 st = self._now_state(e)
-                _, dp, pp = parse_variant(mid)
+                _, tp, dp, pp = parse_variant(mid)
                 out[mid] = dict(port=8410, cards=e["cards"], alive=True,
-                                dp=dp, pp=pp, state=st,
+                                tp=tp, dp=dp, pp=pp, state=st,
                                 idle_s=round(time.time() - e["t0"], 1))
             used = {c for e in self.run.values() for c in e["cards"]}
             return out, [c for c in range(CARDS) if c not in used]
@@ -192,16 +234,18 @@ class Handler(BaseHTTPRequestHandler):
         if self.path == "/router/models":
             data = []
             for mid in all_ids():
-                base, dp, pp = parse_variant(mid)
+                base, tp, dp, pp = parse_variant(mid)
                 r = REG[base]
-                dps, pps = par_choices(base)
+                dps, pps = par_choices(base, tp)
                 data.append({"id": mid, "base": base,
                              "name": mid + NAME_HINT.get(r["tools"], ""),
                              "description": describe(mid), "context": r["ctx"],
-                             "kind": "chat", "tp": r["tp"], "dp": dp, "pp": pp,
-                             "cards": r["cards"] * dp * pp,
+                             "kind": "chat", "tp": tp, "tp_default": r["tp"],
+                             "tp_choices": tp_choices(base), "dp": dp, "pp": pp,
+                             "pp_default": pp_default(base),
+                             "cards": variant_cards(tp, dp, pp),
                              "dp_choices": dps, "pp_choices": pps,
-                             "artifact": r["art"], "tools": r["tools"]})
+                             "artifact": art_of(base, tp), "tools": r["tools"]})
             return self._send({"data": data})
         if self.path == "/router/status":
             running, free = FLEET.status()

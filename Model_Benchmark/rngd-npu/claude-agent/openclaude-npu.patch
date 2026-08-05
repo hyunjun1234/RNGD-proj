@@ -1,7 +1,7 @@
 From 7c67b3d2b269375ae8e115204f8570f58f03285f Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:11:42 +0900
-Subject: [PATCH 01/13] statusline: show Furiosa NPU model state with per-model
+Subject: [PATCH 01/15] statusline: show Furiosa NPU model state with per-model
  LEDs
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -381,7 +381,7 @@ index 0000000..5fb053a
 From b011b77eefa02e916e60392a3967cd48b532c531 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:19:21 +0900
-Subject: [PATCH 02/13] model picker: use backend-supplied model descriptions
+Subject: [PATCH 02/15] model picker: use backend-supplied model descriptions
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -465,7 +465,7 @@ index e901799..9bfec8b 100644
 From c7cbc97b974c40f9f73633619f18001745ab9a7e Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:29:26 +0900
-Subject: [PATCH 03/13] =?UTF-8?q?model=20picker:=20adjust=20NPU=20dp/pp=20?=
+Subject: [PATCH 03/15] =?UTF-8?q?model=20picker:=20adjust=20NPU=20dp/pp=20?=
  =?UTF-8?q?with=20=E2=86=90=20=E2=86=92?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -717,7 +717,7 @@ index 0000000..6949f79
 From e666bb3d649641c55a6416cee823024e729e36ce Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 23:52:39 +0900
-Subject: [PATCH 04/13] model picker: say why the NPU config row is absent
+Subject: [PATCH 04/15] model picker: say why the NPU config row is absent
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -769,7 +769,7 @@ index 336c021..e0f1d18 100644
 From 09e4947a165c12eb7dbe2f8a9a5cdfa27611d5ad Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:00:52 +0900
-Subject: [PATCH 05/13] model picker: pick the model and its dp/pp separately
+Subject: [PATCH 05/15] model picker: pick the model and its dp/pp separately
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1065,7 +1065,7 @@ index 6949f79..0f41e51 100644
 From f67bfeb8b414af23f564216285b953325b3991b3 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:11:30 +0900
-Subject: [PATCH 06/13] model picker: apply NPU collapsing and descriptions on
+Subject: [PATCH 06/15] model picker: apply NPU collapsing and descriptions on
  the cached path
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1167,7 +1167,7 @@ index 0f41e51..d6de5f4 100644
 From 06bb55d93406b70563a2962473fce11e8b3085de Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:30:39 +0900
-Subject: [PATCH 07/13] model picker: apply NPU presentation where every path
+Subject: [PATCH 07/15] model picker: apply NPU presentation where every path
  converges
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1274,7 +1274,7 @@ index d6de5f4..239767c 100644
 From 9ed3935fb6f14e98419841dd51a3df81818f40b4 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:48:44 +0900
-Subject: [PATCH 08/13] model picker: adjust dp and pp as separate axes
+Subject: [PATCH 08/15] model picker: adjust dp and pp as separate axes
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1554,7 +1554,7 @@ index 239767c..0f33993 100644
 From effb31cff239043a996a7aa3356fedc80a14326c Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 01:03:05 +0900
-Subject: [PATCH 09/13] model picker: stop the dp/pp row from reflowing
+Subject: [PATCH 09/15] model picker: stop the dp/pp row from reflowing
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1656,7 +1656,7 @@ index 0f33993..b00fbc3 100644
 From 27c42e3729aab78a816115b3e4c68a03c905cb77 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 01:51:34 +0900
-Subject: [PATCH 10/13] statusline: separate the current-model marker from the
+Subject: [PATCH 10/15] statusline: separate the current-model marker from the
  LED
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1693,7 +1693,7 @@ index ea77786..f6657b6 100644
 From f473f6cac85eb6191d5847cb17ecabb04e80d7aa Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 02:07:35 +0900
-Subject: [PATCH 11/13] model picker: start loading the model as soon as it is
+Subject: [PATCH 11/15] model picker: start loading the model as soon as it is
  picked
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1778,7 +1778,7 @@ index 5c7facc..8c5ff49 100644
 From 6ece7115d354facf8412c65797a85ab2bf667c2e Mon Sep 17 00:00:00 2001
 From: Claude <plab2090@gmail.com>
 Date: Thu, 23 Jul 2026 02:51:37 +0900
-Subject: [PATCH 12/13] npu: react to a model pick immediately, and show every
+Subject: [PATCH 12/15] npu: react to a model pick immediately, and show every
  loaded model
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2778,7 +2778,7 @@ index b00fbc3..efa22d3 100644
 From d5a9fb4eed6d1020b8232bf4717e210cd581af97 Mon Sep 17 00:00:00 2001
 From: Claude <plab2090@gmail.com>
 Date: Thu, 23 Jul 2026 13:53:24 +0900
-Subject: [PATCH 13/13] =?UTF-8?q?npu:=20reflect=20real=20server=20state=20?=
+Subject: [PATCH 13/15] =?UTF-8?q?npu:=20reflect=20real=20server=20state=20?=
  =?UTF-8?q?=E2=80=94=20drop=20the=20default,=20remember=20what=20was=20loa?=
  =?UTF-8?q?ded?=
 MIME-Version: 1.0
@@ -3242,6 +3242,868 @@ index 6c8bdcc..be3eb5a 100644
  
    test('paints every loaded model, not just the selected one', () => {
      const out = applyNpuLoadColors(options, npuLoadStatesByBase([
+-- 
+2.43.0
+
+
+From 04d6b86964adcf6e223c25e3786e8f0c0b823049 Mon Sep 17 00:00:00 2001
+From: hyunjun1234 <plab2090@gmail.com>
+Date: Tue, 4 Aug 2026 13:20:47 +0900
+Subject: [PATCH 14/15] model picker: add tp as a third parallel axis
+ (tp/dp/pp)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The Furiosa router now publishes multiple tp builds per model — a tp8 v2
+artifact (1 card, pp-adjustable) alongside the default tp32 fxb build —
+advertised as `@tp{N}` ids plus a new FURIO_NPU_META map
+(base -> {tp_default, tps}) so the bare id's numeric tp is known.
+
+- npuVariants: NpuVariant gains tp; parse/compose the `@tp` suffix via the
+  meta map; generalize npuAxisValues/stepNpuAxis/npuAxisAllValues to three
+  axes and add availableAxes/nextAxis. Stepping tp re-fits dp/pp (collapse
+  to 1 on a whole-card build, keep otherwise); dp/pp hold tp and repair the
+  partner. Falls back to dp/pp-only when no tp metadata is present.
+- ModelPicker: npuConfig carries optional tp; tab cycles tp/dp/pp among
+  adjustable axes; NpuParallelismRow renders the tp row only when the model
+  has more than one build.
+- tests: tp round-trip, axis values, tp32-collapse / tp8-keep, @tp compose.
+---
+ src/components/ModelPicker.tsx |  62 ++++---
+ src/utils/npuVariants.test.ts  |  48 ++++-
+ src/utils/npuVariants.ts       | 319 ++++++++++++++++++++++-----------
+ 3 files changed, 295 insertions(+), 134 deletions(-)
+
+diff --git a/src/components/ModelPicker.tsx b/src/components/ModelPicker.tsx
+index 54bd1a1..10d39fb 100644
+--- a/src/components/ModelPicker.tsx
++++ b/src/components/ModelPicker.tsx
+@@ -12,7 +12,7 @@ import { convertEffortValueToLevel, type EffortLevel, getAvailableEffortLevels,
+ import { isModelAllowed } from '../utils/model/modelAllowlist.js';
+ import { preloadNpuModel } from '../services/npuStatus.js';
+ import { useNpuStatus } from '../services/npuStatusHook.js';
+-import { applyNpuLoadColors, applyNpuPresentation, getDiscoveredModelIds, npuAxisAllValues, npuAxisValues, type NpuAxis, npuLoadStatesByBase, npuVariantsOf, stepNpuAxis, variantId } from '../utils/npuVariants.js';
++import { applyNpuLoadColors, applyNpuPresentation, availableAxes, defaultTpOf, getDiscoveredModelIds, type NpuConfig, nextAxis, npuAxisAllValues, npuAxisValues, type NpuAxis, npuLoadStatesByBase, npuVariantsOf, parseNpuVariant, stepNpuAxis, variantId } from '../utils/npuVariants.js';
+ import { getDefaultMainLoopModel, type ModelSetting, modelDisplayString, parseUserSpecifiedModel } from '../utils/model/model.js';
+ import { getModelOptions, type ModelOption, parseSwitchProfileValue, resolveSelectedSwitchProfileId } from '../utils/model/modelOptions.js';
+ import { getSettingsForSource, updateSettingsForSource } from '../utils/settings/settings.js';
+@@ -122,11 +122,13 @@ export function ModelPicker(t0) {
+   // NPU 병렬 구성은 모델과 '따로' 고른다. 모델 목록에는 모델당 한 줄만 두고
+   // (openaiModelDiscovery 가 변형을 접는다) 여기서 dp/pp 를 선택해, 확정할 때
+   // `base@dpN@ppM` 으로 조립해서 넘긴다.
+-  const [npuConfig, setNpuConfig] = useState({
++  // tp 는 '미지정'(undefined)이면 모델의 기본 빌드를 뜻한다 — 사용자가 tp 축을 건드리기
++  // 전까지는 접미사 없이 기본 tp 로 조립된다(하위호환). dp/pp 는 기존대로 1 부터.
++  const [npuConfig, setNpuConfig] = useState<NpuConfig>({
+     dp: 1,
+     pp: 1
+   });
+-  // ←/→ 가 어느 축을 움직이는지. tab 으로 바꾼다.
++  // ←/→ 가 어느 축을 움직이는지. tab 으로 tp→dp→pp 순환.
+   const [npuAxis, setNpuAxis] = useState<NpuAxis>('dp');
+   // 어느 모델이 카드에 올라가 있는지 — 목록 색칠에 쓴다.
+   const npuStatus = useNpuStatus();
+@@ -313,7 +315,11 @@ export function ModelPicker(t0) {
+         // parallel configurations (dp/pp), which the router publishes as
+         // sibling model ids. Returns null when there is only one config, and
+         // then the keypress stays a no-op as before.
+-        const next = stepNpuAxis(focusedValue, getDiscoveredModelIds(), npuAxis, npuConfig, direction);
++        // tp 를 기본 빌드로 채워(사용자가 아직 tp 를 안 건드렸으면) dp/pp 스텝이 올바른 tp
++        // 안에서만 움직이게 한다. 결과의 tp 는 명시값이 되어 조립 때 @tp 로 반영된다.
++        const npuBase = parseNpuVariant(focusedValue).base;
++        const resolved = { tp: npuConfig.tp ?? defaultTpOf(npuBase), dp: npuConfig.dp, pp: npuConfig.pp };
++        const next = stepNpuAxis(focusedValue, getDiscoveredModelIds(), npuAxis, resolved, direction);
+         if (next !== null) {
+           setNpuConfig(next);
+         }
+@@ -335,7 +341,7 @@ export function ModelPicker(t0) {
+   }
+   const handleCycleEffort = t11;
+   const t12 = {
+-    "modelPicker:toggleParallelAxis": () => setNpuAxis(a => a === "dp" ? "pp" : "dp"),
++    "modelPicker:toggleParallelAxis": () => setNpuAxis(a => nextAxis(focusedValue, getDiscoveredModelIds(), a)),
+     "modelPicker:decreaseEffort": () => handleCycleEffort("left"),
+     "modelPicker:increaseEffort": () => handleCycleEffort("right"),
+     ...(onRefresh ? {
+@@ -398,7 +404,7 @@ export function ModelPicker(t0) {
+       const selectedSwitchProfileId = resolveSelectedSwitchProfileId(selectOptions, selectedValue);
+       // 고른 dp/pp 를 모델 id 에 실어 보낸다. 라우터가 이 접미사로 병렬 구성을 정한다.
+       // 백엔드가 광고하지 않은 조합이면 조립하지 않는다(있지도 않은 모델로 404 나는 것 방지).
+-      const composedValue = variantId(selectedValue, npuConfig.dp, npuConfig.pp);
++      const composedValue = variantId(selectedValue, npuConfig.tp, npuConfig.dp, npuConfig.pp);
+       const finalValue = composedValue !== selectedValue && getDiscoveredModelIds().includes(composedValue) ? composedValue : selectedValue;
+       // 고르는 즉시 로딩을 시작시킨다. 라우터는 lazy 라 이게 없으면 첫 메시지를
+       // 보낼 때까지 아무 일도 안 일어난 것처럼 보인다.
+@@ -479,7 +485,7 @@ export function ModelPicker(t0) {
+   }
+   let t24;
+   if ($[62] !== displayEffort || $[63] !== focusedDefaultEffort || $[64] !== focusedModelName || $[65] !== focusedSupportsEffort || $[86] !== focusedValue || $[88] !== npuConfig || $[92] !== npuAxis) {
+-    t24 = <Box marginBottom={1} flexDirection="column"><NpuParallelismRow modelId={focusedValue} dp={npuConfig.dp} pp={npuConfig.pp} axis={npuAxis} />{focusedSupportsEffort ? <Text dimColor={true}><EffortLevelIndicator effort={displayEffort} />{" "}{capitalize(displayEffort)} effort{displayEffort === focusedDefaultEffort ? " (default)" : ""}{" "}<Text color="subtle">← → to adjust</Text></Text> : <Text color="subtle"><EffortLevelIndicator effort={undefined} /> Effort not supported{focusedModelName ? ` for ${focusedModelName}` : ""}</Text>}</Box>;
++    t24 = <Box marginBottom={1} flexDirection="column"><NpuParallelismRow modelId={focusedValue} tp={npuConfig.tp} dp={npuConfig.dp} pp={npuConfig.pp} axis={npuAxis} />{focusedSupportsEffort ? <Text dimColor={true}><EffortLevelIndicator effort={displayEffort} />{" "}{capitalize(displayEffort)} effort{displayEffort === focusedDefaultEffort ? " (default)" : ""}{" "}<Text color="subtle">← → to adjust</Text></Text> : <Text color="subtle"><EffortLevelIndicator effort={undefined} /> Effort not supported{focusedModelName ? ` for ${focusedModelName}` : ""}</Text>}</Box>;
+     $[62] = displayEffort;
+     $[63] = focusedDefaultEffort;
+     $[64] = focusedModelName;
+@@ -601,11 +607,13 @@ function resolveOptionModel(value?: string): string | undefined {
+  */
+ function NpuParallelismRow({
+   modelId,
++  tp,
+   dp,
+   pp,
+   axis
+ }: {
+   modelId: string;
++  tp?: number;
+   dp: number;
+   pp: number;
+   axis: NpuAxis;
+@@ -618,34 +626,46 @@ function NpuParallelismRow({
+     // occupies every card looks identical to a broken feature. Only speak up
+     // when the backend actually publishes parallel variants, so non-NPU
+     // providers stay untouched. Mirrors the "Effort not supported" line above.
+-    const backendHasVariants = allValues.some(v => /@(dp|pp)\d+$/.test(v));
++    const backendHasVariants = allValues.some(v => /@(tp|dp|pp)\d+$/.test(v));
+     if (!backendHasVariants) return null;
+     return <Text color="subtle">
+         {'NPU  '}병렬 구성 고정 — 이 모델은 NPU 4장을 모두 사용합니다
+       </Text>;
+   }
+-  // 두 축을 '전체 값'으로 그리고, 지금 불가능한 값만 표시를 죽인다. 값을 빼버리면
+-  // pp 를 올렸을 때 dp 목록이 짧아지면서 옆 축이 통째로 밀려 읽기 어렵다(폭 고정).
+-  const dpAll = npuAxisAllValues(modelId, allValues, 'dp');
+-  const ppAll = npuAxisAllValues(modelId, allValues, 'pp');
+-  const dpOk = new Set(npuAxisValues(modelId, allValues, 'dp', pp));
+-  const ppOk = new Set(npuAxisValues(modelId, allValues, 'pp', dp));
+-  const renderAxis = (name: NpuAxis, values: number[], active: number, usable: Set<number>) => <Text>
++  // 미지정 tp 는 기본 빌드로 해석해 표시(사용자가 tp 를 안 건드린 상태).
++  const base = parseNpuVariant(modelId).base;
++  const tpv = tp ?? defaultTpOf(base);
++  // 각 축을 '전체 값'으로 그리고, 지금 불가능한 값만 표시를 죽인다. 값을 빼버리면
++  // 옆 축이 통째로 밀려 읽기 어렵다(폭 고정). tp 는 축이 둘 이상일 때만 그린다.
++  const axes = availableAxes(modelId, allValues);
++  const showTp = axes.includes('tp');
++  const held = { tp: tpv, dp, pp };
++  const active = { tp: tpv, dp, pp };
++  const renderAxis = (name: NpuAxis) => {
++    const all = npuAxisAllValues(modelId, allValues, name);
++    const { [name]: _drop, ...others } = held;
++    const usable = new Set(npuAxisValues(modelId, allValues, name, others));
++    const cur = active[name];
++    return <Text>
+       <Text color={axis === name ? 'claude' : undefined} dimColor={axis !== name} bold={axis === name}>{name}</Text>
+-      {values.map(n => <Text key={`${name}${n}`}>
++      {all.map(n => <Text key={`${name}${n}`}>
+           {' '}
+-          <Text color={n === active ? 'claude' : undefined} dimColor={n !== active} strikethrough={!usable.has(n) && n !== active}>
+-            {n === active ? `[${n}]` : ` ${n} `}
++          <Text color={n === cur ? 'claude' : undefined} dimColor={n !== cur} strikethrough={!usable.has(n) && n !== cur}>
++            {n === cur ? `[${n}]` : ` ${n} `}
+           </Text>
+         </Text>)}
+     </Text>;
++  };
++  // tab 이 다음으로 옮겨 갈 축(현재 축 다음의 조절 가능한 축).
++  const tabTarget = nextAxis(modelId, allValues, axis);
+   return <Text dimColor={true}>
+       {'NPU  '}
+-      {renderAxis('dp', dpAll, dp, dpOk)}
++      {showTp ? <Text>{renderAxis('tp')}{'    '}</Text> : null}
++      {renderAxis('dp')}
+       {'    '}
+-      {renderAxis('pp', ppAll, pp, ppOk)}
++      {renderAxis('pp')}
+       {'    '}
+-      <Text color="subtle">← → to adjust · tab for {axis === 'dp' ? 'pp' : 'dp'}</Text>
++      <Text color="subtle">← → to adjust{axes.length > 1 ? ` · tab for ${tabTarget}` : ''}</Text>
+     </Text>;
+ }
+ function EffortLevelIndicator(t0) {
+diff --git a/src/utils/npuVariants.test.ts b/src/utils/npuVariants.test.ts
+index be3eb5a..3eda34d 100644
+--- a/src/utils/npuVariants.test.ts
++++ b/src/utils/npuVariants.test.ts
+@@ -1,4 +1,4 @@
+-import { describe, expect, test } from 'bun:test'
++import { afterEach, beforeEach, describe, expect, test } from 'bun:test'
+ import {
+   applyNpuLoadColors,
+   collapseNpuVariants,
+@@ -29,13 +29,13 @@ describe('parseNpuVariant', () => {
+ })
+ 
+ describe('variantId', () => {
+-  test('dp1·pp1 is the bare model name', () => {
+-    expect(variantId('Qwen3-4B-FP8', 1, 1)).toBe('Qwen3-4B-FP8')
++  test('default tp + dp1·pp1 is the bare model name', () => {
++    expect(variantId('Qwen3-4B-FP8', undefined, 1, 1)).toBe('Qwen3-4B-FP8')
+   })
+ 
+   test('composes only the axes that are above 1', () => {
+-    expect(variantId('Qwen3-4B-FP8', 2, 1)).toBe('Qwen3-4B-FP8@dp2')
+-    expect(variantId('Qwen3-4B-FP8@dp2', 1, 2)).toBe('Qwen3-4B-FP8@pp2')
++    expect(variantId('Qwen3-4B-FP8', undefined, 2, 1)).toBe('Qwen3-4B-FP8@dp2')
++    expect(variantId('Qwen3-4B-FP8@dp2', undefined, 1, 2)).toBe('Qwen3-4B-FP8@pp2')
+   })
+ })
+ 
+@@ -54,9 +54,9 @@ describe('npu axis values', () => {
+   const ids = ['L', 'L@dp2', 'L@dp4', 'L@pp2', 'L@pp4', 'L@dp2@pp2']
+ 
+   test('offers only combinations the pair can actually reach', () => {
+-    expect(npuAxisValues('L', ids, 'dp', 1)).toEqual([1, 2, 4])
++    expect(npuAxisValues('L', ids, 'dp', { pp: 1 })).toEqual([1, 2, 4])
+     // Holding pp=2, dp=4 would need 8 cards.
+-    expect(npuAxisValues('L', ids, 'dp', 2)).toEqual([1, 2])
++    expect(npuAxisValues('L', ids, 'dp', { pp: 2 })).toEqual([1, 2])
+   })
+ 
+   test('reports every value of an axis for a stable row width', () => {
+@@ -66,7 +66,7 @@ describe('npu axis values', () => {
+ 
+   test('repairs the partner axis when a move would strand it', () => {
+     // dp=4 with pp=2 is impossible, so raising pp pulls dp down to a legal value.
+-    expect(stepNpuAxis('L', ids, 'pp', { dp: 4, pp: 1 }, 'right')).toEqual({ dp: 2, pp: 2 })
++    expect(stepNpuAxis('L', ids, 'pp', { dp: 4, pp: 1 }, 'right')).toMatchObject({ dp: 2, pp: 2 })
+   })
+ 
+   test('returns null when the model has a single configuration', () => {
+@@ -74,6 +74,38 @@ describe('npu axis values', () => {
+   })
+ })
+ 
++describe('tp axis', () => {
++  // Qwen3-32B: default build tp32 (4 cards, no dp/pp), plus a tp8 build (1 card).
++  const META = JSON.stringify({ Q: { tp_default: 32, tps: [8, 32] } })
++  const ids = ['Q', 'Q@tp8', 'Q@tp8@dp2', 'Q@tp8@dp4', 'Q@tp8@pp2', 'Q@tp8@pp4', 'Q@tp8@dp2@pp2']
++  beforeEach(() => { process.env.FURIO_NPU_META = META })
++  afterEach(() => { delete process.env.FURIO_NPU_META })
++
++  test('the bare id resolves to the default tp build', () => {
++    expect(parseNpuVariant('Q').tp).toBe(32)
++    expect(parseNpuVariant('Q@tp8').tp).toBe(8)
++    expect(parseNpuVariant('Q@tp8@pp2')).toMatchObject({ base: 'Q', tp: 8, dp: 1, pp: 2 })
++  })
++
++  test('the tp axis lists every build', () => {
++    expect(npuAxisAllValues('Q', ids, 'tp')).toEqual([8, 32])
++  })
++
++  test('switching to the 4-card build collapses dp/pp', () => {
++    expect(stepNpuAxis('Q', ids, 'tp', { tp: 8, dp: 2, pp: 2 }, 'right')).toEqual({ tp: 32, dp: 1, pp: 1 })
++  })
++
++  test('switching back to tp8 keeps dp/pp at 1 rather than exploding', () => {
++    expect(stepNpuAxis('Q', ids, 'tp', { tp: 32, dp: 1, pp: 1 }, 'right')).toEqual({ tp: 8, dp: 1, pp: 1 })
++  })
++
++  test('@tp is composed only when it is not the default build', () => {
++    expect(variantId('Q', 32, 1, 1)).toBe('Q')
++    expect(variantId('Q', 8, 1, 1)).toBe('Q@tp8')
++    expect(variantId('Q', 8, 2, 1)).toBe('Q@tp8@dp2')
++  })
++})
++
+ describe('npuLoadStatesByBase', () => {
+   test('a loaded variant lights up its model row', () => {
+     const states = npuLoadStatesByBase([{ id: 'L@dp2', state: 'up' }])
+diff --git a/src/utils/npuVariants.ts b/src/utils/npuVariants.ts
+index efa22d3..f429c2e 100644
+--- a/src/utils/npuVariants.ts
++++ b/src/utils/npuVariants.ts
+@@ -2,30 +2,94 @@
+  * NPU parallelism variants.
+  *
+  * The Furiosa router publishes one model id per usable parallel configuration —
+- * `Qwen3-4B-FP8`, `Qwen3-4B-FP8@dp2`, `Llama-3.1-8B-Instruct@dp2@pp2` — because
+- * the OpenAI `/v1/models` contract has nowhere else to put them. It only
+- * publishes combinations the hardware can actually serve: tensor parallelism is
+- * fixed at artifact build time, pipeline parallelism is unsupported for FXB
+- * artifacts, and dp x pp is capped by the card count.
++ * `Qwen3-4B-FP8`, `Qwen3-4B-FP8@dp2`, `Qwen3-32B-FP8@tp8@pp2` — because the
++ * OpenAI `/v1/models` contract has nowhere else to put them. It only publishes
++ * combinations the hardware can actually serve.
+  *
+- * Grouping them back together lets the model picker present one model with an
+- * adjustable configuration instead of five near-identical rows.
++ * Three axes:
++ *  - `tp` (tensor parallelism) is fixed at *artifact build time*, so "changing
++ *    tp" means picking a different build of the same model. The router exposes a
++ *    build's tp as an `@tp{N}` suffix; the model's *default* build has no suffix.
++ *    A model with only one build has no tp axis.
++ *  - `pp` (pipeline parallelism) splits layers across cards; unsupported for FXB
++ *    artifacts, so only the v2 (tp8) builds offer it.
++ *  - `dp` (data parallelism) replicates; dp x pp is capped by the card count.
++ *
++ * Grouping them lets the model picker present one model with an adjustable
++ * configuration instead of a dozen near-identical rows.
+  */
+ 
+ export type NpuVariant = {
+-  /** Full model id including the suffix, e.g. `Qwen3-4B-FP8@dp2`. */
++  /** Full model id including any suffix, e.g. `Qwen3-32B-FP8@tp8@pp2`. */
+   value: string
+   /** Model id without any parallelism suffix. */
+   base: string
++  /** Tensor-parallel size of the build. `undefined` when the router did not
++   *  publish per-model metadata (no `FURIO_NPU_META`) and the id carries no
++   *  `@tp` suffix — then tp is simply not an adjustable axis. */
++  tp: number | undefined
+   dp: number
+   pp: number
+ }
+ 
+-const SUFFIX = /@(dp|pp)(\d+)$/
++export type NpuAxis = 'tp' | 'dp' | 'pp'
++
++const SUFFIX = /@(tp|dp|pp)(\d+)$/
++const ANY_VARIANT = /@(tp|dp|pp)\d+$/
++
++/**
++ * Per-model tp metadata from the router, as `{"<base>": {tp_default, tps}}`.
++ *
++ * The bare model id (no `@tp`) means "the default build", whose numeric tp is
++ * not in the id — the picker needs this map to label the tp axis and to know
++ * which tp value the bare name stands for. Supplied by the `furio` wrapper as
++ * `FURIO_NPU_META` (built from the router's `/router/models`). Absent for
++ * non-Furiosa backends, where there is no tp axis at all.
++ */
++type NpuMeta = Record<string, { tp_default: number; tps: number[] }>
++let metaCacheRaw: string | undefined
++let metaCache: NpuMeta = {}
++
++function npuMeta(): NpuMeta {
++  const raw = process.env.FURIO_NPU_META
++  if (raw === metaCacheRaw) return metaCache
++  metaCacheRaw = raw
++  metaCache = {}
++  if (!raw) return metaCache
++  try {
++    const parsed = JSON.parse(raw) as unknown
++    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
++      for (const [k, v] of Object.entries(parsed as Record<string, unknown>)) {
++        if (v && typeof v === 'object') {
++          const td = (v as { tp_default?: unknown }).tp_default
++          const tps = (v as { tps?: unknown }).tps
++          if (typeof td === 'number' && Array.isArray(tps)) {
++            metaCache[k] = { tp_default: td, tps: tps.filter(n => typeof n === 'number') }
++          }
++        }
++      }
++    }
++  } catch {
++    // A bad env var must not break model discovery.
++    metaCache = {}
++  }
++  return metaCache
++}
++
++/** The tp of a model's default (no-suffix) build, or undefined if unknown. */
++export function defaultTpOf(base: string): number | undefined {
++  return npuMeta()[base]?.tp_default
++}
++
++/** The tp builds a model offers (ascending), or [] if the router said nothing. */
++export function tpChoicesOf(base: string): number[] {
++  return npuMeta()[base]?.tps ?? []
++}
+ 
+ /** Splits a model id into its base and parallel configuration. */
+ export function parseNpuVariant(value: string): NpuVariant {
+   let rest = value
++  let tp: number | undefined
+   let dp = 1
+   let pp = 1
+   for (;;) {
+@@ -35,11 +99,18 @@ export function parseNpuVariant(value: string): NpuVariant {
+     // A malformed suffix is left as part of the base rather than silently
+     // dropped — better to show an odd name than to route to the wrong model.
+     if (!Number.isFinite(n) || n < 1) break
+-    if (m[1] === 'dp') dp = n
++    if (m[1] === 'tp') tp = n
++    else if (m[1] === 'dp') dp = n
+     else pp = n
+     rest = rest.slice(0, m.index)
+   }
+-  return { value, base: rest, dp, pp }
++  // No `@tp` suffix means the default build; fill in its numeric tp when known.
++  if (tp === undefined) tp = defaultTpOf(rest)
++  return { value, base: rest, tp, dp, pp }
++}
++
++function axisValue(v: NpuVariant, axis: NpuAxis): number | undefined {
++  return axis === 'tp' ? v.tp : axis === 'dp' ? v.dp : v.pp
+ }
+ 
+ /** Cards a configuration occupies, given how many the base model needs. */
+@@ -48,9 +119,8 @@ export function variantCards(v: NpuVariant, baseCards: number): number {
+ }
+ 
+ /**
+- * All configurations of `value`'s model among `allValues`, ordered by card
+- * usage so cycling moves smoothly from cheapest to widest. Always contains at
+- * least the input value.
++ * All configurations of `value`'s model among `allValues`, ordered cheapest to
++ * widest so cycling moves smoothly. Always contains at least the input value.
+  */
+ export function npuVariantsOf(value: string, allValues: readonly string[]): NpuVariant[] {
+   const { base } = parseNpuVariant(value)
+@@ -58,7 +128,12 @@ export function npuVariantsOf(value: string, allValues: readonly string[]): NpuV
+     .map(parseNpuVariant)
+     .filter(v => v.base === base)
+   if (found.length === 0) return [parseNpuVariant(value)]
+-  found.sort((a, b) => a.dp * a.pp - b.dp * b.pp || a.value.localeCompare(b.value))
++  found.sort(
++    (a, b) =>
++      a.dp * a.pp - b.dp * b.pp ||
++      (a.tp ?? 0) - (b.tp ?? 0) ||
++      a.value.localeCompare(b.value),
++  )
+   return found
+ }
+ 
+@@ -80,24 +155,28 @@ export function cycleNpuVariant(
+   return variants[next]!.value
+ }
+ 
+-/** Builds the model id for a configuration. dp1·pp1 is the bare model name. */
+-export function variantId(value: string, dp: number, pp: number): string {
++/**
++ * Builds the model id for a configuration. `value` may itself carry a suffix
++ * (it is stripped to the base first). The default build (tp === the base's
++ * default) and dp1·pp1 carry no suffix, so the bare model name round-trips.
++ */
++export function variantId(value: string, tp: number | undefined, dp: number, pp: number): string {
+   const { base } = parseNpuVariant(value)
+-  return base + (dp > 1 ? `@dp${dp}` : '') + (pp > 1 ? `@pp${pp}` : '')
++  const isDefaultTp = tp === undefined || tp === defaultTpOf(base)
++  return (
++    base +
++    (isDefaultTp ? '' : `@tp${tp}`) +
++    (dp > 1 ? `@dp${dp}` : '') +
++    (pp > 1 ? `@pp${pp}` : '')
++  )
+ }
+ 
+-/** Short label for the status row, e.g. `dp2·pp1` or `dp1·pp1 (기본)`. */
++/** Short label for the status row, e.g. `tp8·dp2·pp1`. */
+ export function describeNpuVariant(v: NpuVariant): string {
+-  return `dp${v.dp}·pp${v.pp}`
++  const tp = v.tp !== undefined ? `tp${v.tp}·` : ''
++  return `${tp}dp${v.dp}·pp${v.pp}`
+ }
+ 
+-/**
+- * Every model id the backend advertised, including parallelism variants.
+- *
+- * The picker shows one row per *model*, so the variants are filtered out of the
+- * option list (see `collapseNpuVariants`) — but the dp/pp selector still needs
+- * to know which configurations exist. Discovery records the full list here.
+- */
+ let discoveredModelIds: readonly string[] = []
+ 
+ export function setDiscoveredModelIds(ids: readonly string[]): void {
+@@ -115,23 +194,17 @@ export function getDiscoveredModelIds(): readonly string[] {
+ 
+ /**
+  * Drops parallelism variants whose base model is also present, so the picker
+- * lists `Qwen3-4B-FP8` once instead of once per dp/pp combination. A variant
++ * lists `Qwen3-32B-FP8` once instead of once per tp/dp/pp combination. A variant
+  * whose base is missing is kept — otherwise it would become unreachable.
+  */
+ export function collapseNpuVariants(ids: readonly string[]): string[] {
+   // Only ids that are themselves bare models count as a base being present.
+   // Deriving this from every id (variants included) would make each variant
+   // vouch for its own base and drop the whole model from the list.
+-  const bases = new Set(
+-    ids.filter(id => {
+-      const v = parseNpuVariant(id)
+-      return v.dp === 1 && v.pp === 1
+-    }),
+-  )
++  const bases = new Set(ids.filter(id => !ANY_VARIANT.test(id)))
+   return ids.filter(id => {
+-    const v = parseNpuVariant(id)
+-    const isVariant = v.dp !== 1 || v.pp !== 1
+-    return !isVariant || !bases.has(v.base)
++    const isVariant = ANY_VARIANT.test(id)
++    return !isVariant || !bases.has(parseNpuVariant(id).base)
+   })
+ }
+ 
+@@ -142,8 +215,7 @@ export function collapseNpuVariants(ids: readonly string[]): string[] {
+  * router cannot say how it will serve a model. The Furiosa setup reads the
+  * router's `/router/models` at install time and the `furio` wrapper passes the
+  * map in, which means the text is available on the very first run rather than
+- * after a background refresh. Malformed JSON is ignored — a bad env var must
+- * not break model discovery.
++ * after a background refresh. Malformed JSON is ignored.
+  */
+ export function getBackendModelDescriptions(): Record<string, string> {
+   const raw = process.env.FURIO_MODEL_DESCRIPTIONS
+@@ -164,11 +236,6 @@ export function getBackendModelDescriptions(): Record<string, string> {
+ /**
+  * Presents a backend option list the way a person chooses: one row per model,
+  * described by how it will actually be served.
+- *
+- * Applied at the single point where every picker path converges, because the
+- * `/model` command supplies its own `optionsOverride` and therefore bypasses
+- * `getModelOptions()` entirely — fixing only the latter leaves the list
+- * untouched.
+  */
+ export function applyNpuPresentation<
+   T extends { value?: string | null; description?: string },
+@@ -188,14 +255,8 @@ export function applyNpuPresentation<
+ }
+ 
+ /**
+- * Which models are on the cards, keyed by base id.
+- *
+- * The picker lists one row per model while the router reports one entry per
+- * parallel configuration, so `Llama-3.1-8B-Instruct@dp2` has to light up the
+- * `Llama-3.1-8B-Instruct` row. A model already serving under *some*
+- * configuration is available to switch to, which is what the row needs to say.
+- *
+- * `up` wins over `loading` when both are present — some card is ready now.
++ * Which models are on the cards, keyed by base id. A model serving under *some*
++ * configuration lights up its row; `up` wins over `loading`.
+  */
+ export function npuLoadStatesByBase(
+   models: readonly { id: string; state: string }[],
+@@ -214,10 +275,6 @@ export function npuLoadStatesByBase(
+ /**
+  * Colours each option by whether its model is on the cards: green for loaded,
+  * yellow while it moves. Options the router says nothing about are left alone.
+- *
+- * Without this only the *selected* model reads as green, which hides the whole
+- * point of holding several models across the four cards — you cannot see which
+- * ones are a free switch and which mean a two-minute cold start.
+  */
+ export function applyNpuLoadColors<T extends { value?: string | null; color?: string }>(
+   options: readonly T[],
+@@ -232,83 +289,135 @@ export function applyNpuLoadColors<T extends { value?: string | null; color?: st
+   })
+ }
+ 
+-/** Axis of the parallel configuration the user is currently adjusting. */
+-export type NpuAxis = 'dp' | 'pp'
++/** A partial configuration used to constrain one axis by the others. */
++export type NpuConfig = { tp?: number; dp: number; pp: number }
+ 
+ /**
+- * Values available on one axis while the other is held fixed.
++ * Values available on `axis` while the other axes are held to `others`. Only the
++ * keys present in `others` constrain — so a caller that omits `tp` (e.g. a
++ * non-Furiosa backend with no tp metadata) gets the old dp/pp behaviour.
+  *
+- * dp and pp are not independent — dp x pp is bounded by the card count, and the
+- * backend only advertises combinations it can actually serve. Offering a value
+- * the pair cannot reach would produce a model id that does not exist, so the
++ * The backend only advertises combinations it can actually serve, so the
+  * choices are always derived from the advertised set.
+  */
+ export function npuAxisValues(
+   modelId: string,
+   allValues: readonly string[],
+   axis: NpuAxis,
+-  other: number,
++  others: Partial<NpuConfig>,
+ ): number[] {
+   const variants = npuVariantsOf(modelId, allValues)
++  const keys = (['tp', 'dp', 'pp'] as NpuAxis[]).filter(k => k !== axis && others[k] !== undefined)
+   const vals = variants
+-    .filter(v => (axis === 'dp' ? v.pp === other : v.dp === other))
+-    .map(v => (axis === 'dp' ? v.dp : v.pp))
++    .filter(v => keys.every(k => axisValue(v, k) === others[k]))
++    .map(v => axisValue(v, axis))
++    .filter((n): n is number => n !== undefined)
+   return [...new Set(vals)].sort((a, b) => a - b)
+ }
+ 
+ /**
+- * Moves one axis to its next value, keeping the pair valid: when the partner
+- * value cannot survive the move it falls back to the largest one that can.
+- * Returns null when the axis has nothing else to offer.
++ * Every value this axis can take for the model, ignoring the other axes. The
++ * picker renders this full set and marks currently-unreachable entries rather
++ * than dropping them, so the row keeps a fixed width.
+  */
+-export function stepNpuAxis(
++export function npuAxisAllValues(
+   modelId: string,
+   allValues: readonly string[],
+   axis: NpuAxis,
+-  current: { dp: number; pp: number },
+-  direction: 'left' | 'right',
+-): { dp: number; pp: number } | null {
+-  const other = axis === 'dp' ? current.pp : current.dp
+-  let values = npuAxisValues(modelId, allValues, axis, other)
+-  if (values.length < 2) {
+-    // Nothing to move to while the partner is held — allow the move anyway by
+-    // considering every value this axis can take, then repair the partner.
+-    const all = npuVariantsOf(modelId, allValues).map(v => (axis === 'dp' ? v.dp : v.pp))
+-    values = [...new Set(all)].sort((a, b) => a - b)
+-    if (values.length < 2) return null
+-  }
+-  const cur = axis === 'dp' ? current.dp : current.pp
+-  const i = values.indexOf(cur)
++): number[] {
++  const vals = npuVariantsOf(modelId, allValues)
++    .map(v => axisValue(v, axis))
++    .filter((n): n is number => n !== undefined)
++  return [...new Set(vals)].sort((a, b) => a - b)
++}
++
++/** Axes that have more than one value for this model — the ones worth tabbing to. */
++export function availableAxes(modelId: string, allValues: readonly string[]): NpuAxis[] {
++  return (['tp', 'dp', 'pp'] as NpuAxis[]).filter(
++    a => npuAxisAllValues(modelId, allValues, a).length > 1,
++  )
++}
++
++/** Next adjustable axis in tab order (tp → dp → pp), skipping fixed ones. */
++export function nextAxis(modelId: string, allValues: readonly string[], current: NpuAxis): NpuAxis {
++  const avail = availableAxes(modelId, allValues)
++  if (avail.length === 0) return current
++  const i = avail.indexOf(current)
++  return avail[(i + 1) % avail.length] ?? avail[0]!
++}
++
++function stepInList(values: number[], current: number, direction: 'left' | 'right'): number {
++  const i = values.indexOf(current)
+   const base = i === -1 ? 0 : i
+-  const next =
+-    direction === 'right'
+-      ? values[(base + 1) % values.length]!
+-      : values[(base - 1 + values.length) % values.length]!
+-  const partnerAxis: NpuAxis = axis === 'dp' ? 'pp' : 'dp'
+-  let partner = other
+-  const partnerChoices = npuAxisValues(modelId, allValues, partnerAxis, next)
+-  if (!partnerChoices.includes(partner)) {
+-    partner = partnerChoices.length > 0 ? partnerChoices[partnerChoices.length - 1]! : 1
++  return direction === 'right'
++    ? values[(base + 1) % values.length]!
++    : values[(base - 1 + values.length) % values.length]!
++}
++
++/**
++ * Moves `tp` to its next build, then re-fits dp/pp: keep the current pair if the
++ * new build can serve it, else clamp each down to the largest it can (falling
++ * back to 1). Switching to a whole-card build (tp32) therefore collapses dp/pp
++ * to 1, and switching back leaves them at 1 rather than exploding.
++ */
++function stepTp(
++  modelId: string,
++  allValues: readonly string[],
++  current: NpuConfig,
++  direction: 'left' | 'right',
++): NpuConfig | null {
++  const tps = npuAxisAllValues(modelId, allValues, 'tp')
++  if (tps.length < 2) return null
++  const next = stepInList(tps, current.tp ?? tps[0]!, direction)
++  const pairs = npuVariantsOf(modelId, allValues)
++    .filter(v => v.tp === next)
++    .map(v => ({ dp: v.dp, pp: v.pp }))
++  let { dp, pp } = current
++  if (!pairs.some(p => p.dp === dp && p.pp === pp)) {
++    const dps = [...new Set(pairs.map(p => p.dp))].sort((a, b) => a - b)
++    dp = [...dps].reverse().find(d => d <= current.dp) ?? dps[0] ?? 1
++    const pps = pairs.filter(p => p.dp === dp).map(p => p.pp).sort((a, b) => a - b)
++    pp = [...pps].reverse().find(p => p <= current.pp) ?? pps[0] ?? 1
+   }
+-  return axis === 'dp' ? { dp: next, pp: partner } : { dp: partner, pp: next }
++  return { tp: next, dp, pp }
+ }
+ 
+ /**
+- * Every value this axis can take for the model, ignoring what the other axis is
+- * currently set to.
++ * Moves one axis to its next value, keeping the configuration valid.
+  *
+- * The picker renders this full set and marks the currently unreachable entries,
+- * rather than dropping them: raising pp can make a high dp impossible, and
+- * removing that entry would reflow the row and shift the neighbouring axis
+- * under the user's cursor.
++ * `tp` is a build selector: stepping it re-fits dp/pp (see `stepTp`). Stepping
++ * `dp`/`pp` holds tp fixed and repairs the partner axis — when the partner can't
++ * survive the move it falls back to the largest value that can. Returns null
++ * when the axis has nothing else to offer.
+  */
+-export function npuAxisAllValues(
++export function stepNpuAxis(
+   modelId: string,
+   allValues: readonly string[],
+   axis: NpuAxis,
+-): number[] {
+-  const vals = npuVariantsOf(modelId, allValues).map(v =>
+-    axis === 'dp' ? v.dp : v.pp,
+-  )
+-  return [...new Set(vals)].sort((a, b) => a - b)
++  current: NpuConfig,
++  direction: 'left' | 'right',
++): NpuConfig | null {
++  if (axis === 'tp') return stepTp(modelId, allValues, current, direction)
++
++  // dp / pp: hold tp (when known) and repair the partner axis.
++  const partnerAxis: NpuAxis = axis === 'dp' ? 'pp' : 'dp'
++  const tpFixed: Partial<NpuConfig> = current.tp !== undefined ? { tp: current.tp } : {}
++
++  let values = npuAxisValues(modelId, allValues, axis, { ...tpFixed, [partnerAxis]: current[partnerAxis] })
++  if (values.length < 2) {
++    // Nothing to move to while the partner is held — allow the move anyway by
++    // considering every value this axis can take (within tp), then repair.
++    values = npuAxisValues(modelId, allValues, axis, tpFixed)
++    if (values.length < 2) return null
++  }
++  const next = stepInList(values, current[axis], direction)
++
++  let partner = current[partnerAxis]
++  const partnerChoices = npuAxisValues(modelId, allValues, partnerAxis, { ...tpFixed, [axis]: next })
++  if (!partnerChoices.includes(partner)) {
++    partner = partnerChoices.length > 0 ? partnerChoices[partnerChoices.length - 1]! : 1
++  }
++  return axis === 'dp'
++    ? { tp: current.tp, dp: next, pp: partner }
++    : { tp: current.tp, dp: partner, pp: next }
+ }
+-- 
+2.43.0
+
+
+From 361e3daf8b625ae512e1ccfd3fbe0dd75efdc0f2 Mon Sep 17 00:00:00 2001
+From: hyunjun1234 <plab2090@gmail.com>
+Date: Wed, 5 Aug 2026 13:47:34 +0900
+Subject: [PATCH 15/15] model picker: support a per-model default pp (large
+ models like bf16 coder)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Some builds are too big for one card (bf16 30B ≈ 57GB) so their smallest
+servable config is pp2, not pp1. The router now reports a `pp_default` per
+model in FURIO_NPU_META; mirror the tp mechanism:
+
+- ppDefaultOf(base) from the meta; parseNpuVariant fills pp from it when the
+  id has no @pp suffix; variantId omits @pp at the default. So the bare id
+  round-trips to pp2 and the pp axis shows [2,3,4] (never the OOM pp1).
+- Unchanged for normal models (pp_default defaults to 1).
+- tests: bare→pp2, axis lists [2,3,4], @pp only off-default, no tp axis.
+---
+ src/utils/npuVariants.test.ts | 27 +++++++++++++++++++++++++++
+ src/utils/npuVariants.ts      | 27 +++++++++++++++++++++------
+ 2 files changed, 48 insertions(+), 6 deletions(-)
+
+diff --git a/src/utils/npuVariants.test.ts b/src/utils/npuVariants.test.ts
+index 3eda34d..436b00f 100644
+--- a/src/utils/npuVariants.test.ts
++++ b/src/utils/npuVariants.test.ts
+@@ -106,6 +106,33 @@ describe('tp axis', () => {
+   })
+ })
+ 
++describe('pp default (models too big for one card)', () => {
++  // bf16 coder: 57GB -> needs >=2 cards, so its default build is pp2 (no pp1).
++  const META = JSON.stringify({ C: { tp_default: 8, tps: [8], pp_default: 2 } })
++  const ids = ['C', 'C@pp3', 'C@pp4']
++  beforeEach(() => { process.env.FURIO_NPU_META = META })
++  afterEach(() => { delete process.env.FURIO_NPU_META })
++
++  test('the bare id resolves to the default pp build (pp2)', () => {
++    expect(parseNpuVariant('C')).toMatchObject({ base: 'C', tp: 8, dp: 1, pp: 2 })
++    expect(parseNpuVariant('C@pp3').pp).toBe(3)
++  })
++
++  test('the pp axis lists the offered builds, not pp1', () => {
++    expect(npuAxisAllValues('C', ids, 'pp')).toEqual([2, 3, 4])
++  })
++
++  test('@pp is composed only when it is not the default', () => {
++    expect(variantId('C', 8, 1, 2)).toBe('C')
++    expect(variantId('C', 8, 1, 3)).toBe('C@pp3')
++    expect(variantId('C', 8, 1, 4)).toBe('C@pp4')
++  })
++
++  test('a single-build model has no tp axis', () => {
++    expect(npuAxisAllValues('C', ids, 'tp')).toEqual([8])
++  })
++})
++
+ describe('npuLoadStatesByBase', () => {
+   test('a loaded variant lights up its model row', () => {
+     const states = npuLoadStatesByBase([{ id: 'L@dp2', state: 'up' }])
+diff --git a/src/utils/npuVariants.ts b/src/utils/npuVariants.ts
+index f429c2e..6f87b92 100644
+--- a/src/utils/npuVariants.ts
++++ b/src/utils/npuVariants.ts
+@@ -46,7 +46,7 @@ const ANY_VARIANT = /@(tp|dp|pp)\d+$/
+  * `FURIO_NPU_META` (built from the router's `/router/models`). Absent for
+  * non-Furiosa backends, where there is no tp axis at all.
+  */
+-type NpuMeta = Record<string, { tp_default: number; tps: number[] }>
++type NpuMeta = Record<string, { tp_default: number; tps: number[]; pp_default?: number }>
+ let metaCacheRaw: string | undefined
+ let metaCache: NpuMeta = {}
+ 
+@@ -63,8 +63,13 @@ function npuMeta(): NpuMeta {
+         if (v && typeof v === 'object') {
+           const td = (v as { tp_default?: unknown }).tp_default
+           const tps = (v as { tps?: unknown }).tps
++          const pd = (v as { pp_default?: unknown }).pp_default
+           if (typeof td === 'number' && Array.isArray(tps)) {
+-            metaCache[k] = { tp_default: td, tps: tps.filter(n => typeof n === 'number') }
++            metaCache[k] = {
++              tp_default: td,
++              tps: tps.filter(n => typeof n === 'number'),
++              ...(typeof pd === 'number' ? { pp_default: pd } : {}),
++            }
+           }
+         }
+       }
+@@ -86,12 +91,21 @@ export function tpChoicesOf(base: string): number[] {
+   return npuMeta()[base]?.tps ?? []
+ }
+ 
++/**
++ * The pp of a model's default (no-suffix) build. Normally 1, but a model too
++ * large for one card (e.g. the bf16 coder) defaults to pp2 — the router reports
++ * it so the bare id, and the pp axis, are labelled correctly.
++ */
++export function ppDefaultOf(base: string): number {
++  return npuMeta()[base]?.pp_default ?? 1
++}
++
+ /** Splits a model id into its base and parallel configuration. */
+ export function parseNpuVariant(value: string): NpuVariant {
+   let rest = value
+   let tp: number | undefined
+   let dp = 1
+-  let pp = 1
++  let pp: number | undefined
+   for (;;) {
+     const m = SUFFIX.exec(rest)
+     if (!m) break
+@@ -104,9 +118,10 @@ export function parseNpuVariant(value: string): NpuVariant {
+     else pp = n
+     rest = rest.slice(0, m.index)
+   }
+-  // No `@tp` suffix means the default build; fill in its numeric tp when known.
++  // No suffix means the default build; fill in its numeric tp/pp when known
++  // (pp defaults to 1 except for models too big for one card, e.g. bf16 coder).
+   if (tp === undefined) tp = defaultTpOf(rest)
+-  return { value, base: rest, tp, dp, pp }
++  return { value, base: rest, tp, dp, pp: pp ?? ppDefaultOf(rest) }
+ }
+ 
+ function axisValue(v: NpuVariant, axis: NpuAxis): number | undefined {
+@@ -167,7 +182,7 @@ export function variantId(value: string, tp: number | undefined, dp: number, pp:
+     base +
+     (isDefaultTp ? '' : `@tp${tp}`) +
+     (dp > 1 ? `@dp${dp}` : '') +
+-    (pp > 1 ? `@pp${pp}` : '')
++    (pp !== ppDefaultOf(base) ? `@pp${pp}` : '')
+   )
+ }
+ 
 -- 
 2.43.0
 

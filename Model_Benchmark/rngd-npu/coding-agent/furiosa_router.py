@@ -88,10 +88,10 @@ REGISTRY = {
     # solar_open 전부 tool_calls 비고 content 로 누출, qwen3_coder 만 정상 추출).
     # 파서 실체는 coding-agent/furiosa_patches/qwen3_coder_tool_parser.py — venv 에 install.sh 로 등록한다
     # (furiosa-llm 재설치 시 등록이 날아가므로 재실행 필요).
-    "Qwen3-Coder-30B-A3B-Instruct-FP8": dict(path="furiosa-ai/Qwen3-Coder-30B-A3B-Instruct-FP8", tp=32, cards=4, pp=1, tool="qwen3_coder", reasoning=None,        ctx=262144, tps={8: f"{NVME_ART}/coder-tp8"}),
+    "Qwen3-Coder-30B-A3B-Instruct-FP8": dict(path="furiosa-ai/Qwen3-Coder-30B-A3B-Instruct-FP8", tp=32, cards=4, pp=1, tool="qwen3_coder", reasoning=None,        ctx=262144, tps={8: f"{NVME_ART}/coder-tp8"}, greedy_default=True),
     # BF16 코더 — coder-bf16-tp8 v2. 가중치 57GB 라 1장(47.5GB) 초과 → pp1 OOM.
     # pp_opts=[2,3,4] 로 pp1 제외하고 2·3·4장 층분할만 노출(기본 pp2, 실측 OK).
-    "Qwen3-Coder-30B-A3B-Instruct":     dict(path=f"{NVME_ART}/coder-bf16-tp8",                  tp=8,  cards=2, pp=1, tool="qwen3_coder", reasoning=None,        ctx=262144, pp_opts=[2, 3, 4]),
+    "Qwen3-Coder-30B-A3B-Instruct":     dict(path=f"{NVME_ART}/coder-bf16-tp8",                  tp=8,  cards=2, pp=1, tool="qwen3_coder", reasoning=None,        ctx=262144, pp_opts=[2, 3, 4], greedy_default=True),
     "Qwen3-VL-32B-Instruct":            dict(path="furiosa-ai/Qwen3-VL-32B-Instruct",            tp=32, cards=4, pp=1, tool="hermes",     reasoning=None,         ctx=262144),
     # fxb→v2 재지정: 로컬 tp8 v2 아티팩트로 서빙해 -pp 층분할 잠금해제(tp 동일=8). 되돌리려면 path 원복. [[chat-service-model-catalog]]
     "Llama-3.1-8B-Instruct":            dict(path=f"{NVME_ART}/llama31-8b-tp8",                   tp=8,  cards=1, pp=1, tool="llama3_json", reasoning=None,        ctx=131072),
@@ -792,6 +792,20 @@ def build_app():
             return JSONResponse({"error": {"message": "invalid JSON body"}}, status_code=400)
         if parse_variant(model or "")[0] not in REGISTRY:
             return JSONResponse({"error": {"message": f"unknown model '{model}'. /v1/models 참고."}}, status_code=404)
+        # 확률 샘플러 패닉 방지: 아티팩트의 generation_config 가 do_sample=true 인 모델은 클라이언트가
+        # temperature 를 안 보내면 그 기본값(예: temp 0.7·top_k 20)으로 랜덤 샘플러를 타는데,
+        # furiosa-generator 의 sampling/random.rs 가 가중치가 전부 0/NaN 이면 InvalidWeight 로 패닉한다.
+        # 패닉하면 그 serve 는 이후 200 을 주면서 completion_tokens=0 만 내놓아(엔진 스레드 사망)
+        # 클라이언트에는 "아무 반응 없음"으로 보인다 — 재시작 말고는 복구가 없다. [[furiosa-llm-invalidweight-panic]]
+        # 그리디(temperature=0)는 이 경로를 아예 타지 않으므로, 취약 모델은 그리디로 **강제**한다.
+        # 클라이언트 값을 존중하지 않는 이유: openclaude 는 항상 temperature=1 을 보내고(claude.ts:1933)
+        # 그 값이 곧 패닉 경로다. 존중하면 코더 모델이 매번 죽어 사용 자체가 불가능하다.
+        # top_k/top_p 도 함께 걷어낸다 — 남아 있으면 필터 후 가중치가 다시 0/NaN 이 될 수 있다.
+        if REGISTRY[parse_variant(model)[0]].get("greedy_default"):
+            payload["temperature"] = 0
+            payload.pop("top_p", None)
+            payload.pop("top_k", None)
+            raw = json.dumps(payload).encode()
         try:
             port = await run_in_threadpool(ROUTER.ensure, model)
         except Exception as e:

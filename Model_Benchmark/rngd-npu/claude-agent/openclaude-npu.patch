@@ -1,7 +1,7 @@
 From 7c67b3d2b269375ae8e115204f8570f58f03285f Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:11:42 +0900
-Subject: [PATCH 01/19] statusline: show Furiosa NPU model state with per-model
+Subject: [PATCH 01/20] statusline: show Furiosa NPU model state with per-model
  LEDs
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -381,7 +381,7 @@ index 0000000..5fb053a
 From b011b77eefa02e916e60392a3967cd48b532c531 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:19:21 +0900
-Subject: [PATCH 02/19] model picker: use backend-supplied model descriptions
+Subject: [PATCH 02/20] model picker: use backend-supplied model descriptions
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -465,7 +465,7 @@ index e901799..9bfec8b 100644
 From c7cbc97b974c40f9f73633619f18001745ab9a7e Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:29:26 +0900
-Subject: [PATCH 03/19] =?UTF-8?q?model=20picker:=20adjust=20NPU=20dp/pp=20?=
+Subject: [PATCH 03/20] =?UTF-8?q?model=20picker:=20adjust=20NPU=20dp/pp=20?=
  =?UTF-8?q?with=20=E2=86=90=20=E2=86=92?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -717,7 +717,7 @@ index 0000000..6949f79
 From e666bb3d649641c55a6416cee823024e729e36ce Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 23:52:39 +0900
-Subject: [PATCH 04/19] model picker: say why the NPU config row is absent
+Subject: [PATCH 04/20] model picker: say why the NPU config row is absent
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -769,7 +769,7 @@ index 336c021..e0f1d18 100644
 From 09e4947a165c12eb7dbe2f8a9a5cdfa27611d5ad Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:00:52 +0900
-Subject: [PATCH 05/19] model picker: pick the model and its dp/pp separately
+Subject: [PATCH 05/20] model picker: pick the model and its dp/pp separately
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1065,7 +1065,7 @@ index 6949f79..0f41e51 100644
 From f67bfeb8b414af23f564216285b953325b3991b3 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:11:30 +0900
-Subject: [PATCH 06/19] model picker: apply NPU collapsing and descriptions on
+Subject: [PATCH 06/20] model picker: apply NPU collapsing and descriptions on
  the cached path
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1167,7 +1167,7 @@ index 0f41e51..d6de5f4 100644
 From 06bb55d93406b70563a2962473fce11e8b3085de Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:30:39 +0900
-Subject: [PATCH 07/19] model picker: apply NPU presentation where every path
+Subject: [PATCH 07/20] model picker: apply NPU presentation where every path
  converges
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1274,7 +1274,7 @@ index d6de5f4..239767c 100644
 From 9ed3935fb6f14e98419841dd51a3df81818f40b4 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:48:44 +0900
-Subject: [PATCH 08/19] model picker: adjust dp and pp as separate axes
+Subject: [PATCH 08/20] model picker: adjust dp and pp as separate axes
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1554,7 +1554,7 @@ index 239767c..0f33993 100644
 From effb31cff239043a996a7aa3356fedc80a14326c Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 01:03:05 +0900
-Subject: [PATCH 09/19] model picker: stop the dp/pp row from reflowing
+Subject: [PATCH 09/20] model picker: stop the dp/pp row from reflowing
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1656,7 +1656,7 @@ index 0f33993..b00fbc3 100644
 From 27c42e3729aab78a816115b3e4c68a03c905cb77 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 01:51:34 +0900
-Subject: [PATCH 10/19] statusline: separate the current-model marker from the
+Subject: [PATCH 10/20] statusline: separate the current-model marker from the
  LED
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1693,7 +1693,7 @@ index ea77786..f6657b6 100644
 From f473f6cac85eb6191d5847cb17ecabb04e80d7aa Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 02:07:35 +0900
-Subject: [PATCH 11/19] model picker: start loading the model as soon as it is
+Subject: [PATCH 11/20] model picker: start loading the model as soon as it is
  picked
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1778,7 +1778,7 @@ index 5c7facc..8c5ff49 100644
 From 6ece7115d354facf8412c65797a85ab2bf667c2e Mon Sep 17 00:00:00 2001
 From: Claude <plab2090@gmail.com>
 Date: Thu, 23 Jul 2026 02:51:37 +0900
-Subject: [PATCH 12/19] npu: react to a model pick immediately, and show every
+Subject: [PATCH 12/20] npu: react to a model pick immediately, and show every
  loaded model
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2778,7 +2778,7 @@ index b00fbc3..efa22d3 100644
 From d5a9fb4eed6d1020b8232bf4717e210cd581af97 Mon Sep 17 00:00:00 2001
 From: Claude <plab2090@gmail.com>
 Date: Thu, 23 Jul 2026 13:53:24 +0900
-Subject: [PATCH 13/19] =?UTF-8?q?npu:=20reflect=20real=20server=20state=20?=
+Subject: [PATCH 13/20] =?UTF-8?q?npu:=20reflect=20real=20server=20state=20?=
  =?UTF-8?q?=E2=80=94=20drop=20the=20default,=20remember=20what=20was=20loa?=
  =?UTF-8?q?ded?=
 MIME-Version: 1.0
@@ -3249,7 +3249,7 @@ index 6c8bdcc..be3eb5a 100644
 From 04d6b86964adcf6e223c25e3786e8f0c0b823049 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Tue, 4 Aug 2026 13:20:47 +0900
-Subject: [PATCH 14/19] model picker: add tp as a third parallel axis
+Subject: [PATCH 14/20] model picker: add tp as a third parallel axis
  (tp/dp/pp)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3973,7 +3973,7 @@ index efa22d3..f429c2e 100644
 From 361e3daf8b625ae512e1ccfd3fbe0dd75efdc0f2 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 13:47:34 +0900
-Subject: [PATCH 15/19] model picker: support a per-model default pp (large
+Subject: [PATCH 15/20] model picker: support a per-model default pp (large
  models like bf16 coder)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4111,7 +4111,7 @@ index f429c2e..6f87b92 100644
 From 2a5386e8168b64211e2d06971a49c5c42d21263c Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 14:43:49 +0900
-Subject: [PATCH 16/19] model picker: resolve the active pp to pp_default
+Subject: [PATCH 16/20] model picker: resolve the active pp to pp_default
  (fixes bf16 coder showing pp1)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4245,7 +4245,7 @@ index 436b00f..df63c88 100644
 From 324f1ea888f06565c310d81893492aa5a8ac8bd1 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 15:39:27 +0900
-Subject: [PATCH 17/19] npu: fetch router metadata live + ease off status
+Subject: [PATCH 17/20] npu: fetch router metadata live + ease off status
  polling on long loads
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4465,7 +4465,7 @@ index 6f87b92..3265bf0 100644
 From 4ab56a3290a872fbb430a4ffece3c76a6eeab4e2 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 16:13:42 +0900
-Subject: [PATCH 18/19] fix: runtime router-metadata fetch hit
+Subject: [PATCH 18/20] fix: runtime router-metadata fetch hit
  /v1/router/models (404)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4507,7 +4507,7 @@ index 57f5de8..54fc369 100644
 From 72fea10e12ae568e800140f9f826b0d5f503986a Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Thu, 6 Aug 2026 00:33:47 +0900
-Subject: [PATCH 19/19] npu: keep the LEDs alive through hiccups, and stop
+Subject: [PATCH 19/20] npu: keep the LEDs alive through hiccups, and stop
  repainting the picker on blink
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4722,6 +4722,267 @@ index 5fb053a..9b1e613 100644
 +
 +  return models
 +}
+-- 
+2.43.0
+
+
+From cc92ad4597ed6c0cf132cb5b81adf9367e3dea41 Mon Sep 17 00:00:00 2001
+From: hyunjun1234 <plab2090@gmail.com>
+Date: Tue, 11 Aug 2026 14:16:17 +0900
+Subject: [PATCH 20/20] npu: cap the model switcher at four, ordered by when
+ you picked them
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The ↓ switcher row grew with every model that had ever been loaded (up to the
+eight the store keeps), so it wrapped the terminal and the ←/→ cursor had to
+walk past models nobody was switching between.
+
+- npuDisplayModels takes a limit (NPU_DISPLAY_LIMIT = 4, matching the card
+  count) and now orders by pick recency: current model, then remembered
+  newest-first, then anything live that was never picked here.
+- recordNpuModelSelection() moves a model to the front when it is picked.
+  rememberNpuModels() only sees what the router reports as up, in id order, so
+  it cannot tell which of several live models was chosen last — the pick has to
+  be recorded where it happens (preloadNpuModel, which every pick funnels
+  through).
+
+Tests: cap keeps the four newest, ordering follows picks not ids, the selected
+model keeps its slot at the cap, a live-but-never-picked model still shows while
+there is room; and for the store, a pick moves to front / does not duplicate /
+survives a reload. Verified live: six seeded picks render as four.
+---
+ src/services/npuRecentModels.test.ts    | 24 +++++++++++++++++
+ src/services/npuRecentModels.ts         | 17 ++++++++++++
+ src/services/npuStatus.test.ts          | 23 ++++++++++++++++
+ src/services/npuStatus.ts               | 35 ++++++++++++++++++++++---
+ src/utils/model/openaiModelDiscovery.ts | 13 ++++++++-
+ 5 files changed, 108 insertions(+), 4 deletions(-)
+
+diff --git a/src/services/npuRecentModels.test.ts b/src/services/npuRecentModels.test.ts
+index 2a99aff..9c37e8b 100644
+--- a/src/services/npuRecentModels.test.ts
++++ b/src/services/npuRecentModels.test.ts
+@@ -6,6 +6,7 @@ import { setClaudeConfigHomeDirForTesting } from '../utils/envUtils.js'
+ import {
+   __resetNpuRecentModelsForTest,
+   getRememberedNpuModels,
++  recordNpuModelSelection,
+   rememberNpuModels,
+ } from './npuRecentModels.js'
+ 
+@@ -65,4 +66,27 @@ describe('npuRecentModels', () => {
+     expect(rememberNpuModels('', ['A'])).toEqual([])
+     expect(getRememberedNpuModels('')).toEqual([])
+   })
++
++  test('a pick moves the model to the front', () => {
++    rememberNpuModels(BASE, ['A', 'B', 'C'])
++    expect(recordNpuModelSelection(BASE, 'C')).toEqual(['C', 'A', 'B'])
++    expect(getRememberedNpuModels(BASE)[0]).toBe('C')
++  })
++
++  test('picking the same model twice does not duplicate it', () => {
++    recordNpuModelSelection(BASE, 'A')
++    expect(recordNpuModelSelection(BASE, 'A')).toEqual(['A'])
++  })
++
++  test('a pick survives a fresh read', () => {
++    recordNpuModelSelection(BASE, 'A')
++    recordNpuModelSelection(BASE, 'B')
++    __resetNpuRecentModelsForTest()
++    expect(getRememberedNpuModels(BASE)).toEqual(['B', 'A'])
++  })
++
++  test('ignores an empty base or model id', () => {
++    expect(recordNpuModelSelection('', 'A')).toEqual([])
++    expect(recordNpuModelSelection(BASE, '')).toEqual([])
++  })
+ })
+diff --git a/src/services/npuRecentModels.ts b/src/services/npuRecentModels.ts
+index b1c3433..4efb5d8 100644
+--- a/src/services/npuRecentModels.ts
++++ b/src/services/npuRecentModels.ts
+@@ -99,6 +99,23 @@ export function rememberNpuModels(base: string, ids: readonly string[]): string[
+   return [...capped]
+ }
+ 
++/**
++ * Records that the user just picked `id`, moving it to the front.
++ *
++ * `rememberNpuModels` records what the *router* reports as up, in id order, so
++ * it cannot say which of several live models was chosen last. The switcher row
++ * is ordered by recency, so the pick itself has to be recorded when it happens.
++ */
++export function recordNpuModelSelection(base: string, id: string): string[] {
++  if (!base || !id) return []
++  const store = load()
++  const prev = store[base] ?? []
++  const next = [id, ...prev.filter(x => x !== id)].slice(0, MAX_PER_BASE)
++  store[base] = next
++  if (!sameOrder(prev, next)) persist(store)
++  return [...next]
++}
++
+ /** Test seam — drops the in-memory cache so a fresh file is read. */
+ export function __resetNpuRecentModelsForTest(): void {
+   cache = null
+diff --git a/src/services/npuStatus.test.ts b/src/services/npuStatus.test.ts
+index dd1ae74..17bb50e 100644
+--- a/src/services/npuStatus.test.ts
++++ b/src/services/npuStatus.test.ts
+@@ -66,4 +66,27 @@ describe('npuDisplayModels', () => {
+     expect(out.filter(m => m.id === 'A')).toHaveLength(1)
+     expect(out.map(m => m.id)).toEqual(['A', 'B'])
+   })
++
++  test('lists at most four, keeping the most recently picked', () => {
++    // remembered is newest-first; F and G were picked longest ago.
++    const out = npuDisplayModels([], 'A', ['A', 'B', 'C', 'D', 'F', 'G'])
++    expect(out.map(m => m.id)).toEqual(['A', 'B', 'C', 'D'])
++  })
++
++  test('orders by pick recency, not by model id', () => {
++    const live = [model('A'), model('B'), model('C')]
++    const out = npuDisplayModels(live, 'C', ['C', 'A', 'B'])
++    expect(out.map(m => m.id)).toEqual(['C', 'A', 'B'])
++  })
++
++  test('the selected model keeps its slot even when the cap is reached', () => {
++    const out = npuDisplayModels([], 'Z', ['Z', 'A', 'B', 'C', 'D'])
++    expect(out).toHaveLength(4)
++    expect(out[0]?.id).toBe('Z')
++  })
++
++  test('a live model that was never picked still shows while there is room', () => {
++    const out = npuDisplayModels([model('Live')], 'A', ['A', 'B'])
++    expect(out.map(m => m.id)).toEqual(['A', 'B', 'Live'])
++  })
+ })
+diff --git a/src/services/npuStatus.ts b/src/services/npuStatus.ts
+index 6054299..75f92dd 100644
+--- a/src/services/npuStatus.ts
++++ b/src/services/npuStatus.ts
+@@ -11,7 +11,11 @@
+  * so pointing openclaude at OpenAI/Ollama costs one request and nothing more.
+  */
+ 
+-import { getRememberedNpuModels, rememberNpuModels } from './npuRecentModels.js'
++import {
++  getRememberedNpuModels,
++  recordNpuModelSelection,
++  rememberNpuModels,
++} from './npuRecentModels.js'
+ 
+ /** Server-side lifecycle of one model on the NPU cards. */
+ export type NpuModelState = 'loading' | 'up' | 'stopping' | 'error' | 'down'
+@@ -138,24 +142,38 @@ export function parseStatus(raw: RawStatus): Pick<NpuStatus, 'models' | 'freeCar
+  * Both the status line and the footer's ←/→ cursor read this, so the cursor
+  * always lands on the entry the user is looking at.
+  */
++/**
++ * How many models the status row lists. The row is a one-line switcher, not a
++ * history: past four entries it wraps the terminal and the ←/→ cursor turns
++ * into a hunt. Four also matches the card count, so everything actually
++ * serving can still be shown at once.
++ */
++export const NPU_DISPLAY_LIMIT = 4
++
+ export function npuDisplayModels(
+   models: readonly NpuModel[],
+   currentModelId: string | null,
+   remembered: readonly string[] = [],
++  limit: number = NPU_DISPLAY_LIMIT,
+ ): NpuModel[] {
+   const byId = new Map(models.map(m => [m.id, m]))
+   const order: NpuModel[] = []
+   const seen = new Set<string>()
+   const push = (id: string): void => {
+-    if (seen.has(id)) return
++    if (seen.has(id) || order.length >= limit) return
+     seen.add(id)
+     order.push(byId.get(id) ?? { id, state: 'down', cards: [], dp: 1, pp: 1 })
+   }
+   if (currentModelId && (byId.has(currentModelId) || remembered.includes(currentModelId))) {
+     push(currentModelId)
+   }
+-  for (const m of models) push(m.id)
++  // Most-recently-picked first: `remembered` is kept newest-first, so the row
++  // reads as "the models you have been switching between" rather than "whatever
++  // is on the cards, in id order" — which is what the ←/→ switcher is for.
+   for (const id of remembered) push(id)
++  // Anything serving that was never picked from here (another session, a
++  // preload) still earns a slot while there is room.
++  for (const m of models) push(m.id)
+   return order
+ }
+ 
+@@ -270,6 +288,14 @@ export function refreshNpuStatusNow(): void {
+  * for good rather than retrying against someone else's OpenAI endpoint.
+  */
+ export function startNpuStatusPolling(base = routerBaseUrl()): void {
++  // Escape hatch: FURIO_NPU_STATUS=0 turns the whole loop off. Useful both as a
++  // workaround on a slow link and as a one-command way to tell whether a
++  // sluggish TUI is caused by this polling or by something else entirely.
++  const flag = process.env.FURIO_NPU_STATUS
++  if (flag === '0' || flag === 'off' || flag === 'false') {
++    stopped = true
++    return
++  }
+   if (timer !== null || stopped || !base) return
+   pollBase = base
+   timer = setTimeout(scheduledPoll, 0)
+@@ -351,6 +377,9 @@ export function preloadNpuModel(modelId: string, base = routerBaseUrl()): void {
+   // waiting for confirmation would leave the LED red for the first second or
+   // two after the pick — indistinguishable from "nothing happened".
+   pendingPreload.set(modelId, Date.now() + PENDING_PRELOAD_TTL_MS)
++  // Every user pick funnels through here, so this is where "most recently
++  // selected" is established — the poll can only see what is up, in id order.
++  currentNpuStatus.remembered = recordNpuModelSelection(base, modelId)
+   if (currentNpuStatus.available) {
+     currentNpuStatus.models = withPending(currentNpuStatus.models, Date.now())
+     notify()
+diff --git a/src/utils/model/openaiModelDiscovery.ts b/src/utils/model/openaiModelDiscovery.ts
+index 54fc369..99fe43a 100644
+--- a/src/utils/model/openaiModelDiscovery.ts
++++ b/src/utils/model/openaiModelDiscovery.ts
+@@ -188,16 +188,26 @@ async function fetchOllamaModels(
+  * what lets a router-side change appear on the next launch without re-running
+  * install.sh. A non-Furiosa backend simply 404s and the env fallbacks remain.
+  */
++/** When the router metadata was last fetched, so a refresh does not re-fetch. */
++let lastRouterMetaFetch = 0
++const ROUTER_META_TTL_MS = 60_000
++
+ async function loadRouterMetadata(
+   baseUrl: string,
+   headers: Record<string, string>,
+ ): Promise<void> {
++  // Discovery re-runs every time the picker opens and on manual refresh, but the
++  // model set does not change that fast. Skipping the round trip keeps `/model`
++  // from paying for it each time — which is felt over an SSH tunnel.
++  if (Date.now() - lastRouterMetaFetch < ROUTER_META_TTL_MS) return
+   try {
+     // /router/models lives at the server root, not under /v1 — and the wrapper
+     // sets OPENAI_BASE_URL to `<server>/v1`, so strip a trailing /v1 first.
+     const routerRoot = baseUrl.replace(/\/v1$/, '')
+     const controller = new AbortController()
+-    const abort = setTimeout(() => controller.abort(), 3000)
++    // Short deadline: this only enriches labels, so a slow or dead router must
++    // not hold the picker open — the env-var fallbacks already cover that.
++    const abort = setTimeout(() => controller.abort(), 1500)
+     let res: Response
+     try {
+       res = await fetch(`${routerRoot}/router/models`, { headers, signal: controller.signal })
+@@ -224,6 +234,7 @@ async function loadRouterMetadata(
+     }
+     if (Object.keys(desc).length > 0) setRuntimeDescriptions(desc)
+     if (Object.keys(meta).length > 0) setRuntimeNpuMeta(meta)
++    lastRouterMetaFetch = Date.now()
+     logForDebugging(`[ModelDiscovery] router meta: ${Object.keys(meta).length} models`)
+   } catch {
+     // Router unreachable or non-Furiosa backend — keep the env-var fallbacks.
 -- 
 2.43.0
 

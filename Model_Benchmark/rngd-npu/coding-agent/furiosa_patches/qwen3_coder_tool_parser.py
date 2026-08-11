@@ -119,7 +119,18 @@ class Qwen3CoderToolParser(ToolParser):
 
     # ── 견고 추출: 모델이 호출마다 형식이 달라도(XML / 깨진 태그+JSON / JSON배열) 모두 처리 ──
     def _extract_calls(self, text, request):
-        region = text[text.find(self.tool_call_start):] if self.tool_call_start in text else text
+        # 보통은 <tool_call> 뒤에 호출이 오지만, 긴 컨텍스트에서는 **JSON 을 먼저 내고 <tool_call>
+        # 을 꼬리로 붙이는** 출력이 나온다(2026-08-07 실측, tp32 공식 코더 17.8k 프롬프트):
+        #   I'll read that for you.\n\n[{"function":{"name":"read_file",...}}]\n<tool_call>
+        # 이때 마커 뒤만 보면 빈 문자열이라 멀쩡한 호출을 통째로 버리게 된다.
+        # 그래서 마커 뒤를 먼저 보고, 못 찾으면 전체 텍스트로 한 번 더 시도한다.
+        if self.tool_call_start in text:
+            calls = self._extract_from(text[text.find(self.tool_call_start):], request)
+            if calls:
+                return calls
+        return self._extract_from(text, request)
+
+    def _extract_from(self, region, request):
         fmarks = list(self._func_re.finditer(region))
         if fmarks:
             # 형식 A: <function=NAME> 마커 (뒤에 <parameter> 또는 bare JSON 인자)
@@ -145,15 +156,27 @@ class Qwen3CoderToolParser(ToolParser):
         jd = self._first_json(region)
         return self._obj_to_calls(jd) if jd is not None else []
 
+    def _call_start(self, text):
+        """도구 호출이 시작되는 위치. 사람용 content 를 여기서 잘라 낸다."""
+        idxs = [i for i in (text.find(self.tool_call_start),
+                            text.find("<function="),
+                            text.find("[{"),
+                            text.find('{"')) if i >= 0]
+        return min(idxs) if idxs else len(text)
+
     # ── 비스트리밍 ────────────────────────────────────────────────────────
     def extract_tool_calls(self, model_output, request):
-        if self.tool_call_start not in model_output:
+        # <tool_call> 마커가 아예 없이 OpenAI 식 JSON 만 내는 출력도 있으므로, 호출처럼 보이면
+        # 마커가 없어도 시도한다. 평범한 산문을 오탐하지 않도록 name+arguments 형태일 때만.
+        looks_like_json_call = ('"name"' in model_output
+                                and ('"arguments"' in model_output or '"parameters"' in model_output))
+        if self.tool_call_start not in model_output and not looks_like_json_call:
             return ExtractedToolCallInformation(tools_called=False, tool_calls=[], content=model_output)
         try:
             calls = self._extract_calls(model_output, request)
             if not calls:
                 return ExtractedToolCallInformation(tools_called=False, tool_calls=[], content=model_output)
-            content = model_output.split(self.tool_call_start)[0]
+            content = model_output[:self._call_start(model_output)]
             return ExtractedToolCallInformation(
                 tools_called=True, tool_calls=calls, content=content if content else None
             )

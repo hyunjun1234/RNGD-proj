@@ -48,6 +48,12 @@ ALL_CARDS = [0, 1, 2, 3]
 # 필요하면 ROUTER_READY_TIMEOUT 환경변수로 조정.
 READY_TIMEOUT = int(os.environ.get("ROUTER_READY_TIMEOUT", "2400"))
 CARD_FREE_TIMEOUT = 90     # evict 후 카드 메모리 해제 대기(초)
+# 축출 정책. 처리 중인 요청이 있는 백엔드는 내리지 않고 이만큼 기다린다 — 진행 중인 턴을
+# 중간에 끊지 않기 위해서다. 넘기면 교착을 피하려고 마지막 수단으로 LRU 를 끊는다.
+EVICT_WAIT = int(os.environ.get("ROUTER_EVICT_WAIT", "300"))
+# 막 ready 된 백엔드에 주는 최소 상주 시간(초). 없으면 7분 걸려 올린 모델이 첫 요청도
+# 못 받고 즉시 쫓겨나, 카드만 왕복하고 아무도 전진하지 못한다.
+EVICT_GRACE = int(os.environ.get("ROUTER_EVICT_GRACE", "20"))
 # openclaude 포크(NPU LED·dp/pp) 빌드 산출물 — install.sh 가 여기서 dist 를 받아 덮어쓴다.
 CLIENT_DIST = os.environ.get("FURIO_CLIENT_DIST", "/home/jun/openclaude-fork/dist")
 CLIENT_PKG = os.environ.get("FURIO_CLIENT_PKG", "/home/jun/openclaude-fork/package.json")
@@ -410,9 +416,22 @@ class Backend:
         self.dp = 1
         self.pp = 1
         self.last_used = time.time()
+        # serve 프로세스가 살아 있는 것과 HTTP 서버가 듣는 것은 다르다. _wait_ready 통과
+        # 전까지는 False — ensure() 의 락프리 fast-path 가 로딩 중 백엔드로 프록시해서
+        # ConnectError(→500) 를 내던 문제를 막는다.
+        self.ready = False
+        self.ready_at = None
+        # 처리 중인 요청 수. 0 이 아닌 백엔드는 축출 후보에서 제외한다 — 스트리밍 중
+        # last_used 는 요청 '시작' 시각에 멈춰 있어서, 긴 턴을 도는 백엔드가 오히려
+        # 가장 오래 논 것처럼 보여 LRU 희생양이 됐다(턴이 중간에 끊김).
+        self.inflight = 0
+        self.evicting = False
 
     def alive(self):
         return self.proc.poll() is None
+
+    def usable(self):
+        return self.ready and not self.evicting and self.alive()
 
 
 class Router:
@@ -423,6 +442,9 @@ class Router:
         # (기존엔 running 에 들어간 뒤에야 보여서 콜드스타트 2분이 침묵이었다).
         self.state = {}
         self.lock = threading.RLock()
+        # inflight/evicting 전용 짧은 락. self.lock 은 콜드스타트 동안 수 분간 잡혀 있어
+        # 여기에 쓸 수 없다(warm 요청이 다 막힌다). 절대 오래 잡지 않는다.
+        self.ilock = threading.Lock()
         atexit.register(self.shutdown_all)
 
     # 현재 비어 있는 카드: 내 백엔드가 점유 중이지도 않고, furiosa-smi 상 실제로도 비어
@@ -459,6 +481,11 @@ class Router:
 
     def _stop(self, b):
         self._log(f"evict '{b.model_id}' (port {b.port}, cards {b.cards})")
+        # 축출 표시를 먼저 박는다 — acquire() 의 락프리 fast-path 가 방금 내리기로 정한
+        # 백엔드를 붙잡아 inflight 를 올리는 경쟁(그리고 그 요청이 끊기는 사고)을 막는다.
+        with self.ilock:
+            b.evicting = True
+            b.ready = False
         # 내려가는 동안에도 LED 가 '전환중'(노랑)으로 보이도록 먼저 표시한다.
         if self.state.get(b.model_id) != "error":
             self.state[b.model_id] = "stopping"
@@ -477,10 +504,33 @@ class Router:
             self.state.pop(b.model_id, None)   # → "down"
 
     def _evict_until(self, need):
-        # LRU 부터 내려서 need 장 확보
+        """need 장이 빌 때까지 LRU 를 내린다. 단, 일하는 백엔드는 건드리지 않는다.
+
+        예전엔 무조건 LRU 를 죽였다. 그런데 last_used 는 요청 '시작' 시각이라 90초짜리
+        턴을 스트리밍 중인 백엔드가 가장 오래 논 것처럼 보였고, 그 사이 다른 모델 요청이
+        하나만 와도 진행 중인 턴이 통째로 끊겼다(클라이언트엔 ConnectError → 500).
+        또 막 올라온 백엔드가 첫 요청을 받기도 전에 쫓겨나(K-EXAONE 7분 로딩 → 0초 사용)
+        아무도 전진하지 못하는 구간이 있었다.
+
+        그래서 후보는 '처리 중 요청 0개 + ready 후 GRACE 초 지난' 백엔드뿐이다. 후보가
+        없으면 기다린다(self.lock 은 쥔 채로 — warm 요청은 락프리 경로라 안 막히고,
+        그 요청들이 끝나야 후보가 생긴다). EVICT_WAIT 을 넘기면 교착보다는 낫다고 보고
+        마지막 수단으로 LRU 를 끊는다."""
+        deadline = time.time() + EVICT_WAIT
         while len(self._free_cards()) < need and self.running:
-            victim = min(self.running.values(), key=lambda b: b.last_used)
-            self._stop(victim)
+            now = time.time()
+            with self.ilock:
+                idle = [b for b in self.running.values()
+                        if b.inflight == 0 and (b.ready_at is None or now - b.ready_at >= EVICT_GRACE)]
+            if idle:
+                self._stop(min(idle, key=lambda b: b.last_used))
+                continue
+            if now >= deadline:
+                victim = min(self.running.values(), key=lambda b: b.last_used)
+                self._log(f"evict-wait {EVICT_WAIT}s 초과 — 사용 중인 '{victim.model_id}' 을(를) 강제로 내린다")
+                self._stop(victim)
+                continue
+            time.sleep(1)
 
     def _start(self, model_id):
         base, tp, dp, pp = parse_variant(model_id)
@@ -549,6 +599,10 @@ class Router:
             self.state[model_id] = "error"
             self._stop(b)
             raise
+        # HTTP 서버가 실제로 뜬 뒤에야 usable — 이 전에는 프록시가 붙으면 ConnectError 다.
+        with self.ilock:
+            b.ready = True
+            b.ready_at = time.time()
         self.state[model_id] = "up"
         self._log(f"ready '{model_id}' on :{port}")
         return b
@@ -577,24 +631,61 @@ class Router:
             f"있습니다. 재시도하면 다운로드를 이어받습니다(또는 ROUTER_READY_TIMEOUT 을 늘려 재기동).")
 
     def ensure(self, model_id):
-        """model_id('Qwen3-4B-FP8@dp2' 같은 변형 포함)가 서빙되도록 보장하고 포트 반환(블로킹)."""
+        """model_id('Qwen3-4B-FP8@dp2' 같은 변형 포함)가 서빙되도록 보장하고 포트 반환(블로킹).
+
+        요청을 실제로 프록시할 거면 ensure() 가 아니라 acquire()/release() 를 써야 한다 —
+        ensure() 는 반환 직후 그 백엔드가 축출될 수 있다. (preload 처럼 '올려만 두는'
+        용도가 ensure() 의 자리다.)"""
         base = parse_variant(model_id)[0]
         if base not in REGISTRY:
             raise KeyError(model_id)
-        # fast-path: 이미 떠 있고 살아있으면 락 없이 즉시 반환. 다른 모델의 콜드스타트가
+        # fast-path: 이미 '쓸 수 있으면' 락 없이 즉시 반환. 다른 모델의 콜드스타트가
         # self.lock 을 (최대 READY_TIMEOUT) 잡고 있어도 warm 모델 요청은 막히지 않는다.
+        # usable() 은 alive() 보다 엄격하다 — _start 는 _wait_ready 前에 running 에
+        # 넣으므로, alive() 만 보면 아직 듣지도 않는 포트로 프록시해 500 이 났다.
         b = self.running.get(model_id)
-        if b and b.alive():
+        if b and b.usable():
             b.last_used = time.time()
             return b.port
         with self.lock:
             b = self.running.get(model_id)
-            if b and b.alive():
+            if b and b.usable():
                 b.last_used = time.time()
                 return b.port
-            if b:  # 죽은 백엔드 정리
-                self.running.pop(model_id, None)
+            if b:
+                # _start·_stop 은 이 락 안에서만 도니, 락을 쥔 지금 남아 있는데 usable 이
+                # 아니면 잔재다(죽었거나 중간에 실패). 카드를 이중 점유하지 않도록 치운다.
+                if b.alive():
+                    self._stop(b)
+                else:
+                    self.running.pop(model_id, None)
             return self._start(model_id).port
+
+    def acquire(self, model_id):
+        """모델을 보장하고, 그 백엔드를 '사용 중'으로 표시한 뒤 포트를 돌려준다.
+
+        표시된 동안에는 _evict_until 이 이 백엔드를 축출 후보에서 뺀다. 반드시 짝으로
+        release() 를 불러야 한다(스트리밍이면 스트림이 끝난 뒤)."""
+        for _ in range(20):
+            port = self.ensure(model_id)
+            with self.ilock:
+                b = self.running.get(model_id)
+                if b and b.port == port and b.usable():
+                    b.inflight += 1
+                    b.last_used = time.time()
+                    return port
+            # ensure() 와 이 사이에 축출됐다(다른 모델 요청). 다시 올린다.
+            time.sleep(0.2)
+        raise RuntimeError(f"'{model_id}' 를 잡지 못했다 — 축출 경쟁이 계속됨")
+
+    def release(self, model_id):
+        """acquire() 로 잡은 백엔드를 놓는다. last_used 를 '끝난 시각'으로 갱신해
+        긴 스트리밍이 LRU 상 가장 오래 논 것처럼 보이던 문제도 함께 없앤다."""
+        with self.ilock:
+            b = self.running.get(model_id)
+            if b:
+                b.inflight = max(0, b.inflight - 1)
+                b.last_used = time.time()
 
     def status(self):
         # 락 없이 스냅샷(list 복사 후 순회) — ensure() 가 콜드스타트 동안 self.lock 을 잡고 있어도
@@ -806,10 +897,21 @@ def build_app():
             payload.pop("top_p", None)
             payload.pop("top_k", None)
             raw = json.dumps(payload).encode()
+        # acquire = ensure + '사용 중' 표시. 표시된 동안에는 다른 모델 요청이 이 백엔드를
+        # 축출하지 못한다(진행 중인 턴이 중간에 끊기던 원인). 어느 경로로 나가든 release 를
+        # 정확히 한 번 부른다 — 스트리밍이면 스트림이 다 끝난 뒤.
         try:
-            port = await run_in_threadpool(ROUTER.ensure, model)
+            port = await run_in_threadpool(ROUTER.acquire, model)
         except Exception as e:
             return JSONResponse({"error": {"message": f"failed to serve '{model}': {e}"}}, status_code=503)
+        released = False
+
+        def _release_once():
+            nonlocal released
+            if not released:
+                released = True
+                ROUTER.release(model)
+
         url = f"http://127.0.0.1:{port}/v1/{subpath}"
 
         # de-stream(옵션): 특정 모델이 스트리밍 tool 파싱이 취약하면 REGISTRY 에 destream=True 를 주어,
@@ -829,18 +931,41 @@ def build_app():
                 data = r.json()
             except Exception as e:
                 return JSONResponse({"error": {"message": f"backend error: {e}"}}, status_code=502)
+            finally:
+                _release_once()
             if r.status_code != 200:
                 return JSONResponse(data, status_code=r.status_code)
             return StreamingResponse(_sse_from_completion(data), media_type="text/event-stream")
 
-        req = aclient.build_request("POST", url, content=raw,
-                                    headers={"Content-Type": "application/json"})
-        resp = await aclient.send(req, stream=True)
+        try:
+            req = aclient.build_request("POST", url, content=raw,
+                                        headers={"Content-Type": "application/json"})
+            resp = await aclient.send(req, stream=True)
+        except Exception as e:
+            _release_once()
+            return JSONResponse({"error": {"message": f"backend error: {e}"}}, status_code=502)
+
+        async def _body():
+            # release 를 제너레이터의 finally 에 둔다 — 정상 종료는 물론 클라이언트가
+            # 도중에 끊어(GeneratorExit) 백그라운드 태스크가 안 돌 때도 확실히 풀린다.
+            # 안 풀리면 그 백엔드는 영영 '사용 중'으로 남아 축출 불가가 된다.
+            try:
+                async for chunk in resp.aiter_raw():
+                    yield chunk
+            finally:
+                _release_once()
+
+        async def _done():
+            try:
+                await resp.aclose()
+            finally:
+                _release_once()   # 멱등 — 위 finally 가 이미 풀었으면 아무 일도 안 한다
+
         return StreamingResponse(
-            resp.aiter_raw(),
+            _body(),
             status_code=resp.status_code,
             headers={"Content-Type": resp.headers.get("content-type", "application/json")},
-            background=BackgroundTask(resp.aclose),
+            background=BackgroundTask(_done),
         )
 
     @app.post("/v1/chat/completions")

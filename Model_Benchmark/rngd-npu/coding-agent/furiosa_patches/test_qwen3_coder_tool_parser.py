@@ -146,6 +146,20 @@ class StreamingMatchesNonStreaming(unittest.TestCase):
         _, calls, _ = run_stream(FUNC_KEY_DIALECT)
         self.assertEqual(as_pairs(calls), got, "스트리밍이 비스트리밍과 달라졌다")
 
+    def test_toolname_input_dialect(self):
+        # 2026-08-13 실측(같은 모델, 다른 실행) — 이번엔 키가 toolName/input 이었다.
+        # 이 모델은 호출마다 키를 바꾼다. 별칭을 넓게 잡는 이유다.
+        text = ('먼저 확인하겠습니다.\n\n<tool_call>\n'
+                '[{"id":"c1","tool":{"input":{"file_path":"base_carter_run.py"},'
+                '"toolName":"Read"}}]\n</tool_call>')
+        info = parser().extract_tool_calls(text, REQ)
+        self.assertTrue(info.tools_called)
+        self.assertEqual(info.tool_calls[0].function.name, "Read")
+        self.assertEqual(json.loads(info.tool_calls[0].function.arguments),
+                         {"file_path": "base_carter_run.py"})
+        _, calls, _ = run_stream(text)
+        self.assertEqual(as_pairs(calls), [("Read", {"file_path": "base_carter_run.py"})])
+
     def test_func_key_dialect_keeps_the_prose(self):
         content, _, _ = run_stream(FUNC_KEY_DIALECT)
         self.assertIn("I'll help you modify", content)

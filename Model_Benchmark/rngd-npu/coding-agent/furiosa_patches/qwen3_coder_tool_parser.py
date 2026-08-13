@@ -104,7 +104,8 @@ class Qwen3CoderToolParser(ToolParser):
     #   [{"id":"call_..","tool":{"call_id":"..","func":"Glob","arguments":{..}},"output":""}]
     # 여기선 이름이 "name" 이 아니라 "func" 이고 "tool" 래퍼 안에 있다. 이 하나를 몰라서
     # 멀쩡한 호출을 통째로 버렸다(→ finish_reason=stop, 도구 0개, 사용자에겐 '말만 함').
-    _NAME_KEYS = ("name", "tool_name", "func", "function_name", "function")
+    # 이 모델은 호출마다 키를 바꾼다. 지금까지 실측된 것: name / func / toolName.
+    _NAME_KEYS = ("name", "tool_name", "toolName", "func", "function_name", "function")
     _ARG_KEYS = ("arguments", "parameters", "args", "params", "input")
 
     def _obj_to_calls(self, obj):

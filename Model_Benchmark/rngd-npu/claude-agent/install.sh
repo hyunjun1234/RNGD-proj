@@ -320,9 +320,31 @@ fi
 #     그 이름→모델 라우팅을 깔아 둔다. 전부 1장 모델이라 동시 상주 안전.
 #   · 나중에 역할·모델을 바꾸려면 agents/*.md 와 settings.json 의 agentModels/agentRouting
 #     을 편집한다(이름이 default 보다 우선). 안내: agents/README.md.
-# 끄려면 FURIO_AGENT_ROUTING=0.
+# 끄려면 FURIO_AGENT_ROUTING=0 (라우팅만), 서브에이전트 기능 자체를 끄려면 FURIO_AGENTS=0.
+#
+# ⚠️ 위임은 NPU 에서 비싸다. 메인 모델이 tp32(카드 4장 전부)면 서브에이전트 호출 한 번에
+# 메인 모델이 통째로 내려갔다 다시 올라온다. 게다가 코드 작성이 8B 로 넘어가면 결과 품질이
+# 메인 모델보다 낮다. 그래서 '끄기'를 1급 스위치로 둔다.
+# 실측(2026-08-13): agents/*.md 를 지워도 Agent 도구는 그대로 광고된다(도구 12개 중 하나).
+# 도구 목록에서 빼려면 permissions.deny 에 Agent/Task 를 넣어야 한다(→ 11개).
 AGENT_KEY="${SDI_API_KEY:-dummy}"
-if [ "${FURIO_AGENT_ROUTING:-1}" = "0" ]; then
+if [ "${FURIO_AGENTS:-1}" = "0" ]; then
+  mkdir -p "$CFG_DIR"
+  node -e '
+const fs=require("fs"), p=process.argv[1];
+let j={}; try{ j=JSON.parse(fs.readFileSync(p,"utf8"))||{} }catch(e){ j={} }
+if (typeof j!=="object"||Array.isArray(j)) j={};
+j.permissions = (j.permissions && typeof j.permissions==="object" && !Array.isArray(j.permissions)) ? j.permissions : {};
+const deny = Array.isArray(j.permissions.deny) ? j.permissions.deny : [];
+for (const t of ["Agent","Task"]) if (!deny.includes(t)) deny.push(t);
+j.permissions.deny = deny;
+// 라우팅은 남겨두면 혼란만 준다 — 위임 자체를 막았으므로 함께 지운다.
+delete j.agentRouting; delete j.agentModels;
+fs.writeFileSync(p, JSON.stringify(j,null,2)+"\n");
+' "$CFG_DIR/settings.json" 2>/dev/null \
+    && echo "      [ok] 서브에이전트 비활성(FURIO_AGENTS=0) — Agent/Task 도구를 모델에게 안 보여준다." \
+    || echo "      [warn] settings.json 기록 실패 — 수동으로 permissions.deny 에 Agent/Task 추가"
+elif [ "${FURIO_AGENT_ROUTING:-1}" = "0" ]; then
   echo "      [skip] NPU 에이전트 라우팅 비활성(FURIO_AGENT_ROUTING=0)"
 else
   mkdir -p "$CFG_DIR"

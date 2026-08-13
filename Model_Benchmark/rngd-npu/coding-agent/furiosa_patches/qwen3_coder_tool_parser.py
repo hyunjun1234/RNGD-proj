@@ -18,8 +18,9 @@
 # 출력은 OpenAI 표준 tool_calls(name + arguments(JSON 문자열)). 인자 타입은 tool 스키마로 보정.
 #
 # 등록명: "qwen3_coder"  →  furiosa-llm serve --tool-call-parser qwen3_coder
-# (스트리밍은 XML 의 emit-on-complete 만 best-effort. JSON 형식까지 안전히 다루려면
-#  router 가 qwen3_coder 모델을 비스트리밍으로 호출해 SSE 로 변환한다 — furiosa_router.py)
+# 스트리밍도 같은 추출기를 쓴다(emit-on-complete). 예전엔 스트리밍만 XML 방언 전용이라
+# JSON 방언 호출이 통째로 사라졌고, openclaude 는 항상 스트리밍이라 "말만 하고 파일은 안 건드림"
+# 으로 나타났다. 자세한 내용은 extract_tool_calls_streaming 주석 참고.
 import json
 import logging
 import re
@@ -99,6 +100,13 @@ class Qwen3CoderToolParser(ToolParser):
     # ── name/function 키를 가진 JSON → ToolCall 들 ────────────────────────
     # 모델이 함수/이름/인자 키를 제멋대로 쓴다(실측): function|tool_call 래퍼,
     # name|tool_name, arguments|parameters|args. 모두 관대하게 처리.
+    # 이름 키는 모델이 매번 다르게 쓴다. 2026-08-13 실측(tp32 공식 코더, 16k 실제 프롬프트):
+    #   [{"id":"call_..","tool":{"call_id":"..","func":"Glob","arguments":{..}},"output":""}]
+    # 여기선 이름이 "name" 이 아니라 "func" 이고 "tool" 래퍼 안에 있다. 이 하나를 몰라서
+    # 멀쩡한 호출을 통째로 버렸다(→ finish_reason=stop, 도구 0개, 사용자에겐 '말만 함').
+    _NAME_KEYS = ("name", "tool_name", "func", "function_name", "function")
+    _ARG_KEYS = ("arguments", "parameters", "args", "params", "input")
+
     def _obj_to_calls(self, obj):
         out = []
         for it in (obj if isinstance(obj, list) else [obj]):
@@ -109,11 +117,25 @@ class Qwen3CoderToolParser(ToolParser):
                 if isinstance(it.get(wrap), dict):
                     node = it[wrap]
                     break
-            name = (node.get("name") or node.get("tool_name")
-                    or it.get("name") or it.get("tool_name"))
+            name = None
+            for src in (node, it):
+                for k in self._NAME_KEYS:
+                    v = src.get(k)
+                    if isinstance(v, str) and v.strip():
+                        name = v.strip()
+                        break
+                if name:
+                    break
             if not name:
                 continue
-            args = node.get("arguments", node.get("parameters", node.get("args", {})))
+            args = {}
+            for src in (node, it):
+                for k in self._ARG_KEYS:
+                    if k in src and isinstance(src[k], (dict, str)):
+                        args = src[k]
+                        break
+                if args:
+                    break
             out.append(self._mk(name, args))
         return out
 
@@ -168,8 +190,10 @@ class Qwen3CoderToolParser(ToolParser):
     def extract_tool_calls(self, model_output, request):
         # <tool_call> 마커가 아예 없이 OpenAI 식 JSON 만 내는 출력도 있으므로, 호출처럼 보이면
         # 마커가 없어도 시도한다. 평범한 산문을 오탐하지 않도록 name+arguments 형태일 때만.
-        looks_like_json_call = ('"name"' in model_output
-                                and ('"arguments"' in model_output or '"parameters"' in model_output))
+        looks_like_json_call = (
+            any(f'"{k}"' in model_output for k in self._NAME_KEYS)
+            and any(f'"{k}"' in model_output for k in self._ARG_KEYS)
+        )
         if self.tool_call_start not in model_output and not looks_like_json_call:
             return ExtractedToolCallInformation(tools_called=False, tool_calls=[], content=model_output)
         try:
@@ -184,53 +208,106 @@ class Qwen3CoderToolParser(ToolParser):
             logger.exception("qwen3_coder extract_tool_calls failed")
             return ExtractedToolCallInformation(tools_called=False, tool_calls=[], content=model_output)
 
-    # ── 스트리밍 (XML emit-on-complete best-effort) ───────────────────────
+    # ── 스트리밍 ──────────────────────────────────────────────────────────
+    # 예전 구현은 `<function=NAME>` XML 방언만 알아봤고, 못 맞추면 매 델타 None 을 돌려줬다.
+    # 그런데 이 모델은 <tool_call> 안에 JSON 을 내는 쪽이 더 흔하다(헤더 13-17행). 그래서
+    # 스트리밍에서는 호출이 통째로 사라지고(도구 델타 0개) 이후 content 도 같이 버려졌다 —
+    # 비스트리밍은 관대하게 파싱하므로 같은 응답이 stream=false 면 정상, stream=true 면 실패하는
+    # 비대칭이 됐다(2026-08-13 실측: 같은 요청/모델에서 tool_calls 1건 vs 0건).
+    # openclaude 는 항상 스트리밍이라, 사용자에겐 "안내문만 말하고 파일은 안 건드림"으로 보였다.
+    #
+    # 그래서 방언 판별을 그만두고 **비스트리밍과 똑같은 추출기(_extract_calls)** 를 쓴다.
+    #   · 호출이 시작되기 전까지는 평범하게 content 를 흘린다.
+    #   · 호출처럼 보이기 시작하면 그 앞까지만 content 로 내보내고 그 뒤는 버퍼링한다.
+    #   · 매 델타 전체 텍스트를 파싱해 보고, 완성된 호출부터 name+arguments 를 한 번에 낸다.
+    #     (JSON 방언은 raw_decode 가 완결된 값에만 성공하므로 '완성' 판정이 공짜로 따라온다.)
     def extract_tool_calls_streaming(
         self, previous_text, current_text, delta_text,
         previous_token_ids, current_token_ids, delta_token_ids, request,
     ):
-        if self.tool_call_start not in current_text:
+        start = self._call_started(current_text)
+        # 1) 아직 호출이 아니다 → 평범한 content 스트리밍.
+        if start >= len(current_text):
             return DeltaMessage(content=delta_text) if delta_text else None
+
+        # 2) 호출 앞의 사람용 안내문은 호출 시작 지점까지만, 한 번에 흘린다.
         if not self._content_done:
             self._content_done = True
-            head = current_text.split(self.tool_call_start)[0]
-            if len(head) > len(previous_text):
-                lead = head[len(previous_text):]
-                if lead:
-                    return DeltaMessage(content=lead)
+            lead = current_text[:start]
+            if len(lead) > len(previous_text):
+                out = lead[len(previous_text):]
+                if out:
+                    return DeltaMessage(content=out)
+
+        # 3) 호출 영역 — 비스트리밍과 같은 추출기로 매번 다시 읽는다.
         try:
-            segs = current_text.split(self.tool_call_start)[1:]
-            for idx, seg in enumerate(segs):
-                closed = self.tool_call_end in seg
-                body = seg.split(self.tool_call_end)[0] if closed else seg
-                while len(self.prev_tool_call_arr) <= idx:
-                    self.prev_tool_call_arr.append({})
-                while len(self.streamed_args_for_tool) <= idx:
-                    self.streamed_args_for_tool.append("")
-                if idx not in self._names_sent:
-                    fm = re.search(r"<function=([^>\n]+)>", body)
-                    if not fm:
-                        return None
-                    name = fm.group(1).strip()
-                    self._names_sent.add(idx)
-                    self.current_tool_id = idx
-                    self.prev_tool_call_arr[idx] = {"name": name, "arguments": {}}
-                    return DeltaMessage(tool_calls=[DeltaToolCall(
-                        index=idx, type="function", id=random_tool_call_id(),
-                        function=DeltaFunctionCall(name=name))])
-                if closed and idx not in self._args_sent:
-                    calls = self._extract_calls(self.tool_call_start + body, request)
-                    args_str = calls[0].function.arguments if calls else "{}"
-                    self.prev_tool_call_arr[idx] = {
-                        "name": self.prev_tool_call_arr[idx].get("name"),
-                        "arguments": json.loads(args_str) if args_str else {},
-                    }
-                    self.streamed_args_for_tool[idx] = args_str
-                    self._args_sent.add(idx)
-                    self.current_tool_id = idx
-                    return DeltaMessage(tool_calls=[DeltaToolCall(
-                        index=idx, function=DeltaFunctionCall(arguments=args_str))])
-            return None
+            calls = self._extract_calls(current_text, request)
         except Exception:
-            logger.exception("qwen3_coder streaming failed")
+            logger.exception("qwen3_coder streaming parse failed")
             return None
+        if not calls:
+            # 아직 호출이 완성되지 않았다. 여기서 prev_tool_call_arr 를 건드리면 안 된다 —
+            # 예전 구현은 이름 파싱 전에 빈 dict 를 넣어서, 도구를 하나도 못 냈는데도 서버가
+            # finish_reason='tool_calls' 를 붙였다(클라이언트엔 '도구 0개인 도구 턴').
+            return None
+
+        self._sync_prev(calls)
+        # 마지막 호출만 아직 자라는 중일 수 있다(그 앞의 호출들은 다음 호출이 시작된 시점에
+        # 이미 끝난 것이다). 절반만 읽은 인자를 내보내면 클라이언트가 깨진 JSON 을 받으므로
+        # '완결' 신호를 기다린다:
+        #   · 닫는 태그를 봤거나(</tool_call>, </function>, 잘못 낸 두 번째 <tool_call>), 또는
+        #   · 마커도 <parameter> 도 없는 순수 JSON 방언이라 raw_decode 성공 자체가 완결 증거일 때.
+        last_ready = self._call_closed(current_text) or (
+            self.tool_call_start not in current_text and "<parameter=" not in current_text
+        )
+        for idx, call in enumerate(calls):
+            if idx in self._args_sent:
+                continue
+            args = call.function.arguments or "{}"
+            if idx == len(calls) - 1 and not last_ready:
+                return None
+            self._names_sent.add(idx)
+            self._args_sent.add(idx)
+            self.current_tool_id = idx
+            self.streamed_args_for_tool[idx] = args
+            # name 과 arguments 를 한 델타에 함께 낸다 — 클라이언트가 아직 등록하지 않은
+            # index 의 arguments 델타를 조용히 버리는 경로를 아예 만들지 않기 위해서다.
+            return DeltaMessage(tool_calls=[DeltaToolCall(
+                index=idx, type="function", id=random_tool_call_id(),
+                function=DeltaFunctionCall(name=call.function.name, arguments=args))])
+        return None
+
+    def _call_started(self, text):
+        """도구 호출이 시작된 위치. 호출이 아니면 len(text).
+
+        평범한 산문에 중괄호가 섞였다고 호출로 오인하면 그 뒤 답변을 통째로 삼키게 된다.
+        그래서 비스트리밍(extract_tool_calls)과 같은 기준으로 '호출처럼 보일 때'만 진입한다.
+        """
+        if self.tool_call_start in text or "<function=" in text:
+            return self._call_start(text)
+        if (any(f'"{k}"' in text for k in self._NAME_KEYS)
+                and any(f'"{k}"' in text for k in self._ARG_KEYS)):
+            return self._call_start(text)
+        return len(text)
+
+    def _call_closed(self, text):
+        """호출 영역이 닫혔는가. 모델이 닫는 태그를 </tool_call> 대신 <tool_call> 로
+        잘못 내는 경우가 있어(헤더 13-15행) 두 번째 여는 마커도 닫힘으로 본다."""
+        region = text[self._call_start(text):]
+        if self.tool_call_end in region or "</function>" in region:
+            return True
+        return region.count(self.tool_call_start) >= 2
+
+    def _sync_prev(self, calls):
+        """서버의 '잔여 인자 복구'(serving_chat)가 읽는 상태를 최신 파스로 맞춰 둔다.
+        마지막 델타 직후 EOS 가 와서 우리가 못 내보낸 호출이 있어도 여기서 복구된다."""
+        while len(self.prev_tool_call_arr) < len(calls):
+            self.prev_tool_call_arr.append({})
+        while len(self.streamed_args_for_tool) < len(calls):
+            self.streamed_args_for_tool.append("")
+        for i, c in enumerate(calls):
+            try:
+                parsed = json.loads(c.function.arguments) if c.function.arguments else {}
+            except Exception:
+                parsed = {}
+            self.prev_tool_call_arr[i] = {"name": c.function.name, "arguments": parsed}

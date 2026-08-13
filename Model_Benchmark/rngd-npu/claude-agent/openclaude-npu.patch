@@ -1,7 +1,7 @@
 From 7c67b3d2b269375ae8e115204f8570f58f03285f Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:11:42 +0900
-Subject: [PATCH 01/21] statusline: show Furiosa NPU model state with per-model
+Subject: [PATCH 01/22] statusline: show Furiosa NPU model state with per-model
  LEDs
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -381,7 +381,7 @@ index 0000000..5fb053a
 From b011b77eefa02e916e60392a3967cd48b532c531 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:19:21 +0900
-Subject: [PATCH 02/21] model picker: use backend-supplied model descriptions
+Subject: [PATCH 02/22] model picker: use backend-supplied model descriptions
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -465,7 +465,7 @@ index e901799..9bfec8b 100644
 From c7cbc97b974c40f9f73633619f18001745ab9a7e Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:29:26 +0900
-Subject: [PATCH 03/21] =?UTF-8?q?model=20picker:=20adjust=20NPU=20dp/pp=20?=
+Subject: [PATCH 03/22] =?UTF-8?q?model=20picker:=20adjust=20NPU=20dp/pp=20?=
  =?UTF-8?q?with=20=E2=86=90=20=E2=86=92?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -717,7 +717,7 @@ index 0000000..6949f79
 From e666bb3d649641c55a6416cee823024e729e36ce Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 23:52:39 +0900
-Subject: [PATCH 04/21] model picker: say why the NPU config row is absent
+Subject: [PATCH 04/22] model picker: say why the NPU config row is absent
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -769,7 +769,7 @@ index 336c021..e0f1d18 100644
 From 09e4947a165c12eb7dbe2f8a9a5cdfa27611d5ad Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:00:52 +0900
-Subject: [PATCH 05/21] model picker: pick the model and its dp/pp separately
+Subject: [PATCH 05/22] model picker: pick the model and its dp/pp separately
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1065,7 +1065,7 @@ index 6949f79..0f41e51 100644
 From f67bfeb8b414af23f564216285b953325b3991b3 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:11:30 +0900
-Subject: [PATCH 06/21] model picker: apply NPU collapsing and descriptions on
+Subject: [PATCH 06/22] model picker: apply NPU collapsing and descriptions on
  the cached path
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1167,7 +1167,7 @@ index 0f41e51..d6de5f4 100644
 From 06bb55d93406b70563a2962473fce11e8b3085de Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:30:39 +0900
-Subject: [PATCH 07/21] model picker: apply NPU presentation where every path
+Subject: [PATCH 07/22] model picker: apply NPU presentation where every path
  converges
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1274,7 +1274,7 @@ index d6de5f4..239767c 100644
 From 9ed3935fb6f14e98419841dd51a3df81818f40b4 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:48:44 +0900
-Subject: [PATCH 08/21] model picker: adjust dp and pp as separate axes
+Subject: [PATCH 08/22] model picker: adjust dp and pp as separate axes
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1554,7 +1554,7 @@ index 239767c..0f33993 100644
 From effb31cff239043a996a7aa3356fedc80a14326c Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 01:03:05 +0900
-Subject: [PATCH 09/21] model picker: stop the dp/pp row from reflowing
+Subject: [PATCH 09/22] model picker: stop the dp/pp row from reflowing
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1656,7 +1656,7 @@ index 0f33993..b00fbc3 100644
 From 27c42e3729aab78a816115b3e4c68a03c905cb77 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 01:51:34 +0900
-Subject: [PATCH 10/21] statusline: separate the current-model marker from the
+Subject: [PATCH 10/22] statusline: separate the current-model marker from the
  LED
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1693,7 +1693,7 @@ index ea77786..f6657b6 100644
 From f473f6cac85eb6191d5847cb17ecabb04e80d7aa Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 02:07:35 +0900
-Subject: [PATCH 11/21] model picker: start loading the model as soon as it is
+Subject: [PATCH 11/22] model picker: start loading the model as soon as it is
  picked
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1778,7 +1778,7 @@ index 5c7facc..8c5ff49 100644
 From 6ece7115d354facf8412c65797a85ab2bf667c2e Mon Sep 17 00:00:00 2001
 From: Claude <plab2090@gmail.com>
 Date: Thu, 23 Jul 2026 02:51:37 +0900
-Subject: [PATCH 12/21] npu: react to a model pick immediately, and show every
+Subject: [PATCH 12/22] npu: react to a model pick immediately, and show every
  loaded model
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2778,7 +2778,7 @@ index b00fbc3..efa22d3 100644
 From d5a9fb4eed6d1020b8232bf4717e210cd581af97 Mon Sep 17 00:00:00 2001
 From: Claude <plab2090@gmail.com>
 Date: Thu, 23 Jul 2026 13:53:24 +0900
-Subject: [PATCH 13/21] =?UTF-8?q?npu:=20reflect=20real=20server=20state=20?=
+Subject: [PATCH 13/22] =?UTF-8?q?npu:=20reflect=20real=20server=20state=20?=
  =?UTF-8?q?=E2=80=94=20drop=20the=20default,=20remember=20what=20was=20loa?=
  =?UTF-8?q?ded?=
 MIME-Version: 1.0
@@ -3249,7 +3249,7 @@ index 6c8bdcc..be3eb5a 100644
 From 04d6b86964adcf6e223c25e3786e8f0c0b823049 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Tue, 4 Aug 2026 13:20:47 +0900
-Subject: [PATCH 14/21] model picker: add tp as a third parallel axis
+Subject: [PATCH 14/22] model picker: add tp as a third parallel axis
  (tp/dp/pp)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3973,7 +3973,7 @@ index efa22d3..f429c2e 100644
 From 361e3daf8b625ae512e1ccfd3fbe0dd75efdc0f2 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 13:47:34 +0900
-Subject: [PATCH 15/21] model picker: support a per-model default pp (large
+Subject: [PATCH 15/22] model picker: support a per-model default pp (large
  models like bf16 coder)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4111,7 +4111,7 @@ index f429c2e..6f87b92 100644
 From 2a5386e8168b64211e2d06971a49c5c42d21263c Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 14:43:49 +0900
-Subject: [PATCH 16/21] model picker: resolve the active pp to pp_default
+Subject: [PATCH 16/22] model picker: resolve the active pp to pp_default
  (fixes bf16 coder showing pp1)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4245,7 +4245,7 @@ index 436b00f..df63c88 100644
 From 324f1ea888f06565c310d81893492aa5a8ac8bd1 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 15:39:27 +0900
-Subject: [PATCH 17/21] npu: fetch router metadata live + ease off status
+Subject: [PATCH 17/22] npu: fetch router metadata live + ease off status
  polling on long loads
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4465,7 +4465,7 @@ index 6f87b92..3265bf0 100644
 From 4ab56a3290a872fbb430a4ffece3c76a6eeab4e2 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 16:13:42 +0900
-Subject: [PATCH 18/21] fix: runtime router-metadata fetch hit
+Subject: [PATCH 18/22] fix: runtime router-metadata fetch hit
  /v1/router/models (404)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4507,7 +4507,7 @@ index 57f5de8..54fc369 100644
 From 72fea10e12ae568e800140f9f826b0d5f503986a Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Thu, 6 Aug 2026 00:33:47 +0900
-Subject: [PATCH 19/21] npu: keep the LEDs alive through hiccups, and stop
+Subject: [PATCH 19/22] npu: keep the LEDs alive through hiccups, and stop
  repainting the picker on blink
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4729,7 +4729,7 @@ index 5fb053a..9b1e613 100644
 From cc92ad4597ed6c0cf132cb5b81adf9367e3dea41 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Tue, 11 Aug 2026 14:16:17 +0900
-Subject: [PATCH 20/21] npu: cap the model switcher at four, ordered by when
+Subject: [PATCH 20/22] npu: cap the model switcher at four, ordered by when
  you picked them
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4990,7 +4990,7 @@ index 54fc369..99fe43a 100644
 From 9e88e6f0f99528c76a4351f2c5c41c98713e4257 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Tue, 11 Aug 2026 16:11:43 +0900
-Subject: [PATCH 21/21] npu: background calls must follow the /model switch,
+Subject: [PATCH 21/22] npu: background calls must follow the /model switch,
  not the launch model
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -5121,6 +5121,140 @@ index 3b8c803..9a9a28f 100644
      return process.env.OPENAI_MODEL || 'gpt-4o-mini'
    }
    // Codex provider — OPENAI_MODEL is always set for Codex profiles; only fall
+-- 
+2.43.0
+
+
+From b5ae5ac17af7c5092cc09953a4c277fd446c5271 Mon Sep 17 00:00:00 2001
+From: hyunjun1234 <plab2090@gmail.com>
+Date: Thu, 13 Aug 2026 11:58:43 +0900
+Subject: [PATCH 22/22] npu: Enter on the switcher loads the model, even the
+ one already selected
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+With nothing on the cards, opening the ↓ switcher puts the cursor on the model
+you are already using (that is what ▶ marks), so Enter on it was the whole
+interaction — and it did nothing. The branch was guarded by
+`target !== npuCurrentModelId`, which skipped the preload along with the model
+switch. Exactly the case where the user most needs the load to start.
+
+Enter means "put this model on the cards", not "change the setting". Split those:
+preload unconditionally, guard only the switch, since re-selecting the model you
+already have would just churn settings and state.
+
+Verified against a stub router reporting nothing loaded: ↓ then Enter on the ▶
+entry posts /router/preload for that model and the LED goes to loading.
+
+Claude-Session: https://claude.ai/code/session_01Na71jMPNwVCJecN1VMjJbo
+---
+ src/components/PromptInput/PromptInput.tsx | 11 ++++-----
+ src/services/npuStatus.test.ts             | 28 +++++++++++++++++++++-
+ src/services/npuStatus.ts                  | 19 +++++++++++++++
+ 3 files changed, 51 insertions(+), 7 deletions(-)
+
+diff --git a/src/components/PromptInput/PromptInput.tsx b/src/components/PromptInput/PromptInput.tsx
+index 5376b49..3f6ab0f 100644
+--- a/src/components/PromptInput/PromptInput.tsx
++++ b/src/components/PromptInput/PromptInput.tsx
+@@ -39,7 +39,7 @@ import { useOptionalKeybindingContext } from '../../keybindings/KeybindingContex
+ import { getShortcutDisplay } from '../../keybindings/shortcutFormat.js';
+ import { useKeybinding, useKeybindings } from '../../keybindings/useKeybinding.js';
+ import type { MCPServerConnection } from '../../services/mcp/types.js';
+-import { npuDisplayModels, preloadNpuModel } from '../../services/npuStatus.js';
++import { npuDisplayModels, npuSwitcherEnter, preloadNpuModel } from '../../services/npuStatus.js';
+ import { useNpuStatus } from '../../services/npuStatusHook.js';
+ import { abortPromptSuggestion, logSuggestionSuppressed } from '../../services/PromptSuggestion/promptSuggestion.js';
+ import { type ActiveSpeculationState, abortSpeculation } from '../../services/PromptSuggestion/speculation.js';
+@@ -1893,12 +1893,11 @@ function PromptInput({
+         case 'npu': {
+           // 커서가 있는 모델로 전환하고 포커스를 입력창에 돌려준다.
+           const target = npuFooterModelId;
++          const { switchModel, preload } = npuSwitcherEnter(target, npuCurrentModelId);
+           selectFooterItem(null);
+-          if (target && target !== npuCurrentModelId) {
+-            handleModelSelect(target, undefined);
+-            // 다른 카드에 있던 모델이라도 내려가 있을 수 있으니 올려 둔다.
+-            preloadNpuModel(target);
+-          }
++          if (target && switchModel) handleModelSelect(target, undefined);
++          // 이미 '▶' 인 모델이어도 올린다 — 엔터는 '이걸 카드에 올려라'다.
++          if (preload) preloadNpuModel(preload);
+           break;
+         }
+         case 'companion':
+diff --git a/src/services/npuStatus.test.ts b/src/services/npuStatus.test.ts
+index 17bb50e..8dc0ec7 100644
+--- a/src/services/npuStatus.test.ts
++++ b/src/services/npuStatus.test.ts
+@@ -1,5 +1,11 @@
+ import { describe, expect, test } from 'bun:test'
+-import { type NpuModel, npuDisplayModels, parseStatus, routerBaseUrl } from './npuStatus.js'
++import {
++  type NpuModel,
++  npuDisplayModels,
++  npuSwitcherEnter,
++  parseStatus,
++  routerBaseUrl,
++} from './npuStatus.js'
+ 
+ const model = (id: string, state: NpuModel['state'] = 'up'): NpuModel => ({
+   id,
+@@ -90,3 +96,23 @@ describe('npuDisplayModels', () => {
+     expect(out.map(m => m.id)).toEqual(['A', 'B', 'Live'])
+   })
+ })
++
++describe('npuSwitcherEnter', () => {
++  test('loads the model already marked ▶ (regression: Enter did nothing)', () => {
++    // Nothing is on the cards and the session model is the highlighted one —
++    // exactly when the user needs Enter to load it.
++    expect(npuSwitcherEnter('A', 'A')).toEqual({ switchModel: false, preload: 'A' })
++  })
++
++  test('switches and loads when a different model is highlighted', () => {
++    expect(npuSwitcherEnter('B', 'A')).toEqual({ switchModel: true, preload: 'B' })
++  })
++
++  test('loads when there is no session model yet', () => {
++    expect(npuSwitcherEnter('A', null)).toEqual({ switchModel: true, preload: 'A' })
++  })
++
++  test('does nothing without a highlighted model', () => {
++    expect(npuSwitcherEnter(null, 'A')).toEqual({ switchModel: false, preload: null })
++  })
++})
+diff --git a/src/services/npuStatus.ts b/src/services/npuStatus.ts
+index 75f92dd..88eec59 100644
+--- a/src/services/npuStatus.ts
++++ b/src/services/npuStatus.ts
+@@ -150,6 +150,25 @@ export function parseStatus(raw: RawStatus): Pick<NpuStatus, 'models' | 'freeCar
+  */
+ export const NPU_DISPLAY_LIMIT = 4
+ 
++/**
++ * What Enter on the ↓ switcher does for the highlighted model.
++ *
++ * Enter means "put this model on the cards", not "change the setting". Those
++ * came apart when the router had nothing loaded: the model already marked ▶ is
++ * the session model, so an equality guard around the whole branch made Enter on
++ * it do nothing at all — the one case where the user most needs it to load.
++ *
++ * So the preload is unconditional and only the model *switch* is guarded, since
++ * re-selecting the model you already have would just churn settings and state.
++ */
++export function npuSwitcherEnter(
++  target: string | null,
++  current: string | null,
++): { switchModel: boolean; preload: string | null } {
++  if (!target) return { switchModel: false, preload: null }
++  return { switchModel: target !== current, preload: target }
++}
++
+ export function npuDisplayModels(
+   models: readonly NpuModel[],
+   currentModelId: string | null,
 -- 
 2.43.0
 

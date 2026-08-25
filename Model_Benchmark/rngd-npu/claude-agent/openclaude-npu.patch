@@ -1,7 +1,7 @@
 From 7c67b3d2b269375ae8e115204f8570f58f03285f Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:11:42 +0900
-Subject: [PATCH 01/22] statusline: show Furiosa NPU model state with per-model
+Subject: [PATCH 01/23] statusline: show Furiosa NPU model state with per-model
  LEDs
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -381,7 +381,7 @@ index 0000000..5fb053a
 From b011b77eefa02e916e60392a3967cd48b532c531 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:19:21 +0900
-Subject: [PATCH 02/22] model picker: use backend-supplied model descriptions
+Subject: [PATCH 02/23] model picker: use backend-supplied model descriptions
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -465,7 +465,7 @@ index e901799..9bfec8b 100644
 From c7cbc97b974c40f9f73633619f18001745ab9a7e Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 14:29:26 +0900
-Subject: [PATCH 03/22] =?UTF-8?q?model=20picker:=20adjust=20NPU=20dp/pp=20?=
+Subject: [PATCH 03/23] =?UTF-8?q?model=20picker:=20adjust=20NPU=20dp/pp=20?=
  =?UTF-8?q?with=20=E2=86=90=20=E2=86=92?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -717,7 +717,7 @@ index 0000000..6949f79
 From e666bb3d649641c55a6416cee823024e729e36ce Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Wed, 22 Jul 2026 23:52:39 +0900
-Subject: [PATCH 04/22] model picker: say why the NPU config row is absent
+Subject: [PATCH 04/23] model picker: say why the NPU config row is absent
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -769,7 +769,7 @@ index 336c021..e0f1d18 100644
 From 09e4947a165c12eb7dbe2f8a9a5cdfa27611d5ad Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:00:52 +0900
-Subject: [PATCH 05/22] model picker: pick the model and its dp/pp separately
+Subject: [PATCH 05/23] model picker: pick the model and its dp/pp separately
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1065,7 +1065,7 @@ index 6949f79..0f41e51 100644
 From f67bfeb8b414af23f564216285b953325b3991b3 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:11:30 +0900
-Subject: [PATCH 06/22] model picker: apply NPU collapsing and descriptions on
+Subject: [PATCH 06/23] model picker: apply NPU collapsing and descriptions on
  the cached path
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1167,7 +1167,7 @@ index 0f41e51..d6de5f4 100644
 From 06bb55d93406b70563a2962473fce11e8b3085de Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:30:39 +0900
-Subject: [PATCH 07/22] model picker: apply NPU presentation where every path
+Subject: [PATCH 07/23] model picker: apply NPU presentation where every path
  converges
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1274,7 +1274,7 @@ index d6de5f4..239767c 100644
 From 9ed3935fb6f14e98419841dd51a3df81818f40b4 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 00:48:44 +0900
-Subject: [PATCH 08/22] model picker: adjust dp and pp as separate axes
+Subject: [PATCH 08/23] model picker: adjust dp and pp as separate axes
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1554,7 +1554,7 @@ index 239767c..0f33993 100644
 From effb31cff239043a996a7aa3356fedc80a14326c Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 01:03:05 +0900
-Subject: [PATCH 09/22] model picker: stop the dp/pp row from reflowing
+Subject: [PATCH 09/23] model picker: stop the dp/pp row from reflowing
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -1656,7 +1656,7 @@ index 0f33993..b00fbc3 100644
 From 27c42e3729aab78a816115b3e4c68a03c905cb77 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 01:51:34 +0900
-Subject: [PATCH 10/22] statusline: separate the current-model marker from the
+Subject: [PATCH 10/23] statusline: separate the current-model marker from the
  LED
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1693,7 +1693,7 @@ index ea77786..f6657b6 100644
 From f473f6cac85eb6191d5847cb17ecabb04e80d7aa Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Thu, 23 Jul 2026 02:07:35 +0900
-Subject: [PATCH 11/22] model picker: start loading the model as soon as it is
+Subject: [PATCH 11/23] model picker: start loading the model as soon as it is
  picked
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -1778,7 +1778,7 @@ index 5c7facc..8c5ff49 100644
 From 6ece7115d354facf8412c65797a85ab2bf667c2e Mon Sep 17 00:00:00 2001
 From: Claude <plab2090@gmail.com>
 Date: Thu, 23 Jul 2026 02:51:37 +0900
-Subject: [PATCH 12/22] npu: react to a model pick immediately, and show every
+Subject: [PATCH 12/23] npu: react to a model pick immediately, and show every
  loaded model
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -2778,7 +2778,7 @@ index b00fbc3..efa22d3 100644
 From d5a9fb4eed6d1020b8232bf4717e210cd581af97 Mon Sep 17 00:00:00 2001
 From: Claude <plab2090@gmail.com>
 Date: Thu, 23 Jul 2026 13:53:24 +0900
-Subject: [PATCH 13/22] =?UTF-8?q?npu:=20reflect=20real=20server=20state=20?=
+Subject: [PATCH 13/23] =?UTF-8?q?npu:=20reflect=20real=20server=20state=20?=
  =?UTF-8?q?=E2=80=94=20drop=20the=20default,=20remember=20what=20was=20loa?=
  =?UTF-8?q?ded?=
 MIME-Version: 1.0
@@ -3249,7 +3249,7 @@ index 6c8bdcc..be3eb5a 100644
 From 04d6b86964adcf6e223c25e3786e8f0c0b823049 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Tue, 4 Aug 2026 13:20:47 +0900
-Subject: [PATCH 14/22] model picker: add tp as a third parallel axis
+Subject: [PATCH 14/23] model picker: add tp as a third parallel axis
  (tp/dp/pp)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -3973,7 +3973,7 @@ index efa22d3..f429c2e 100644
 From 361e3daf8b625ae512e1ccfd3fbe0dd75efdc0f2 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 13:47:34 +0900
-Subject: [PATCH 15/22] model picker: support a per-model default pp (large
+Subject: [PATCH 15/23] model picker: support a per-model default pp (large
  models like bf16 coder)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4111,7 +4111,7 @@ index f429c2e..6f87b92 100644
 From 2a5386e8168b64211e2d06971a49c5c42d21263c Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 14:43:49 +0900
-Subject: [PATCH 16/22] model picker: resolve the active pp to pp_default
+Subject: [PATCH 16/23] model picker: resolve the active pp to pp_default
  (fixes bf16 coder showing pp1)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4245,7 +4245,7 @@ index 436b00f..df63c88 100644
 From 324f1ea888f06565c310d81893492aa5a8ac8bd1 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 15:39:27 +0900
-Subject: [PATCH 17/22] npu: fetch router metadata live + ease off status
+Subject: [PATCH 17/23] npu: fetch router metadata live + ease off status
  polling on long loads
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4465,7 +4465,7 @@ index 6f87b92..3265bf0 100644
 From 4ab56a3290a872fbb430a4ffece3c76a6eeab4e2 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Wed, 5 Aug 2026 16:13:42 +0900
-Subject: [PATCH 18/22] fix: runtime router-metadata fetch hit
+Subject: [PATCH 18/23] fix: runtime router-metadata fetch hit
  /v1/router/models (404)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4507,7 +4507,7 @@ index 57f5de8..54fc369 100644
 From 72fea10e12ae568e800140f9f826b0d5f503986a Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Thu, 6 Aug 2026 00:33:47 +0900
-Subject: [PATCH 19/22] npu: keep the LEDs alive through hiccups, and stop
+Subject: [PATCH 19/23] npu: keep the LEDs alive through hiccups, and stop
  repainting the picker on blink
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4729,7 +4729,7 @@ index 5fb053a..9b1e613 100644
 From cc92ad4597ed6c0cf132cb5b81adf9367e3dea41 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Tue, 11 Aug 2026 14:16:17 +0900
-Subject: [PATCH 20/22] npu: cap the model switcher at four, ordered by when
+Subject: [PATCH 20/23] npu: cap the model switcher at four, ordered by when
  you picked them
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -4990,7 +4990,7 @@ index 54fc369..99fe43a 100644
 From 9e88e6f0f99528c76a4351f2c5c41c98713e4257 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Tue, 11 Aug 2026 16:11:43 +0900
-Subject: [PATCH 21/22] npu: background calls must follow the /model switch,
+Subject: [PATCH 21/23] npu: background calls must follow the /model switch,
  not the launch model
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -5128,7 +5128,7 @@ index 3b8c803..9a9a28f 100644
 From b5ae5ac17af7c5092cc09953a4c277fd446c5271 Mon Sep 17 00:00:00 2001
 From: hyunjun1234 <plab2090@gmail.com>
 Date: Thu, 13 Aug 2026 11:58:43 +0900
-Subject: [PATCH 22/22] npu: Enter on the switcher loads the model, even the
+Subject: [PATCH 22/23] npu: Enter on the switcher loads the model, even the
  one already selected
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -5255,6 +5255,129 @@ index 75f92dd..88eec59 100644
  export function npuDisplayModels(
    models: readonly NpuModel[],
    currentModelId: string | null,
+-- 
+2.43.0
+
+
+From 94ac297f5ee1b5aff4351ab5731afd0b224994ef Mon Sep 17 00:00:00 2001
+From: hyunjun1234 <plab2090@gmail.com>
+Date: Tue, 25 Aug 2026 16:39:26 +0900
+Subject: [PATCH 23/23] --max-turns: let the interactive session set its own
+ cap
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The REPL caps each prompt at 50 turns. `--max-turns` was parsed, documented as
+"(only works with --print)", and hidden from help — and in a TUI session it was
+silently dropped: sessionConfig, which launchRepl spreads into <REPL/>, simply had
+no maxTurns key, so resolveReplMaxTurns always saw undefined and returned 50. A
+user who typed `--max-turns 200` got no error and no effect.
+
+REPL and the resume selector already accept the prop; only the hand-off from
+options was missing. That is the one line here.
+
+Hitting the cap is a pause, not a failure — the warning is UI-only, history stays
+intact, and the next message starts a fresh count — so this is about how long a
+session runs unattended before it wants a human, not about capability. That is
+worth putting in the user's hands rather than in a constant.
+
+Also stop honouring a cap that cannot be meant: the flag is parsed with bare
+`Number` and never validated, so `--max-turns 0` (or a typo parsing to NaN) would
+end the turn before the first tool call. Zero reads as "no limit" to whoever types
+it and is useless to everyone else, so both readings fall back to the default.
+
+Claude-Session: https://claude.ai/code/session_01Na71jMPNwVCJecN1VMjJbo
+---
+ src/main.tsx                         |  9 ++++++++-
+ src/screens/replMaxTurns.ts          | 14 +++++++++++++-
+ src/screens/replMaxTurnsProp.test.ts | 23 +++++++++++++++++++++++
+ 3 files changed, 44 insertions(+), 2 deletions(-)
+
+diff --git a/src/main.tsx b/src/main.tsx
+index d04a747..7517689 100644
+--- a/src/main.tsx
++++ b/src/main.tsx
+@@ -945,7 +945,7 @@ async function run(): Promise<CommanderCommand> {
+     } catch (error) {
+       throw new InvalidArgumentError(errorMessage(error));
+     }
+-  })).option('--bare', 'Minimal mode: skip hooks, LSP, plugin sync, attribution, auto-memory, background prefetches, keychain reads, and CLAUDE.md auto-discovery. Sets CLAUDE_CODE_SIMPLE=1. Anthropic auth is strictly ANTHROPIC_API_KEY or apiKeyHelper via --settings (OAuth and keychain are never read). 3P providers (Bedrock/Vertex/Foundry) use their own credentials. Skills still resolve via /skill-name. Explicitly provide context via: --system-prompt[-file], --append-system-prompt[-file], --add-dir (CLAUDE.md dirs), --mcp-config, --settings, --agents, --plugin-dir.', () => true).addOption(new Option('--init', 'Run Setup hooks with init trigger, then continue').hideHelp()).addOption(new Option('--init-only', 'Run Setup and SessionStart:startup hooks, then exit').hideHelp()).addOption(new Option('--maintenance', 'Run Setup hooks with maintenance trigger, then continue').hideHelp()).addOption(new Option('--output-format <format>', 'Output format (only works with --print): "text" (default), "json" (single result), or "stream-json" (realtime streaming)').choices(['text', 'json', 'stream-json'])).addOption(new Option('--json-schema <schema>', 'JSON Schema for structured output validation. ' + 'Example: {"type":"object","properties":{"name":{"type":"string"}},"required":["name"]}').argParser(String)).option('--include-hook-events', 'Include all hook lifecycle events in the output stream (only works with --output-format=stream-json)', () => true).option('--include-partial-messages', 'Include partial message chunks as they arrive (only works with --print and --output-format=stream-json)', () => true).addOption(new Option('--input-format <format>', 'Input format (only works with --print): "text" (default), or "stream-json" (realtime streaming input)').choices(['text', 'stream-json'])).option('--mcp-debug', '[DEPRECATED. Use --debug instead] Enable MCP debug mode (shows MCP server errors)', () => true).option('--dangerously-skip-permissions', 'Bypass all permission checks. Recommended only for sandboxes with no internet access.', () => true).option('--allow-dangerously-skip-permissions', 'Enable bypassing all permission checks as an option, without it being enabled by default. Recommended only for sandboxes with no internet access.', () => true).addOption(new Option('--thinking <mode>', 'Thinking mode: enabled (equivalent to adaptive), disabled').choices(['enabled', 'adaptive', 'disabled']).hideHelp()).addOption(new Option('--max-thinking-tokens <tokens>', '[DEPRECATED. Use --thinking instead for newer models] Maximum number of thinking tokens (only works with --print)').argParser(Number).hideHelp()).addOption(new Option('--max-turns <turns>', 'Maximum number of agentic turns in non-interactive mode. This will early exit the conversation after the specified number of turns. (only works with --print)').argParser(Number).hideHelp()).addOption(new Option('--max-budget-usd <amount>', 'Maximum dollar amount to spend on API calls (only works with --print)').argParser(value => {
++  })).option('--bare', 'Minimal mode: skip hooks, LSP, plugin sync, attribution, auto-memory, background prefetches, keychain reads, and CLAUDE.md auto-discovery. Sets CLAUDE_CODE_SIMPLE=1. Anthropic auth is strictly ANTHROPIC_API_KEY or apiKeyHelper via --settings (OAuth and keychain are never read). 3P providers (Bedrock/Vertex/Foundry) use their own credentials. Skills still resolve via /skill-name. Explicitly provide context via: --system-prompt[-file], --append-system-prompt[-file], --add-dir (CLAUDE.md dirs), --mcp-config, --settings, --agents, --plugin-dir.', () => true).addOption(new Option('--init', 'Run Setup hooks with init trigger, then continue').hideHelp()).addOption(new Option('--init-only', 'Run Setup and SessionStart:startup hooks, then exit').hideHelp()).addOption(new Option('--maintenance', 'Run Setup hooks with maintenance trigger, then continue').hideHelp()).addOption(new Option('--output-format <format>', 'Output format (only works with --print): "text" (default), "json" (single result), or "stream-json" (realtime streaming)').choices(['text', 'json', 'stream-json'])).addOption(new Option('--json-schema <schema>', 'JSON Schema for structured output validation. ' + 'Example: {"type":"object","properties":{"name":{"type":"string"}},"required":["name"]}').argParser(String)).option('--include-hook-events', 'Include all hook lifecycle events in the output stream (only works with --output-format=stream-json)', () => true).option('--include-partial-messages', 'Include partial message chunks as they arrive (only works with --print and --output-format=stream-json)', () => true).addOption(new Option('--input-format <format>', 'Input format (only works with --print): "text" (default), or "stream-json" (realtime streaming input)').choices(['text', 'stream-json'])).option('--mcp-debug', '[DEPRECATED. Use --debug instead] Enable MCP debug mode (shows MCP server errors)', () => true).option('--dangerously-skip-permissions', 'Bypass all permission checks. Recommended only for sandboxes with no internet access.', () => true).option('--allow-dangerously-skip-permissions', 'Enable bypassing all permission checks as an option, without it being enabled by default. Recommended only for sandboxes with no internet access.', () => true).addOption(new Option('--thinking <mode>', 'Thinking mode: enabled (equivalent to adaptive), disabled').choices(['enabled', 'adaptive', 'disabled']).hideHelp()).addOption(new Option('--max-thinking-tokens <tokens>', '[DEPRECATED. Use --thinking instead for newer models] Maximum number of thinking tokens (only works with --print)').argParser(Number).hideHelp()).addOption(new Option('--max-turns <turns>', 'Maximum number of agentic turns per prompt. With --print this ends the conversation; interactively it pauses the turn and you can keep typing (default 50).').argParser(Number)).addOption(new Option('--max-budget-usd <amount>', 'Maximum dollar amount to spend on API calls (only works with --print)').argParser(value => {
+     const amount = Number(value);
+     if (isNaN(amount) || amount <= 0) {
+       throw new Error('--max-budget-usd must be a positive number greater than 0');
+@@ -3050,6 +3050,13 @@ async function run(): Promise<CommanderCommand> {
+       systemPrompt,
+       appendSystemPrompt,
+       thinkingConfig,
++      // The interactive REPL caps each prompt at DEFAULT_REPL_MAX_TURNS. Until this
++      // line, --max-turns reached only the headless path, so `--max-turns 200` in a
++      // TUI session was parsed and then silently dropped — the cap stayed 50 with no
++      // error to say so. REPL and the resume selector already accept the prop; only
++      // this hand-off was missing. Non-positive values fall back to the default in
++      // resolveReplMaxTurns, so a stray `--max-turns 0` cannot wedge the first turn.
++      maxTurns: options.maxTurns,
+     };
+ 
+     // Shared context for processResumedConversation calls
+diff --git a/src/screens/replMaxTurns.ts b/src/screens/replMaxTurns.ts
+index c60c8ab..7556770 100644
+--- a/src/screens/replMaxTurns.ts
++++ b/src/screens/replMaxTurns.ts
+@@ -1,5 +1,17 @@
+ export const DEFAULT_REPL_MAX_TURNS = 50
+ 
++/**
++ * Per-prompt turn cap for the interactive REPL.
++ *
++ * A non-positive or non-finite cap falls back to the default instead of being
++ * honoured: `--max-turns` is parsed with bare `Number` and never validated, so
++ * `--max-turns 0` — or a typo that parses to NaN — would otherwise stop the very
++ * first turn. Zero reads as "no limit" to whoever types it and is useless to
++ * everyone else, so neither reading is worth shipping.
++ */
+ export function resolveReplMaxTurns(maxTurns?: number): number {
+-  return maxTurns ?? DEFAULT_REPL_MAX_TURNS
++  if (typeof maxTurns !== 'number' || !Number.isFinite(maxTurns) || maxTurns < 1) {
++    return DEFAULT_REPL_MAX_TURNS
++  }
++  return Math.floor(maxTurns)
+ }
+diff --git a/src/screens/replMaxTurnsProp.test.ts b/src/screens/replMaxTurnsProp.test.ts
+index c125ba7..61e1130 100644
+--- a/src/screens/replMaxTurnsProp.test.ts
++++ b/src/screens/replMaxTurnsProp.test.ts
+@@ -34,6 +34,29 @@ describe('interactive REPL max-turn cap', () => {
+     expect(resolveReplMaxTurns(7)).toBe(7)
+   })
+ 
++  test('ignores a cap that would stop the first turn', () => {
++    // `--max-turns` is parsed with bare Number and never validated, so these reach
++    // here verbatim. A cap of 0 reads as "no limit" to whoever typed it; honouring
++    // it would end the turn before the first tool call.
++    for (const bad of [0, -1, Number.NaN]) {
++      expect(resolveReplMaxTurns(bad)).toBe(DEFAULT_REPL_MAX_TURNS)
++    }
++  })
++
++  test('floors a fractional cap rather than passing it through', () => {
++    expect(resolveReplMaxTurns(12.9)).toBe(12)
++  })
++
++  test('hands --max-turns to the interactive session, not just headless', () => {
++    // Regression: sessionConfig is what launchRepl spreads into <REPL/>. Without
++    // maxTurns here, `--max-turns 200` in a TUI session was parsed and silently
++    // dropped — the cap stayed 50 with nothing to say so.
++    const source = readFileSync(join(screenDir, '..', 'main.tsx'), 'utf8')
++    const config = objectBody(source, /const sessionConfig = \{/)
++
++    expect(config).toContain('maxTurns: options.maxTurns,')
++  })
++
+   test('passes the resolved cap to foreground and background queries', () => {
+     const source = readScreen('REPL.tsx')
+     const foreground = objectBody(source, /for await \(const event of query\(\{/)
 -- 
 2.43.0
 

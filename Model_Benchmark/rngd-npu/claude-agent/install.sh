@@ -520,7 +520,13 @@ esac
 # 작은 ctx 모델에서 여유가 생긴다. 미지정이면 전체 도구(기본).
 TOOL_ARGS=()
 [ -n "\${FURIO_TOOLS:-}" ] && TOOL_ARGS=(--tools "\$FURIO_TOOLS")
-exec "$OC_BIN" \${AUTO_ARGS[@]+"\${AUTO_ARGS[@]}"} \${TOOL_ARGS[@]+"\${TOOL_ARGS[@]}"} "\$@"   # macOS bash3.2 + set -u 빈배열 가드
+# 사용자 메시지 1개가 쓸 수 있는 도구 왕복 수(기본 50). 파일을 못 찾아 검색이 길어지는 작업에서
+# 50 에 걸리면 '최대 턴 도달' 경고와 함께 그 자리에 멈춘다 — 세션은 살아 있어서 '계속' 을 치면
+# 이어서 50턴을 더 쓴다. 올리는 건 능력이 아니라 '무인 진행 시간'을 늘리는 것이므로, 사람이
+# 지켜보지 않는 실행에서는 낮게 두는 편이 안전하다(NPU 카드를 그만큼 오래 점유한다).
+TURN_ARGS=()
+[ -n "\${FURIO_MAX_TURNS:-}" ] && TURN_ARGS=(--max-turns "\$FURIO_MAX_TURNS")
+exec "$OC_BIN" \${AUTO_ARGS[@]+"\${AUTO_ARGS[@]}"} \${TOOL_ARGS[@]+"\${TOOL_ARGS[@]}"} \${TURN_ARGS[@]+"\${TURN_ARGS[@]}"} "\$@"   # macOS bash3.2 + set -u 빈배열 가드
 EOF
 chmod 755 "$BIN_DIR/$CMD"
 

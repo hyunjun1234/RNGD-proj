@@ -1,0 +1,47 @@
+<svg viewBox="0 0 950 264" xmlns="http://www.w3.org/2000/svg">
+<g font-family="Noto Sans CJK KR">
+<text x="16" y="34" font-size="11.5" fill="#16202c" font-weight="700">(a) 같은 MoE 모델, 두 경로</text>
+<rect x="16" y="50" width="130" height="27" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.2"/>
+<text x="81.0" y="68" font-size="10.5" fill="#16202c" font-weight="700" text-anchor="middle">배포 FXB</text>
+<line x1="148" y1="63" x2="156" y2="63" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="156,58 165,63 156,68" fill="#5b6b7b"/>
+<rect x="167" y="50" width="150" height="27" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.2"/>
+<text x="242.0" y="68" font-size="10.5" fill="#16202c" text-anchor="middle">entrypoint 경로</text>
+<line x1="319" y1="63" x2="327" y2="63" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="327,58 336,63 327,68" fill="#5b6b7b"/>
+<rect x="338" y="50" width="110" height="27" rx="4" fill="#eef2f7" stroke="#253761" stroke-width="1.2"/>
+<text x="393.0" y="68" font-size="10.5" fill="#16202c" text-anchor="middle">MoE 지원</text>
+<line x1="450" y1="63" x2="458" y2="63" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="458,58 467,63 458,68" fill="#5b6b7b"/>
+<rect x="469" y="50" width="150" height="27" rx="4" fill="#eef2f7" stroke="#253761" stroke-width="1.2"/>
+<text x="544.0" y="68" font-size="10.5" fill="#16202c" text-anchor="middle">정상 답변</text>
+<rect x="16" y="86" width="130" height="27" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.2"/>
+<text x="81.0" y="104" font-size="10.5" fill="#16202c" font-weight="700" text-anchor="middle">직접 빌드 v2</text>
+<line x1="148" y1="99" x2="156" y2="99" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="156,94 165,99 156,104" fill="#5b6b7b"/>
+<rect x="167" y="86" width="150" height="27" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.2"/>
+<text x="242.0" y="104" font-size="10.5" fill="#16202c" text-anchor="middle">next_gen 경로</text>
+<line x1="319" y1="99" x2="327" y2="99" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="327,94 336,99 327,104" fill="#5b6b7b"/>
+<rect x="338" y="86" width="110" height="27" rx="4" fill="#ffd34d" stroke="#253761" stroke-width="1.2"/>
+<text x="393.0" y="104" font-size="10.5" fill="#16202c" text-anchor="middle">MoE 미지원</text>
+<line x1="450" y1="99" x2="458" y2="99" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="458,94 467,99 458,104" fill="#5b6b7b"/>
+<rect x="469" y="86" width="150" height="27" rx="4" fill="#ffd34d" stroke="#253761" stroke-width="1.2"/>
+<text x="544.0" y="104" font-size="10.5" fill="#16202c" text-anchor="middle">게이트가 막는다</text>
+<rect x="16" y="130" width="828" height="24" rx="3" fill="#0f1b2a" stroke="#0f1b2a" stroke-width="1"/>
+<text x="28" y="146" font-size="10.5" fill="#e6edf3">PanicException: Unsupported model metadata: ModelMetadata { model_type: Some(Qwen3Moe), … }</text>
+<text x="16" y="180" font-size="11.5" fill="#16202c" font-weight="700">(b) 우회하면 무슨 일이 생기나</text>
+<rect x="16" y="190" width="165.75" height="34" rx="4" fill="#eef2f7" stroke="#253761" stroke-width="1.2"/>
+<text x="98.875" y="205" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">게이트 우회</text>
+<text x="98.875" y="219" font-size="10.5" fill="#16202c" text-anchor="middle">model_type 을 qwen3 로 고침</text>
+<line x1="183.75" y1="207" x2="189.75" y2="207" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="189.75,202 198.75,207 189.75,212" fill="#5b6b7b"/>
+<rect x="199.75" y="190" width="213.0" height="34" rx="4" fill="#eef2f7" stroke="#253761" stroke-width="1.2"/>
+<text x="306.25" y="205" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">적재 성공</text>
+<text x="306.25" y="219" font-size="10.5" fill="#16202c" text-anchor="middle">가중치 29 GiB 정상 로드, 서버도 뜬다</text>
+<line x1="414.75" y1="207" x2="420.75" y2="207" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="420.75,202 429.75,207 420.75,212" fill="#5b6b7b"/>
+<rect x="430.75" y="190" width="171.0" height="34" rx="4" fill="#eef2f7" stroke="#253761" stroke-width="1.2"/>
+<text x="516.25" y="205" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">에러 없음</text>
+<text x="516.25" y="219" font-size="10.5" fill="#16202c" text-anchor="middle">로그에 아무 경고도 안 남는다</text>
+<line x1="603.75" y1="207" x2="609.75" y2="207" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="609.75,202 618.75,207 609.75,212" fill="#5b6b7b"/>
+<rect x="619.75" y="190" width="213.0" height="34" rx="4" fill="#ffd34d" stroke="#253761" stroke-width="1.2"/>
+<text x="726.25" y="205" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">답이 틀림</text>
+<text x="726.25" y="219" font-size="10.5" fill="#16202c" text-anchor="middle">뜻 없는 출력, 실행마다 양상이 다르다</text>
+<text x="16" y="242" font-size="11" fill="#16202c" font-weight="700">터지면 알아채지만 조용히 틀리면 그대로 쓴다, 속도만 보는 벤치는 이것을 통과시킨다</text>
+<text x="844" y="252" font-size="10.5" fill="#5b6b7b" text-anchor="end">chat/serve_logs/router.log, furiosa-llm 2026.3.0</text>
+</g>
+</svg>

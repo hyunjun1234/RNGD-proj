@@ -1,0 +1,69 @@
+<svg viewBox="0 0 950 354" xmlns="http://www.w3.org/2000/svg">
+<g font-family="Noto Sans CJK KR">
+<text x="16" y="34" font-size="11.5" fill="#16202c" font-weight="700">(a) 원본 artifact.json, 빌드가 낸 그대로</text>
+<rect x="16" y="48" width="300" height="26" rx="3" fill="#e3e5ea" stroke="#253761" stroke-width="1.2"/>
+<text x="26" y="66" font-size="10.5" fill="#16202c" font-weight="700">model_type = "qwen3_moe"</text>
+<rect x="16" y="80" width="300" height="17" fill="#ffffff" stroke="#c8d2dc" stroke-width="0.9"/>
+<text x="26" y="92" font-size="10.5" fill="#16202c">hidden_size</text>
+<rect x="16" y="98" width="300" height="17" fill="#ffffff" stroke="#c8d2dc" stroke-width="0.9"/>
+<text x="26" y="110" font-size="10.5" fill="#16202c">num_hidden_layers</text>
+<rect x="16" y="116" width="300" height="17" fill="#ffffff" stroke="#c8d2dc" stroke-width="0.9"/>
+<text x="26" y="128" font-size="10.5" fill="#16202c">num_key_value_heads</text>
+<rect x="16" y="134" width="300" height="17" fill="#ffffff" stroke="#c8d2dc" stroke-width="0.9"/>
+<text x="26" y="146" font-size="10.5" fill="#16202c">head_dim</text>
+<rect x="16" y="152" width="300" height="17" fill="#ffffff" stroke="#c8d2dc" stroke-width="0.9"/>
+<text x="26" y="164" font-size="10.5" fill="#16202c">…</text>
+<rect x="16" y="170" width="300" height="17" fill="#ffd34d" stroke="#253761" stroke-width="0.9"/>
+<text x="26" y="182" font-size="10.5" fill="#16202c">num_local_experts</text>
+<rect x="16" y="188" width="300" height="17" fill="#ffd34d" stroke="#253761" stroke-width="0.9"/>
+<text x="26" y="200" font-size="10.5" fill="#16202c">num_experts_per_tok</text>
+<rect x="16" y="206" width="300" height="17" fill="#ffd34d" stroke="#253761" stroke-width="0.9"/>
+<text x="26" y="218" font-size="10.5" fill="#16202c">moe_intermediate_size</text>
+<rect x="16" y="224" width="300" height="17" fill="#ffd34d" stroke="#253761" stroke-width="0.9"/>
+<text x="26" y="236" font-size="10.5" fill="#16202c">decoder_sparse_step</text>
+<rect x="16" y="242" width="300" height="17" fill="#ffd34d" stroke="#253761" stroke-width="0.9"/>
+<text x="26" y="254" font-size="10.5" fill="#16202c">norm_topk_prob</text>
+<rect x="16" y="260" width="300" height="17" fill="#ffd34d" stroke="#253761" stroke-width="0.9"/>
+<text x="26" y="272" font-size="10.5" fill="#16202c">output_router_logits</text>
+<rect x="16" y="278" width="300" height="17" fill="#ffd34d" stroke="#253761" stroke-width="0.9"/>
+<text x="26" y="290" font-size="10.5" fill="#16202c">router_aux_loss_coef</text>
+<rect x="16" y="296" width="300" height="17" fill="#ffd34d" stroke="#253761" stroke-width="0.9"/>
+<text x="26" y="308" font-size="10.5" fill="#16202c">mlp_only_layers</text>
+<text x="16" y="328" font-size="10.5" fill="#5b6b7b">노란 여덟 줄이 MoE 전문가 설정이다</text>
+<text x="370" y="34" font-size="11.5" fill="#16202c" font-weight="700">(b) 위장본, 지금 쓰고 있는 것</text>
+<rect x="370" y="48" width="300" height="26" rx="3" fill="#9da5b8" stroke="#253761" stroke-width="1.2"/>
+<text x="380" y="66" font-size="10.5" fill="#16202c" font-weight="700">model_type = "qwen3"</text>
+<rect x="370" y="80" width="300" height="17" fill="#ffffff" stroke="#c8d2dc" stroke-width="0.9"/>
+<text x="380" y="92" font-size="10.5" fill="#16202c">hidden_size</text>
+<rect x="370" y="98" width="300" height="17" fill="#ffffff" stroke="#c8d2dc" stroke-width="0.9"/>
+<text x="380" y="110" font-size="10.5" fill="#16202c">num_hidden_layers</text>
+<rect x="370" y="116" width="300" height="17" fill="#ffffff" stroke="#c8d2dc" stroke-width="0.9"/>
+<text x="380" y="128" font-size="10.5" fill="#16202c">num_key_value_heads</text>
+<rect x="370" y="134" width="300" height="17" fill="#ffffff" stroke="#c8d2dc" stroke-width="0.9"/>
+<text x="380" y="146" font-size="10.5" fill="#16202c">head_dim</text>
+<rect x="370" y="152" width="300" height="17" fill="#ffffff" stroke="#c8d2dc" stroke-width="0.9"/>
+<text x="380" y="164" font-size="10.5" fill="#16202c">…</text>
+<rect x="370" y="170" width="300" height="143" rx="3" fill="#ffffff" stroke="#253761" stroke-width="1.2" stroke-dasharray="5,4"/>
+<text x="520" y="237.5" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">여덟 줄이 통째로 없다</text>
+<text x="520" y="255.5" font-size="10.5" fill="#5b6b7b" text-anchor="middle">가중치는 MoE 그대로인데 설정만 dense 다</text>
+<text x="370" y="327" font-size="10.5" fill="#5b6b7b">architectures 도 Qwen3MoeForCausalLM 에서 Qwen3ForCausalLM 으로</text>
+<text x="700" y="34" font-size="11.5" fill="#16202c" font-weight="700">(c) 왜 고쳤나</text>
+<rect x="700" y="48" width="144" height="42" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.2"/>
+<text x="772" y="65" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">게이트</text>
+<text x="772" y="81" font-size="10.5" fill="#16202c" text-anchor="middle">serve 가 model_type 문자열만 본다</text>
+<line x1="772" y1="90" x2="772" y2="91" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="767,91 772,100 777,91" fill="#5b6b7b"/>
+<rect x="700" y="103" width="144" height="42" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.2"/>
+<text x="772" y="120" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">거절</text>
+<text x="772" y="136" font-size="10.5" fill="#16202c" text-anchor="middle">qwen3_moe 는 Unsupported 로 죽는다</text>
+<line x1="772" y1="145" x2="772" y2="146" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="767,146 772,155 777,146" fill="#5b6b7b"/>
+<rect x="700" y="158" width="144" height="42" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.2"/>
+<text x="772" y="175" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">우회</text>
+<text x="772" y="191" font-size="10.5" fill="#16202c" text-anchor="middle">문자열을 qwen3 로 바꿔 통과</text>
+<line x1="772" y1="200" x2="772" y2="201" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="767,201 772,210 777,201" fill="#5b6b7b"/>
+<rect x="700" y="213" width="144" height="42" rx="4" fill="#ffd34d" stroke="#253761" stroke-width="1.2"/>
+<text x="772" y="230" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">부작용</text>
+<text x="772" y="246" font-size="10.5" fill="#16202c" text-anchor="middle">dense 스키마로 다시 쓰며 MoE 키 소실</text>
+<text x="16" y="340" font-size="11" fill="#16202c">이것이 지금까지 확인한 유일한 구조적 차이다, 다음 장에서 되돌려 인과를 확인한다</text>
+<text x="844" y="324" font-size="10.5" fill="#5b6b7b" text-anchor="end">coder-tp8/artifact.json 과 .orig-qwen3_moe 대조</text>
+</g>
+</svg>

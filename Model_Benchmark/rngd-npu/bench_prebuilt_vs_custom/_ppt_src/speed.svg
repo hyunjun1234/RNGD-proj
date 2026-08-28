@@ -1,0 +1,75 @@
+<svg viewBox="0 0 950 256" xmlns="http://www.w3.org/2000/svg">
+<g font-family="Noto Sans CJK KR">
+<text x="16" y="34" font-size="11.5" fill="#16202c" font-weight="700">(a) 동시 4요청 총처리량, 막대 옆 숫자는 tok/s</text>
+<text x="16" y="55.36" font-size="10.5" fill="#16202c">Coder 30B  prebuilt 4장</text>
+<rect x="186" y="46" width="260" height="13" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.8"/>
+<rect x="186" y="46" width="191.62248144220575" height="13" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="454" y="55.36" font-size="10.5" fill="#16202c">139</text>
+<text x="16" y="69.36" font-size="10.5" fill="#16202c">Coder 30B  custom 1장</text>
+<rect x="186" y="60" width="260" height="13" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.8"/>
+<rect x="186" y="60" width="221.39978791092258" height="13" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="454" y="69.36" font-size="10.5" fill="#16202c">161  답변 깨짐</text>
+<text x="16" y="85.36" font-size="10.5" fill="#16202c">Qwen3 32B  prebuilt 4장</text>
+<rect x="186" y="76" width="260" height="13" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.8"/>
+<rect x="186" y="76" width="260.0" height="13" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="454" y="85.36" font-size="10.5" fill="#16202c">189</text>
+<text x="16" y="99.36" font-size="10.5" fill="#16202c">Qwen3 32B  custom 1장</text>
+<rect x="186" y="90" width="260" height="13" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.8"/>
+<rect x="186" y="90" width="126.27783669141039" height="13" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="454" y="99.36" font-size="10.5" fill="#16202c">92</text>
+<text x="16" y="115.36" font-size="10.5" fill="#16202c">A3B Instruct  prebuilt 4장</text>
+<rect x="186" y="106" width="260" height="13" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.8"/>
+<rect x="186" y="106" width="196.4475079533404" height="13" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="454" y="115.36" font-size="10.5" fill="#16202c">142</text>
+<text x="16" y="129.36" font-size="10.5" fill="#16202c">A3B Instruct  custom 1장</text>
+<rect x="186" y="120" width="260" height="13" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.8"/>
+<rect x="186" y="120" width="185.28101802757158" height="13" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="454" y="129.36" font-size="10.5" fill="#16202c">134  답변 깨짐</text>
+<text x="16" y="145.36" font-size="10.5" fill="#16202c">A3B Thinking  prebuilt 4장</text>
+<rect x="186" y="136" width="260" height="13" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.8"/>
+<rect x="186" y="136" width="195.62036055143162" height="13" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="454" y="145.36" font-size="10.5" fill="#16202c">142</text>
+<text x="16" y="159.36" font-size="10.5" fill="#16202c">A3B Thinking  custom 1장</text>
+<rect x="186" y="150" width="260" height="13" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.8"/>
+<rect x="186" y="150" width="223.19194061505834" height="13" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="454" y="159.36" font-size="10.5" fill="#16202c">162  답변 깨짐</text>
+<text x="16" y="175.36" font-size="10.5" fill="#16202c">EXAONE 4.0  prebuilt 4장</text>
+<rect x="186" y="166" width="260" height="13" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.8"/>
+<text x="454" y="175.36" font-size="10.5" fill="#16202c">-  측정 실패</text>
+<text x="16" y="189.36" font-size="10.5" fill="#16202c">EXAONE 4.0  custom 1장</text>
+<rect x="186" y="180" width="260" height="13" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.8"/>
+<rect x="186" y="180" width="113.59490986214212" height="13" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="454" y="189.36" font-size="10.5" fill="#16202c">82</text>
+<text x="16" y="205.36" font-size="10.5" fill="#16202c">A3B  prebuilt 4장</text>
+<rect x="186" y="196" width="260" height="13" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.8"/>
+<text x="454" y="205.36" font-size="10.5" fill="#16202c">-  측정 실패</text>
+<text x="16" y="219.36" font-size="10.5" fill="#16202c">A3B  custom 1장</text>
+<rect x="186" y="210" width="260" height="13" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.8"/>
+<rect x="186" y="210" width="219.8833510074231" height="13" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="454" y="219.36" font-size="10.5" fill="#16202c">160  답변 깨짐</text>
+<text x="600" y="34" font-size="11.5" fill="#16202c" font-weight="700">(b) 단일 요청</text>
+<text x="600" y="54" font-size="10.5" fill="#16202c">TTFT 는 양쪽 다 0.1초 안팎</text>
+<text x="600" y="72" font-size="10.5" fill="#5b6b7b">디코드 속도 중앙값, tok/s</text>
+<text x="600" y="84" font-size="10.5" fill="#16202c">Coder 30B</text>
+<text x="760" y="84" font-size="10.5" fill="#16202c" text-anchor="end">71</text>
+<text x="844" y="84" font-size="10.5" fill="#16202c" text-anchor="end">61</text>
+<text x="600" y="99" font-size="10.5" fill="#16202c">Qwen3 32B</text>
+<text x="760" y="99" font-size="10.5" fill="#16202c" text-anchor="end">55</text>
+<text x="844" y="99" font-size="10.5" fill="#16202c" text-anchor="end">25</text>
+<text x="600" y="114" font-size="10.5" fill="#16202c">A3B Instruct</text>
+<text x="760" y="114" font-size="10.5" fill="#16202c" text-anchor="end">72</text>
+<text x="844" y="114" font-size="10.5" fill="#16202c" text-anchor="end">62</text>
+<text x="600" y="129" font-size="10.5" fill="#16202c">A3B Thinking</text>
+<text x="760" y="129" font-size="10.5" fill="#16202c" text-anchor="end">71</text>
+<text x="844" y="129" font-size="10.5" fill="#16202c" text-anchor="end">62</text>
+<text x="600" y="144" font-size="10.5" fill="#16202c">EXAONE 4.0</text>
+<text x="760" y="144" font-size="10.5" fill="#16202c" text-anchor="end">-</text>
+<text x="844" y="144" font-size="10.5" fill="#16202c" text-anchor="end">24</text>
+<text x="600" y="159" font-size="10.5" fill="#16202c">A3B</text>
+<text x="760" y="159" font-size="10.5" fill="#16202c" text-anchor="end">-</text>
+<text x="844" y="159" font-size="10.5" fill="#16202c" text-anchor="end">61</text>
+<text x="760" y="66" font-size="10.5" fill="#5b6b7b" text-anchor="end">prebuilt</text>
+<text x="844" y="66" font-size="10.5" fill="#5b6b7b" text-anchor="end">custom</text>
+<text x="16" y="242" font-size="11" fill="#16202c">카드 수가 다르다, prebuilt 는 4장 custom 은 1장이므로 카드당으로 보면 격차가 더 벌어진다</text>
+</g>
+</svg>

@@ -1,0 +1,5 @@
+{
+  "model": "EXAONE-4.0-32B-FP8",
+  "error": "TimeoutError: EXAONE-4.0-32B-FP8 준비 실패 (3600s)",
+  "started": "2026-08-28 21:01:03"
+}

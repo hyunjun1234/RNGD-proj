@@ -1,0 +1,968 @@
+[
+  {
+    "model": "EXAONE-4.0-32B-FP8",
+    "error": "TimeoutError: EXAONE-4.0-32B-FP8 준비 실패 (3600s)",
+    "started": "2026-08-28 21:01:03",
+    "is_custom": false,
+    "base": "EXAONE-4.0-32B-FP8",
+    "serve_load_s": null,
+    "build_kind": null
+  },
+  {
+    "model": "EXAONE-4.0-32B-FP8@tp8",
+    "started": "2026-08-28 21:01:03",
+    "load_s": 40.5,
+    "runs": [
+      {
+        "ttft": 0.12339135725051165,
+        "total": 5.8701533284038305,
+        "out_tokens": 141,
+        "in_tokens": 37,
+        "decode_tps": 24.36154493656597,
+        "text": "대한민국의 수도는 **서울**이다.  \n\n1. **조선 시대**에 한양(현 서울)이 수도로 지정되었으며, 1394년 태조 이성계가 정치·경제·문화의 중심지로 건설했다.  \n2. **일제 강점기**와 **한국 전쟁**을 거치며 수도 기능이 유지되었고, 1945년 해방 후에도 대한민국 정부의 중심지로 계속되었다.  \n3. **1948년 대한민국 정부 수립** 이후 공식적으로 서울이 수도로 확정되었으며, 현재까지 행정·입법·사법의 핵심 기능을 담당하고 있다.",
+        "thinking": "",
+        "chunks": 140,
+        "prompt": "fact",
+        "broken": null
+      },
+      {
+        "ttft": 0.10276396619156003,
+        "total": 4.793289092835039,
+        "out_tokens": 114,
+        "in_tokens": 47,
+        "decode_tps": 24.09111921352447,
+        "text": "다음은 파이썬으로 피보나치 수열의 n번째 항을 반복문으로 구하는 함수입니다:\n\n```python\ndef fibonacci(n):\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b\n```\n\n시간복잡도: O(n)",
+        "thinking": "",
+        "chunks": 113,
+        "prompt": "code",
+        "broken": null
+      },
+      {
+        "ttft": 0.12052626442164183,
+        "total": 10.672108306083828,
+        "out_tokens": 213,
+        "in_tokens": 53,
+        "decode_tps": 20.091773836656227,
+        "text": "사과 100개를 상자에 담을 때 필요한 상자의 개수와 마지막 상자에 남는 사과의 개수를 계산해 보겠습니다.\n\n1. **상자 하나에 들어가는 사과의 개수**: 12개\n2. **총 사과의 개수**: 100개\n\n**계산 과정**:\n- 100을 12로 나누어 필요한 상자의 개수를 구합니다.\n  \n  \\[\n  100 \\div 12 = 8 \\text{ 상자} \\quad (\\text{나머지 } 4)\n  \\]\n  \n  - **몫**: 8 상자\n  - **나머지**: 4개\n\n**결과**:\n- **필요한 상자의 개수**: 8개\n- **마지막 상자에 남는 사과의 개수**: 4개\n\n\\[\n\\boxed{8 \\text{ 상자}, \\ 4 \\text{ 개}}\n\\]",
+        "thinking": "",
+        "chunks": 212,
+        "prompt": "reason",
+        "broken": null
+      },
+      {
+        "ttft": 0.11768066696822643,
+        "total": 20.69704567687586,
+        "out_tokens": 459,
+        "in_tokens": 54,
+        "decode_tps": 22.255302813255057,
+        "text": "### 트랜스포머의 어텐션(Attention)을 비유로 설명해드릴게요!\n\n**비유: 시험 공부를 할 때의 \"집중\"**  \n시험 문제를 풀 때, 모든 과목을 동시에 공부하는 대신 **가장 중요한 부분에 집중**하는 것이 효율적이죠. 예를 들어, 수학 시험이라면 **\"삼각함수 공식\"**에 집중하고, 영어 시험이라면 **\"독해 스킬\"**에 집중합니다.  \n트랜스포머의 어텐션도 이와 비슷합니다. 문장에서 **\"중요한 단어\"**에 집중해 정보를 추출하는 메커니즘입니다.  \n\n- **예시**: \"개가 공을 물었다\"라는 문장에서  \n  - \"물었다\"를 이해하려면 **\"개\"**와 **\"공\"**에 집중해야 합니다.  \n  - 어텐션은 \"개\"와 \"공\"의 관계를 계산해 **\"개가 공을 물었다\"**는 의미를 파악합니다.\n\n---\n\n### 순환신경망(RNN) vs. 트랜스포머: 병렬화 차이  \n**RNN의 문제점**:  \nRNN은 문장을 **한 단어씩 순차적으로 처리**합니다. 마치 책을 **한 페이지씩 넘기며 읽는 것**과 같죠.  \n- 예: \"개 → 공 → 물었다\" 순서로 계산 → 느린 처리 속도.  \n\n**트랜스포머의 장점**:  \n어텐션은 **모든 단어를 동시에 처리**합니다. 마치 책의 모든 페이지를 **한 번에 펼쳐놓고** 중요한 부분을 찾는 것과 같아요.  \n- **병렬화 가능**: GPU로 여러 단어의 관계를 동시에 계산해 빠르게 학습합니다.  \n\n---\n\n### 요약  \n1. **어텐션**: 문장에서 중요한 단어에 집중하는 \"스마트 필터\".  \n2. **병렬화**: RNN은 순차적이라 느리고, 트랜스포머는 동시 처리로 빠름.  \n\n이해가 되셨나요? 😊",
+        "thinking": "",
+        "chunks": 457,
+        "prompt": "long",
+        "broken": null
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 21.23,
+      "out_tokens": 1749,
+      "agg_tps": 82.4,
+      "per_req_total_s": [
+        21.23,
+        19.38,
+        18.23,
+        17.78
+      ],
+      "errors": []
+    },
+    "elapsed_s": 103.8,
+    "is_custom": true,
+    "base": "EXAONE-4.0-32B-FP8",
+    "serve_load_s": 30.3,
+    "build_kind": "v2-artifact",
+    "thinking_only": 0,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 24.1,
+    "ttft_med": 0.121
+  },
+  {
+    "model": "Llama-3.1-8B-Instruct",
+    "started": "2026-08-28 22:09:52",
+    "load_s": 30.3,
+    "runs": [
+      {
+        "ttft": 0.039471386931836605,
+        "total": 2.5205561430193484,
+        "out_tokens": 124,
+        "in_tokens": 63,
+        "decode_tps": 49.57508996748743,
+        "text": "대한민국의 수도는 서울입니다. \n\n서울은 1394년 조선 왕조가 수도로 정한 곳으로, 그 이전에는 고려 시대에 수도였던 한양의 지명이기도 합니다. \n\n조선 시대에 서울은 한양으로 불렸으며, 1910년 일제가 대한제국을 침공한 후에는 경성으로 이름이 바뀌었습니다. 1948년 대한민국이 수립된 후, 1949년 8월 15일 서울은 대한민국의 수도로 공식적으로 선정되었습니다.",
+        "thinking": "",
+        "chunks": 119,
+        "prompt": "fact",
+        "broken": null
+      },
+      {
+        "ttft": 0.03740333020687103,
+        "total": 5.888584455940872,
+        "out_tokens": 291,
+        "in_tokens": 78,
+        "decode_tps": 49.56264278413035,
+        "text": "### 피보나치 수열의 n번째 항을 구하는 함수\n\n```python\ndef fibonacci(n):\n    \"\"\"\n    피보나치 수열의 n번째 항을 구하는 함수.\n\n    Args:\n        n (int): 피보나치 수열의 항의 위치.\n\n    Returns:\n        int: 피보나치 수열의 n번째 항.\n    \"\"\"\n    if n <= 0:\n        raise ValueError(\"n은 1 이상의 정수여야 합니다.\")\n    elif n == 1:\n        return 0\n    elif n == 2:\n        return 1\n    else:\n        a, b = 0, 1\n        for _ in range(2, n):\n            a, b = b, a + b\n        return b\n\n# 시간복잡도: O(n)\n```\n\n### 설명\n\n이 함수는 피보나치 수열의 n번째 항을 구하는 데 사용됩니다. 피보나치 수열은 다음과 같은 규칙을 따릅니다.\n\n*   0 번째 항은 0입니다.\n*   1 번째 항은 1입니다.\n*   n 번째 항은 (n-1) 번째 항과 (n-2) 번째 항의 합입니다.\n\n이 함수는 이 규칙을 사용하여 n 번째 항을 계산합니다. 시간복잡도는 O(n)입니다.",
+        "thinking": "",
+        "chunks": 289,
+        "prompt": "code",
+        "broken": null
+      },
+      {
+        "ttft": 0.03409603284671903,
+        "total": 4.522184271831065,
+        "out_tokens": 224,
+        "in_tokens": 81,
+        "decode_tps": 49.6870801387062,
+        "text": "사과 100개를 담으려면 상자가 몇 개 필요하는지 계산해 보겠습니다.\n\n1. 한 상자에 사과가 12개 들어간다. \n2. 100개의 사과를 담으려면, 100 ÷ 12 = 8.33 (소수점이 나온다. 소수점은 사과가 몇 개 남는지 의미한다.)\n\n8.33은 8과 0.33으로 나누어질 수 있다. 8은 8개의 상자에 담을 수 있는 사과의 개수이고, 0.33은 마지막 상자에 남는 사과의 개수이다.\n\n8개의 상자에 담을 수 있는 사과의 개수는 8 × 12 = 96개이다.\n\n마지막 상자에는 100 - 96 = 4개의 사과가 남는다.\n\n따라서, 사과 100개를 담으려면 8개의 상자가 필요하고, 마지막 상자에는 4개의 사과가 남는다.",
+        "thinking": "",
+        "chunks": 222,
+        "prompt": "reason",
+        "broken": null
+      },
+      {
+        "ttft": 0.03378984285518527,
+        "total": 11.357577176764607,
+        "out_tokens": 579,
+        "in_tokens": 84,
+        "decode_tps": 51.04299321033358,
+        "text": "트랜스포머의 어텐션(Attention)은 자연어 처리에서 사용되는 신경망 구조 중 하나입니다. 어텐션은 '주의'라는 의미로, 입력 데이터 중 특정 부분에 집중하는 것을 의미합니다. 비유를 들어 설명해 드리겠습니다.\n\n**비유: 음악 감상**\n\nImagine 당신이 음악 감상을 하면서, 음악의 모든 부분에 집중하는 것이 아니라, 특정 부분에만 집중하는 경우가 있습니다. 예를 들어, 음악의 시작 부분에 집중하여 그 부분의 멜로디를 잘 듣는 경우가 있습니다. 이때, 당신은 음악의 시작 부분에만 집중하고, 다른 부분은 거의 집중하지 않습니다. 이와 유사하게, 트랜스포머의 어텐션은 입력 데이터 중 특정 부분에 집중하여 그 부분의 정보를 잘 처리하는 것을 의미합니다.\n\n**어텐션의 작동 방식**\n\n트랜스포머의 어텐션은 3개의 주요 구성 요소로 구성됩니다.\n\n1. **Query (질문)**: 입력 데이터 중 특정 부분에 집중할 부분을 지정합니다.\n2. **Key (키)**: 입력 데이터의 모든 부분에 대한 정보를 나타냅니다.\n3. **Value (값)**: 입력 데이터의 모든 부분의 정보를 나타냅니다.\n\n어텐션은 Query와 Key를 사용하여 Score를 계산하고, Score가 높은 부분에 집중하여 Value를 사용하여 정보를 처리합니다.\n\n**병렬화에 유리한 이유**\n\n트랜스포머의 어텐션은 병렬화에 유리한 이유가 있습니다. 어텐션은 Query와 Key를 사용하여 Score를 계산하고, Score가 높은 부분에 집중하여 Value를 사용하여 정보를 처리합니다. 이 과정을 병렬화할 수 있기 때문에, 트랜스포머의 어텐션은 병렬화에 유리합니다.\n\n순환신경망(RNN)과 비교할 때, RNN은 시간 순서에 따라 정보를 처리하기 때문에, 병렬화가 어렵습니다. 반면, 트랜스포머의 어텐션은 병렬화가 가능하여, 더 빠른 처리 속도를 제공합니다.\n\n**결론**\n\n트랜스포머의 어텐션은 입력 데이터 중 특정 부분에 집중하여 그 부분의 정보를 잘 처리하는 것을 의미합니다. 어텐션은 Query, Key, Value를 사용하여 Score를 계산하고, Score가 높은 부분에 집중하여 Value를 사용하여 정보를 처리합니다. 트랜스포머의 어텐션은 병렬화에 유리하여, 더 빠른 처리 속도를 제공합니다.",
+        "thinking": "",
+        "chunks": 575,
+        "prompt": "long",
+        "broken": null
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 13.72,
+      "out_tokens": 2680,
+      "agg_tps": 195.4,
+      "per_req_total_s": [
+        13.69,
+        13.71,
+        13.71,
+        13.71
+      ],
+      "errors": []
+    },
+    "elapsed_s": 68.3,
+    "is_custom": true,
+    "base": "Llama-3.1-8B-Instruct",
+    "serve_load_s": 16.2,
+    "build_kind": "v2-artifact",
+    "thinking_only": 0,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 49.7,
+    "ttft_med": 0.037
+  },
+  {
+    "model": "Qwen3-30B-A3B-FP8",
+    "error": "TimeoutError: Qwen3-30B-A3B-FP8 준비 실패 (3600s)",
+    "started": "2026-08-28 22:07:50",
+    "is_custom": false,
+    "base": "Qwen3-30B-A3B-FP8",
+    "serve_load_s": 19.1,
+    "build_kind": "FXB"
+  },
+  {
+    "model": "Qwen3-30B-A3B-FP8@tp8",
+    "started": "2026-08-28 22:07:50",
+    "load_s": 40.4,
+    "runs": [
+      {
+        "ttft": 0.1920257182791829,
+        "total": 5.191268586087972,
+        "out_tokens": 340,
+        "in_tokens": 38,
+        "decode_tps": 67.81026826739998,
+        "text": "\n\n대한민국의 수도는 서울이다. 서울은 조선 왕조가 세워진 1392년부터 수도로 기능하며, 역사적·문화적 중심지로 자리 잡았다. 1950년 한국전쟁 이후 남한 정부가 서울에 재정비되면서 수도로서의 지위를 공식화했으며, 분단 상황에서 남한의 정치·경제 중심지로 유지되고 있다.",
+        "thinking": "\nOkay, the user is asking about the capital of South Korea and the historical background of why it became the capital. Let me start by recalling that the capital is Seoul. Now, the historical reasons... I need to make sure I get the key points right.\n\nFirst, I think Seoul has been a significant city for a long time. The Joseon Dynasty was established there, right? So that's a major historical point. Then, after the Korean War, the government moved to Seoul, which was a strategic decision. Also, the division of the Korean Peninsula probably played a role in keeping Seoul as the capital. I need to condense this into three sentences without getting too detailed. Let me check the dates and events to make sure they're accurate. The Joseon Dynasty started in 1392, and the capital was moved to Seoul (then called Hanseong) from Gyeongju. After the war, the government stayed in Seoul, and the division of the country meant that the capital remained in the south. That should cover the three points. I should also mention the strategic location and the political decisions post-war. Alright, that should do it.\n",
+        "chunks": 335,
+        "prompt": "fact",
+        "broken": null
+      },
+      {
+        "ttft": 0.1870562811382115,
+        "total": 17.174697523005307,
+        "out_tokens": 1024,
+        "in_tokens": 51,
+        "decode_tps": 60.22024985309633,
+        "text": "",
+        "thinking": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "chunks": 1024,
+        "prompt": "code",
+        "broken": "깨짐(사고): 같은 문자 반복(!)"
+      },
+      {
+        "ttft": 0.22070257319137454,
+        "total": 17.028078873176128,
+        "out_tokens": 1024,
+        "in_tokens": 64,
+        "decode_tps": 60.86613292527567,
+        "text": "",
+        "thinking": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "chunks": 1024,
+        "prompt": "reason",
+        "broken": "깨짐(사고): 같은 문자 반복(!)"
+      },
+      {
+        "ttft": 0.1940651717595756,
+        "total": 17.19314666558057,
+        "out_tokens": 1024,
+        "in_tokens": 58,
+        "decode_tps": 60.17972208509329,
+        "text": "",
+        "thinking": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "chunks": 1024,
+        "prompt": "long",
+        "broken": "깨짐(사고): 같은 문자 반복(!)"
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 25.68,
+      "out_tokens": 4096,
+      "agg_tps": 159.5,
+      "per_req_total_s": [
+        25.61,
+        25.66,
+        25.63,
+        25.66
+      ],
+      "errors": []
+    },
+    "elapsed_s": 122.7,
+    "is_custom": true,
+    "base": "Qwen3-30B-A3B-FP8",
+    "serve_load_s": 21.5,
+    "build_kind": "v2-artifact",
+    "thinking_only": 0,
+    "garbage": 3,
+    "ok_runs": 1,
+    "n_runs": 4,
+    "decode_tps_med": 60.9,
+    "ttft_med": 0.194
+  },
+  {
+    "model": "Qwen3-30B-A3B-Instruct-2507-FP8",
+    "started": "2026-08-28 19:52:58",
+    "load_s": 292.1,
+    "runs": [
+      {
+        "ttft": 0.10176134016364813,
+        "total": 1.506331509910524,
+        "out_tokens": 100,
+        "in_tokens": 38,
+        "decode_tps": 70.48419661215021,
+        "text": "대한민국의 수도는 서울이다.  \n1910년 한일합병 이후 일제강점기 동안 서울은 정치·경제·문화의 중심지로 유지되었고, 1948년 대한민국이 수립되면서 서울이 공식적으로 수도로 결정되었다.  \n이후 서울은 국가의 행정 중심지로서 지속적으로 발전하며, 한국의 상징적인 도시로 자리 잡았다.",
+        "thinking": "",
+        "chunks": 98,
+        "prompt": "fact",
+        "broken": null
+      },
+      {
+        "ttft": 0.09134407388046384,
+        "total": 1.037064019124955,
+        "out_tokens": 70,
+        "in_tokens": 51,
+        "decode_tps": 72.96028845216102,
+        "text": "```python\ndef fibonacci_iterative(n):\n    if n <= 1:\n        return n\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b\n\n# 시간복잡도: O(n)\n```",
+        "thinking": "",
+        "chunks": 69,
+        "prompt": "code",
+        "broken": null
+      },
+      {
+        "ttft": 0.09298644913360476,
+        "total": 5.637308702804148,
+        "out_tokens": 385,
+        "in_tokens": 64,
+        "decode_tps": 69.26004341572643,
+        "text": "사과 100개를 상자에 담으려고 합니다.  \n한 상자에 사과가 12개 들어간다고 했으므로,  \n100개를 12개씩 나누어 몇 개의 상자가 필요한지, 그리고 마지막 상자에 몇 개가 남는지 계산해 봅시다.\n\n---\n\n### 1. 전체 사과 수를 상자당 수로 나누기\n\\[\n100 \\div 12 = 8 \\text{ (몫)}, \\quad \\text{나머지 } 4\n\\]\n\n계산 과정:\n- \\(12 \\times 8 = 96\\)\n- \\(100 - 96 = 4\\)\n\n즉, 12개씩 8개의 상자에 사과를 담으면 96개가 담기고,  \n남은 사과는 \\(100 - 96 = 4\\)개입니다.\n\n---\n\n### 2. 필요한 상자 수\n8개의 상자로 96개를 담고,  \n남은 4개는 또 하나의 상자에 담아야 하므로,  \n총 상자 수는:\n\\[\n8 + 1 = 9 \\text{개}\n\\]\n\n---\n\n### ✅ 최종 답변:\n- **필요한 상자 수**: 9개  \n- **마지막 상자에 남는 사과 수**: 4개\n\n---\n\n### 📌 정리:\n- 100 ÷ 12 = 8 (몫), 4 (나머지)\n- 따라서 9개의 상자가 필요하고, 마지막 상자에는 4개의 사과가 남는다.",
+        "thinking": "",
+        "chunks": 368,
+        "prompt": "reason",
+        "broken": null
+      },
+      {
+        "ttft": 0.0879282639361918,
+        "total": 14.308264028280973,
+        "out_tokens": 1024,
+        "in_tokens": 58,
+        "decode_tps": 71.9392296323276,
+        "text": "물론이죠! 트랜스포머의 **어텐션**(Attention)을 처음 배우는 사람에게 쉽게 설명해볼게요. 비유도 하나 들고, 왜 순환신경망(RNN)보다 **병렬화에 더 유리한지도** 설명할게요.\n\n---\n\n### 🌟 비유로 이해하기: \"책을 읽는 학생과 선생님\"\n\n상상해봐요.  \n당신은 책을 읽는 학생이고, 선생님은 당신이 이해할 수 있도록 **중요한 문장에만 집중**해 설명해 주는 사람입니다.\n\n- 책의 문장은 하나씩 차례로 읽어야 하는데, **어떤 문장이 지금 이해에 가장 도움이 되는지** 선생님이 판단해 줍니다.\n- 예를 들어, \"그는 어제 도서관에서 책을 읽었다\"라는 문장이 나왔을 때,  \n  \"그는\"이라는 대명사가 무엇을 가리키는지 알기 위해,  \n  **\"어제 도서관에서 책을 읽었다\"** 라는 문장이 가장 중요한 정보일 수 있죠.\n\n👉 이때 선생님이 **\"어떤 문장이 지금 중요한지\"** 를 판단하고, 그 문장에 **더 많은 주의를 기울이는 것**이 바로 **어텐션**(Attention)입니다.\n\n---\n\n### 🔍 어텐션의 핵심은?\n- **입력 문장의 각 단어(또는 토큰)가 서로 얼마나 관련이 있는지**를 계산해,  \n  각 단어가 현재 단어를 이해하는 데 **어느 정도 기여하는지**를 수치로 표현하는 것.\n- 이 수치를 **가중치**(weight)라고 부르고, 그 가중치를 바탕으로 정보를 조합해 새로운 표현을 만듭니다.\n\n> 예: \"그는 어제 도서관에서 책을 읽었다\"  \n> → \"그는\"이 \"도서관에서 책을 읽었다\"는 문장과 높은 어텐션을 가짐 → \"그는\"이 도서관에서 책을 읽었다는 걸 알 수 있음.\n\n---\n\n### 🔄 순환신경망(RNN) vs 트랜스포머: 병렬화의 차이\n\n#### 🔹 RNN의 문제점 (순차적 처리)\n- RNN은 문장을 **한 글자씩, 한 단어씩 차례로 처리**합니다.\n- 예: \"나는 책을 읽는다\" → \"나\", \"는\", \"책\", \"을\", \"읽는다\" → 순서대로 하나씩 처리.\n- **이전 단어의 결과가 다음 단어를 계산하는 데 필요**하므로,  \n  **모든 단어가 순서대로 기다려야** 합니다.\n\n👉 그래서 **병렬 처리가 불가능**해요.  \n→ CPU/GPU가 한 번에 여러 단어를 처리할 수 없음 → 느림.\n\n#### 🔹 트랜스포머의 장점 (전체 문장 동시 처리)\n- 트랜스포머는 **모든 단어를 동시에** 처리합니다.\n- 어텐션 메커니즘을 통해, **모든 단어가 서로의 정보를 볼 수 있음**.\n- 예: \"그는 어제 도서관에서 책을 읽었다\"  \n  → \"그는\", \"어제\", \"도서관\", \"책\", \"읽었다\"가 **한 번에 모두 고려됨**.\n\n👉 그래서 **모든 단어를 동시에 계산할 수 있음** → **병렬 처리 가능**!\n\n---\n\n### ✅ 요약\n\n| 항목 | RNN | 트랜스포머 |\n|------|-----|------------|\n| 처리 방식 | 순차적 (한 단어씩) | 병렬적 (모든 단어 동시에) |\n| 어텐션 사용 | 없음 (또는 제한적) | 핵심 기능 |\n| 병렬화 가능성 | 낮음 (느림) | 높음 (빠름) |\n| 비유 | 선생님이 하나씩 설명해 줌 | 선생님이 전체 책을 보고 핵심만 알려줌 |\n\n---\n\n### 🎯 결론\n\n> **어텐션은 \"어떤 정보가 지금 가장 중요한지\"를 판단하는 능력**이에요.  \n> 트랜스포머는 이 어텐션을 통해 **모든 단어를 동시에 고려**하면서도,  \n",
+        "thinking": "",
+        "chunks": 968,
+        "prompt": "long",
+        "broken": null
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 28.74,
+      "out_tokens": 4096,
+      "agg_tps": 142.5,
+      "per_req_total_s": [
+        28.71,
+        28.73,
+        28.72,
+        28.72
+      ],
+      "errors": []
+    },
+    "elapsed_s": 343.3,
+    "is_custom": false,
+    "base": "Qwen3-30B-A3B-Instruct-2507-FP8",
+    "serve_load_s": 272.2,
+    "build_kind": "FXB",
+    "thinking_only": 0,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 71.9,
+    "ttft_med": 0.093
+  },
+  {
+    "model": "Qwen3-30B-A3B-Instruct-2507-FP8@tp8",
+    "started": "2026-08-28 19:58:42",
+    "load_s": 40.4,
+    "runs": [
+      {
+        "ttft": 0.1788423890247941,
+        "total": 17.53555474197492,
+        "out_tokens": 1024,
+        "in_tokens": 38,
+        "decode_tps": 58.93973347009582,
+        "text": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "thinking": "",
+        "chunks": 1024,
+        "prompt": "fact",
+        "broken": "같은 문자 반복(!)"
+      },
+      {
+        "ttft": 0.12345860106870532,
+        "total": 16.729802812915295,
+        "out_tokens": 1024,
+        "in_tokens": 51,
+        "decode_tps": 61.60296251538704,
+        "text": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "thinking": "",
+        "chunks": 1024,
+        "prompt": "code",
+        "broken": "같은 문자 반복(!)"
+      },
+      {
+        "ttft": 0.11193849006667733,
+        "total": 16.749708685092628,
+        "out_tokens": 1024,
+        "in_tokens": 64,
+        "decode_tps": 61.48660475583666,
+        "text": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "thinking": "",
+        "chunks": 1024,
+        "prompt": "reason",
+        "broken": "같은 문자 반복(!)"
+      },
+      {
+        "ttft": 0.12023558979853988,
+        "total": 17.076286400668323,
+        "out_tokens": 1024,
+        "in_tokens": 58,
+        "decode_tps": 60.332444825194756,
+        "text": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "thinking": "",
+        "chunks": 1024,
+        "prompt": "long",
+        "broken": "같은 문자 반복(!)"
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 30.48,
+      "out_tokens": 4096,
+      "agg_tps": 134.4,
+      "per_req_total_s": [
+        30.43,
+        30.48,
+        30.48,
+        30.48
+      ],
+      "errors": []
+    },
+    "elapsed_s": 139.0,
+    "is_custom": true,
+    "base": "Qwen3-30B-A3B-Instruct-2507-FP8",
+    "serve_load_s": 23.5,
+    "build_kind": "v2-artifact",
+    "thinking_only": 0,
+    "garbage": 4,
+    "ok_runs": 0,
+    "n_runs": 4,
+    "decode_tps_med": 61.5,
+    "ttft_med": 0.123
+  },
+  {
+    "model": "Qwen3-30B-A3B-Thinking-2507-FP8",
+    "started": "2026-08-28 21:02:47",
+    "load_s": 80.4,
+    "runs": [
+      {
+        "ttft": 0.17682857578620315,
+        "total": 14.549342676065862,
+        "out_tokens": 1024,
+        "in_tokens": 40,
+        "decode_tps": 71.17752627427198,
+        "text": "",
+        "thinking": "Okay, the user is asking about the capital of South Korea and the historical background of why it became the capital, all in three sentences. Let me start by confirming that Seoul is the capital. Now, I need to recall the historical reasons.\n\nFirst, Seoul has been a significant city for a long time. I remember that during the Joseon Dynasty, which started in 1392, they established Hanseong (which is now Seoul) as the capital. But wait, the user is asking about South Korea, so maybe they want the modern context. The Joseon Dynasty's capital was Hanseong, but after the division of Korea, Seoul remained the capital of South Korea.\n\nWait, the user might not know that Seoul was the capital during the Joseon Dynasty. So the historical background would include that. But I need to make sure it's accurate. Let me check: Yes, the Joseon Dynasty moved the capital to Hanseong (Seoul) in 1392. Then, after the Korean War, Seoul was chosen as the capital of South Korea in 1948. Wait, but the division happened in 1945, and South Korea was established in 1948. So the historical background should mention the Joseon Dynasty's choice and then the post-WWII establishment.\n\nWait, but the user wants the historical background of why it became the capital. So the key points are: Joseon Dynasty established it as the capital in 1392, and after the division of Korea, Seoul was designated as the capital of South Korea in 1948. But I need to make sure that's correct. Let me confirm. Yes, Seoul has been the capital since the Joseon Dynasty, and when South Korea was founded, they kept Seoul as the capital. So the three sentences should cover the Joseon Dynasty's establishment and the post-WWII decision.\n\nWait, but the user might be confused if I mention Joseon Dynasty, but since the question is about South Korea's capital, maybe they want the modern history. However, the historical background would include the long-standing status. So the first sentence: Seoul is the capital. Second: It was established as the capital during the Joseon Dynasty in 1392. Third: After the division of Korea in 1945 and the establishment of South Korea in 1948, Seoul was designated as the capital.\n\nWait, but the user asked for three sentences. Let me structure it. First sentence: Capital is Seoul. Second: Historical reason during Joseon. Third: Post-WWII decision. Let me check if the dates are right. Joseon Dynasty started in 1392, moved capital to Hanseong. Then, after the Korean War, Seoul was the capital of South Korea. Wait, the Korean War was 1950-1953, but South Korea was established in 1948. So the capital was set in 1948. So the three sentences would be:\n\n대한민국의 수도는 서울입니다. 서울은 조선 왕조가 1392년에 한성부로 개칭하며 수도로 정한 이후로 오랫동안 정치·문화 중심지로 발전해왔습니다. 1948년 대한민국 정부 수립 시 서울을 수도로 선정하며 현대사에서의 수도 지위를 공식화했습니다.\n\nWait, but the user wants it in three sentences. Let me check the dates again. Joseon Dynasty established Hanseong (Seoul) as capital in 1392. Then, after the division of Korea in 1945, South Korea was formed in 1948, and Seoul was chosen as the capital. So the historical background is the long history since Joseon and the 1948 decision.\n\nI need to make sure the three sentences are concise. Let me try to write them:\n\n대한민국의 수도는 서울입니다. 서울은 조선 왕조 시대인 1392년에 한성부로 수도로 정해지며 정치·문화 중심지로 자리매김했습니다. 1948년 대한민국 정부 수립 시 서울을 수도로 공식 선정하며 현대사에서의 수도 지위를 확립했습니다.\n\nWait, but the user asked for three sentences. Let me count: first sentence is the answer, then two more for the background. Wait, the user said \"세 문장으로 설명해줘\" so three sentences total. So the first sentence is the answer, then two more for the background. Wait, no, the user says \"대한민국의 수도는 어디이고, 그 도시가 수도가 된 역사적 배경을 세 문장으로 설명해줘.\" So the three sentences should include the answer and the background. So",
+        "chunks": 1022,
+        "prompt": "fact",
+        "broken": "사고만(예산 부족)"
+      },
+      {
+        "ttft": 0.19326415797695518,
+        "total": 14.665078501682729,
+        "out_tokens": 1024,
+        "in_tokens": 53,
+        "decode_tps": 70.68913238545888,
+        "text": "",
+        "thinking": "Okay, let's see. I need to write a Python function that calculates the nth Fibonacci number using a loop, and then state the time complexity in one line.\n\nFirst, I remember that the Fibonacci sequence starts with 0 and 1, and each subsequent number is the sum of the previous two. So F(0) = 0, F(1) = 1, F(2) = 1, F(3) = 2, etc.\n\nThe problem says to use a loop, so I shouldn't use recursion. Recursion would be inefficient for large n because of the exponential time complexity. But with a loop, it's linear.\n\nLet me think about how to implement the loop. For n=0, return 0. For n=1, return 1. For n >=2, we can start from 0 and 1, then loop from 2 up to n, updating the values each time.\n\nWait, the user didn't specify if n starts at 0 or 1. In some definitions, the first Fibonacci number is F(0)=0, F(1)=1. So I should clarify that. But the problem says \"n번째 항\", which in Korean might mean the nth term, so probably starting from 0 or 1. Let's assume standard where F(0)=0, F(1)=1.\n\nSo for example, if n is 0, return 0; n=1, return 1; n=2, return 1; n=3, return 2, etc.\n\nSo the function should handle n=0 and n=1 as base cases, then loop from 2 to n.\n\nLet me outline the steps:\n\nIf n is 0: return 0\n\nIf n is 1: return 1\n\nElse:\n\na, b = 0, 1\n\nfor i in range(2, n+1):\n\n    c = a + b\n\n    a = b\n\n    b = c\n\nreturn b\n\nWait, let's test this with n=2. For n=2, the loop runs from 2 to 2 (since range(2,3) is just 2). So i=2:\n\nc = 0+1=1\n\na becomes 1, b becomes 1. Then return b which is 1. Correct.\n\nFor n=3: loop runs for i=2 and i=3.\n\nWait, range(2,4) would be 2,3. Wait, n+1 is 4 when n=3. So for n=3, the loop runs for i=2 and i=3.\n\nWait, let's take n=3:\n\nStart with a=0, b=1.\n\ni=2: c=0+1=1, a=1, b=1.\n\ni=3: c=1+1=2, a=1, b=2.\n\nThen return b=2. Which is correct for F(3)=2.\n\nYes, that works.\n\nSo the code would be:\n\ndef fibonacci(n):\n\n    if n == 0:\n\n        return 0\n\n    elif n == 1:\n\n        return 1\n\n    else:\n\n        a, b = 0, 1\n\n        for _ in range(2, n+1):\n\n            a, b = b, a + b\n\n        return b\n\nWait, using tuple assignment to update a and b. That's a common way to do it without a temporary variable.\n\nTesting for n=2: range(2,3) is one iteration. So a becomes 1, b becomes 0+1=1. Then return b=1. Correct.\n\nAnother way: for n=0, return 0; n=1, return 1. For n>=2, loop from 2 to n.\n\nYes, this should work.\n\nNow, time complexity. Since the loop runs (n-1) times for n >=2, the time complexity is O(n). Because each iteration is constant time, and the number of iterations is proportional to n.\n\nSo the time complexity is O(n).\n\nWait, but for n=0 and n=1, it's O(1), but in general, for large n, it's O(n). So the time complexity is linear, O(n).\n\nSo the answer should be the function as written, and the time complexity is O(n).\n\nLet me check if there's any edge cases. For example, n=0, n=1, n=2, n=3.\n\nn=0: returns 0. Correct.\n\nn=1: returns 1. Correct.\n\nn=2: returns 1. Correct.\n\nn=3: returns 2. Correct.\n\nn=4: should be 3. Let's see:\n\na=0, b=1.\n\ni=2: a=1, b=1.\n\ni=3: a=",
+        "chunks": 1024,
+        "prompt": "code",
+        "broken": "사고만(예산 부족)"
+      },
+      {
+        "ttft": 0.1769017451442778,
+        "total": 14.790436568204314,
+        "out_tokens": 1024,
+        "in_tokens": 66,
+        "decode_tps": 70.0035968289968,
+        "text": "",
+        "thinking": "Okay, let's see. I need to figure out how many boxes are needed to hold 100 apples if each box can hold 12 apples. And also, how many apples will be left in the last box. Hmm, let's start by recalling some basic division concepts.\n\nSo, if each box holds 12 apples, then to find out how many full boxes we can fill with 100 apples, I should divide 100 by 12. Let me write that down: 100 ÷ 12. Let me do the division.\n\nFirst, 12 times 8 is 96 because 12*8=96. Then, 100 minus 96 is 4. So that would mean 8 full boxes with 4 apples left over. Wait, but the question is asking for how many boxes are needed. If there are 4 apples left, do we need an extra box for those 4? Yes, because even though it's not full, we still need a box to hold the remaining apples. So total boxes would be 8 + 1 = 9 boxes. And the last box would have 4 apples.\n\nWait, let me check that again. Let me do the division properly. 12 into 100. How many times does 12 go into 100? Let's see:\n\n12*8=96, as I said. 100-96=4. So quotient is 8, remainder is 4. So in division terms, 100 = 12*8 + 4. So that means 8 full boxes and 4 apples left. But since we can't have a fraction of a box, we need to round up to the next whole number. So 9 boxes total, with the last one having 4 apples.\n\nWait, but maybe I should verify with another method. Let's multiply 12 by 9. 12*9=108. Oh, that's more than 100. But we only have 100 apples, so the 9th box would only have 100 - (12*8) = 100 - 96 = 4 apples. So yes, 9 boxes needed, last one has 4.\n\nBut let me make sure I didn't make a mistake in the division. Let's do 12*8=96. 96 + 4 = 100. Correct. So 8 boxes filled completely, 4 left. So need one more box for the remaining 4. So total 9 boxes. The last box has 4 apples.\n\nWait, but sometimes people get confused whether to round up or not. For example, if the remainder is zero, then it's exact. But here, since there's a remainder, you need an extra box. So yes, 9 boxes.\n\nLet me check with another example. Suppose there are 13 apples. Then 13 divided by 12 is 1 with remainder 1. So you need 2 boxes. Similarly, 100 apples would need 9 boxes. Yeah, that seems right.\n\nAlternatively, maybe using integer division. In programming terms, if I do 100 // 12, that's 8, and then the remainder is 4. So total boxes is 8 + 1 = 9.\n\nAnother way: Let's list out how many apples each box holds.\n\nBox 1: 12\n\nBox 2: 24\n\nBox 3: 36\n\nBox 4: 48\n\nBox 5: 60\n\nBox 6: 72\n\nBox 7: 84\n\nBox 8: 96\n\nBox 9: 100 (but only 4 apples in the 9th box)\n\nYes, so after 8 boxes, we have 96 apples, then the 9th box has 4. So that's correct.\n\nWait, but the problem says \"사과 100개를 담으려면 상자가 몇 개 필요하고 마지막 상자에는 몇 개가 남는지 계산 과정을 보여줘.\" So they want the calculation process. So I need to show the division steps.\n\nSo, 100 divided by 12. Let's write it as a long division.\n\n12 | 100\n\n12 goes into 10 zero times. 12 goes into 100 how many times? 8 times because 12*8=96. Subtract 96 from 100, get 4. So quotient is 8, remainder 4. Therefore, 8 full boxes and 4 apples left",
+        "chunks": 1019,
+        "prompt": "reason",
+        "broken": "사고만(예산 부족)"
+      },
+      {
+        "ttft": 0.2542285602539778,
+        "total": 14.62341740122065,
+        "out_tokens": 1024,
+        "in_tokens": 60,
+        "decode_tps": 71.1939978882746,
+        "text": "",
+        "thinking": "Okay, I need to explain how the Transformer's attention works to someone who's just learning about it. Let me start by recalling what I know. Transformers use self-attention, right? So, the key idea is that each word in a sentence can look at all other words to understand its context. But how do I make that simple?\n\nHmm, maybe a metaphor. Like, imagine a group of people in a room discussing a project. Each person (word) wants to know what others are saying to get the full picture. Instead of waiting for everyone to speak one by one (like RNNs), they all talk at the same time, but each person listens to everyone else's input. That's parallel processing. Wait, but how does that translate to the actual mechanism?\n\nWait, the user also wants to know why it's better for parallelization than RNNs. RNNs process words sequentially, one after another, because each step depends on the previous hidden state. So, you can't process the whole sentence at once. But Transformers process all words at the same time because attention doesn't depend on previous steps. So, the parallelization comes from not having to wait for the previous word's output.\n\nLet me think of a good analogy. Maybe a classroom where students are working on a group project. In an RNN, the teacher asks each student one by one to share their part, so they have to wait for the previous student to finish. But in the Transformer, all students can share their ideas simultaneously, and each student can listen to everyone else's input at the same time. So, the teacher (the model) can process all the information in parallel, making it faster.\n\nWait, but how does the attention mechanism actually work in the Transformer? Each word is converted into query, key, and value vectors. Then, the attention score is calculated by the dot product of the query and keys, which tells how much each word should focus on others. Then, the values are weighted by these scores. So, it's like each word is asking, \"How important is each other word to me?\" and then combining the important parts.\n\nBut for a beginner, maybe I should simplify. Let's say each word has a \"question\" (query), and it looks at all other words' \"answers\" (keys) to see which ones are relevant. Then, it takes the most relevant answers (values) to form its new representation.\n\nNow, why is this better for parallelization? Because in RNNs, each step depends on the previous, so you can't process multiple words at once. But in attention, all words are processed together. So, the model can handle the entire sequence in one go, which is much faster, especially for long sequences.\n\nWait, but I should make sure the analogy is clear. Let's go with the classroom example. RNN is like a group discussion where each person speaks one after another, so the next person has to wait for the previous. Transformer is like a group where everyone writes down their thoughts on a shared board, and then everyone reads all the notes at the same time. So, the teacher can process all the notes together instead of waiting for each person to speak.\n\nAnother point: the attention mechanism allows the model to focus on different parts of the input simultaneously. For example, in the sentence \"The cat sat on the mat,\" the word \"it\" might refer to \"cat,\" and the attention mechanism can link \"it\" to \"cat\" directly, without having to process the sentence step by step.\n\nWait, but the user asked for a single analogy. Let me stick with the classroom. So, the key points are:\n\n1. Attention allows each word to consider all other words at once.\n2. RNNs process sequentially, so they can't parallelize well.\n3. Transformer's attention is parallel because all words are processed together.\n\nLet me check if I'm mixing up anything. The attention mechanism itself is parallel because the computation for each word's attention doesn't depend on others. So, the matrix operations can be done in parallel. RNNs have a hidden state that's updated sequentially, so each step must wait for the previous.\n\nOkay, so the analogy: Imagine a group of friends planning a trip. In an RNN, they take turns sharing their ideas one by one, so the next person has to wait for the previous to finish. In a Transformer, they all write down their ideas on a shared whiteboard at the same time, and then everyone looks at the entire board to decide the best plan. This way, the planning happens much faster because they don't have to wait for each other.\n\nThat's a good analogy. Now, why is this better for parallelization? Because the Transformer can process all the ideas (words) simultaneously, whereas RNNs have to process them one by one. So, GPUs can handle all the words at once, making training faster.\n\nWait, but the user also wants to know why it's better for parallel",
+        "chunks": 1024,
+        "prompt": "long",
+        "broken": "사고만(예산 부족)"
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 28.87,
+      "out_tokens": 4096,
+      "agg_tps": 141.9,
+      "per_req_total_s": [
+        28.82,
+        28.86,
+        28.77,
+        28.84
+      ],
+      "errors": []
+    },
+    "elapsed_s": 167.9,
+    "is_custom": false,
+    "base": "Qwen3-30B-A3B-Thinking-2507-FP8",
+    "serve_load_s": 43.3,
+    "build_kind": "FXB",
+    "thinking_only": 4,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 71.2,
+    "ttft_med": 0.193
+  },
+  {
+    "model": "Qwen3-30B-A3B-Thinking-2507-FP8@tp8",
+    "started": "2026-08-28 21:05:35",
+    "load_s": 40.4,
+    "runs": [
+      {
+        "ttft": 0.2213020659983158,
+        "total": 17.266232206020504,
+        "out_tokens": 1024,
+        "in_tokens": 40,
+        "decode_tps": 60.01784645617024,
+        "text": "",
+        "thinking": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "chunks": 1024,
+        "prompt": "fact",
+        "broken": "깨짐(사고): 같은 문자 반복(!)"
+      },
+      {
+        "ttft": 0.1934756371192634,
+        "total": 17.063828956335783,
+        "out_tokens": 1024,
+        "in_tokens": 53,
+        "decode_tps": 60.638919686094006,
+        "text": "",
+        "thinking": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "chunks": 1024,
+        "prompt": "code",
+        "broken": "깨짐(사고): 같은 문자 반복(!)"
+      },
+      {
+        "ttft": 0.19369580736383796,
+        "total": 16.574174816254526,
+        "out_tokens": 1024,
+        "in_tokens": 66,
+        "decode_tps": 62.45238612648356,
+        "text": "",
+        "thinking": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "chunks": 1024,
+        "prompt": "reason",
+        "broken": "깨짐(사고): 같은 문자 반복(!)"
+      },
+      {
+        "ttft": 0.1921846210025251,
+        "total": 16.713549339212477,
+        "out_tokens": 1024,
+        "in_tokens": 60,
+        "decode_tps": 61.91982426684419,
+        "text": "",
+        "thinking": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "chunks": 1024,
+        "prompt": "long",
+        "broken": "깨짐(사고): 같은 문자 반복(!)"
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 25.3,
+      "out_tokens": 4096,
+      "agg_tps": 161.9,
+      "per_req_total_s": [
+        25.25,
+        25.3,
+        25.27,
+        25.29
+      ],
+      "errors": []
+    },
+    "elapsed_s": 133.3,
+    "is_custom": true,
+    "base": "Qwen3-30B-A3B-Thinking-2507-FP8",
+    "serve_load_s": 22.5,
+    "build_kind": "v2-artifact",
+    "thinking_only": 0,
+    "garbage": 4,
+    "ok_runs": 0,
+    "n_runs": 4,
+    "decode_tps_med": 61.9,
+    "ttft_med": 0.194
+  },
+  {
+    "model": "Qwen3-32B-FP8",
+    "started": "2026-08-28 19:43:43",
+    "load_s": 231.9,
+    "runs": [
+      {
+        "ttft": 0.4166175969876349,
+        "total": 9.000965801998973,
+        "out_tokens": 458,
+        "in_tokens": 38,
+        "decode_tps": 53.23642390615216,
+        "text": "\n\n대한민국의 수도는 서울입니다. 서울은 조선시대(1392~1897)부터 왕실의 도읍지로 역사적 중심지였으며, 1948년 대한민국 건국 당시 수도로 지정되었습니다. 한국전쟁(1950~1953) 중 잠시 부산으로 이전된 후, 1952년 수원으로 옮겨졌으나, 1963년 서울로 다시 복귀하여 현재까지 수도로 유지되고 있습니다.",
+        "thinking": "\nOkay, I need to answer the user's question about the capital of South Korea and its historical background in three sentences. Let me start by confirming the capital. I know that the capital is Seoul. Now, why is it the capital? I remember that Seoul has been a significant city for a long time, even before South Korea was established. Let me think about the history. Before the Korean War, the capital was Seoul, but during the war, the government moved to Busan. After the war, they decided to keep Seoul as the capital. Also, there was a period when the capital was moved to Suwon, but then it was changed back to Seoul. I need to make sure the dates are correct. The Korean War was from 1950 to 1953. After the war, in 1952, the capital was moved to Suwon, but in 1963, it was moved back to Seoul. So the key points are: Seoul has historical significance as the capital of the Joseon Dynasty, during the Korean War the government temporarily moved to Busan, then to Suwon, but eventually returned to Seoul in 1963. I need to condense this into three clear sentences without getting too detailed. Let me check if there's any other important information. Maybe mention that Seoul was the capital of the Joseon Dynasty (1392-1897), which adds to its historical importance. Also, the decision to move back to Seoul was due to its central location and symbolic value. Alright, putting it all together concisely.\n",
+        "chunks": 451,
+        "prompt": "fact",
+        "broken": null
+      },
+      {
+        "ttft": 0.40484495274722576,
+        "total": 18.917070854920894,
+        "out_tokens": 1024,
+        "in_tokens": 51,
+        "decode_tps": 55.260777683135416,
+        "text": "",
+        "thinking": "\nOkay, I need to write a Python function that calculates the nth Fibonacci number using a loop, and then add a note about the time complexity. Let me start by recalling how the Fibonacci sequence works. The sequence starts with 0 and 1, and each subsequent number is the sum of the two preceding ones. So, F(0) is 0, F(1) is 1, F(2) is 1, F(3) is 2, and so on.\n\nThe user wants a function using a loop, not recursion. Recursion can be inefficient for Fibonacci because it recalculates the same values many times. Using a loop should be more efficient. Let me think about the steps.\n\nFirst, handle the base cases. If n is 0, return 0. If n is 1 or 2, return 1. Then, for n greater than that, iterate from 2 up to n, calculating each Fibonacci number step by step.\n\nLet me outline the steps:\n\nInitialize two variables, a and b, to represent F(0) and F(1). So a starts as 0, b as 1. Then, for each step from 2 to n, calculate the next number as a + b, then update a and b. Wait, but how to track the current value?\n\nAlternatively, maybe use a loop where I keep track of the previous two numbers. Let's say for each i in range(2, n+1), compute the current Fibonacci number as prev1 + prev2, then update prev2 to be prev1, and prev1 to be the current. Wait, maybe I need to adjust the order here.\n\nLet me think with an example. Let's say n=3. The steps would be:\n\ni=2: current = 1 (0+1), then prev1 becomes 1 (previous F(1)), prev2 becomes 0 (previous F(0))? Wait, maybe I should have variables that hold the last two values. Let me try writing it out.\n\nFor n=0: return 0\n\nn=1: return 1\n\nn=2: return 1\n\nn=3: 2\n\nn=4: 3\n\nSo, starting from 2 up to n, each time adding the previous two.\n\nLet me think of variables. Let's say we have variables a and b. Initially, a is F(0) = 0, b is F(1) = 1. For each step up to n, we calculate the next value. But if n is 0, we return a. If n is 1, return b. For n >=2, we need to do iterations. For example, for n=2, the next value is a + b = 0+1=1, which is F(2). Then, for n=3, we need to calculate F(3) = 1 + 1 = 2.\n\nSo, the loop should run from 2 to n. Let me see:\n\ndef fibonacci(n):\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    a, b = 0, 1\n    for _ in range(2, n+1):\n        c = a + b\n        a = b\n        b = c\n    return b\n\nWait, let's test this with n=2. The loop runs for range(2,3), which is one iteration. In that iteration, c = 0+1=1. Then a becomes 1 (previous b), and b becomes 1 (c). Then return b, which is 1. Correct.\n\nn=3: loop runs for 2 iterations? Wait, range(2, n+1) when n=3 is 2,3? No, range(2,4) is 2 and 3? Wait, in Python, range(2, n+1) when n=3 is from 2 to 3 inclusive? Wait, no. The range in Python is up to but not including the end. So range(2,4) is 2 and 3. So for n=3, the loop runs for 2 iterations. Let's see:\n\nInitial a=0, b=1.\n\nFirst iteration (i=2):\n\nc = 0+1=1\n\na becomes 1 (old b)\n\nb becomes 1 (c)\n\nSecond iteration (i=3):\n\nc = 1 +1=2\n\na becomes 1 (old b)\n\nb becomes 2.\n\nReturn b=2. Correct for F(3).\n\nYes, this seems right. So the function should work.\n\nNow, what about edge cases? Like n=0 returns 0. What if n is negative? The problem says n is the nth term, so probably assuming n is a non-negative integer. The function",
+        "chunks": 1023,
+        "prompt": "code",
+        "broken": "사고만(예산 부족)"
+      },
+      {
+        "ttft": 0.3677373919636011,
+        "total": 15.580986861139536,
+        "out_tokens": 842,
+        "in_tokens": 64,
+        "decode_tps": 55.280760478159365,
+        "text": "\n\n사과 100개를 12개씩 담는 상자에 넣기 위해 필요한 상자의 수와 마지막 상자에 남는 사과 개수를 계산합니다.\n\n1. **총 사과 수를 상자당 사과 수로 나누기**  \n   $ 100 \\div 12 = 8 $ (나눗셈의 몫)  \n   나머지: $ 100 - (12 \\times 8) = 4 $  \n\n2. **상자 수 계산**  \n   - 8개의 상자로 96개(12×8)의 사과를 담을 수 있습니다.  \n   - 남은 4개의 사과는 추가 상자에 담아야 하므로, 총 상자 수는 $ 8 + 1 = 9 $개입니다.  \n\n3. **마지막 상자의 사과 수**  \n   마지막 상자에는 남은 4개의 사과가 담깁니다.  \n\n**최종 답:**  \n- **필요한 상자 수:** 9개  \n- **마지막 상자에 남는 사과 수:** 4개  \n\n$$\n\\boxed{9 \\text{개의 상자 필요, 마지막 상자에 4개 남음}}\n$$",
+        "thinking": "\nOkay, let's see. I need to figure out how many boxes are needed to hold 100 apples if each box can hold 12 apples. And also, how many apples will be left in the last box. Hmm, right. So, first, maybe I should start by dividing 100 by 12. Because each box holds 12, so dividing the total number of apples by the number per box should give me the number of boxes needed. But wait, division might not give a whole number, so I need to consider if there's a remainder.\n\nLet me do the division. 100 divided by 12. Let me think. 12 times 8 is 96, right? Because 12*8=96. Then 100 minus 96 is 4. So that means 100 divided by 12 is 8 with a remainder of 4. So does that mean I need 8 boxes and then one more box for the remaining 4 apples? Because you can't have a fraction of a box, right? So even though the remainder is 4, which is less than 12, you still need an extra box to hold those 4 apples. So total boxes would be 8 + 1 = 9 boxes. And the last box would have 4 apples.\n\nWait, let me check that again. If I have 8 boxes, each with 12 apples, that's 96 apples. Then there are 4 left, which need their own box. So yes, 9 boxes total. The last box has 4 apples. That seems right. But maybe I should verify with another method. Let's try multiplying. If 9 boxes are used, 9*12=108. But we only have 100 apples. So 108-100=8. Wait, that suggests there's 8 empty spaces in the last box? But the question is asking how many are left in the last box, not how many are missing. So maybe my initial thought was correct. The last box has 4 apples, not 8. Because 100-96=4. So the remainder is 4, which is the number of apples in the last box. The fact that the box can hold 12 but only has 4 doesn't affect the count of apples left; it's just the remainder. So the answer is 9 boxes needed, with 4 apples in the last one. Yeah, that makes sense. I think that's correct.\n",
+        "chunks": 831,
+        "prompt": "reason",
+        "broken": null
+      },
+      {
+        "ttft": 0.4398119798861444,
+        "total": 18.993842945899814,
+        "out_tokens": 1024,
+        "in_tokens": 58,
+        "decode_tps": 55.13626671605105,
+        "text": "\n\n트랜스포머의 **어텐션**(Attention)은 모델이 입력 데이터(예: 문장)의 각 부분이 다른 부분과 얼마나 관련이 있는지를 학습하는 방식입니다. 처음 배우는 사람에게 쉽게 설명하기 위해 **\"책 읽기\" 비유**를 사용해볼게요.\n\n---\n\n### 📚 **비유: 책 읽기와 어텐션**\n상상해보세요. 당신이 한 권의 책을 읽고 있고, 현재 페이지에 있는 문장에서 어떤 단어가 중요한지 판단해야 합니다. 예를 들어, 문장이  \n**\"고양이가 밥을 먹고, 그 후에 잔다.\"** 라고 해보죠.  \n- \"고양이\"는 \"잔다\"와 직접 연결되어 있고,  \n- \"밥\"은 \"먹고\"와 관련이 있습니다.  \n\n이때 어텐션은 **모델이 각 단어가 다른 단어와 얼마나 관련이 있는지를 계산**하는 과정입니다. 마치 당신이 읽을 때, 중요한 단어에 주의를 기울이고, 덜 중요한 단어는 덜 집중하는 것처럼요. 트랜스포머는 모든 단어가 서로를 \"보며\" 어떤 단어가 중요한지 학습합니다.\n\n---\n\n### 🚀 **왜 순환신경망(RNN)보다 병렬화에 유리한가요?**\nRNN은 **한 번에 하나의 단어만 처리**합니다. 예를 들어, \"고양이가 밥을 먹고 잔다\"를 처리할 때, RNN은  \n1. \"고양이\" → 2. \"가\" → 3. \"밥\" → 4. \"을\" → 5. \"먹고\" → 6. \"잔다\"  \n순서대로 처리해야 하죠. 이는 **시간이 오래 걸리고, 병렬 처리가 어려움**입니다.\n\n반면, 트랜스포머의 어텐션은 **모든 단어를 동시에 처리**할 수 있습니다.  \n- \"고양이\"는 \"잔다\"를, \"밥\"은 \"먹고\"를 동시에 \"보며\" 관련성을 계산합니다.  \n- 마치 책을 읽을 때, 한 페이지 전체를 한 번에 읽고 중요한 부분을 골라내는 것처럼요.  \n\n이렇게 **병렬 처리가 가능**하기 때문에, 트랜스포머는 RNN보다 훨씬 빠르고, 긴 문장의 의미를 더 잘 이해할 수 있습니다.\n\n---\n\n### 🧠 요약\n- **어텐",
+        "thinking": "\nOkay, I need to explain what attention is in transformers to someone who's just starting out. Let me start by recalling what I know. Transformers use self-attention mechanisms, right? But how do I make that simple?\n\nMaybe start with a basic example. Like, when you read a sentence, you focus on certain words depending on the context. For instance, in \"The cat sat on the mat,\" if I ask what the cat sat on, you pay attention to \"mat.\" That's kind of like how attention works in transformers. Each word (or token) looks at others to determine relevance.\n\nBut how to turn that into a metaphor? Maybe a group project where each member contributes differently based on the task. Or a choir where each singer adjusts their volume based on the part they're singing. Hmm, maybe a more relatable example. Like when you're writing an essay and highlight key points, then refer back to them when making a point later. The model does something similar, keeping track of important parts.\n\nNow, why is this better than RNNs for parallelization? RNNs process sequences step by step, like reading a book one word at a time. If you want to understand a later word, you have to go through all previous ones. But with attention, each word can look at any other word directly, regardless of position. So you can process all words at once, which is faster. Like if you're editing a document and can jump to any section instead of reading from start to finish.\n\nWait, but how does the model actually compute attention? It uses queries, keys, and values. Maybe that's too technical for a beginner. Keep it simple: attention lets each part of the input influence every other part, allowing the model to focus on relevant information without processing sequentially.\n\nSo, putting it all together: use a metaphor where each part of the input can refer back to others directly, enabling parallel processing. Compare to RNNs which have to process step by step, making them slower. Emphasize that attention allows the model to handle long-range dependencies more effectively and in parallel.\n",
+        "chunks": 987,
+        "prompt": "long",
+        "broken": null
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 21.72,
+      "out_tokens": 4096,
+      "agg_tps": 188.6,
+      "per_req_total_s": [
+        21.69,
+        21.69,
+        21.67,
+        21.71
+      ],
+      "errors": []
+    },
+    "elapsed_s": 316.1,
+    "is_custom": false,
+    "base": "Qwen3-32B-FP8",
+    "serve_load_s": 211.1,
+    "build_kind": "v2-artifact",
+    "thinking_only": 1,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 55.3,
+    "ttft_med": 0.417
+  },
+  {
+    "model": "Qwen3-32B-FP8@tp8",
+    "started": "2026-08-28 19:48:59",
+    "load_s": 40.5,
+    "runs": [
+      {
+        "ttft": 0.1945842639543116,
+        "total": 31.792805682867765,
+        "out_tokens": 784,
+        "in_tokens": 38,
+        "decode_tps": 24.779875728427136,
+        "text": "\n\n대한민국의 수도는 서울입니다. 서울은 1948년 대한민국 건국 당시 수도로 지정되었으나, 1950년 한국전쟁 발발로 북한군의 점령을 받자 정부는 부산으로 이전했습니다. 전쟁이 끝난 1953년, 서울은 다시 수도로 회복되었으며, 그 역사적·문화적 중심지로서의 지위를 재확인하게 되었습니다.",
+        "thinking": "\nOkay, I need to answer the user's question about the capital of South Korea and its historical background in three sentences. Let me start by confirming the capital. I know that the capital is Seoul. Now, why is it the capital? I remember that Seoul has been a significant city for a long time, even before South Korea was established. Let me think about the history. Before the Korean War, the capital was Seoul, but during the war, it changed hands between North and South. After the war, in 1948, when South Korea was officially established, they decided to keep Seoul as the capital. Wait, was there a period when it wasn't the capital? I think during the Korean War (1950-1953), the capital was moved to Busan temporarily. So the historical background would involve the division of Korea, the Korean War, and the decision to re-establish Seoul as the capital after the war. Let me structure this into three sentences. First, state that the capital is Seoul. Second, mention that it was the capital before the Korean War but was moved to Busan during the war. Third, explain that after the war, Seoul was chosen again as the capital in 1948 when South Korea was established. Wait, actually, South Korea was established in 1948, and the capital was Seoul from the beginning, but during the war, it was occupied by North Korea, so the government moved to Busan. After the war, they took back Seoul. So the correct order is: Seoul was the capital before the war, during the war it was moved to Busan, and after the war, it was returned to Seoul. So the three sentences would be: 1. The capital of South Korea is Seoul. 2. Before the Korean War, Seoul was the capital, but during the war (1950-1953), the government temporarily moved to Busan. 3. After the war, Seoul was re-established as the capital in 1948 when South Korea was officially founded. Wait, but 1948 is when South Korea was established, so maybe the third sentence should clarify that the capital was set as Seoul when the country was founded, but during the war it was moved. Let me check the dates. South Korea was established in August 1948, and the Korean War started in June 1950. So the correct sequence is: Seoul was the capital since 1948, but during the war, the government moved to Busan. After the war ended in 1953, they returned to Seoul. So the three sentences should be: 1. The capital of South Korea is Seoul. 2. Seoul became the capital in 1948 when South Korea was established, but during the Korean War (1950-1953), the government temporarily relocated to Busan. 3. After the war, Seoul was reconfirmed as the capital, reflecting its historical and cultural significance. That makes sense. I need to make sure the dates and events are accurate. Also, mention the historical and cultural significance as part of the reason for choosing Seoul again. That should cover the three sentences.\n",
+        "chunks": 777,
+        "prompt": "fact",
+        "broken": null
+      },
+      {
+        "ttft": 0.22975350404158235,
+        "total": 41.58450189605355,
+        "out_tokens": 1024,
+        "in_tokens": 51,
+        "decode_tps": 24.737183510409203,
+        "text": "",
+        "thinking": "\nOkay, I need to write a Python function that calculates the nth Fibonacci number using a loop. Let me think about how the Fibonacci sequence works. The sequence starts with 0 and 1, and each subsequent number is the sum of the two preceding ones. So for n=0, it's 0; n=1, it's 1; n=2, 1; n=3, 2, and so on.\n\nUsing a loop, I can iterate from 2 up to n and compute each Fibonacci number step by step. Let me outline the steps. If n is 0, return 0. If n is 1 or 2, return 1. For higher n, start with the first two numbers, then loop from 3 to n, updating the current number each time.\n\nWait, maybe I can use two variables to keep track of the previous two numbers. Let's say a and b. For example, starting with a=0 (F0) and b=1 (F1). Then for each step up to n, calculate the next number as a + b, then update a to be the previous b, and b to be the new number. But wait, if n is 0, return a. If n is 1, return b. Then for n >=2, loop n-1 times? Or maybe adjust the loop accordingly.\n\nLet me think of an example. Let's say n=5. The sequence is 0,1,1,2,3,5. So F5 is 5. Let's see:\n\nInitialize a=0, b=1.\n\nIf n=0: return a (0)\nn=1: return b (1)\nn=2: a + b = 1, then a becomes 1 (previous b), b becomes 1 (new value). So return b which is 1.\nn=3: loop once. new_b = a + b = 0+1=1. Then a becomes 1, b becomes 1. Then new_b is 1+1=2 for n=3? Wait, maybe I need to loop from 2 to n, and each time compute the next value.\n\nAlternatively, here's a standard iterative approach:\n\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    a, b = 0, 1\n    for _ in range(2, n+1):\n        a, b = b, a + b\n    return b\n\nYes, that makes sense. For n=2, the loop runs once. a becomes 1, b becomes 0+1=1. Return b=1. For n=3, loop runs from 2 to 3, which is two iterations? Wait, range(2, n+1) for n=3 is 2 and 3? No, range in Python is up to but not including the end. So range(2, n+1) for n=3 would be 2, so the loop runs once. Let's check:\n\nn=3: the loop runs for i in 2 to 3 (exclusive of n+1=4?), no. Wait, range(2, n+1) when n=3 is range(2,4), which is 2 and 3? No, range(2,4) is 2 and 3? Wait, no. The range(2,4) includes 2 and 3? Because the end is exclusive. So for n=3, the loop runs for 2, so one iteration. Let me test:\n\nOriginal code:\n\nfor _ in range(2, n+1):\n\nSo when n=2, range(2,3) is [2], so one iteration. Let's see:\n\nInitially a=0, b=1.\n\nLoop runs once: a becomes 1, b becomes 0+1=1. Return b=1. Which is correct for F(2)=1.\n\nFor n=3, the loop runs from 2 to 4? No, n=3, range(2, 3+1) is 2 to 4, which is 2 and 3. So two iterations?\n\nWait, no. range(2, 4) is 2, 3. So the loop would run two times. Let me simulate:\n\nn=3:\n\nFirst iteration (i=2):\n\na, b = 0, 1 → new a is 1, new b is 0+1=1.\n\nSecond iteration (i=3):\n\na is now 1, b is 1. new a becomes 1, new b is 1+1=2. Now return b=2. Which is correct for F(3)=2. So yes, the code works.\n\nSo the loop runs from 2 to n inclusive. The range(2, n",
+        "chunks": 1023,
+        "prompt": "code",
+        "broken": "사고만(예산 부족)"
+      },
+      {
+        "ttft": 0.2573576751165092,
+        "total": 39.87975204689428,
+        "out_tokens": 975,
+        "in_tokens": 64,
+        "decode_tps": 24.582058087175074,
+        "text": "\n\n사과 100개를 12개씩 담는 상자에 담기 위해 필요한 상자의 수와 마지막 상자에 남는 사과의 수를 계산해보겠습니다.\n\n1. **나눗셈 계산**  \n   100 ÷ 12 = 8.333...  \n   여기서 **몫**은 8이고, **나머지**는 4입니다.  \n   계산 과정:  \n   $ 12 \\times 8 = 96 $  \n   $ 100 - 96 = 4 $\n\n2. **상자 수 결정**  \n   - 8개의 상자에 각각 12개의 사과를 담으면 총 $ 12 \\times 8 = 96 $개의 사과를 담을 수 있습니다.  \n   - 남은 사과는 4개이므로, 이 4개를 담기 위해 추가로 1개의 상자가 필요합니다.  \n   - 따라서 필요한 상자의 총 수는 $ 8 + 1 = 9 $개입니다.\n\n3. **마지막 상자의 사과 수**  \n   마지막 상자에는 남은 4개의 사과가 담깁니다.\n\n**최종 답:**  \n- **필요한 상자 수:** 9개  \n- **마지막 상자에 남는 사과 수:** 4개  \n\n$$\n\\boxed{9} \\text{개의 상자 필요, 마지막 상자에 } \\boxed{4} \\text{개 남음}\n$$",
+        "thinking": "\nOkay, let's see. I need to figure out how many boxes are needed to hold 100 apples if each box can hold 12 apples. And also, how many apples would be left in the last box. Hmm, right. So, first, maybe I should divide 100 by 12. Let me do that. \n\nSo, 12 times 8 is 96, right? Because 12*8=96. Then 100 minus 96 is 4. So that means if I use 8 boxes, each with 12 apples, that's 96 apples, and there are 4 left. But wait, those 4 apples still need a box, right? Because you can't have a partial box. So maybe I need 8 full boxes and then a ninth box with the remaining 4 apples. \n\nWait, let me check my math again. 12*8=96, 100-96=4. So yes, 8 boxes would hold 96 apples, and then 4 apples left over. But since each box can hold up to 12, the 4 apples would need their own box. So total boxes needed would be 9, and the last box has 4 apples. \n\nBut let me make sure I didn't make a mistake. If I use 9 boxes, 9*12=108. But we only have 100 apples. So that would mean 108-100=8 apples short of filling the 9th box. Wait, no, that's not right. Wait, no, the 9th box would have 4 apples, not 12. So the total apples are 8*12 +4= 96+4=100. That's correct. So the answer is 9 boxes needed, with the last one having 4 apples. \n\nAlternatively, maybe using division with remainder. When you divide 100 by 12, the quotient is 8 and the remainder is 4. So the number of boxes is the quotient plus one if there's a remainder. So 8 +1=9 boxes, and the remainder is 4. Yeah, that makes sense. So the answer is 9 boxes, with 4 apples in the last one. \n\nI think that's right. Let me just verify with another method. Suppose each box holds 12 apples. Let's count up: 12, 24, 36, 48, 60, 72, 84, 96. That's 8 boxes, totaling 96. The next box would be the 9th, which would take the remaining 4 apples. Yep, that's correct. So the final answer is 9 boxes, with 4 apples in the last box.\n",
+        "chunks": 960,
+        "prompt": "reason",
+        "broken": null
+      },
+      {
+        "ttft": 0.2056640270166099,
+        "total": 40.87078190688044,
+        "out_tokens": 1024,
+        "in_tokens": 58,
+        "decode_tps": 25.156695795699626,
+        "text": "\n\n트랜스포머의 **어텐션**(Attention)은 모델이 입력 데이터(예: 문장)에서 중요한 정보를 선택적으로 집중하는 방식입니다. 처음 배우는 사람에게 쉽게 설명하기 위해 **\"책 읽기\" 비유**를 사용해볼게요.\n\n---\n\n### 📚 **비유: 책 읽기**\n상상해보세요.  \n당신이 한 문장을 읽을 때, **모든 단어를 똑같이 보는 게 아니라, 문맥에 따라 어떤 단어에 더 집중**합니다. 예를 들어,  \n> \"고양이가 **식탁** 위에 앉아서 **생선**을 먹고 있다.\"  \n\n- \"식탁\"을 보면, \"고양이\"가 어디에 앉아 있는지 이해하려고 그 단어에 집중합니다.  \n- \"생선\"을 보면, \"먹고 있다\"라는 동작과 연결되며, \"고양이\"가 무엇을 먹는지 파악합니다.  \n\n이처럼 **어텐션은 \"어떤 단어가 다른 단어와 얼마나 관련이 있는지\"를 계산**해, 중요한 관계를 강조합니다. 트랜스포머는 모든 단어가 서로를 동시에 바라보며(= **자기 어텐션**, Self-Attention), 전체 문맥을 이해합니다.\n\n---\n\n### ⚡ **왜 순환신경망(RNN)보다 병렬화에 유리한가요?**\n\nRNN은 **단어를 순서대로 처리**합니다. 예를 들어,  \n1. \"고양이\" → 2. \"가\" → 3. \"식탁\" → 4. \"위에\" → ...  \n이렇게 **한 번에 하나의 단어만 처리**하기 때문에,  \n- **병렬화(Parallelization)**가 어려워요. (한 줄로 읽는 것처럼 느리죠.)  \n- 긴 문장일수록 정보가 흐려지는 문제가 생깁니다. (장기 의존성 문제)\n\n반면, **트랜스포머는 모든 단어를 동시에 처리**합니다.  \n- **어텐션 메커니즘 덕분에 모든 단어가 서로를 동시에 바라보며 관계를 계산**합니다.  \n- 예를 들어, \"식탁\"과 \"고양이\"의 관계를 계산할 때, 다른 단어(\"가\", \"위에\")도 함께 고려합니다.  \n- **병렬 처리가 가능**하기 때문에, GPU/TPU 같은 하드웨어를 최대한 활용해 **빠르게 학습**할 수 있습니다.\n\n---\n\n### ✅ 요약\n- **어텐션**: \"어떤 단어가 다른 단어와 얼마나 관련이 있는지\"를 계산해 중요한 정보를 강조합니다.  \n- **병렬화의 장점**: RNN이 단어를 순서대로 처리하는 반면, 트랜스포머는 모든 단어를 동시에 처리해 **속도가 빠르고, 긴 문장도 효과적으로 처리**할 수 있습니다.  \n\n이 덕분에 트랜스포머는 기계 번역, 텍스트",
+        "thinking": "\nOkay, I need to explain what attention is in transformers to someone who's just starting out. Let me start by recalling what I know. Transformers use self-attention mechanisms, right? But how do I explain that in simple terms? Maybe a metaphor would help. Oh, like when you're reading a sentence, your brain focuses on certain words more than others depending on the context. For example, in \"The cat sat on the mat,\" when you hear \"mat,\" you might think back to \"cat\" and \"sat\" to understand the relationship. That's kind of like attention—each word pays attention to others to get the full meaning.\n\nNow, why is this better than RNNs for parallel processing? RNNs process sequences step by step, like reading a book one word at a time. If you want to understand a later word, you have to wait for all the previous ones. But with transformers, attention allows each word to look at all others simultaneously. So you can process the whole sentence at once, which is way faster. That's why transformers are better for parallelization. They don't have to wait for previous steps; everything can be done in parallel. I should make sure to mention that this makes training faster and more efficient, especially with long sequences. Let me check if the metaphor makes sense and if I'm not mixing up any concepts. Yeah, the key points are the attention mechanism allowing relationships between all words at once and the parallel processing advantage over sequential RNNs.\n",
+        "chunks": 993,
+        "prompt": "long",
+        "broken": null
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 44.72,
+      "out_tokens": 4096,
+      "agg_tps": 91.6,
+      "per_req_total_s": [
+        44.63,
+        44.72,
+        44.67,
+        44.49
+      ],
+      "errors": []
+    },
+    "elapsed_s": 239.4,
+    "is_custom": true,
+    "base": "Qwen3-32B-FP8",
+    "serve_load_s": 24.1,
+    "build_kind": "v2-artifact",
+    "thinking_only": 1,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 24.8,
+    "ttft_med": 0.23
+  },
+  {
+    "model": "Qwen3-Coder-30B-A3B-Instruct-FP8",
+    "started": "2026-08-28 19:37:19",
+    "load_s": 202.2,
+    "runs": [
+      {
+        "ttft": 0.1552632488310337,
+        "total": 1.4436399699188769,
+        "out_tokens": 92,
+        "in_tokens": 38,
+        "decode_tps": 70.6315152319455,
+        "text": "대한민국의 수도는 서울이다.  \n서울은 조선시대부터 중요한 정치·문화 중심지였으며, 1948년 대한민국이 설립되면서 정부 수반 도시로 지정되었다.  \n특히 1960년대 이후 경제개발과 함께 서울은 현대적인 대도시로 성장하며 국가의 중심지로 자리매김했다.",
+        "thinking": "",
+        "chunks": 91,
+        "prompt": "fact",
+        "broken": null
+      },
+      {
+        "ttft": 0.14294006768614054,
+        "total": 1.4131394168362021,
+        "out_tokens": 91,
+        "in_tokens": 51,
+        "decode_tps": 70.85501977325245,
+        "text": "```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b\n\n# 예시 사용:\n# print(fibonacci(10))  # 출력: 55\n\n```\n\n시간복잡도: **O(n)**",
+        "thinking": "",
+        "chunks": 90,
+        "prompt": "code",
+        "broken": null
+      },
+      {
+        "ttft": 0.12479711417108774,
+        "total": 5.443628394044936,
+        "out_tokens": 373,
+        "in_tokens": 64,
+        "decode_tps": 69.94017678425459,
+        "text": "사과 100개를 담으려고 하는데, 한 상자에 사과가 **12개**씩 들어간다고 하면,\n\n---\n\n### 1. **총 필요한 상자의 수 계산**\n\n우선, 총 사과 수(100개)를 한 상자에 담을 수 있는 개수(12개)로 나누어 봅니다.\n\n$$\n\\frac{100}{12} = 8.333...\n$$\n\n이 결과는 **8.333...** 이므로,  \n정수로 표현하면 **8번 완전히 채워진 상자**와  \n남은 사과가 있는 **마지막 하나의 상자**가 필요합니다.\n\n따라서, 전체적으로 필요한 상자는:\n\n$$\n\\boxed{9 \\text{개}}\n$$\n\n---\n\n### 2. **마지막 상자에 남는 사과의 수 계산**\n\n이제 총 9개의 박스 중에서 앞의 8개는 모두 꽉 찼다고 가정하면:\n\n- 앞의 8박스 × 12사과 = $8 \\times 12 = \\boxed{96} $사과\n\n- 전체: $\\boxed{100}$사과 → 남은 사과: $100 - 96 = \\boxed{4}$사과\n\n---\n\n### ✅ 최종 답:\n- 필요한 **상자의 수**: $\\boxed{9}$ 개  \n- 마지막 상자에는 $\\boxed{4}$ 개의 사자가 남습니다.\n\n--- \n\n필요하다면 이 과정을 더 자세히 설명해 드릴게요!",
+        "thinking": "",
+        "chunks": 354,
+        "prompt": "reason",
+        "broken": null
+      },
+      {
+        "ttft": 0.13065626099705696,
+        "total": 11.182881484273821,
+        "out_tokens": 800,
+        "in_tokens": 58,
+        "decode_tps": 72.29313408464114,
+        "text": "물론입니다! 트랜스포머의 **어텐션**(Attention)을 처음 배우는 사람에게 설명해보겠습니다.\n\n---\n\n## 🧠 1. 어텐션이란 무엇인가요?\n\n**어텐션**(Attention)은 **\"중심을 두고 집중하기\"** 라는 뜻입니다.\n\n예를 들어, **한 문장을 읽을 때**, 우리가 어떤 단어에 더 많은 주의를 기울이는 것처럼,  \n**트랜스포머 모델도 문장이나 시퀀스에서 중요한 부분에 더 많은 \"집중\"을 하도록 설계되어 있습니다.**\n\n### 🔍 비유로 설명하자면:\n\n> **어텐션은 마치 '다양한 정보들 중에서 가장 중요한 것만 골라서 보여주는' 기능입니다.**\n\n예를 들어,  \n> \"나는 학교에 가야 해요.\"라는 문장을 보면,  \n> \"학교\"라는 단어가 중요하다고 느낄 수 있죠?  \n> 이때 어텐션은 \"학교\"라는 단어가 다른 단어들(나는, 가야 해요 등)보다 더 중요하다고 판단하고,\n> 그 정보를 강조해서 사용합니다.\n\n---\n\n## 🧠 2. 왜 순환신경망(RNN)보다 병렬화에 유리할까요?\n\n이제 왜 트랜스포머의 어텐션이 RNN보다 **병렬화**(Parallelization)에 유리한지 알아봅시다.\n\n### 🔁 RNN(순환신경망): 순차적 처리\n\nRNN은 입력 데이터가 하나씩 차례대로 처리됩니다.\n- 예: \"나는 학교에 가야 해요.\"\n- 첫 번째 단어: '나' → 다음 단어: '는'\n- 이전 출력이 다음 입력으로 연결됨 → 계산이 순차적으로 진행됨\n\n👉 그래서 RNN은 **하나씩 처리해야 하기 때문에**, 병렬로 계산하기 어렵습니다.\n\n### ✅ 트랜스포머 + 어テン션: 모든 요소 동시에 비교\n\n트랜스포머에서는 모든 단어들이 동시에 비교됩니다.\n- 예: “나는 학교에 가야 해요.”에서 각각의 단어들이 서로 다른 위치와 관계를 확인하면서,\n- 전체 문장에서 어떤 부분이 중요한지를 동시에 판단합니다.\n  \n👉 그래서 각각의 연산들이 독립적으로 이루어질 수 있어,\n**병렬로 처리할 수 있어서 속도 향상이 가능합니다!**\n\n---\n\n## 📌 요약 정리\n\n| 항목 | RNN | 트랜스포머 + 어テン션 |\n|------|-----|------------------------|\n| 데이터 처리 방식 | 순차적 (하나씩) | 동시 다발적 (모두 한 번에) |\n| 병렬화 가능성 | 낮음 | 높음 |\n| 집중력 표현 방식 | 시간 흐름 따라 변화 | 각 요소 간 관계로 결정 |\n| 장점 (속도/성능) | 간단하지만 느림 | 빠르고 강력함 |\n\n---\n\n## 💡 결론\n\n트랜스포머의 어텐션은 마치 ‘사람처럼 주변 정보 중에서 중요한 것만 골라서 생각하는’ 능력을 갖춘 것입니다. 그리고 이 방법 덕분에 여러 작업들을 동시에 할 수 있어 컴퓨터 성능도 향상되고, 자연언語 이해 능력도 매우 좋아집니다!\n\n필요하시면 그림이나 예시 코드도 추가로 드릴게요 😊",
+        "thinking": "",
+        "chunks": 748,
+        "prompt": "long",
+        "broken": null
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 25.79,
+      "out_tokens": 3585,
+      "agg_tps": 139.0,
+      "per_req_total_s": [
+        25.79,
+        24.99,
+        24.74,
+        23.56
+      ],
+      "errors": []
+    },
+    "elapsed_s": 247.4,
+    "is_custom": false,
+    "base": "Qwen3-Coder-30B-A3B-Instruct-FP8",
+    "serve_load_s": 938.0,
+    "build_kind": "FXB",
+    "thinking_only": 0,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 70.9,
+    "ttft_med": 0.143
+  },
+  {
+    "model": "Qwen3-Coder-30B-A3B-Instruct-FP8@tp8",
+    "started": "2026-08-28 19:41:27",
+    "load_s": 40.3,
+    "runs": [
+      {
+        "ttft": 0.13242480624467134,
+        "total": 17.079797802027315,
+        "out_tokens": 1024,
+        "in_tokens": 38,
+        "decode_tps": 60.36333774293949,
+        "text": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "thinking": "",
+        "chunks": 1024,
+        "prompt": "fact",
+        "broken": "같은 문자 반복(!)"
+      },
+      {
+        "ttft": 0.12241262989118695,
+        "total": 16.942892306949943,
+        "out_tokens": 1024,
+        "in_tokens": 51,
+        "decode_tps": 60.818717399317514,
+        "text": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "thinking": "",
+        "chunks": 1024,
+        "prompt": "code",
+        "broken": "같은 문자 반복(!)"
+      },
+      {
+        "ttft": 0.12325812224298716,
+        "total": 19.568246958311647,
+        "out_tokens": 1024,
+        "in_tokens": 64,
+        "decode_tps": 52.609955635584086,
+        "text": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "thinking": "",
+        "chunks": 1024,
+        "prompt": "reason",
+        "broken": "같은 문자 반복(!)"
+      },
+      {
+        "ttft": 0.12340462999418378,
+        "total": 16.915408371947706,
+        "out_tokens": 1024,
+        "in_tokens": 58,
+        "decode_tps": 60.921853980065144,
+        "text": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "thinking": "",
+        "chunks": 1024,
+        "prompt": "long",
+        "broken": "같은 문자 반복(!)"
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 25.5,
+      "out_tokens": 4096,
+      "agg_tps": 160.6,
+      "per_req_total_s": [
+        25.47,
+        25.5,
+        25.5,
+        25.5
+      ],
+      "errors": []
+    },
+    "elapsed_s": 136.3,
+    "is_custom": true,
+    "base": "Qwen3-Coder-30B-A3B-Instruct-FP8",
+    "serve_load_s": 21.1,
+    "build_kind": "v2-artifact",
+    "thinking_only": 0,
+    "garbage": 4,
+    "ok_runs": 0,
+    "n_runs": 4,
+    "decode_tps_med": 60.8,
+    "ttft_med": 0.123
+  },
+  {
+    "model": "Qwen3-Coder-30B-A3B-Instruct",
+    "started": "2026-08-28 22:11:01",
+    "load_s": 50.4,
+    "runs": [
+      {
+        "ttft": 0.18800169695168734,
+        "total": 18.988900712691247,
+        "out_tokens": 1024,
+        "in_tokens": 38,
+        "decode_tps": 54.412291621989695,
+        "text": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "thinking": "",
+        "chunks": 1024,
+        "prompt": "fact",
+        "broken": "같은 문자 반복(!)"
+      },
+      {
+        "ttft": 0.1807375168427825,
+        "total": 19.26270780293271,
+        "out_tokens": 1024,
+        "in_tokens": 51,
+        "decode_tps": 53.610816108739584,
+        "text": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "thinking": "",
+        "chunks": 1024,
+        "prompt": "code",
+        "broken": "같은 문자 반복(!)"
+      },
+      {
+        "ttft": 0.18221416929736733,
+        "total": 19.11357793910429,
+        "out_tokens": 1024,
+        "in_tokens": 64,
+        "decode_tps": 54.03731143931388,
+        "text": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "thinking": "",
+        "chunks": 1024,
+        "prompt": "reason",
+        "broken": "같은 문자 반복(!)"
+      },
+      {
+        "ttft": 0.20066308230161667,
+        "total": 18.84570298716426,
+        "out_tokens": 1024,
+        "in_tokens": 58,
+        "decode_tps": 54.86713920806363,
+        "text": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        "thinking": "",
+        "chunks": 1024,
+        "prompt": "long",
+        "broken": "같은 문자 반복(!)"
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 34.52,
+      "out_tokens": 4096,
+      "agg_tps": 118.7,
+      "per_req_total_s": [
+        34.48,
+        34.52,
+        34.52,
+        34.51
+      ],
+      "errors": []
+    },
+    "elapsed_s": 161.2,
+    "is_custom": true,
+    "base": "Qwen3-Coder-30B-A3B-Instruct",
+    "serve_load_s": 35.6,
+    "build_kind": "v2-artifact",
+    "thinking_only": 0,
+    "garbage": 4,
+    "ok_runs": 0,
+    "n_runs": 4,
+    "decode_tps_med": 54.4,
+    "ttft_med": 0.188
+  }
+]

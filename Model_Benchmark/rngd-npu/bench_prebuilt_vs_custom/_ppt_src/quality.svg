@@ -1,0 +1,61 @@
+<svg viewBox="0 0 950 236" xmlns="http://www.w3.org/2000/svg">
+<g font-family="Noto Sans CJK KR">
+<text x="16" y="34" font-size="11.5" fill="#16202c" font-weight="700">(a) 아티팩트별 답변 상태, 프롬프트 4종 모두</text>
+<text x="301" y="42" font-size="10.5" fill="#5b6b7b" text-anchor="middle">MoE 위장 여부</text>
+<rect x="16" y="50" width="116.0" height="23" rx="3" fill="#ffffff" stroke="#253761" stroke-width="1.1"/>
+<text x="74.0" y="66" font-size="10.5" fill="#16202c" text-anchor="middle">Coder 30B custom</text>
+<rect x="256" y="50" width="90" height="23" rx="3" fill="#ffd34d" stroke="#253761" stroke-width="1"/>
+<text x="301" y="66" font-size="10.5" fill="#16202c" text-anchor="middle">위장함</text>
+<rect x="356" y="50" width="74.0" height="23" rx="3" fill="#9da5b8" stroke="#253761" stroke-width="1.1"/>
+<text x="393.0" y="66" font-size="10.5" fill="#16202c" text-anchor="middle">깨짐 4/4</text>
+<rect x="16" y="76" width="116.0" height="23" rx="3" fill="#ffffff" stroke="#253761" stroke-width="1.1"/>
+<text x="74.0" y="92" font-size="10.5" fill="#16202c" text-anchor="middle">Qwen3 32B custom</text>
+<rect x="256" y="76" width="90" height="23" rx="3" fill="#eef2f7" stroke="#253761" stroke-width="1"/>
+<text x="301" y="92" font-size="10.5" fill="#16202c" text-anchor="middle">원본</text>
+<rect x="356" y="76" width="74.0" height="23" rx="3" fill="#ffffff" stroke="#253761" stroke-width="1.1"/>
+<text x="393.0" y="92" font-size="10.5" fill="#16202c" text-anchor="middle">정상 4/4</text>
+<rect x="16" y="102" width="131.75" height="23" rx="3" fill="#ffffff" stroke="#253761" stroke-width="1.1"/>
+<text x="81.875" y="118" font-size="10.5" fill="#16202c" text-anchor="middle">A3B Instruct custom</text>
+<rect x="256" y="102" width="90" height="23" rx="3" fill="#ffd34d" stroke="#253761" stroke-width="1"/>
+<text x="301" y="118" font-size="10.5" fill="#16202c" text-anchor="middle">위장함</text>
+<rect x="356" y="102" width="74.0" height="23" rx="3" fill="#9da5b8" stroke="#253761" stroke-width="1.1"/>
+<text x="393.0" y="118" font-size="10.5" fill="#16202c" text-anchor="middle">깨짐 4/4</text>
+<rect x="16" y="128" width="131.75" height="23" rx="3" fill="#ffffff" stroke="#253761" stroke-width="1.1"/>
+<text x="81.875" y="144" font-size="10.5" fill="#16202c" text-anchor="middle">A3B Thinking custom</text>
+<rect x="256" y="128" width="90" height="23" rx="3" fill="#ffd34d" stroke="#253761" stroke-width="1"/>
+<text x="301" y="144" font-size="10.5" fill="#16202c" text-anchor="middle">위장함</text>
+<rect x="356" y="128" width="74.0" height="23" rx="3" fill="#9da5b8" stroke="#253761" stroke-width="1.1"/>
+<text x="393.0" y="144" font-size="10.5" fill="#16202c" text-anchor="middle">깨짐 4/4</text>
+<rect x="16" y="154" width="121.25" height="23" rx="3" fill="#ffffff" stroke="#253761" stroke-width="1.1"/>
+<text x="76.625" y="170" font-size="10.5" fill="#16202c" text-anchor="middle">EXAONE 4.0 custom</text>
+<rect x="256" y="154" width="90" height="23" rx="3" fill="#eef2f7" stroke="#253761" stroke-width="1"/>
+<text x="301" y="170" font-size="10.5" fill="#16202c" text-anchor="middle">원본</text>
+<rect x="356" y="154" width="74.0" height="23" rx="3" fill="#ffffff" stroke="#253761" stroke-width="1.1"/>
+<text x="393.0" y="170" font-size="10.5" fill="#16202c" text-anchor="middle">정상 4/4</text>
+<rect x="16" y="180" width="84.5" height="23" rx="3" fill="#ffffff" stroke="#253761" stroke-width="1.1"/>
+<text x="58.25" y="196" font-size="10.5" fill="#16202c" text-anchor="middle">A3B custom</text>
+<rect x="256" y="180" width="90" height="23" rx="3" fill="#ffd34d" stroke="#253761" stroke-width="1"/>
+<text x="301" y="196" font-size="10.5" fill="#16202c" text-anchor="middle">위장함</text>
+<rect x="356" y="180" width="74.0" height="23" rx="3" fill="#9da5b8" stroke="#253761" stroke-width="1.1"/>
+<text x="393.0" y="196" font-size="10.5" fill="#16202c" text-anchor="middle">깨짐 3/4</text>
+<text x="500" y="34" font-size="11.5" fill="#16202c" font-weight="700">(b) 같은 프롬프트에 대한 답변 첫 줄</text>
+<text x="500" y="50" font-size="10.5" fill="#5b6b7b">Coder 30B prebuilt</text>
+<text x="628" y="50" font-size="10.5" fill="#16202c">대한민국의 수도는 서울이다.   서울은 조선</text>
+<text x="500" y="65" font-size="10.5" fill="#5b6b7b">Coder 30B custom</text>
+<text x="628" y="65" font-size="10.5" fill="#16202c">같은 문자만 반복</text>
+<text x="500" y="83" font-size="10.5" fill="#5b6b7b">Qwen3 32B prebuilt</text>
+<text x="628" y="83" font-size="10.5" fill="#16202c">대한민국의 수도는 서울입니다. 서울은 조선시</text>
+<text x="500" y="98" font-size="10.5" fill="#5b6b7b">Qwen3 32B custom</text>
+<text x="628" y="98" font-size="10.5" fill="#16202c">대한민국의 수도는 서울입니다. 서울은 194</text>
+<text x="500" y="116" font-size="10.5" fill="#5b6b7b">A3B Instruct prebuilt</text>
+<text x="628" y="116" font-size="10.5" fill="#16202c">대한민국의 수도는 서울이다.   1910년 </text>
+<text x="500" y="131" font-size="10.5" fill="#5b6b7b">A3B Instruct custom</text>
+<text x="628" y="131" font-size="10.5" fill="#16202c">같은 문자만 반복</text>
+<text x="500" y="149" font-size="10.5" fill="#5b6b7b">A3B Thinking prebuilt</text>
+<text x="628" y="149" font-size="10.5" fill="#16202c">사고만(예산 부족)</text>
+<text x="500" y="164" font-size="10.5" fill="#5b6b7b">A3B Thinking custom</text>
+<text x="628" y="164" font-size="10.5" fill="#16202c">같은 문자만 반복</text>
+<text x="16" y="222" font-size="11" fill="#16202c">처리량만 보면 custom 이 이기지만, 답변을 같이 보지 않으면 깨진 것을 놓친다</text>
+<text x="844" y="206" font-size="10.5" fill="#5b6b7b" text-anchor="end">답변 원문은 results/&lt;모델&gt;.json 에 전부 저장돼 있다</text>
+</g>
+</svg>

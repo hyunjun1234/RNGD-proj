@@ -1,0 +1,44 @@
+<svg viewBox="0 0 950 250" xmlns="http://www.w3.org/2000/svg">
+<g font-family="Noto Sans CJK KR">
+<text x="16" y="36" font-size="11.5" fill="#16202c" font-weight="700">(a) prebuilt: 퓨리오사가 배포한 FXB 번들</text>
+<rect x="16" y="48" width="119.25" height="40" rx="4" fill="#e3e5ea" stroke="#253761" stroke-width="1.3"/>
+<text x="75.625" y="65" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">HF 허브</text>
+<text x="75.625" y="81" font-size="10.5" fill="#5b6b7b" text-anchor="middle">furiosa-ai/&lt;모델&gt;</text>
+<line x1="138.25" y1="68" x2="150.25" y2="68" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="150.25,63 159.25,68 150.25,73" fill="#5b6b7b"/>
+<rect x="162.25" y="48" width="114.0" height="40" rx="4" fill="#e3e5ea" stroke="#253761" stroke-width="1.3"/>
+<text x="219.25" y="65" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">FXB 파일 1개</text>
+<text x="219.25" y="81" font-size="10.5" fill="#5b6b7b" text-anchor="middle">…-2606290751.fxb</text>
+<line x1="279.25" y1="68" x2="291.25" y2="68" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="291.25,63 300.25,68 291.25,73" fill="#5b6b7b"/>
+<rect x="303.25" y="48" width="114.97500000000001" height="40" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.3"/>
+<text x="360.7375" y="65" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">entrypoint 경로</text>
+<text x="360.7375" y="81" font-size="10.5" fill="#5b6b7b" text-anchor="middle">TP=32, 카드 4장</text>
+<line x1="421.225" y1="68" x2="433.225" y2="68" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="433.225,63 442.225,68 433.225,73" fill="#5b6b7b"/>
+<rect x="445.225" y="48" width="77.25" height="40" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.3"/>
+<text x="483.85" y="65" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">서빙</text>
+<text x="483.85" y="81" font-size="10.5" fill="#5b6b7b" text-anchor="middle">포트 8410</text>
+<text x="16" y="108" font-size="10.5" fill="#5b6b7b">가중치도 컴파일 결과도 번들 하나에 들어 있다, 우리가 만지는 부분이 없다</text>
+<text x="16" y="146" font-size="11.5" fill="#16202c" font-weight="700">(b) custom: 우리가 직접 빌드한 v2 아티팩트</text>
+<rect x="16" y="158" width="80.985" height="40" rx="4" fill="#e3e5ea" stroke="#253761" stroke-width="1.3"/>
+<text x="56.4925" y="175" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">HF 가중치</text>
+<text x="56.4925" y="191" font-size="10.5" fill="#5b6b7b" text-anchor="middle">원본 모델</text>
+<line x1="99.985" y1="178" x2="111.985" y2="178" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="111.985,173 120.985,178 111.985,183" fill="#5b6b7b"/>
+<rect x="123.985" y="158" width="126.305" height="40" rx="4" fill="#e3e5ea" stroke="#253761" stroke-width="1.3"/>
+<text x="187.1375" y="175" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">furiosa-llm build</text>
+<text x="187.1375" y="191" font-size="10.5" fill="#5b6b7b" text-anchor="middle">2026-07-27~29</text>
+<line x1="253.29000000000002" y1="178" x2="265.29" y2="178" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="265.29,173 274.29,178 265.29,183" fill="#5b6b7b"/>
+<rect x="277.29" y="158" width="145.5" height="40" rx="4" fill="#ffd34d" stroke="#253761" stroke-width="1.3"/>
+<text x="350.04" y="175" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">아티팩트 폴더</text>
+<text x="350.04" y="191" font-size="10.5" fill="#5b6b7b" text-anchor="middle">artifact.json + 가중치</text>
+<line x1="425.79" y1="178" x2="437.79" y2="178" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="437.79,173 446.79,178 437.79,183" fill="#5b6b7b"/>
+<rect x="449.79" y="158" width="103.645" height="40" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.3"/>
+<text x="501.6125" y="175" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">next_gen 경로</text>
+<text x="501.6125" y="191" font-size="10.5" fill="#5b6b7b" text-anchor="middle">TP=8, 카드 1장</text>
+<line x1="556.4350000000001" y1="178" x2="568.4350000000001" y2="178" stroke="#5b6b7b" stroke-width="1.8"/><polygon points="568.4350000000001,173 577.4350000000001,178 568.4350000000001,183" fill="#5b6b7b"/>
+<rect x="580.4350000000001" y="158" width="77.25" height="40" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.3"/>
+<text x="619.0600000000001" y="175" font-size="11" fill="#16202c" font-weight="700" text-anchor="middle">서빙</text>
+<text x="619.0600000000001" y="191" font-size="10.5" fill="#5b6b7b" text-anchor="middle">포트 8410</text>
+<text x="16" y="216" font-size="10.5" fill="#5b6b7b">노란 상자는 사람이 손댈 수 있는 곳이다, MoE 게이트를 지나려고 여기의 model_type 을 고쳤다</text>
+<text x="16" y="242" font-size="11" fill="#16202c">같은 모델을 라우터가 두 갈래로 서빙한다, 이름 뒤 @tp8 이 직접 빌드한 쪽이다</text>
+<text x="844" y="242" font-size="10.5" fill="#5b6b7b" text-anchor="end">coding-agent/furiosa_router.py 의 REGISTRY tps 필드</text>
+</g>
+</svg>

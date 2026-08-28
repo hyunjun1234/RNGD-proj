@@ -56,15 +56,24 @@ furiosa-llm 2026.3.0 의 **v2 아티팩트(next_gen) 경로가 MoE 를 지원하
 
 | 항목 | 조치 |
 |---|---|
-| MoE tp8 아티팩트 5종 | 카탈로그와 라우터에서 뺀다. `artifact.json.orig-qwen3_moe` 로 되돌리면 게이트가 막아 사고를 예방한다 |
+| MoE tp8 아티팩트 5종 | **2026-08-29 제거 완료.** 라우터 REGISTRY, chat CATALOG, serve_models.sh 에서 빼고 `artifact.json` 을 원본(qwen3_moe)으로 되돌려 게이트가 막게 했다(위장본은 `artifact.json.masqueraded-bak`). 경고문 `artifacts/README-MoE-경고.md` |
 | dense tp8 아티팩트 3종 | 그대로 쓴다. 카드 1장으로 배포판 카드당 성능의 2배 |
 | MoE 모델 | 배포 FXB 로만 서빙 |
 
 ## 측정 못 한 것
 
 `EXAONE-4.0-32B-FP8` 과 `Qwen3-30B-A3B-FP8` 의 **prebuilt** 는 HF 다운로드가 `No space left on device` 로 실패했다.
-`/mnt/nvme2n1p1` 이 1.9T 중 여유 6.8G 로 가득 찼다. `models/furiosa/llm/param_files` 282G 는 아티팩트 폴더와
-하드링크가 아닌 별도 사본이라(inode 다름, 링크수 1) 서빙을 깨지 않고 되찾을 수 있는 후보다.
+`/mnt/nvme2n1p1` 이 1.9T 중 여유 6.8G 로 가득 차 있었다.
+
+**2026-08-29 정리 완료**: `models/furiosa/llm/param_files` 는 아티팩트 폴더와 하드링크가 아닌 별도 사본이라
+(inode 다름, 링크수 1, 크기 동일) 서빙을 깨지 않고 지울 수 있다. 사본이 확인된 8개만 지워
+**251.3 GiB 를 회수**했다(여유 5.6G → 257G, 100% → 86%). 지운 뒤 `Qwen3-32B-FP8@tp8` 로 실제 생성을
+확인했다. 사본이 없는 5개(Qwen2.5-3B, Qwen3-4B, Qwen3-8B 등 30.4G)는 남겼다.
+
+```bash
+bash clean_param_files.sh          # 무엇을 지울지 보여만 준다
+bash clean_param_files.sh --yes    # 실제로 지운다
+```
 
 ## 다시 돌리는 법
 

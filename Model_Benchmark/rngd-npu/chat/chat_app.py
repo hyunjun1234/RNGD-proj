@@ -119,22 +119,22 @@ CATALOG = {
     #    연산은 이미 컴파일돼 있고 게이트만 메타데이터를 보므로 artifact.json 의 model_type 을
     #    qwen3 로 위장하면 뜬다: `bash masquerade_moe.sh --apply`
     #    (README §3-1, validate_catalog.py 가 자동으로 잡아 명령까지 찍어 준다.)
-    "coder":            dict(name="Qwen3-Coder-30B-A3B-Inst-FP8 tp8", port=8000, kind="tp8",
-                             src="art", sub="coder-tp8", ctx=262144, prompt_max=65408,
-                             pp_min=2, tool=None, reasoning=None),
+#    "coder":            dict(name="Qwen3-Coder-30B-A3B-Inst-FP8 tp8", port=8000, kind="tp8",
+#                             src="art", sub="coder-tp8", ctx=262144, prompt_max=65408,
+#                             pp_min=2, tool=None, reasoning=None),
     # bf16 56.9G. pp4 실측 분할은 13.5/14.1/14.1/15.8 GiB → pp2 면 27.6/29.9 GiB.
     # 예전 pp2 상한(29.7G) 턱밑이라 한동안 pp4 로 강제했으나, 2026-08-04 에 pp2 로 실제 기동해
     # 정상 동작을 확인하고 기본을 pp2 로 내렸다(카드 2장만 쓰므로 다른 모델과 같이 띄울 수 있다).
     # 최대 컨텍스트(262144)로 길게 쓰면 KV 가 장당 12 GiB 라 빠듯하니, 그때는 UI 에서 pp4 를 고를 것.
-    "coder-bf16":       dict(name="Qwen3-Coder-30B-A3B-Inst bf16 tp8", port=8001, kind="tp8",
-                             src="art", sub="coder-bf16-tp8", ctx=262144, prompt_max=65408,
-                             pp_min=2, tool=None, reasoning=None),
-    "a3b-inst-2507":    dict(name="Qwen3-30B-A3B-Instruct-2507-FP8 tp8", port=8002, kind="tp8",
-                             src="art", sub="a3b-inst-2507-tp8", ctx=262144, prompt_max=65408,
-                             pp_min=2, tool="hermes", reasoning=None),
-    "a3b-think-2507":   dict(name="Qwen3-30B-A3B-Thinking-2507-FP8 tp8", port=8003, kind="tp8",
-                             src="art", sub="a3b-think-2507-tp8", ctx=262144, prompt_max=65408,
-                             pp_min=2, tool="hermes", reasoning="qwen3"),
+#    "coder-bf16":       dict(name="Qwen3-Coder-30B-A3B-Inst bf16 tp8", port=8001, kind="tp8",
+#                             src="art", sub="coder-bf16-tp8", ctx=262144, prompt_max=65408,
+#                             pp_min=2, tool=None, reasoning=None),
+#    "a3b-inst-2507":    dict(name="Qwen3-30B-A3B-Instruct-2507-FP8 tp8", port=8002, kind="tp8",
+#                             src="art", sub="a3b-inst-2507-tp8", ctx=262144, prompt_max=65408,
+#                             pp_min=2, tool="hermes", reasoning=None),
+#    "a3b-think-2507":   dict(name="Qwen3-30B-A3B-Thinking-2507-FP8 tp8", port=8003, kind="tp8",
+#                             src="art", sub="a3b-think-2507-tp8", ctx=262144, prompt_max=65408,
+#                             pp_min=2, tool="hermes", reasoning="qwen3"),
     # ❌ a3b(Qwen3-30B-A3B-FP8) — **아티팩트가 고장이라 비활성**(2026-08-04 실측).
     # 위장 후 serve 는 정상적으로 뜨는데(게이트 통과·Uvicorn running·가중치 29.0G 로드 OK)
     # **생성이 0 토큰**이다. /v1/completions 로 채팅 템플릿을 우회해도 빈 문자열이라

@@ -76,6 +76,9 @@ os.makedirs(LOGDIR, exist_ok=True)   # chat/ 은 git 미추적이라 디렉토�
 #   kind      : "chat"(기본) | "embedding" | "reranker" — chat 이 아니면 opencode/furio 목록에서 제외
 #   ctx       : 클라이언트 컨텍스트 한도 힌트 = 아티팩트 max_position_embeddings (serve 엔 전달 안 됨)
 # 파서 매핑 근거: available_model.md (2026.3 공식) / tp·ctx 근거: fxb show + artifact.json 실측(2026-07-16)
+# ★ MoE tp8 아티팩트는 등록하지 않는다(2026-08-29 실측). artifact.json 의 model_type 을 위장해
+#   게이트를 지나면 적재는 되지만 답이 틀리고 에러도 안 난다 — furiosa-llm 2026.3.0 의 v2 아티팩트
+#   경로가 Qwen3Moe 를 지원하지 않는다. 근거: bench_prebuilt_vs_custom/README.md. MoE 는 FXB 로만.
 REGISTRY = {
     # ── agent-ready (tool calling 검증/신뢰 순) ──
     "gpt-oss-120b":                     dict(path="furiosa-ai/gpt-oss-120b",                     tp=32, cards=4, pp=1, tool="openai",     reasoning=None,         ctx=131072),
@@ -86,18 +89,19 @@ REGISTRY = {
     "EXAONE-4.0-32B-FP8":               dict(path="furiosa-ai/EXAONE-4.0-32B-FP8",               tp=32, cards=4, pp=1, tool="hermes",     reasoning="exaone4",    ctx=131072, tps={8: f"{NVME_ART}/exaone4-tp8"}),
     "K-EXAONE-236B-A23B-NVFP4A16":      dict(path="furiosa-ai/K-EXAONE-236B-A23B-NVFP4A16",      tp=32, cards=4, pp=1, tool="hermes",     reasoning="deepseek_v3", ctx=262144,
                                              extra=["--default-chat-template-kwargs", '{"enable_thinking": true}']),
-    "Qwen3-30B-A3B-Instruct-2507-FP8":  dict(path="furiosa-ai/Qwen3-30B-A3B-Instruct-2507-FP8",  tp=32, cards=4, pp=1, tool="hermes",     reasoning=None,         ctx=262144, tps={8: f"{NVME_ART}/a3b-inst-2507-tp8"}),
-    "Qwen3-30B-A3B-Thinking-2507-FP8":  dict(path="furiosa-ai/Qwen3-30B-A3B-Thinking-2507-FP8",  tp=32, cards=4, pp=1, tool="hermes",     reasoning="qwen3",      ctx=262144, tps={8: f"{NVME_ART}/a3b-think-2507-tp8"}),
-    "Qwen3-30B-A3B-FP8":                dict(path="furiosa-ai/Qwen3-30B-A3B-FP8",                tp=32, cards=4, pp=1, tool="hermes",     reasoning="qwen3",      ctx=40960,  tps={8: f"{NVME_ART}/a3b-tp8"}),
+    "Qwen3-30B-A3B-Instruct-2507-FP8":  dict(path="furiosa-ai/Qwen3-30B-A3B-Instruct-2507-FP8",  tp=32, cards=4, pp=1, tool="hermes",     reasoning=None,         ctx=262144),
+    "Qwen3-30B-A3B-Thinking-2507-FP8":  dict(path="furiosa-ai/Qwen3-30B-A3B-Thinking-2507-FP8",  tp=32, cards=4, pp=1, tool="hermes",     reasoning="qwen3",      ctx=262144),
+    "Qwen3-30B-A3B-FP8":                dict(path="furiosa-ai/Qwen3-30B-A3B-FP8",                tp=32, cards=4, pp=1, tool="hermes",     reasoning="qwen3",      ctx=40960),
     # 코더 계열은 전용 qwen3_coder 파서를 쓴다. 공식 카드는 hermes 를 안내하지만 모델이 실제로 내는 건
     # XML(<function=..><parameter=..>) 이라 hermes 는 파싱에 실패한다(오프라인 실측: hermes/llama3_json/
     # solar_open 전부 tool_calls 비고 content 로 누출, qwen3_coder 만 정상 추출).
     # 파서 실체는 coding-agent/furiosa_patches/qwen3_coder_tool_parser.py — venv 에 install.sh 로 등록한다
     # (furiosa-llm 재설치 시 등록이 날아가므로 재실행 필요).
-    "Qwen3-Coder-30B-A3B-Instruct-FP8": dict(path="furiosa-ai/Qwen3-Coder-30B-A3B-Instruct-FP8", tp=32, cards=4, pp=1, tool="qwen3_coder", reasoning=None,        ctx=262144, tps={8: f"{NVME_ART}/coder-tp8"}, greedy_default=True),
+    "Qwen3-Coder-30B-A3B-Instruct-FP8": dict(path="furiosa-ai/Qwen3-Coder-30B-A3B-Instruct-FP8", tp=32, cards=4, pp=1, tool="qwen3_coder", reasoning=None,        ctx=262144, greedy_default=True),
     # BF16 코더 — coder-bf16-tp8 v2. 가중치 57GB 라 1장(47.5GB) 초과 → pp1 OOM.
     # pp_opts=[2,3,4] 로 pp1 제외하고 2·3·4장 층분할만 노출(기본 pp2, 실측 OK).
-    "Qwen3-Coder-30B-A3B-Instruct":     dict(path=f"{NVME_ART}/coder-bf16-tp8",                  tp=8,  cards=2, pp=1, tool="qwen3_coder", reasoning=None,        ctx=262144, pp_opts=[2, 3, 4], greedy_default=True),
+    # ❌ 제거(2026-08-29): coder-bf16-tp8 은 MoE 위장 아티팩트라 답이 조용히 틀린다.
+    # "Qwen3-Coder-30B-A3B-Instruct":     dict(path=f"{NVME_ART}/coder-bf16-tp8",                  tp=8,  cards=2, pp=1, tool="qwen3_coder", reasoning=None,        ctx=262144, pp_opts=[2, 3, 4], greedy_default=True),
     "Qwen3-VL-32B-Instruct":            dict(path="furiosa-ai/Qwen3-VL-32B-Instruct",            tp=32, cards=4, pp=1, tool="hermes",     reasoning=None,         ctx=262144),
     # fxb→v2 재지정: 로컬 tp8 v2 아티팩트로 서빙해 -pp 층분할 잠금해제(tp 동일=8). 되돌리려면 path 원복. [[chat-service-model-catalog]]
     "Llama-3.1-8B-Instruct":            dict(path=f"{NVME_ART}/llama31-8b-tp8",                   tp=8,  cards=1, pp=1, tool="llama3_json", reasoning=None,        ctx=131072),

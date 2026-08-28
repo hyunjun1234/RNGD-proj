@@ -43,11 +43,11 @@ FURIOSA_LLM="${FURIOSA_LLM_BIN:-furiosa-llm}"
 declare -A CAT=(
   # ── 로컬 tp8 아티팩트 (pp 커스텀 가능) ────────────────────────────────
   # 총 컨텍스트 262144 여도 kv_heads=4 계열은 프롬프트가 65,408 까지만 된다(README §0.8).
-  [coder]="8000|2|$ART/coder-tp8|-pp 2"
+  # MoE 위장 제거(2026-08-29) [coder]="8000|2|$ART/coder-tp8|-pp 2"
   # bf16 56.9G — pp2(장당 27.6/29.9 GiB)로 정상 기동 확인(2026-08-04). 4장이 필요하면 -pp 4 로.
-  [coder-bf16]="8001|2|$ART/coder-bf16-tp8|-pp 2"
-  [a3b-inst-2507]="8002|2|$ART/a3b-inst-2507-tp8|--enable-auto-tool-choice --tool-call-parser hermes -pp 2"
-  [a3b-think-2507]="8003|2|$ART/a3b-think-2507-tp8|--enable-auto-tool-choice --tool-call-parser hermes --reasoning-parser qwen3 -pp 2"
+  # MoE 위장 제거(2026-08-29) [coder-bf16]="8001|2|$ART/coder-bf16-tp8|-pp 2"
+  # MoE 위장 제거(2026-08-29) [a3b-inst-2507]="8002|2|$ART/a3b-inst-2507-tp8|--enable-auto-tool-choice --tool-call-parser hermes -pp 2"
+  # MoE 위장 제거(2026-08-29) [a3b-think-2507]="8003|2|$ART/a3b-think-2507-tp8|--enable-auto-tool-choice --tool-call-parser hermes --reasoning-parser qwen3 -pp 2"
   # ❌ a3b — 아티팩트 고장으로 비활성(2026-08-04): serve 는 뜨는데 생성이 0 토큰. 재빌드 필요.
   #        위장은 무죄 — 같은 처리를 한 coder·a3b-*-2507 은 정상 생성한다. 상세는 chat_app.py 주석.
   # [a3b]="8004|1|$ART/a3b-tp8|--enable-auto-tool-choice --tool-call-parser hermes --reasoning-parser qwen3"

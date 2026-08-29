@@ -1,0 +1,37 @@
+<svg viewBox="0 0 950 218" xmlns="http://www.w3.org/2000/svg">
+<g font-family="Noto Sans CJK KR">
+<text x="16" y="32" font-size="11.5" fill="#16202c" font-weight="700">질문: 대한민국의 수도는 어디이고, 그 도시가 수도가 된 역사적 배경을 세 문장으로</text>
+<text x="16" y="58" font-size="10.5" fill="#5b6b7b">Qwen3 32B</text>
+<text x="128" y="58" font-size="10.5" fill="#5b6b7b">*</text>
+<text x="148" y="58" font-size="10.5" fill="#16202c">대한민국의 수도는 서울입니다. 서울은 조선시대(1392</text>
+<text x="844" y="58" font-size="10.5" fill="#5b6b7b" text-anchor="end">458tok</text>
+<text x="16" y="74" font-size="10.5" fill="#5b6b7b">EXAONE 4.0 32B</text>
+<text x="128" y="74" font-size="10.5" fill="#5b6b7b">*</text>
+<text x="148" y="74" font-size="10.5" fill="#16202c">대한민국의 수도는 **서울**이다.    1. **조선</text>
+<text x="844" y="74" font-size="10.5" fill="#5b6b7b" text-anchor="end">133tok</text>
+<text x="16" y="90" font-size="10.5" fill="#5b6b7b">Qwen3-Coder 30B</text>
+<text x="148" y="90" font-size="10.5" fill="#16202c">대한민국의 수도는 서울이다.   서울은 조선시대부터 중</text>
+<text x="844" y="90" font-size="10.5" fill="#5b6b7b" text-anchor="end">92tok</text>
+<text x="16" y="106" font-size="10.5" fill="#5b6b7b">A3B Instruct 2507</text>
+<text x="148" y="106" font-size="10.5" fill="#16202c">대한민국의 수도는 서울이다.   1910년 한일합병 이</text>
+<text x="844" y="106" font-size="10.5" fill="#5b6b7b" text-anchor="end">100tok</text>
+<text x="16" y="122" font-size="10.5" fill="#5b6b7b">A3B Thinking 2507</text>
+<text x="128" y="122" font-size="10.5" fill="#5b6b7b">*</text>
+<text x="148" y="122" font-size="10.5" fill="#16202c">사고만(예산 부족)</text>
+<text x="844" y="122" font-size="10.5" fill="#5b6b7b" text-anchor="end">1024tok</text>
+<text x="16" y="138" font-size="10.5" fill="#5b6b7b">Llama 3.1 8B</text>
+<text x="148" y="138" font-size="10.5" fill="#16202c">대한민국의 수도는 서울입니다.   서울은 1394년 조</text>
+<text x="844" y="138" font-size="10.5" fill="#5b6b7b" text-anchor="end">124tok</text>
+<text x="16" y="154" font-size="10.5" fill="#5b6b7b">Qwen3 8B</text>
+<text x="148" y="154" font-size="10.5" fill="#16202c">대한민국의 수도는 서울입니다. 1394년 조선 왕조가 </text>
+<text x="844" y="154" font-size="10.5" fill="#5b6b7b" text-anchor="end">257tok</text>
+<text x="16" y="170" font-size="10.5" fill="#5b6b7b">Qwen3 4B</text>
+<text x="148" y="170" font-size="10.5" fill="#16202c">대한민국의 수도는 서울이다. 1392년 조선 왕조가 수</text>
+<text x="844" y="170" font-size="10.5" fill="#5b6b7b" text-anchor="end">304tok</text>
+<text x="16" y="186" font-size="10.5" fill="#5b6b7b">Qwen2.5 0.5B</text>
+<text x="148" y="186" font-size="10.5" fill="#16202c">대한민국의 수도는 서울입니다. 서울은 1950년 1월 </text>
+<text x="844" y="186" font-size="10.5" fill="#5b6b7b" text-anchor="end">715tok</text>
+<text x="16" y="208" font-size="11" fill="#16202c">모두 같은 문장을 같은 설정으로 물었다, 별표는 사고하는 모델이다</text>
+<text x="844" y="208" font-size="10.5" fill="#5b6b7b" text-anchor="end">답변 원문 전체는 results 폴더에</text>
+</g>
+</svg>

@@ -1,0 +1,65 @@
+{
+  "model": "gpt-oss-120b",
+  "started": "2026-08-29 02:36:07",
+  "load_s": 1526.1,
+  "runs": [
+    {
+      "ttft": 8.408618865069002,
+      "total": 339.0534549248405,
+      "out_tokens": 270,
+      "in_tokens": 98,
+      "decode_tps": 0.8135617758487304,
+      "text": "대한민국의 수도는 **서울**입니다.  \n조선 시대에 한양(현재의 서울)으로 정해진 뒤, 일제 강점기와 해방을 거치며 행정·경제·문화의 중심지 역할을 지속했으며, 1948년 남한 정부 수립 시 공식적으로 수도가 확정되었습니다.  \n한국전쟁 후 1950년대 초반에 잠시 부산으로 임시 이전했지만, 1953년 전쟁이 종전되면서 다시 한반도 중심에 위치한 서울로 복귀해 현재까지 수도로 남아 있습니다.",
+      "thinking": "The user asks in Korean: \"대한민국의 수도는 어디이고, 그 도시가 수도가 된 역사적 배경을 세 문장으로 설명해줘.\" They want: what is the capital of South Korea, and a three-sentence explanation of the historical background of how that city became the capital.\n\nWe can answer: The capital is Seoul. Provide three sentences about its history: after Korean War, the government moved from Busan to Seoul, etc. Or historically, Seoul was the capital of Joseon dynasty as Hanyang, then renamed Seoul after independence. Provide three sentences.\n\nWe must comply. No policy issues. Provide answer in Korean.",
+      "chunks": 260,
+      "prompt": "fact"
+    },
+    {
+      "ttft": 4.882326800841838,
+      "total": 393.8210633099079,
+      "out_tokens": 391,
+      "in_tokens": 110,
+      "decode_tps": 1.0027286135098277,
+      "text": "아래는 **반복문(루프)**을 이용해 피보나치 수열의 n번째 항을 구하는 파이썬 함수입니다.  \n함수 바로 아래에 시간 복잡도를 한 줄로 적어 두었습니다.\n\n```python\ndef fibonacci(n: int) -> int:\n    \"\"\"\n    n번째 피보나치 수를 반환한다.\n    n이 0이면 0, n이 1이면 1을 반환한다.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"n must be a non‑negative integer\")\n    if n == 0:\n        return 0\n    if n == 1:\n        return 1\n\n    a, b = 0, 1          # F(0), F(1)\n    for _ in range(2, n + 1):\n        a, b = b, a + b   # 다음 항 계산\n    return b\n\n# 시간 복잡도: O(n)   (반복문을 n‑1번 수행)\n```\n\n**설명**  \n- `a`와 `b`에 각각 `F(i‑2)`와 `F(i‑1)`을 저장하고, 루프를 돌면서 `F(i) = F(i‑1) + F(i‑2)`를 계산합니다.  \n- 루프는 `2`부터 `n`까지 한 번씩 실행되므로 전체 연산 횟수는 `n‑1`번이며, 이는 **선형 시간** `O(n)`에 해당합니다.",
+      "thinking": "The user asks in Korean: \"Write a Python function that computes the nth term of the Fibonacci sequence using a loop, and add the time complexity in one line.\" This is straightforward. Provide code and comment with time complexity O(n). No disallowed content. Provide answer.",
+      "chunks": 380,
+      "prompt": "code"
+    },
+    {
+      "ttft": 2.5999429542571306,
+      "total": 207.4879913609475,
+      "out_tokens": 492,
+      "in_tokens": 117,
+      "decode_tps": 2.3964306547807745,
+      "text": "**문제**  \n- 한 상자에 사과 12개가 들어갑니다.  \n- 총 사과 100개를 모두 담으려면 몇 개의 상자가 필요하고, 마지막 상자에 남는 사과는 몇 개인가요?\n\n---\n\n### 1. 전체 사과 수 ÷ 한 상자에 들어가는 사과 수  \n\n\\[\n\\frac{100}{12}=8\\text{…}4\n\\]\n\n- **8** : 12개씩 가득 채울 수 있는 상자의 개수 (정수 부분)  \n- **4** : 나머지, 즉 마지막 상자에 남는 사과 수  \n\n### 2. 필요한 상자 수  \n\n가득 채운 상자 8개 외에, 남은 사과 4개를 넣을 **추가 상자**가 하나 더 필요합니다.\n\n\\[\n\\text{필요한 상자 수}=8+1=9\\text{개}\n\\]\n\n### 3. 마지막 상자에 남는 사과 수  \n\n위 나머지 연산에서 구한 **4**가 바로 마지막 상자에 들어가는 사과 수입니다.\n\n---\n\n## 최종 답\n\n- **필요한 상자 수:** **9개**  \n- **마지막 상자에 남는 사과:** **4개**  \n\n(계산 과정: 100 ÷ 12 = 8 remainder 4 → 8개의 가득 찬 상자 + 1개의 남은 사과 4개를 담는 상자)",
+      "thinking": "The user asks in Korean: \"한 상자에 사과가 12개 들어간다. 사과 100개를 담으려면 상자가 몇 개 필요하고 마지막 상자에는 몇 개가 남는지 계산 과정을 보여줘.\"\n\nWe need to compute number of boxes needed to hold 100 apples, each box holds 12 apples. So 100 divided by 12 = 8 remainder 4 (since 12*8=96, remainder 4). So need 9 boxes (since the last box will have the remaining 4 apples). The last box will have 4 apples.\n\nWe need to show calculation steps.\n\nWe can respond in Korean, showing division, maybe using floor division and remainder.\n\nWe should comply.",
+      "chunks": 482,
+      "prompt": "reason"
+    },
+    {
+      "ttft": 4.4382536159828305,
+      "total": 340.7312913676724,
+      "out_tokens": 1024,
+      "in_tokens": 118,
+      "decode_tps": 3.0419898277982127,
+      "text": "## 트랜스포머의 **어텐션**이란?  \n\n### 1. 핵심 아이디어  \n어텐션은 **“입력 전체 중에서 현재가 가장 필요로 하는 부분에 집중한다”**는 메커니즘입니다.  \n입력 문장(또는 시퀀스)의 모든 토큰을 동시에 바라보면서, 각 토큰이 **다른 토큰들과 얼마나 관련이 있는지**를 점수화하고, 그 점수에 따라 정보를 섞어 새로운 표현을 만들어냅니다.\n\n- **Query (Q)** : “내가 지금 궁금한 것”  \n- **Key (K)** : “각 토큰이 가지고 있는 특징(키)”  \n- **Value (V)** : “키에 대응하는 실제 정보(값)”\n\n`Q·K`(점곱) → **유사도 점수** → **softmax** 로 정규화 → **점수 × V** 를 모두 더하면 “내가 궁금한 것에 가장 관련 있는 정보”가 모여 새로운 벡터가 됩니다.  \n\n---\n\n### 2. 비유: 도서관 사서와 책 찾기  \n\n> **상황**: 당신은 도서관에서 “인공지능”에 관한 정보를 찾고 싶다.  \n> **전통적인 방법(RNN 비유)**: 사서가 한 줄씩 책을 꺼내서 “이 책에 인공지능이 있나요?” 하고 물어보고, 답을 들은 뒤에야 다음 책을 확인한다. → **하나씩 순차적으로 진행**  \n> **어텐션(Transformer 비유)**: 사서는 한 번에 모든 책을 테이블 위에 펼쳐 놓고, 각 책의 목차와 표지를 스캔한다. “인공지능”이라는 키워드와 가장 잘 맞는 책(키)들을 빠르게 찾아서, 그 책들의 핵심 내용(값)만 골라 모은다. → **전체를 동시에 살피면서 필요한 부분에만 집중**  \n\n이처럼 어텐션은 “전체를 한눈에 보고, 현재가 필요로 하는 부분에 가중치를 줘서 정보를 모은다”는 방식입니다.\n\n---\n\n### 3. 왜 **병렬화에 유리한가?** (RNN과 비교)\n\n| 특성 | 순환신경망 (RNN) | 트랜스포머 (어텐션) |\n|------|----------------|-------------------|\n| **연산 흐름** | **시간 단계마다** 이전 은닉 상태를 사용 → **순차적** (t‑1 → t) | **전체 토큰을 동시에** Q, K, V 로 변환 → **동시 연산** |\n| **GPU/TPU 활용** | 한 단계가 끝나야 다음 단계가 시작될 수 있어 **GPU 코어를 충분히 활용하기 어려움** | 행렬 연산(매트릭스 곱, softmax)만 있으면 **수천·수만 개 토큰을 한 번에** 처리 → **GPU/TPU의 대규모 병렬 연산에 최적** |\n| **메모리 접근 패턴** | 매 단계마다 작은 메모리(은닉 상태)만 사용 → **연속적인 메모리 접근** | 전체 입력을 한 번에 메모리에 올리고, **대규모 행렬을 한 번에 읽고 쓰기** → **메모리 대역폭을 효율적으로 사용** |\n| **학습 속도** | 순차적이라 **시간 복잡도 O(T)** (T = 시퀀스 길이) | 어텐션은 **O(T²)** (점곱 연산) 이지만 **병렬화** 덕분에 실제 실행 시간은 **O(T)** 에 가깝게 감소 |\n| **장점** | 긴 시퀀스에서도 메모리 사용량이 비교적 작음 (하지만 학습이 느림) | **빠른 학습·추론**, **긴 의존관계**도 한 번에 잡아냄 |\n\n#### 핵심 포인트\n- **RNN**은",
+      "thinking": "The user asks in Korean: \"Explain what attention in transformers is to someone learning it for the first time. Give a metaphor, and also explain why it's more advantageous for parallelization compared to recurrent neural networks.\"\n\nWe need to respond in Korean, clear explanation, metaphor, and discuss parallelization advantage. Also follow policy: no disallowed content. It's fine.\n\nWe should be concise but thorough. Provide metaphor like \"reading a book and focusing on relevant words\". Also explain attention mechanism: queries, keys, values, dot-product, scaling, softmax. Then compare to RNN: sequential processing vs parallel.\n\nLet's produce final answer.",
+      "chunks": 1006,
+      "prompt": "long"
+    }
+  ],
+  "concurrent": {
+    "n": 4,
+    "wall_s": 102.44,
+    "out_tokens": 4096,
+    "agg_tps": 40.0,
+    "per_req_total_s": [
+      102.28,
+      102.43,
+      102.43,
+      102.41
+    ],
+    "errors": []
+  },
+  "elapsed_s": 2909.7
+}

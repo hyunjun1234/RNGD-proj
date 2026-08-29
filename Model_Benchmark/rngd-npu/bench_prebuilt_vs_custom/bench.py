@@ -84,11 +84,17 @@ def stream_once(model, prompt, max_tokens=MAX_TOKENS, timeout=1800):
                 text="".join(text), thinking="".join(think), chunks=chunks)
 
 
-def wait_ready(model, budget=3600):
+# 아주 큰 모델은 1시간으로 모자란다(K-EXAONE 236B 는 262144 컨텍스트, 가중치 142G).
+BIG_BUDGET = {"K-EXAONE-236B-A23B-NVFP4A16": 9000}
+
+
+def wait_ready(model, budget=None):
+    budget = budget or BIG_BUDGET.get(model, 3600)
     """preload 를 걸고 준비될 때까지 기다린다. 걸린 시간을 반환."""
     t0 = time.perf_counter()
     post("/router/preload", {"model": model}, timeout=60)
     last = ""
+    st_now = None
     while time.perf_counter() - t0 < budget:
         try:
             st = get("/router/status")
@@ -98,7 +104,8 @@ def wait_ready(model, budget=3600):
                 print(f"    [{time.perf_counter()-t0:6.0f}s] {s[:150]}", flush=True); last = s
             # 상태 사전의 키가 곧 모델 ID 다. state 가 'up' 이 되기 전에는 아직 적재 중이므로
             # 워밍업을 걸면 안 된다 — 걸면 타임아웃까지 통째로 버린다(실측 600s 낭비).
-            ready = isinstance(run, dict) and (run.get(model) or {}).get("state") == "up"
+            st_now = (run.get(model) or {}).get("state") if isinstance(run, dict) else None
+            ready = st_now == "up"
             if ready:
                 # 상태가 '떴다'고 해도 실제 생성이 되는지 짧게 확인
                 try:
@@ -111,6 +118,11 @@ def wait_ready(model, budget=3600):
                     print(f"    warmup 실패, 재시도: {e}", flush=True)
         except Exception as e:
             print(f"    status 오류: {e}", flush=True)
+            st_now = None
+        # ★ 이 판정은 try 밖에 둔다. 안에 두면 바로 아래 except 가 삼켜서 빠져나오지 못하고
+        #   같은 메시지를 타임아웃까지 반복한다(실측: Solar 가 3600s 헛돌았다).
+        if st_now == "error":
+            raise RuntimeError(f"{model}: 라우터가 error 로 표시 — serve 가 뜨지 못했다")
         time.sleep(10)
     raise TimeoutError(f"{model} 준비 실패 ({budget}s)")
 

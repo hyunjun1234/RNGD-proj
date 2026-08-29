@@ -1,0 +1,116 @@
+<svg viewBox="0 0 950 256" xmlns="http://www.w3.org/2000/svg">
+<g font-family="Noto Sans CJK KR">
+<text x="16" y="32" font-size="11.5" fill="#16202c" font-weight="700">(a) 요청 하나를 처리하는 속도, tok/s</text>
+<text x="16" y="53" font-size="10.5" fill="#16202c">gpt-oss 120B</text>
+<rect x="128" y="44" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="251" y="53" font-size="10.5" fill="#16202c">-</text>
+<text x="16" y="68" font-size="10.5" fill="#16202c">Solar-Open 100B</text>
+<rect x="128" y="59" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="251" y="68" font-size="10.5" fill="#16202c">-</text>
+<text x="16" y="83" font-size="10.5" fill="#16202c">K-EXAONE 236B</text>
+<rect x="128" y="74" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="251" y="83" font-size="10.5" fill="#16202c">-</text>
+<text x="16" y="98" font-size="10.5" fill="#16202c">Llama 3.3 70B</text>
+<rect x="128" y="89" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="251" y="98" font-size="10.5" fill="#16202c">-</text>
+<text x="16" y="113" font-size="10.5" fill="#16202c">Qwen3 32B</text>
+<rect x="128" y="104" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="128" y="104" width="74.06810442678774" height="12" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="251" y="113" font-size="10.5" fill="#16202c">55</text>
+<text x="296" y="53" font-size="10.5" fill="#16202c">EXAONE 4.0 32B</text>
+<rect x="408" y="44" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="408" y="44" width="44.46765039727583" height="12" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="531" y="53" font-size="10.5" fill="#16202c">33</text>
+<text x="296" y="68" font-size="10.5" fill="#16202c">Qwen3-VL 32B</text>
+<rect x="408" y="59" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="531" y="68" font-size="10.5" fill="#16202c">-</text>
+<text x="296" y="83" font-size="10.5" fill="#16202c">Qwen3-Coder 30B</text>
+<rect x="408" y="74" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="408" y="74" width="94.96254256526676" height="12" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="531" y="83" font-size="10.5" fill="#16202c">71</text>
+<text x="296" y="98" font-size="10.5" fill="#16202c">A3B Instruct 2507</text>
+<rect x="408" y="89" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="408" y="89" width="96.30192962542567" height="12" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="531" y="98" font-size="10.5" fill="#16202c">72</text>
+<text x="296" y="113" font-size="10.5" fill="#16202c">A3B Thinking 2507</text>
+<rect x="408" y="104" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="408" y="104" width="95.36435868331442" height="12" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="531" y="113" font-size="10.5" fill="#16202c">71</text>
+<text x="576" y="53" font-size="10.5" fill="#16202c">A3B 30B</text>
+<rect x="688" y="44" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="811" y="53" font-size="10.5" fill="#16202c">-</text>
+<text x="576" y="68" font-size="10.5" fill="#16202c">Llama 3.1 8B</text>
+<rect x="688" y="59" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="688" y="59" width="66.56753688989785" height="12" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="811" y="68" font-size="10.5" fill="#16202c">50</text>
+<text x="576" y="83" font-size="10.5" fill="#16202c">Qwen3 8B</text>
+<rect x="688" y="74" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="688" y="74" width="88.1316685584563" height="12" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="811" y="83" font-size="10.5" fill="#16202c">66</text>
+<text x="576" y="98" font-size="10.5" fill="#16202c">Qwen3 4B</text>
+<rect x="688" y="89" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="688" y="89" width="110.90124858115777" height="12" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="811" y="98" font-size="10.5" fill="#16202c">83</text>
+<text x="576" y="113" font-size="10.5" fill="#16202c">Qwen2.5 0.5B</text>
+<rect x="688" y="104" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="688" y="104" width="118.0" height="12" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="811" y="113" font-size="10.5" fill="#16202c">88</text>
+<text x="16" y="143" font-size="11.5" fill="#16202c" font-weight="700">(b) 같은 질문 4개를 동시에 던졌을 때 전체 속도, tok/s</text>
+<text x="16" y="164" font-size="10.5" fill="#16202c">gpt-oss 120B</text>
+<rect x="128" y="155" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="251" y="164" font-size="10.5" fill="#16202c">-</text>
+<text x="16" y="179" font-size="10.5" fill="#16202c">Solar-Open 100B</text>
+<rect x="128" y="170" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="251" y="179" font-size="10.5" fill="#16202c">-</text>
+<text x="16" y="194" font-size="10.5" fill="#16202c">K-EXAONE 236B</text>
+<rect x="128" y="185" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="251" y="194" font-size="10.5" fill="#16202c">-</text>
+<text x="16" y="209" font-size="10.5" fill="#16202c">Llama 3.3 70B</text>
+<rect x="128" y="200" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="251" y="209" font-size="10.5" fill="#16202c">-</text>
+<text x="16" y="224" font-size="10.5" fill="#16202c">Qwen3 32B</text>
+<rect x="128" y="215" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="128" y="215" width="72.13873581847649" height="12" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="251" y="224" font-size="10.5" fill="#16202c">189</text>
+<text x="296" y="164" font-size="10.5" fill="#16202c">EXAONE 4.0 32B</text>
+<rect x="408" y="155" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="408" y="155" width="43.14554294975689" height="12" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="531" y="164" font-size="10.5" fill="#16202c">113</text>
+<text x="296" y="179" font-size="10.5" fill="#16202c">Qwen3-VL 32B</text>
+<rect x="408" y="170" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="531" y="179" font-size="10.5" fill="#16202c">-</text>
+<text x="296" y="194" font-size="10.5" fill="#16202c">Qwen3-Coder 30B</text>
+<rect x="408" y="185" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="408" y="185" width="53.16693679092383" height="12" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="531" y="194" font-size="10.5" fill="#16202c">139</text>
+<text x="296" y="209" font-size="10.5" fill="#16202c">A3B Instruct 2507</text>
+<rect x="408" y="200" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="408" y="200" width="54.50567260940032" height="12" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="531" y="209" font-size="10.5" fill="#16202c">142</text>
+<text x="296" y="224" font-size="10.5" fill="#16202c">A3B Thinking 2507</text>
+<rect x="408" y="215" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="408" y="215" width="54.27617504051864" height="12" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="531" y="224" font-size="10.5" fill="#16202c">142</text>
+<text x="576" y="164" font-size="10.5" fill="#16202c">A3B 30B</text>
+<rect x="688" y="155" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="811" y="164" font-size="10.5" fill="#16202c">-</text>
+<text x="576" y="179" font-size="10.5" fill="#16202c">Llama 3.1 8B</text>
+<rect x="688" y="170" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="688" y="170" width="74.73970826580228" height="12" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="811" y="179" font-size="10.5" fill="#16202c">195</text>
+<text x="576" y="194" font-size="10.5" fill="#16202c">Qwen3 8B</text>
+<rect x="688" y="185" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="688" y="185" width="94.89724473257698" height="12" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="811" y="194" font-size="10.5" fill="#16202c">248</text>
+<text x="576" y="209" font-size="10.5" fill="#16202c">Qwen3 4B</text>
+<rect x="688" y="200" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="688" y="200" width="113.48654781199352" height="12" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="811" y="209" font-size="10.5" fill="#16202c">297</text>
+<text x="576" y="224" font-size="10.5" fill="#16202c">Qwen2.5 0.5B</text>
+<rect x="688" y="215" width="118" height="12" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="688" y="215" width="118.0" height="12" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="811" y="224" font-size="10.5" fill="#16202c">308</text>
+<text x="16" y="246" font-size="11" fill="#16202c">노란 막대는 카드 한 장짜리다, 작은 모델이 동시 처리에서 오히려 앞선다</text>
+<text x="844" y="246" font-size="10.5" fill="#5b6b7b" text-anchor="end">동시 4요청 합계 토큰 ÷ 전부 끝난 시간</text>
+</g>
+</svg>

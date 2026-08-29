@@ -1,0 +1,62 @@
+<svg viewBox="0 0 950 179" xmlns="http://www.w3.org/2000/svg">
+<g font-family="Noto Sans CJK KR">
+<text x="16" y="32" font-size="11.5" fill="#16202c" font-weight="700">모델을 올리는 데 걸린 시간, 초</text>
+<text x="16" y="57" font-size="10.5" fill="#16202c">gpt-oss 120B</text>
+<rect x="128" y="46" width="118" height="14" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="251" y="57" font-size="10.5" fill="#16202c">-</text>
+<text x="16" y="74" font-size="10.5" fill="#16202c">Solar-Open 100B</text>
+<rect x="128" y="63" width="118" height="14" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="251" y="74" font-size="10.5" fill="#16202c">-</text>
+<text x="16" y="91" font-size="10.5" fill="#16202c">K-EXAONE 236B</text>
+<rect x="128" y="80" width="118" height="14" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="251" y="91" font-size="10.5" fill="#16202c">-</text>
+<text x="16" y="108" font-size="10.5" fill="#16202c">Llama 3.3 70B</text>
+<rect x="128" y="97" width="118" height="14" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="251" y="108" font-size="10.5" fill="#16202c">-</text>
+<text x="16" y="125" font-size="10.5" fill="#16202c">Qwen3 32B</text>
+<rect x="128" y="114" width="118" height="14" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="128" y="114" width="26.556289978678038" height="14" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="251" y="125" font-size="10.5" fill="#16202c">211s</text>
+<text x="296" y="57" font-size="10.5" fill="#16202c">EXAONE 4.0 32B</text>
+<rect x="408" y="46" width="118" height="14" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="408" y="46" width="8.34051172707889" height="14" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="531" y="57" font-size="10.5" fill="#16202c">66s</text>
+<text x="296" y="74" font-size="10.5" fill="#16202c">Qwen3-VL 32B</text>
+<rect x="408" y="63" width="118" height="14" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="531" y="74" font-size="10.5" fill="#16202c">-</text>
+<text x="296" y="91" font-size="10.5" fill="#16202c">Qwen3-Coder 30B</text>
+<rect x="408" y="80" width="118" height="14" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="408" y="80" width="118.0" height="14" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="531" y="91" font-size="10.5" fill="#16202c">938s</text>
+<text x="296" y="108" font-size="10.5" fill="#16202c">A3B Instruct 2507</text>
+<rect x="408" y="97" width="118" height="14" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="408" y="97" width="34.242643923240934" height="14" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="531" y="108" font-size="10.5" fill="#16202c">272s</text>
+<text x="296" y="125" font-size="10.5" fill="#16202c">A3B Thinking 2507</text>
+<rect x="408" y="114" width="118" height="14" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="408" y="114" width="5.447121535181236" height="14" fill="#9da5b8" stroke="none" stroke-width="1"/>
+<text x="531" y="125" font-size="10.5" fill="#16202c">43s</text>
+<text x="576" y="57" font-size="10.5" fill="#16202c">A3B 30B</text>
+<rect x="688" y="46" width="118" height="14" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<text x="811" y="57" font-size="10.5" fill="#16202c">-</text>
+<text x="576" y="74" font-size="10.5" fill="#16202c">Llama 3.1 8B</text>
+<rect x="688" y="63" width="118" height="14" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="688" y="63" width="2" height="14" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="811" y="74" font-size="10.5" fill="#16202c">10s</text>
+<text x="576" y="91" font-size="10.5" fill="#16202c">Qwen3 8B</text>
+<rect x="688" y="80" width="118" height="14" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="688" y="80" width="2" height="14" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="811" y="91" font-size="10.5" fill="#16202c">13s</text>
+<text x="576" y="108" font-size="10.5" fill="#16202c">Qwen3 4B</text>
+<rect x="688" y="97" width="118" height="14" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="688" y="97" width="2" height="14" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="811" y="108" font-size="10.5" fill="#16202c">9s</text>
+<text x="576" y="125" font-size="10.5" fill="#16202c">Qwen2.5 0.5B</text>
+<rect x="688" y="114" width="118" height="14" fill="#eef2f7" stroke="#5b6b7b" stroke-width="0.7"/>
+<rect x="688" y="114" width="2" height="14" fill="#ffd34d" stroke="none" stroke-width="1"/>
+<text x="811" y="125" font-size="10.5" fill="#16202c">3s</text>
+<text x="16" y="149" font-size="11" fill="#16202c">라우터는 안 쓰는 모델을 내리고 새로 올린다, 그래서 모델을 바꾸면 이만큼 기다린다</text>
+<text x="16" y="169" font-size="10.5" fill="#5b6b7b">카드 한 장짜리는 십 초 안팎이라 갈아 끼우는 부담이 거의 없다</text>
+<text x="844" y="169" font-size="10.5" fill="#5b6b7b" text-anchor="end">serve 로그의 Loading LLM 부터 기동 완료까지</text>
+</g>
+</svg>

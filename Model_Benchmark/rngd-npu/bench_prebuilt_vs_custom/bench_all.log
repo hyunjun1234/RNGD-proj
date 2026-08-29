@@ -1,0 +1,1441 @@
+
+=== Qwen3-4B-FP8
+    [     0s] {"Llama-3.1-8B-Instruct": {"port": 8410, "cards": [0], "alive": true, "tp": 8, "dp": 1, "pp": 1, "state": "up", "idle_s": 121.4}, "Qwen3-32B-FP8@tp8":
+    [    10s] {"Llama-3.1-8B-Instruct": {"port": 8410, "cards": [0], "alive": true, "tp": 8, "dp": 1, "pp": 1, "state": "up", "idle_s": 131.5}, "Qwen3-32B-FP8@tp8":
+    [    20s] {"Llama-3.1-8B-Instruct": {"port": 8410, "cards": [0], "alive": true, "tp": 8, "dp": 1, "pp": 1, "state": "up", "idle_s": 141.5}, "Qwen3-32B-FP8@tp8":
+    [    30s] {"Llama-3.1-8B-Instruct": {"port": 8410, "cards": [0], "alive": true, "tp": 8, "dp": 1, "pp": 1, "state": "up", "idle_s": 151.5}, "Qwen3-32B-FP8@tp8":
+    적재 31.4s
+    fact    ttft 1.71s  총 5.72s  304tok  75.5 tok/s
+    code    ttft 0.15s  총 12.51s  1024tok  82.8 tok/s  [thinking만]
+    reason  ttft 0.15s  총 12.72s  1024tok  81.4 tok/s
+    long    ttft 0.20s  총 12.40s  1024tok  83.8 tok/s
+    동시 4개: 13.8s, 합계 4096tok, 296.7 tok/s
+    → /home/jun/RNGD-proj/Model_Benchmark/rngd-npu/bench_prebuilt_vs_custom/results/Qwen3-4B-FP8.json
+
+=== Qwen3-8B-FP8
+    [     0s] {"Llama-3.1-8B-Instruct": {"port": 8410, "cards": [0], "alive": true, "tp": 8, "dp": 1, "pp": 1, "state": "up", "idle_s": 209.9}, "Qwen3-32B-FP8@tp8":
+    [    10s] {"Llama-3.1-8B-Instruct": {"port": 8410, "cards": [0], "alive": true, "tp": 8, "dp": 1, "pp": 1, "state": "up", "idle_s": 219.9}, "Qwen3-32B-FP8@tp8":
+    [    20s] {"Llama-3.1-8B-Instruct": {"port": 8410, "cards": [0], "alive": true, "tp": 8, "dp": 1, "pp": 1, "state": "up", "idle_s": 230.0}, "Qwen3-32B-FP8@tp8":
+    [    30s] {"Llama-3.1-8B-Instruct": {"port": 8410, "cards": [0], "alive": true, "tp": 8, "dp": 1, "pp": 1, "state": "up", "idle_s": 240.0}, "Qwen3-32B-FP8@tp8":
+    적재 30.3s
+    fact    ttft 0.13s  총 6.87s  257tok  38.0 tok/s
+    code    ttft 0.14s  총 15.68s  1024tok  65.9 tok/s  [thinking만]
+    reason  ttft 0.17s  총 19.22s  1024tok  53.7 tok/s
+    long    ttft 0.19s  총 15.73s  1024tok  65.8 tok/s
+    동시 4개: 16.5s, 합계 4096tok, 248.1 tok/s
+    → /home/jun/RNGD-proj/Model_Benchmark/rngd-npu/bench_prebuilt_vs_custom/results/Qwen3-8B-FP8.json
+
+=== Qwen2.5-0.5B-Instruct
+    [     0s] {"Llama-3.1-8B-Instruct": {"port": 8410, "cards": [0], "alive": true, "tp": 8, "dp": 1, "pp": 1, "state": "up", "idle_s": 314.2}, "Qwen3-32B-FP8@tp8":
+    [    10s] {"Llama-3.1-8B-Instruct": {"port": 8410, "cards": [0], "alive": true, "tp": 8, "dp": 1, "pp": 1, "state": "up", "idle_s": 324.2}, "Qwen3-4B-FP8": {"po
+    [    20s] {"Llama-3.1-8B-Instruct": {"port": 8410, "cards": [0], "alive": true, "tp": 8, "dp": 1, "pp": 1, "state": "up", "idle_s": 334.2}, "Qwen3-4B-FP8": {"po
+    적재 20.1s
+    fact    ttft 0.03s  총 7.96s  715tok  90.1 tok/s
+    code    ttft 0.03s  총 3.53s  289tok  82.4 tok/s
+    reason  ttft 0.03s  총 2.91s  242tok  83.8 tok/s
+    long    ttft 0.03s  총 3.33s  291tok  88.1 tok/s
+    동시 4개: 4.1s, 합계 1257tok, 308.5 tok/s
+    → /home/jun/RNGD-proj/Model_Benchmark/rngd-npu/bench_prebuilt_vs_custom/results/Qwen2.5-0.5B-Instruct.json
+
+=== EXAONE-4.0-32B-FP8
+    [     0s] {"Llama-3.1-8B-Instruct": {"port": 8410, "cards": [0], "alive": true, "tp": 8, "dp": 1, "pp": 1, "state": "stopping", "idle_s": 356.2}, "Qwen3-4B-FP8"
+    [    10s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 4.0}}
+    [    20s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 14.1}}
+    [    30s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 24.1}}
+    [    40s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 34.1}}
+    [    50s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 44.1}}
+    [    60s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 54.1}}
+    [    70s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 64.1}}
+    [    80s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 74.1}}
+    [    90s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 84.1}}
+    [   100s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 94.2}}
+    [   110s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 104.2}}
+    [   120s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 114.2}}
+    [   130s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 124.2}}
+    [   140s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 134.2}}
+    [   150s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 144.2}}
+    [   160s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "up", "idle_s": 154.2}}
+    적재 160.6s
+    fact    ttft 0.19s  총 4.20s  133tok  32.9 tok/s
+    code    ttft 0.24s  총 3.76s  118tok  33.2 tok/s
+    reason  ttft 0.20s  총 6.55s  213tok  33.4 tok/s
+    long    ttft 0.23s  총 11.96s  385tok  32.7 tok/s
+    동시 4개: 14.6s, 합계 1642tok, 112.8 tok/s
+    → /home/jun/RNGD-proj/Model_Benchmark/rngd-npu/bench_prebuilt_vs_custom/results/EXAONE-4.0-32B-FP8.json
+
+=== Qwen3-30B-A3B-FP8
+    [     0s] {"EXAONE-4.0-32B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "stopping", "idle_s": 0.0}, "Qwen3-30
+    [    10s] {"Qwen3-30B-A3B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 3.9}}
+    [    20s] {"Qwen3-30B-A3B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 13.9}}
+    [    30s] {"Qwen3-30B-A3B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 24.1}}
+    [    40s] {"Qwen3-30B-A3B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 34.2}}
+    [    50s] {"Qwen3-30B-A3B-FP8": {"port": null, "cards": [], "alive": false, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": null}}
+
+=== Qwen3-VL-32B-Instruct
+    [     0s] {"Qwen3-30B-A3B-FP8": {"port": null, "cards": [], "alive": false, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": null}, "Qwen3-VL-32B-Instruc
+    [    10s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 10.0}, "Qwen3
+    [    20s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 20.0}, "Qwen3
+    [    30s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 30.0}, "Qwen3
+    [    40s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 40.0}, "Qwen3
+    [    50s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 50.1}, "Qwen3
+    [    60s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 60.1}, "Qwen3
+    [    70s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 70.1}, "Qwen3
+    [    80s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 80.1}, "Qwen3
+    [    90s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 90.1}, "Qwen3
+    [   100s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 100.1}, "Qwen
+    [   110s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 110.1}, "Qwen
+    [   120s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 120.1}, "Qwen
+    [   130s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 130.2}, "Qwen
+    [   140s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 140.2}, "Qwen
+    [   150s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 150.2}, "Qwen
+    [   160s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 160.2}, "Qwen
+    [   170s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 170.2}, "Qwen
+    [   180s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 180.2}, "Qwen
+    [   190s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 190.2}, "Qwen
+    [   200s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 200.2}, "Qwen
+    [   210s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 210.2}, "Qwen
+    [   220s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 220.2}, "Qwen
+    [   230s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 230.2}, "Qwen
+    [   240s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 240.2}, "Qwen
+    [   250s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 250.3}, "Qwen
+    [   260s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 260.3}, "Qwen
+    [   270s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "up", "idle_s": 270.3}, "Qwen3-30B
+    적재 270.7s
+    fact    ttft 0.19s  총 2.34s  85tok  39.1 tok/s
+    code    ttft 0.18s  총 1.86s  68tok  39.8 tok/s
+    reason  ttft 0.18s  총 13.07s  497tok  38.5 tok/s
+    long    ttft 0.18s  총 26.40s  1014tok  38.6 tok/s
+    동시 4개: 106.7s, 합계 4056tok, 38.0 tok/s
+    → /home/jun/RNGD-proj/Model_Benchmark/rngd-npu/bench_prebuilt_vs_custom/results/Qwen3-VL-32B-Instruct.json
+
+=== gpt-oss-120b
+    [     0s] {"Qwen3-VL-32B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "stopping", "idle_s": 0.0}, "Qwen3
+    [    10s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 6.8}, "Qwen3-30B-A3B-F
+    [    20s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 16.8}, "Qwen3-30B-A3B-
+    [    30s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 26.9}, "Qwen3-30B-A3B-
+    [    40s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 36.9}, "Qwen3-30B-A3B-
+    [    50s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 46.9}, "Qwen3-30B-A3B-
+    [    60s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 56.9}, "Qwen3-30B-A3B-
+    [    70s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 66.9}, "Qwen3-30B-A3B-
+    [    80s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 77.0}, "Qwen3-30B-A3B-
+    [    91s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 87.2}, "Qwen3-30B-A3B-
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    [  1464s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1461.0}, "Qwen3-30B-A3
+    [  1474s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1471.0}, "Qwen3-30B-A3
+    [  1484s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1481.0}, "Qwen3-30B-A3
+    [  1494s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1491.0}, "Qwen3-30B-A3
+    [  1504s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1501.1}, "Qwen3-30B-A3
+    [  1514s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "up", "idle_s": 1511.1}, "Qwen3-30B-A3B-FP8
+    적재 1526.1s
+    fact    ttft 8.41s  총 339.05s  270tok  0.8 tok/s
+    code    ttft 4.88s  총 393.82s  391tok  1.0 tok/s
+    reason  ttft 2.60s  총 207.49s  492tok  2.4 tok/s
+    long    ttft 4.44s  총 340.73s  1024tok  3.0 tok/s
+    동시 4개: 102.4s, 합계 4096tok, 40.0 tok/s
+    → /home/jun/RNGD-proj/Model_Benchmark/rngd-npu/bench_prebuilt_vs_custom/results/gpt-oss-120b.json
+
+=== Solar-Open-100B-NVFP4A16
+    [     0s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "stopping", "idle_s": 0.0}, "Qwen3-30B-A3B-
+    [    10s] {"gpt-oss-120b": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "stopping", "idle_s": 10.1}, "Qwen3-30B-A3B
+    [    20s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 9.5}, "Qwe
+    [    30s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 19.5}, "Qw
+    [    40s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 29.5}, "Qw
+    [    50s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 39.5}, "Qw
+    [    60s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 49.5}, "Qw
+    [    70s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 59.5}, "Qw
+    [    80s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 69.5}, "Qw
+    [    90s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 79.6}, "Qw
+    [   100s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 89.6}, "Qw
+    [   110s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 99.6}, "Qw
+    [   120s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 109.6}, "Q
+    [   130s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 119.6}, "Q
+    [   140s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 129.6}, "Q
+    [   150s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 139.6}, "Q
+    [   160s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 149.6}, "Q
+    [   170s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 159.6}, "Q
+    [   180s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 169.6}, "Q
+    [   190s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 179.7}, "Q
+    [   200s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 189.7}, "Q
+    [   210s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 199.7}, "Q
+    [   220s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 209.7}, "Q
+    [   230s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 219.7}, "Q
+    [   240s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 229.7}, "Q
+    [   250s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 239.7}, "Q
+    [   271s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 260.8}, "Q
+    [   281s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 270.8}, "Q
+    [   291s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 280.8}, "Q
+    [   301s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 290.8}, "Q
+    [   311s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 300.8}, "Q
+    [   321s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 310.8}, "Q
+    [   331s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 320.8}, "Q
+    [   341s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 330.8}, "Q
+    [   351s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 340.8}, "Q
+    [   361s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 350.8}, "Q
+    [   371s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 360.8}, "Q
+    [   381s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 370.8}, "Q
+    [   395s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 384.4}, "Q
+    [   406s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 395.8}, "Q
+    [   416s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 405.8}, "Q
+    [   426s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 415.8}, "Q
+    [   436s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 425.9}, "Q
+    [   446s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 435.9}, "Q
+    [   456s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 445.9}, "Q
+    [   466s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 455.9}, "Q
+    [   476s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 465.9}, "Q
+    [   486s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 475.9}, "Q
+    [   496s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 485.9}, "Q
+    [   506s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 495.9}, "Q
+    [   516s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 505.9}, "Q
+    [   526s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 515.9}, "Q
+    [   537s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 526.0}, "Q
+    [   547s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 536.0}, "Q
+    [   557s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 546.0}, "Q
+    [   567s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 556.0}, "Q
+    [   577s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 566.0}, "Q
+    [   587s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 576.0}, "Q
+    [   597s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 586.0}, "Q
+    [   607s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 596.0}, "Q
+    [   617s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 606.0}, "Q
+    [   627s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 616.0}, "Q
+    [   637s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 626.1}, "Q
+    [   647s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 636.1}, "Q
+    [   657s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 646.1}, "Q
+    [   667s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 656.1}, "Q
+    [   677s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 666.1}, "Q
+    [   687s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 676.1}, "Q
+    [   697s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 686.1}, "Q
+    [   707s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 696.2}, "Q
+    [   718s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 707.2}, "Q
+    [   728s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 717.2}, "Q
+    [   738s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 727.2}, "Q
+    [   748s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 737.2}, "Q
+    [   758s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 747.2}, "Q
+    [   768s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 757.2}, "Q
+    [   778s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 767.2}, "Q
+    [   788s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 777.2}, "Q
+    [   798s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 787.2}, "Q
+    [   808s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 797.2}, "Q
+    [   818s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 807.2}, "Q
+    [   828s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 817.2}, "Q
+    [   838s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 827.2}, "Q
+    [   848s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 837.2}, "Q
+    [   858s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 847.3}, "Q
+    [   868s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 857.3}, "Q
+    [   878s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 867.3}, "Q
+    [   888s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 877.3}, "Q
+    [   898s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 887.3}, "Q
+    [   908s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 897.3}, "Q
+    [   918s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 907.3}, "Q
+    [   928s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 917.3}, "Q
+    [   938s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 927.3}, "Q
+    [   948s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 937.3}, "Q
+    [   958s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 947.3}, "Q
+    [   968s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 957.3}, "Q
+    [   978s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 967.3}, "Q
+    [   988s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 977.3}, "Q
+    [   998s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 987.4}, "Q
+    [  1008s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 997.4}, "Q
+    [  1018s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1007.4}, "
+    [  1028s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1017.4}, "
+    [  1038s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1027.4}, "
+    [  1048s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1037.7}, "
+    [  1058s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1047.7}, "
+    [  1068s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1057.7}, "
+    [  1078s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1067.7}, "
+    [  1088s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1077.7}, "
+    [  1098s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1087.7}, "
+    [  1108s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1097.7}, "
+    [  1118s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1107.7}, "
+    [  1128s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1117.8}, "
+    [  1138s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1127.8}, "
+    [  1148s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1137.8}, "
+    [  1158s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1147.8}, "
+    [  1168s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1157.8}, "
+    [  1178s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1167.8}, "
+    [  1188s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1177.8}, "
+    [  1201s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1190.1}, "
+    [  1211s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1200.1}, "
+    [  1221s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1210.1}, "
+    [  1231s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1220.1}, "
+    [  1241s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1230.1}, "
+    [  1251s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1240.1}, "
+    [  1261s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1250.1}, "
+    [  1271s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1260.1}, "
+    [  1281s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1270.1}, "
+    [  1291s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1280.1}, "
+    [  1301s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1290.1}, "
+    [  1311s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1300.1}, "
+    [  1321s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1310.1}, "
+    [  1331s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1320.2}, "
+    [  1341s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1330.2}, "
+    [  1351s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1340.2}, "
+    [  1361s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1350.2}, "
+    [  1371s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1360.2}, "
+    [  1381s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1370.2}, "
+    [  1391s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1380.2}, "
+    [  1401s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1390.2}, "
+    [  1411s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1400.2}, "
+    [  1421s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1410.2}, "
+    [  1431s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1420.2}, "
+    [  1441s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1430.2}, "
+    [  1451s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1440.3}, "
+    [  1461s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1450.3}, "
+    [  1471s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1460.3}, "
+    [  1481s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1470.3}, "
+    [  1491s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1480.3}, "
+    [  1501s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1490.3}, "
+    [  1511s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1500.3}, "
+    [  1521s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1510.3}, "
+    [  1531s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1520.3}, "
+    [  1541s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1530.3}, "
+    [  1551s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1540.3}, "
+    [  1561s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1550.3}, "
+    [  1571s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1560.4}, "
+    [  1581s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1570.4}, "
+    [  1591s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1580.4}, "
+    [  1601s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1590.4}, "
+    [  1611s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1600.4}, "
+    [  1621s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1610.4}, "
+    [  1631s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1620.4}, "
+    [  1641s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1630.4}, "
+    [  1651s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1640.4}, "
+    [  1661s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1650.4}, "
+    [  1671s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1660.4}, "
+    [  1681s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1670.4}, "
+    [  1691s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1680.5}, "
+    [  1701s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1690.5}, "
+    [  1711s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1700.5}, "
+    [  1721s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1710.5}, "
+    [  1731s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1720.5}, "
+    [  1741s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1730.5}, "
+    [  1751s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1740.5}, "
+    [  1761s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1750.5}, "
+    [  1771s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1760.5}, "
+    [  1781s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1770.5}, "
+    [  1791s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1780.5}, "
+    [  1801s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1790.5}, "
+    [  1811s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1800.5}, "
+    [  1821s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1810.5}, "
+    [  1831s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1820.5}, "
+    [  1841s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1830.5}, "
+    [  1851s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1840.6}, "
+    [  1861s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1850.6}, "
+    [  1871s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1860.6}, "
+    [  1881s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1870.6}, "
+    [  1891s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1880.6}, "
+    [  1901s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1890.6}, "
+    [  1911s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1900.6}, "
+    [  1924s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1913.6}, "
+    [  1934s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1923.6}, "
+    [  1944s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1933.6}, "
+    [  1954s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1943.6}, "
+    [  1964s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1953.6}, "
+    [  1974s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1963.6}, "
+    [  1984s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1973.6}, "
+    [  1994s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1983.7}, "
+    [  2004s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1993.7}, "
+    [  2014s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2003.7}, "
+    [  2024s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2013.7}, "
+    [  2034s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2023.7}, "
+    [  2044s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2033.7}, "
+    [  2054s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2043.7}, "
+    [  2064s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2053.7}, "
+    [  2074s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2063.7}, "
+    [  2084s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2073.7}, "
+    [  2094s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2083.7}, "
+    [  2104s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2093.7}, "
+    [  2114s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2103.7}, "
+    [  2125s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2114.3}, "
+    [  2135s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2124.3}, "
+    [  2145s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2134.3}, "
+    [  2155s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2144.3}, "
+    [  2165s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2154.3}, "
+    [  2175s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2164.3}, "
+    [  2185s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2174.3}, "
+    [  2195s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2184.3}, "
+    [  2205s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2194.3}, "
+    [  2215s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2204.3}, "
+    [  2225s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2214.4}, "
+    [  2235s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2224.4}, "
+    [  2245s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2234.4}, "
+    [  2255s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2244.4}, "
+    [  2265s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2254.4}, "
+    [  2275s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2264.4}, "
+    [  2285s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2274.4}, "
+    [  2295s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2284.4}, "
+    [  2305s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2294.4}, "
+    [  2315s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2304.4}, "
+    [  2325s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2314.4}, "
+    [  2335s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2324.4}, "
+    [  2345s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2334.4}, "
+    [  2355s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2344.4}, "
+    [  2365s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2354.4}, "
+    [  2375s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2364.4}, "
+    [  2385s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2374.5}, "
+    [  2395s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2384.5}, "
+    [  2405s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2394.5}, "
+    [  2417s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": 2406.6}, "Qw
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    [  2427s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": 2416.6}, "Qw
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    [  2437s] {"Qwen3-30B-A3B-FP8": {"port": null, "cards": [], "alive": false, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": null}, "Solar-Open-100B-NVFP
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Solar-Open-100B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    실패: TimeoutError: Solar-Open-100B-NVFP4A16 준비 실패 (3600s)
+    → /home/jun/RNGD-proj/Model_Benchmark/rngd-npu/bench_prebuilt_vs_custom/results/Solar-Open-100B-NVFP4A16.json
+
+=== Llama-3.3-70B-Instruct
+    [     0s] {"Qwen3-30B-A3B-FP8": {"port": null, "cards": [], "alive": false, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": null}, "Solar-Open-100B-NVFP
+    [    10s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 10.0}, "Qwen
+    [    20s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 20.0}, "Qwen
+    [    30s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 30.0}, "Qwen
+    [    40s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 40.0}, "Qwen
+    [    50s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 50.0}, "Qwen
+    [    60s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 60.0}, "Qwen
+    [    70s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 70.0}, "Qwen
+    [    80s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 80.2}, "Qwen
+    [    92s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 91.5}, "Qwen
+    [   103s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 102.6}, "Qwe
+    [   113s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 113.1}, "Qwe
+    [   124s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 123.5}, "Qwe
+    [   134s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 133.7}, "Qwe
+    [   144s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 144.0}, "Qwe
+    [   155s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 154.5}, "Qwe
+    [   165s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 164.5}, "Qwe
+    [   175s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 174.5}, "Qwe
+    [   185s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "up", "idle_s": 184.6}, "Qwen3-30
+    적재 185.1s
+    fact    ttft 0.20s  총 4.27s  107tok  26.1 tok/s
+    code    ttft 0.19s  총 2.70s  67tok  26.3 tok/s
+    reason  ttft 0.20s  총 9.04s  233tok  26.2 tok/s
+    long    ttft 0.19s  총 15.71s  409tok  26.3 tok/s
+    동시 4개: 22.6s, 합계 1487tok, 65.7 tok/s
+    → /home/jun/RNGD-proj/Model_Benchmark/rngd-npu/bench_prebuilt_vs_custom/results/Llama-3.3-70B-Instruct.json
+
+=== K-EXAONE-236B-A23B-NVFP4A16
+    [     0s] {"Llama-3.3-70B-Instruct": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "stopping", "idle_s": 0.0}, "Qwen
+    [    10s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 7.6}, "
+    [    20s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 17.6}, 
+    [    30s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 27.6}, 
+    [    40s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 37.6}, 
+    [    50s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 47.6}, 
+    [    60s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 57.6}, 
+    [    70s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 67.6}, 
+    [    80s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 77.6}, 
+    [    90s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 87.7}, 
+    [   100s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 97.7}, 
+    [   110s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 107.7},
+    [   120s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 117.7},
+    [   130s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 127.7},
+    [   140s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 137.7},
+    [   150s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 147.7},
+    [   160s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 157.7},
+    [   170s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 167.8},
+    [   180s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 177.8},
+    [   190s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 187.8},
+    [   200s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 197.9},
+    [   210s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 207.9},
+    [   220s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 217.9},
+    [   230s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 228.0},
+    [   240s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 238.0},
+    [   250s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 248.0},
+    [   261s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 258.1},
+    [   271s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 268.2},
+    [   281s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 278.2},
+    [   291s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 288.3},
+    [   301s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 298.3},
+    [   311s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 308.4},
+    [   321s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 318.4},
+    [   331s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 328.4},
+    [   341s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 338.4},
+    [   351s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 348.4},
+    [   361s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 359.0},
+    [   371s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 369.0},
+    [   382s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 379.1},
+    [   392s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 389.8},
+    [   403s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 400.6},
+    [   420s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 417.2},
+    [   431s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 428.7},
+    [   441s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 438.7},
+    [   451s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 448.8},
+    [   461s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 458.8},
+    [   472s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 469.8},
+    [   482s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 479.8},
+    [   492s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 489.8},
+    [   502s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 499.8},
+    [   512s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 509.8},
+    [   524s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 522.0},
+    [   539s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 536.2},
+    [   556s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 553.3},
+    [   571s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 567.7},
+    [   587s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 581.8},
+    [   597s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 594.5},
+    [   614s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 612.0},
+    [   635s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 627.0},
+    [   646s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 643.7},
+    [   665s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 663.0},
+    [   682s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 679.1},
+    [   703s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 693.0},
+    [   713s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 710.7},
+    [   728s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 722.6},
+    [   739s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 736.2},
+    [   749s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 746.8},
+    [   759s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 756.9},
+    [   771s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 768.3},
+    [   781s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 778.7},
+    [   791s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 788.7},
+    [   801s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 798.7},
+    [   814s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 810.6},
+    [   824s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 821.8},
+    [   834s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 831.8},
+    [   844s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 841.8},
+    [   854s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 851.8},
+    [   864s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 861.9},
+    [   874s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 871.9},
+    [   884s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 881.9},
+    [   899s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 895.1},
+    [   936s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 933.1},
+    [   946s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 943.3},
+    [   958s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 954.9},
+    status 오류: timed out
+    [  1015s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1012.7}
+    [  1028s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1025.6}
+    [  1040s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1036.7}
+    [  1050s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1047.2}
+    [  1064s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1061.2}
+    [  1075s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1072.8}
+    [  1085s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1082.8}
+    [  1095s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1092.8}
+    [  1105s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1102.8}
+    [  1115s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1112.8}
+    [  1125s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1122.8}
+    [  1135s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1132.8}
+    [  1145s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1142.9}
+    [  1155s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1153.0}
+    [  1165s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1163.0}
+    [  1175s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1173.0}
+    [  1186s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1183.4}
+    [  1197s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1194.5}
+    [  1209s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1206.7}
+    [  1225s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1219.9}
+    [  1236s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1233.1}
+    [  1254s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1246.5}
+    [  1276s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1273.7}
+    [  1291s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1286.3}
+    [  1303s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1300.3}
+    [  1313s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1310.4}
+    [  1323s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1320.4}
+    [  1333s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1330.4}
+    [  1343s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1340.5}
+    [  1353s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1350.5}
+    [  1363s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1360.5}
+    [  1373s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1370.5}
+    [  1386s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1384.0}
+    [  1396s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1394.0}
+    [  1406s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1404.0}
+    [  1416s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1414.0}
+    [  1426s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1424.0}
+    [  1436s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1434.0}
+    [  1446s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1444.0}
+    [  1456s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1454.0}
+    [  1466s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1464.0}
+    [  1476s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1474.1}
+    [  1487s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1484.1}
+    [  1507s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1504.1}
+    [  1526s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1523.3}
+    [  1539s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1535.8}
+    [  1549s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1547.0}
+    [  1572s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1569.2}
+    [  1597s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1590.9}
+    [  1608s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1605.6}
+    [  1618s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1615.6}
+    [  1653s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1650.3}
+    [  1664s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1661.7}
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    status 오류: timed out
+    [  2423s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": 2420.2}, 
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    [  2434s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": 2431.2}, 
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    [  2444s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": 2441.2}, 
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    [  2454s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": 2451.2}, 
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    [  2464s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": 2461.2}, 
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    [  2474s] {"Qwen3-30B-A3B-FP8": {"port": null, "cards": [], "alive": false, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": null}, "Solar-Open-100B-NVFP
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: K-EXAONE-236B-A23B-NVFP4A16: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    실패: TimeoutError: K-EXAONE-236B-A23B-NVFP4A16 준비 실패 (3600s)
+    → /home/jun/RNGD-proj/Model_Benchmark/rngd-npu/bench_prebuilt_vs_custom/results/K-EXAONE-236B-A23B-NVFP4A16.json
+
+=== Qwen3-30B-A3B-FP8
+    [     0s] {"Qwen3-30B-A3B-FP8": {"port": null, "cards": [], "alive": false, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": null}, "Solar-Open-100B-NV
+    [    10s] {"Qwen3-30B-A3B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 10.0}, "Solar-Ope
+    [    20s] {"Qwen3-30B-A3B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 20.0}, "Solar-Ope
+    [    30s] {"Qwen3-30B-A3B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 30.0}, "Solar-Ope
+    [    40s] {"Qwen3-30B-A3B-FP8": {"port": null, "cards": [], "alive": false, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": null}, "Solar-Open-100B-NVFP
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    status 오류: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    실패: TimeoutError: Qwen3-30B-A3B-FP8 준비 실패 (3600s)
+    → /home/jun/RNGD-proj/Model_Benchmark/rngd-npu/bench_prebuilt_vs_custom/results/Qwen3-30B-A3B-FP8.json
+
+=== Solar-Open-100B-NVFP4A16
+    [     0s] {"Qwen3-30B-A3B-FP8": {"port": null, "cards": [], "alive": false, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": null}, "Solar-Open-100B-NVFP
+    [    10s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 10.0}, "Qw
+    [    20s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 20.2}, "Qw
+    [    30s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 30.2}, "Qw
+    [    40s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 40.2}, "Qw
+    [    50s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 50.2}, "Qw
+    [    60s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 60.3}, "Qw
+    [    70s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 70.4}, "Qw
+    [    80s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 80.4}, "Qw
+    [    90s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 90.5}, "Qw
+    [   101s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 100.6}, "Q
+    [   111s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 110.6}, "Q
+    [   121s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 120.6}, "Q
+    [   131s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 130.6}, "Q
+    [   141s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 140.6}, "Q
+    [   151s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 150.6}, "Q
+    [   161s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 160.6}, "Q
+    [   171s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 170.6}, "Q
+    [   181s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 180.7}, "Q
+    [   191s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 190.7}, "Q
+    [   201s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 200.7}, "Q
+    [   211s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 210.7}, "Q
+    [   221s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 220.7}, "Q
+    [   231s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 230.7}, "Q
+    [   241s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 240.7}, "Q
+    [   251s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 250.7}, "Q
+    [   261s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 260.7}, "Q
+    [   271s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 270.7}, "Q
+    [   281s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 280.7}, "Q
+    [   291s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 290.8}, "Q
+    [   301s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "up", "idle_s": 300.8}, "Qwen3-
+    적재 302.5s
+    fact    ttft 0.32s  총 3.65s  188tok  56.1 tok/s
+    code    ttft 0.31s  총 18.15s  833tok  46.6 tok/s
+    reason  ttft 0.28s  총 17.58s  1024tok  59.1 tok/s
+    long    ttft 0.28s  총 17.40s  1024tok  59.8 tok/s  [thinking만]
+    동시 4개: 36.2s, 합계 4096tok, 113.0 tok/s
+    → /home/jun/RNGD-proj/Model_Benchmark/rngd-npu/bench_prebuilt_vs_custom/results/Solar-Open-100B-NVFP4A16.json
+
+=== Qwen3-30B-A3B-FP8
+    [     0s] {"Solar-Open-100B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "stopping", "idle_s": 0.0}, "Qw
+    [    10s] {"Qwen3-30B-A3B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 0.9}, "K-EXAONE-2
+    [    20s] {"Qwen3-30B-A3B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 11.0}, "K-EXAONE-
+    [    30s] {"Qwen3-30B-A3B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 21.0}, "K-EXAONE-
+    [    40s] {"Qwen3-30B-A3B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 31.0}, "K-EXAONE-
+    [    50s] {"Qwen3-30B-A3B-FP8": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 41.0}, "K-EXAONE-
+    [    60s] {"Qwen3-30B-A3B-FP8": {"port": null, "cards": [], "alive": false, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": null}, "K-EXAONE-236B-A23B-N
+    실패: RuntimeError: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다
+    → /home/jun/RNGD-proj/Model_Benchmark/rngd-npu/bench_prebuilt_vs_custom/results/Qwen3-30B-A3B-FP8.json
+
+=== K-EXAONE-236B-A23B-NVFP4A16
+    [     0s] {"Qwen3-30B-A3B-FP8": {"port": null, "cards": [], "alive": false, "tp": 32, "dp": 1, "pp": 1, "state": "error", "idle_s": null}, "K-EXAONE-236B-A23B-N
+    [    10s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 10.0}, 
+    [    20s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 20.0}, 
+    [    30s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 30.0}, 
+    [    40s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 40.0}, 
+    [    50s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 50.0}, 
+    [    60s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 60.0}, 
+    [    70s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 70.1}, 
+    [    80s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 80.1}, 
+    [    90s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 90.1}, 
+    [   100s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 100.1},
+    [   110s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 110.1},
+    [   120s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 120.1},
+    [   130s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 130.1},
+    [   140s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 140.1},
+    [   150s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 150.1},
+    [   160s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 160.2},
+    [   170s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 170.2},
+    [   180s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 180.2},
+    [   190s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 190.3},
+    [   200s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 200.3},
+    [   210s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 210.3},
+    [   220s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 220.3},
+    [   230s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 230.3},
+    [   240s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 240.3},
+    [   250s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 250.3},
+    [   261s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 260.6},
+    [   273s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 273.3},
+    [   284s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 283.7},
+    [   294s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 293.7},
+    [   304s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 303.7},
+    [   314s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 314.2},
+    [   325s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 324.6},
+    [   335s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 334.6},
+    [   345s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 344.6},
+    [   355s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 354.6},
+    [   365s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 364.6},
+    [   375s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 374.6},
+    [   385s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 384.9},
+    [   395s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 394.9},
+    [   405s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 404.9},
+    [   415s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 414.9},
+    [   425s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 424.9},
+    [   456s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 447.4},
+    [   466s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 466.2},
+    [   476s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 476.2},
+    [   501s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 501.4},
+    [   522s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 522.0},
+    [   532s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 532.0},
+    [   547s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 547.1},
+    [   563s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 562.8},
+    [   573s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 572.8},
+    [   583s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 582.8},
+    [   593s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 592.8},
+    [   604s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 603.9},
+    [   614s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 613.9},
+    [   625s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 625.0},
+    [   637s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 636.8},
+    [   647s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 646.8},
+    [   657s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 656.8},
+    [   667s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 666.8},
+    [   677s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 676.8},
+    [   687s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 687.0},
+    [   697s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 697.0},
+    [   707s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 707.0},
+    [   717s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 717.0},
+    [   727s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 727.0},
+    [   737s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 737.0},
+    [   747s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 747.0},
+    [   757s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 757.0},
+    [   767s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 767.0},
+    [   777s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 777.1},
+    [   787s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 787.1},
+    [   797s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 797.1},
+    [   807s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 807.1},
+    [   817s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 817.1},
+    [   827s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 827.1},
+    [   837s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 837.1},
+    [   847s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 847.1},
+    [   857s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 857.2},
+    [   867s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 867.3},
+    [   879s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 878.2},
+    [   896s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 896.0},
+    [   907s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 907.2},
+    [   918s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 917.9},
+    [   929s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 928.8},
+    [   939s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 938.9},
+    [   955s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 948.9},
+    [   966s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 965.2},
+    [  1006s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 977.3},
+    [  1017s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1016.5}
+    [  1054s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1026.5}
+    [  1064s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1063.7}
+    [  1081s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1081.3}
+    [  1093s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1092.7}
+    [  1103s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1103.4}
+    [  1115s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1114.6}
+    [  1125s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1125.0}
+    [  1160s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1159.9}
+    [  1171s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1170.8}
+    [  1182s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1180.9}
+    [  1192s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1191.7}
+    [  1202s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1201.7}
+    [  1212s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1211.7}
+    [  1222s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1221.8}
+    [  1233s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1232.9}
+    [  1254s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1242.9}
+    [  1265s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1265.0}
+    status 오류: timed out
+    [  1319s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1319.4}
+    [  1330s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1330.2}
+    [  1343s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1343.2}
+    [  1354s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1353.5}
+    [  1364s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1363.7}
+    [  1407s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1374.1}
+    [  1417s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1416.9}
+    [  1433s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1432.9}
+    [  1444s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1444.4}
+    [  1455s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1454.6}
+    [  1503s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1503.4}
+    [  1514s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1513.7}
+    [  1527s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1525.5}
+    [  1537s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1537.2}
+    [  1581s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1547.6}
+    [  1592s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1591.6}
+    [  1603s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1602.5}
+    [  1615s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1614.6}
+    [  1625s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1624.7}
+    [  1635s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1634.7}
+    [  1646s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1645.6}
+    [  1681s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1680.7}
+    [  1692s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1691.9}
+    [  1731s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1731.4}
+    [  1741s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1741.4}
+    [  1756s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1751.4}
+    [  1766s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1765.8}
+    [  1776s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1775.8}
+    status 오류: timed out
+    [  1831s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1830.9}
+    [  1842s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1841.7}
+    [  1856s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1855.6}
+    [  1866s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1865.6}
+    [  1880s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1879.1}
+    status 오류: timed out
+    [  1964s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1964.1}
+    [  1974s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1974.1}
+    [  1992s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 1992.1}
+    [  2003s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2002.4}
+    [  2015s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2015.5}
+    [  2026s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2025.9}
+    [  2046s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2046.2}
+    [  2056s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2056.2}
+    [  2066s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2066.2}
+    [  2076s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2076.2}
+    [  2086s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2086.2}
+    [  2096s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2096.2}
+    [  2112s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2112.3}
+    [  2128s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2128.0}
+    [  2146s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2138.0}
+    [  2157s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2156.6}
+    [  2169s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2169.0}
+    [  2180s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2180.2}
+    [  2191s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2190.9}
+    [  2201s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2201.0}
+    [  2223s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2223.0}
+    [  2233s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2233.3}
+    [  2243s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2243.3}
+    [  2253s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2253.4}
+    [  2263s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2263.4}
+    [  2273s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2273.5}
+    [  2283s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2283.5}
+    [  2293s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2293.5}
+    [  2303s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2303.5}
+    [  2313s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "loading", "idle_s": 2313.5}
+    [  2323s] {"K-EXAONE-236B-A23B-NVFP4A16": {"port": 8410, "cards": [0, 1, 2, 3], "alive": true, "tp": 32, "dp": 1, "pp": 1, "state": "up", "idle_s": 2323.5}, "Qw
+    적재 2324.6s
+    fact    ttft 0.47s  총 24.79s  1024tok  42.1 tok/s  [thinking만]
+    code    ttft 0.39s  총 24.45s  1024tok  42.5 tok/s  [thinking만]
+    reason  ttft 0.44s  총 23.42s  999tok  43.4 tok/s
+    long    ttft 0.39s  총 24.23s  1024tok  42.9 tok/s  [thinking만]
+    동시 4개: 36.5s, 합계 4096tok, 112.1 tok/s
+    → /home/jun/RNGD-proj/Model_Benchmark/rngd-npu/bench_prebuilt_vs_custom/results/K-EXAONE-236B-A23B-NVFP4A16.json

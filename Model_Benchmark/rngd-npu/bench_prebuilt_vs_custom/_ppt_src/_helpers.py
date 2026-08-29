@@ -14,10 +14,17 @@ W0, W1 = 16, 844
 def tw(s, size=10.5, bold=False):
     w = sum(size if ord(c) > 0x2e80 else size*0.5 for c in s)
     return w*1.03 if bold else w
+def esc(s):
+    """SVG 는 XML 이다. 글자 안의 & < > 를 그대로 쓰면 파싱이 깨진다
+    (실측: 'furiosa-ai/<모델>' 이 mismatched tag 를 냈다). 모델 출력처럼 내용을
+    내가 정하지 못하는 글을 넣을 때 특히 위험하다."""
+    return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
 def txt(x, y, s, size=10.5, fill=INK, w=None, anchor=None):
     a = f' text-anchor="{anchor}"' if anchor else ''
     b = ' font-weight="700"' if w else ''
-    return f'<text x="{x}" y="{y}" font-size="{size}" fill="{fill}"{b}{a}>{s}</text>'
+    return f'<text x="{x}" y="{y}" font-size="{size}" fill="{fill}"{b}{a}>{esc(s)}</text>'
 def rect(x, y, w, h, fill, stroke, sw=1, rx=0, dash=None):
     d = f' stroke-dasharray="{dash}"' if dash else ''
     r = f' rx="{rx}"' if rx else ''

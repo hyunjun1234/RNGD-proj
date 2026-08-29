@@ -1,86 +1,81 @@
-# prebuilt 모델과 직접 빌드한 모델 비교
+# RNGD 서버에서 쓸 수 있는 모델
 
-같은 프롬프트 4종(사실, 코드, 추론, 설명)을 `temperature=0`, `max_tokens=1024` 로 던져 잰 결과.
-TTFT 는 스트리밍 첫 토큰까지, 디코드는 첫 토큰 이후 속도, 총처리량은 같은 프롬프트 4개 동시 요청.
-측정일 2026-08-28, RNGD 4장 서버, furiosa-llm 2026.3.0.
+라우터(:8400)에 등록된 채팅 모델 전종을 **같은 입력, 같은 설정**으로 재고 답변까지 저장한 결과.
+측정일 2026-08-29, RNGD 4장 서버, furiosa-llm 2026.3.0.
 
-## 결론
+## 조건
 
-1. **직접 빌드한 dense 모델은 배포판과 답변 품질이 같고 카드당 처리량이 2배다.** Qwen3-32B 는 카드 1장으로 92 tok/s, 배포판은 4장으로 189 tok/s(카드당 47).
-2. **직접 빌드는 적재가 10배 빠르다.** tp8 아티팩트 19~30초, 배포 FXB tp32 는 211~938초.
-3. **MoE 모델의 직접 빌드는 전부 못 쓴다.** `model_type` 을 위장해 게이트를 지나면 적재는 되지만 답이 틀린다. 5종 전부 확인.
-4. **속도 지표만 보면 이 고장을 못 잡는다.** 깨진 모델이 오히려 총처리량이 높게 나온다(Coder custom 161 vs prebuilt 139).
+```
+프롬프트  네 종류(사실 질문, 코드 작성, 계산 추론, 개념 설명)를 모든 모델에 같은 문장으로
+샘플링    temperature 0 (greedy)
+길이      max_tokens 1024
+지연      스트리밍으로 첫 토큰까지(TTFT)와 답이 끝날 때까지를 따로
+처리량    단일 요청의 디코드 속도, 그리고 같은 질문 4개 동시 요청의 합계 속도
+적재      serve 로그의 Loading LLM 부터 기동 완료까지
+```
+
+프롬프트 원문과 모델별 답변 원문은 `모델별-성능정리.pptx` 2부에 발췌 없이 실려 있고,
+기계가 읽을 형태는 `results/<모델>.json` 에 있다.
 
 ## 표
 
-| 모델 | 갈래 | 카드 | 적재s | TTFT | 디코드 tok/s | 동시4 tok/s | 정상 |
+| 모델 | 카드 | 적재 | TTFT | tok/s | 동시4 tok/s | 첫응답 | 답변 |
 |---|---|---|---|---|---|---|---|
-| Coder 30B | prebuilt | 4 | 938.0 | 0.143 | 70.9 | 139.0 | 4/4 |
-| Coder 30B | custom | 1 | 21.1 | 0.123 | 60.8 | 160.6 | 0/4 |
-| Qwen3 32B | prebuilt | 4 | 211.1 | 0.417 | 55.3 | 188.6 | 4/4 |
-| Qwen3 32B | custom | 1 | 24.1 | 0.23 | 24.8 | 91.6 | 4/4 |
-| A3B Instruct 2507 | prebuilt | 4 | 272.2 | 0.093 | 71.9 | 142.5 | 4/4 |
-| A3B Instruct 2507 | custom | 1 | 23.5 | 0.123 | 61.5 | 134.4 | 0/4 |
-| A3B Thinking 2507 | prebuilt | 4 | 43.3 | 0.193 | 71.2 | 141.9 | 4/4 |
-| A3B Thinking 2507 | custom | 1 | 22.5 | 0.194 | 61.9 | 161.9 | 0/4 |
-| EXAONE 4.0 32B | prebuilt | 4 | 측정 실패 (디스크 가득 참) | | | | |
-| EXAONE 4.0 32B | custom | 1 | 30.3 | 0.121 | 24.1 | 82.4 | 4/4 |
-| A3B | prebuilt | 4 | 측정 실패 (디스크 가득 참) | | | | |
-| A3B | custom | 1 | 21.5 | 0.194 | 60.9 | 159.5 | 1/4 |
-| Llama 3.1 8B | custom | 1 | 16.2 | 0.037 | 49.7 | 195.4 | 4/4 |
-| Coder 30B bf16 | custom | 1 | 35.6 | 0.188 | 54.4 | 118.7 | 0/4 |
+| gpt-oss 120B | 4 | 1491s | 4.88 | 2 | 40 | 207.5s | 정상 |
+| Solar-Open 100B * | 4 | 278s | 0.31 | 59 | 113 | 3.6s | 정상 |
+| K-EXAONE 236B * | 4 | 2306s | 0.45 | 43 | 112 | 23.4s | 정상 |
+| Llama 3.3 70B | 4 | 174s | 0.20 | 26 | 66 | 2.7s | 정상 |
+| Qwen3 32B * | 4 | 211s | 0.42 | 55 | 189 | 9.0s | 정상 |
+| EXAONE 4.0 32B * | 4 | 66s | 0.23 | 33 | 113 | 3.8s | 정상 |
+| Qwen3-VL 32B | 4 | 77s | 0.18 | 39 | 38 | 1.9s | 정상 |
+| Qwen3-Coder 30B | 4 | 938s | 0.14 | 71 | 139 | 1.4s | 정상 |
+| A3B Instruct 2507 | 4 | 272s | 0.09 | 72 | 142 | 1.0s | 정상 |
+| A3B Thinking 2507 * | 4 | 43s | 0.19 | 71 | 142 | 14.5s | 정상 |
+| A3B 30B | 4 | 못 뜸 | - | - | - | - | 배포 FXB 결함 |
+| Llama 3.1 8B | 1 | 10s | 0.04 | 50 | 195 | 2.5s | 정상 |
+| Qwen3 8B | 1 | 13s | 0.17 | 66 | 248 | 6.9s | 정상 |
+| Qwen3 4B | 1 | 9s | 0.20 | 83 | 297 | 5.7s | 정상 |
+| Qwen2.5 0.5B | 1 | 3s | 0.03 | 88 | 308 | 2.9s | 정상 |
 
-정상 열은 프롬프트 4개 중 뜻 있는 답이 나온 개수다.
+별표는 사고(thinking)하는 모델. 첫응답은 가장 짧은 프롬프트가 끝날 때까지.
 
-## MoE 위장이 원인인가
+## 읽는 법
 
-`artifact.json` 을 세 가지로 바꿔 같은 질문을 던졌다(`moe_check2.py`, 라우터 경유).
+1. **TTFT 는 모델을 안 가린다.** 0.03~0.42초로 전부 비슷하다(gpt-oss-120b 4.9초만 예외).
+   체감 차이는 첫 글자가 아니라 **답이 끝날 때까지**에서 난다.
+2. **사고하는 모델은 짧은 질문에도 오래 걸린다.** 같은 30B 인데 A3B Instruct 1.0초, A3B Thinking 14.5초다.
+   어려운 추론을 맡길 때만 고르고, 짧게 묻고 짧게 받을 일에는 사고 없는 모델을 쓴다.
+3. **작은 모델이 동시 처리에서 앞선다.** 카드 한 장짜리 0.5B 가 309 tok/s 로,
+   카드 넉 장을 쓰는 30B(139~143)보다 두 배 이상이다. 여럿이 붙는 서비스라면 이 숫자를 본다.
+4. **모델을 바꾸면 기다린다.** 카드 넉 장짜리는 43초에서 25분까지 걸리고, 한 장짜리는 3~13초다.
+   자주 바꿔 쓸 환경이면 한 장짜리가 유리하다(넷까지 같이 떠 있을 수 있다).
+5. **gpt-oss-120b 는 유난히 느리다.** 답변은 정상인데 1024토큰에 341초(3 tok/s), 적재 25분이다.
+   동시 4요청에서 40 tok/s 로 열 배 이상 좋아지는 걸 보면 단일 스트림의 스텝당 고정 비용이 크다.
 
-| 변형 | 결과 |
-|---|---|
-| 위장본 (model_type=qwen3, MoE 키 없음) | 떴지만 질문과 무관한 출력 |
-| 원본 (model_type=qwen3_moe) | 게이트가 막아 뜨지 못함 |
-| 위장 + MoE 키 8개 복원 | 떴지만 여전히 무관한 출력 |
+## 못 잰 것
 
-즉 **사라진 MoE 설정 키는 원인이 아니다.** 게이트가 뱉는 말이 그대로 답이다.
+`Qwen3-30B-A3B-FP8` 은 **배포된 FXB 번들 자체가 고장**이라 뜨지 못한다. 캐시는 정상이고(32G,
+형제 모델 33G, 미완성 파일 없음) 다운로드 문제가 아니다. 가중치 30.2 GiB 를 다 읽은 뒤 죽는다:
 
 ```
-pyo3_runtime.PanicException: Unsupported model metadata:
-    ModelMetadata { model_type: Some(Qwen3Moe), task: Some(Generate), … }
+pyo3_runtime.PanicException: assertion `left == right` failed:
+  element size mismatch for weight "model.embed_tokens.weight":
+  safetensor dtype F32 is 4 bytes but EDF element type Bfloat16 is 2 bytes
 ```
 
-furiosa-llm 2026.3.0 의 **v2 아티팩트(next_gen) 경로가 MoE 를 지원하지 않는다.** 같은 MoE 모델도
-퓨리오사 배포 FXB(entrypoint 경로)로는 정상 동작한다. 게이트는 형식 검사가 아니라 못 하는 일을 막는 장치다.
-
-## 권고
-
-| 항목 | 조치 |
-|---|---|
-| MoE tp8 아티팩트 5종 | **2026-08-29 제거 완료.** 라우터 REGISTRY, chat CATALOG, serve_models.sh 에서 빼고 `artifact.json` 을 원본(qwen3_moe)으로 되돌려 게이트가 막게 했다(위장본은 `artifact.json.masqueraded-bak`). 경고문 `artifacts/README-MoE-경고.md` |
-| dense tp8 아티팩트 3종 | 그대로 쓴다. 카드 1장으로 배포판 카드당 성능의 2배 |
-| MoE 모델 | 배포 FXB 로만 서빙 |
-
-## 측정 못 한 것
-
-`EXAONE-4.0-32B-FP8` 과 `Qwen3-30B-A3B-FP8` 의 **prebuilt** 는 HF 다운로드가 `No space left on device` 로 실패했다.
-`/mnt/nvme2n1p1` 이 1.9T 중 여유 6.8G 로 가득 차 있었다.
-
-**2026-08-29 정리 완료**: `models/furiosa/llm/param_files` 는 아티팩트 폴더와 하드링크가 아닌 별도 사본이라
-(inode 다름, 링크수 1, 크기 동일) 서빙을 깨지 않고 지울 수 있다. 사본이 확인된 8개만 지워
-**251.3 GiB 를 회수**했다(여유 5.6G → 257G, 100% → 86%). 지운 뒤 `Qwen3-32B-FP8@tp8` 로 실제 생성을
-확인했다. 사본이 없는 5개(Qwen2.5-3B, Qwen3-4B, Qwen3-8B 등 30.4G)는 남겼다.
-
-```bash
-bash clean_param_files.sh          # 무엇을 지울지 보여만 준다
-bash clean_param_files.sh --yes    # 실제로 지운다
-```
+50회 재현했다. 같은 계열의 `Qwen3-30B-A3B-Instruct-2507-FP8` 과 `Thinking-2507-FP8` 은 정상이다.
 
 ## 다시 돌리는 법
 
 ```bash
 cd ~/RNGD-proj/Model_Benchmark/rngd-npu/bench_prebuilt_vs_custom
-python3 bench.py <모델ID> [<모델ID> …]   # results/<모델>.json 에 저장, 이미 있으면 건너뜀
-python3 analyze.py                        # summary.json 생성
-python3 moe_check2.py coder-tp8           # 원인 검증 (artifact.json 을 되돌려 놓는다)
-cd _ppt_src && python3 gen.py && ~/.cache/diagram-deck/venv/bin/python build.py
+python3 bench.py <모델ID> …        # results/<모델>.json 에 저장, 이미 있으면 건너뜀
+python3 analyze.py                 # summary.json 생성
+python3 report.py                  # 표를 화면에 출력
+cd _ppt_src && python3 gen_all.py && ~/.cache/diagram-deck/venv/bin/python build_all.py
 ```
+
+## 부록
+
+`README-부록-prebuilt대custom.md` — 배포판과 직접 빌드한 tp8 아티팩트를 비교한 별도 조사.
+MoE 모델을 카탈로그에서 뺀 근거다(`prebuilt-vs-custom.pptx`).

@@ -1,0 +1,100 @@
+<svg viewBox="0 0 950 258" xmlns="http://www.w3.org/2000/svg">
+<g font-family="Noto Sans CJK KR">
+<text x="16" y="32" font-size="11.5" fill="#16202c" font-weight="700">(a) 카드 4장을 다 쓰는 모델, 한 번에 하나만 뜬다</text>
+<rect x="16" y="44" width="147.98000000000002" height="25" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.2"/>
+<rect x="24" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="35" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="46" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="57" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<text x="70" y="61" font-size="11" fill="#16202c" font-weight="700">gpt-oss 120B</text>
+<rect x="171.98000000000002" y="44" width="164.97500000000002" height="25" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.2"/>
+<rect x="179.98000000000002" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="190.98000000000002" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="201.98000000000002" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="212.98000000000002" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<text x="225.98000000000002" y="61" font-size="11" fill="#16202c" font-weight="700">Solar-Open 100B</text>
+<rect x="344.95500000000004" y="44" width="153.64499999999998" height="25" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.2"/>
+<rect x="352.95500000000004" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="363.95500000000004" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="374.95500000000004" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="385.95500000000004" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<text x="398.95500000000004" y="61" font-size="11" fill="#16202c" font-weight="700">K-EXAONE 236B</text>
+<rect x="506.6" y="44" width="153.64499999999998" height="25" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.2"/>
+<rect x="514.6" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="525.6" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="536.6" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="547.6" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<text x="560.6" y="61" font-size="11" fill="#16202c" font-weight="700">Llama 3.3 70B</text>
+<rect x="668.245" y="44" width="130.985" height="25" rx="4" fill="#e3e5ea" stroke="#253761" stroke-width="1.2"/>
+<rect x="676.245" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="687.245" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="698.245" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="709.245" y="52" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<text x="722.245" y="61" font-size="11" fill="#16202c" font-weight="700">Qwen3 32B</text>
+<rect x="16" y="75" width="159.31" height="25" rx="4" fill="#e3e5ea" stroke="#253761" stroke-width="1.2"/>
+<rect x="24" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="35" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="46" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="57" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<text x="70" y="92" font-size="11" fill="#16202c" font-weight="700">EXAONE 4.0 32B</text>
+<rect x="183.31" y="75" width="147.98000000000002" height="25" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.2"/>
+<rect x="191.31" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="202.31" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="213.31" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="224.31" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<text x="237.31" y="92" font-size="11" fill="#16202c" font-weight="700">Qwen3-VL 32B</text>
+<rect x="339.29" y="75" width="164.97500000000002" height="25" rx="4" fill="#e3e5ea" stroke="#253761" stroke-width="1.2"/>
+<rect x="347.29" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="358.29" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="369.29" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="380.29" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<text x="393.29" y="92" font-size="11" fill="#16202c" font-weight="700">Qwen3-Coder 30B</text>
+<rect x="512.2650000000001" y="75" width="176.305" height="25" rx="4" fill="#e3e5ea" stroke="#253761" stroke-width="1.2"/>
+<rect x="520.2650000000001" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="531.2650000000001" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="542.2650000000001" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="553.2650000000001" y="83" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<text x="566.2650000000001" y="92" font-size="11" fill="#16202c" font-weight="700">A3B Instruct 2507</text>
+<rect x="16" y="106" width="176.305" height="25" rx="4" fill="#e3e5ea" stroke="#253761" stroke-width="1.2"/>
+<rect x="24" y="114" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="35" y="114" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="46" y="114" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="57" y="114" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<text x="70" y="123" font-size="11" fill="#16202c" font-weight="700">A3B Thinking 2507</text>
+<rect x="200.305" y="106" width="119.655" height="25" rx="4" fill="#ffffff" stroke="#253761" stroke-width="1.2"/>
+<rect x="208.305" y="114" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="219.305" y="114" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="230.305" y="114" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<rect x="241.305" y="114" width="9" height="9" fill="#9da5b8" stroke="#253761" stroke-width="0.9"/>
+<text x="254.305" y="123" font-size="11" fill="#16202c" font-weight="700">A3B 30B</text>
+<text x="16" y="148" font-size="10.5" fill="#5b6b7b">네모 넷이 카드 넉 장이다, 다 칠해져 있으면 그 모델 하나가 서버를 독차지한다</text>
+<text x="16" y="174" font-size="11.5" fill="#16202c" font-weight="700">(b) 카드 한 장이면 되는 모델, 넷까지 같이 뜬다</text>
+<rect x="16" y="183" width="147.98000000000002" height="25" rx="4" fill="#ffd34d" stroke="#253761" stroke-width="1.2"/>
+<rect x="24" y="191" width="9" height="9" fill="#ffd34d" stroke="#253761" stroke-width="0.9"/>
+<rect x="35" y="191" width="9" height="9" fill="#ffffff" stroke="#253761" stroke-width="0.9"/>
+<rect x="46" y="191" width="9" height="9" fill="#ffffff" stroke="#253761" stroke-width="0.9"/>
+<rect x="57" y="191" width="9" height="9" fill="#ffffff" stroke="#253761" stroke-width="0.9"/>
+<text x="70" y="200" font-size="11" fill="#16202c" font-weight="700">Llama 3.1 8B</text>
+<rect x="171.98000000000002" y="183" width="125.32" height="25" rx="4" fill="#ffd34d" stroke="#253761" stroke-width="1.2"/>
+<rect x="179.98000000000002" y="191" width="9" height="9" fill="#ffd34d" stroke="#253761" stroke-width="0.9"/>
+<rect x="190.98000000000002" y="191" width="9" height="9" fill="#ffffff" stroke="#253761" stroke-width="0.9"/>
+<rect x="201.98000000000002" y="191" width="9" height="9" fill="#ffffff" stroke="#253761" stroke-width="0.9"/>
+<rect x="212.98000000000002" y="191" width="9" height="9" fill="#ffffff" stroke="#253761" stroke-width="0.9"/>
+<text x="225.98000000000002" y="200" font-size="11" fill="#16202c" font-weight="700">Qwen3 8B</text>
+<rect x="305.3" y="183" width="125.32" height="25" rx="4" fill="#ffd34d" stroke="#253761" stroke-width="1.2"/>
+<rect x="313.3" y="191" width="9" height="9" fill="#ffd34d" stroke="#253761" stroke-width="0.9"/>
+<rect x="324.3" y="191" width="9" height="9" fill="#ffffff" stroke="#253761" stroke-width="0.9"/>
+<rect x="335.3" y="191" width="9" height="9" fill="#ffffff" stroke="#253761" stroke-width="0.9"/>
+<rect x="346.3" y="191" width="9" height="9" fill="#ffffff" stroke="#253761" stroke-width="0.9"/>
+<text x="359.3" y="200" font-size="11" fill="#16202c" font-weight="700">Qwen3 4B</text>
+<rect x="438.62" y="183" width="147.98000000000002" height="25" rx="4" fill="#ffd34d" stroke="#253761" stroke-width="1.2"/>
+<rect x="446.62" y="191" width="9" height="9" fill="#ffd34d" stroke="#253761" stroke-width="0.9"/>
+<rect x="457.62" y="191" width="9" height="9" fill="#ffffff" stroke="#253761" stroke-width="0.9"/>
+<rect x="468.62" y="191" width="9" height="9" fill="#ffffff" stroke="#253761" stroke-width="0.9"/>
+<rect x="479.62" y="191" width="9" height="9" fill="#ffffff" stroke="#253761" stroke-width="0.9"/>
+<text x="492.62" y="200" font-size="11" fill="#16202c" font-weight="700">Qwen2.5 0.5B</text>
+<text x="16" y="225" font-size="10.5" fill="#5b6b7b">한 칸만 칠해져 있으니 넷을 나란히 올릴 수 있다, 여럿이 각자 다른 모델을 쓸 때 유리하다</text>
+<text x="16" y="249" font-size="11" fill="#16202c">채팅 모델 15종이다, 이 밖에 임베딩과 리랭커가 하나씩 더 있다</text>
+<text x="844" y="249" font-size="10.5" fill="#5b6b7b" text-anchor="end">라우터 :8400 의 /router/models</text>
+</g>
+</svg>

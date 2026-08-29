@@ -1,5 +1,5 @@
 {
   "model": "Qwen3-30B-A3B-FP8",
-  "error": "TimeoutError: Qwen3-30B-A3B-FP8 준비 실패 (3600s)",
-  "started": "2026-08-28 22:07:50"
+  "error": "RuntimeError: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다",
+  "started": "2026-08-29 16:02:10"
 }

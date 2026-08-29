@@ -1,12 +1,82 @@
 [
   {
     "model": "EXAONE-4.0-32B-FP8",
-    "error": "TimeoutError: EXAONE-4.0-32B-FP8 준비 실패 (3600s)",
-    "started": "2026-08-28 21:01:03",
+    "started": "2026-08-29 01:31:19",
+    "load_s": 160.6,
+    "runs": [
+      {
+        "ttft": 0.1879681460559368,
+        "total": 4.196999846957624,
+        "out_tokens": 133,
+        "in_tokens": 37,
+        "decode_tps": 32.925656330008906,
+        "text": "대한민국의 수도는 **서울**이다.  \n\n1. **조선 시대(1394년)**: 태조 이성계가 한양(현 서울)을 수도로 정하며 조선의 정치·경제·문화 중심지로 발전했다.  \n2. **일제 강점기(1910~1945년)**: 일본이 경성부(서울)를 식민지 행정 중심지로 활용하며 인프라가 확충되었다.  \n3. **대한민국 정부 수립(1948년)**: 해방 후 서울이 수도로 재확인되며 현대 대한민국의 핵심 도시로 자리매김했다.",
+        "thinking": "",
+        "chunks": 132,
+        "prompt": "fact",
+        "broken": null
+      },
+      {
+        "ttft": 0.2357762367464602,
+        "total": 3.7563816336914897,
+        "out_tokens": 118,
+        "in_tokens": 47,
+        "decode_tps": 33.23292070776395,
+        "text": "다음은 파이썬으로 피보나치 수열의 n번째 항을 반복문으로 구하는 함수입니다:\n\n```python\ndef fibonacci(n):\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    \n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b\n```\n\n시간복잡도: **O(n)**",
+        "thinking": "",
+        "chunks": 117,
+        "prompt": "code",
+        "broken": null
+      },
+      {
+        "ttft": 0.20145427715033293,
+        "total": 6.546065064147115,
+        "out_tokens": 213,
+        "in_tokens": 53,
+        "decode_tps": 33.414185222282185,
+        "text": "사과 100개를 상자에 담을 때 필요한 상자의 수와 마지막 상자에 남는 사과의 개수를 계산해 보겠습니다.\n\n1. **상자 하나에 들어가는 사과의 수**: 12개\n2. **총 사과의 수**: 100개\n\n**계산 과정**:\n- 100을 12로 나누어 필요한 상자의 수를 구합니다.\n  \n  \\[\n  100 \\div 12 = 8 \\text{ 상자} \\quad (\\text{나머지 } 4)\n  \\]\n  \n  - **몫**: 8 상자\n  - **나머지**: 4개\n\n**결론**:\n- **필요한 상자의 수**: 8개\n- **마지막 상자에 남는 사과의 수**: 4개\n\n\\[\n\\boxed{8 \\text{ 상자}, \\ 4 \\text{ 개}}\n\\]",
+        "thinking": "",
+        "chunks": 212,
+        "prompt": "reason",
+        "broken": null
+      },
+      {
+        "ttft": 0.2287313868291676,
+        "total": 11.961023655720055,
+        "out_tokens": 385,
+        "in_tokens": 54,
+        "decode_tps": 32.73017678038986,
+        "text": "### 트랜스포머의 어텐션(Attention)을 비유로 설명해드릴게요!\n\n**비유: 시험 공부를 할 때의 \"집중\"**  \n시험 문제를 풀 때, 모든 과목을 동시에 공부하는 대신 **현재 필요한 부분에 집중**하는 것과 비슷합니다.  \n예를 들어, 수학 시험에서는 공식과 계산에, 역사 시험에서는 연대기와 사건에 각각 다른 비중을 두고 공부하죠.  \n어텐션은 이처럼 **입력 데이터의 중요한 부분에 \"집중\"**해 관련 정보를 가중치로 선택하는 메커니즘입니다.\n\n---\n\n### 순환신경망(RNN) vs. 트랜스포머: 병렬화 차이  \n1. **RNN의 한계**:  \n   - RNN은 입력을 **순차적으로 처리**합니다.  \n   - 예) 문장 \"I love NLP\"를 분석할 때, \"I\" → \"love\" → \"NLP\" 순으로 계산하므로 병렬화가 어렵습니다.  \n   - 긴 문장에서는 계산 시간이 늘어납니다.  \n\n2. **트랜스포머의 장점**:  \n   - 어텐션은 모든 단어를 **한 번에 처리**합니다.  \n   - 예) \"I\", \"love\", \"NLP\"를 동시에 분석해 서로의 관계를 계산합니다.  \n   - GPU/TPU로 병렬 처리가 가능해 **빠른 학습**이 가능합니다.  \n\n---\n\n### 요약  \n- **어텐션**: 중요한 정보에 집중하는 \"스마트 필터\".  \n- **병렬화**: RNN은 순차적이라 느리고, 트랜스포머는 동시 처리로 효율적입니다.  \n\n이해가 되셨나요? 😊",
+        "thinking": "",
+        "chunks": 383,
+        "prompt": "long",
+        "broken": null
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 14.56,
+      "out_tokens": 1642,
+      "agg_tps": 112.8,
+      "per_req_total_s": [
+        13.9,
+        14.56,
+        13.89,
+        13.25
+      ],
+      "errors": []
+    },
+    "elapsed_s": 201.7,
     "is_custom": false,
     "base": "EXAONE-4.0-32B-FP8",
-    "serve_load_s": null,
-    "build_kind": null
+    "serve_load_s": 66.3,
+    "build_kind": "v2-artifact",
+    "thinking_only": 0,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 33.2,
+    "ttft_med": 0.229
   },
   {
     "model": "EXAONE-4.0-32B-FP8@tp8",
@@ -88,6 +158,85 @@
     "ttft_med": 0.121
   },
   {
+    "model": "K-EXAONE-236B-A23B-NVFP4A16",
+    "started": "2026-08-29 16:02:10",
+    "load_s": 2324.6,
+    "runs": [
+      {
+        "ttft": 0.4677346688695252,
+        "total": 24.792982140090317,
+        "out_tokens": 1024,
+        "in_tokens": 28,
+        "decode_tps": 42.055070609674644,
+        "text": "",
+        "thinking": "Okay, the user is asking about South Korea's capital and its historical background in three sentences. Let me start by recalling that the capital is Seoul. Now, I need to make sure I get the historical context right.\n\nFirst, I should mention that Seoul became the capital during the Joseon Dynasty. Wait, when exactly? I think it was in 1394 when King Taejo moved the capital from Gaegyeong to Hanyang, which is now Seoul. But I need to check if that's accurate. Yes, the Joseon Dynasty established Hanyang as the capital in 1394.\n\nNext, the historical background. The user wants three sentences. So first sentence: state the capital is Seoul. Second: mention the Joseon Dynasty's establishment in 1394. Third: maybe explain why it was chosen, like strategic location or Confucian principles. Wait, the user said \"역사적 배경\" which is historical background, so the reason for choosing it.\n\nWait, the user specified three sentences. Let me structure it:\n\n1. Capital is Seoul.\n2. During Joseon Dynasty in 1394, King Taejo moved the capital to Hanyang (Seoul) for strategic and geomantic reasons.\n3. It remained the capital through various periods, including modern times, due to its central location and historical significance.\n\nWait, but the user wants the historical background of why it became the capital. So the key points are the Joseon Dynasty's establishment in 1394, the move from Gaegyeong, and the reasons like strategic location, defense, and Confucian ideals.\n\nWait, but the user said \"세 문장\" so three sentences. Let me check the example response. The example given in the problem statement (though it's a user query) probably expects:\n\n1. 대한민국의 수도는 서울입니다.\n2. 조선 시대인 1394년 태조 이성계가 한양을 수도로 정하며, 지리적 요충지와 풍수지리적 이점을 고려했습니다.\n3. 이후 근대까지 수도로 유지되며 정치·경제 중심지로 발전했습니다.\n\nWait, but the user wants the historical background of why it became the capital. So the second sentence should explain the reason. The example in the problem statement (the user's query) says \"그 도시가 수도가 된 역사적 배경을 세 문장으로 설명해줘.\"\n\nSo first sentence: capital is Seoul.\n\nSecond: historical background of why it became capital.\n\nThird: maybe continuation or significance.\n\nWait, but the user said \"세 문장으로 설명해줘\" so three sentences total. So first sentence: capital is Seoul. Second: historical background (when and why). Third: maybe how it remained the capital or significance.\n\nWait, the user's instruction says: \"대한민국의 수도는 어디이고, 그 도시가 수도가 된 역사적 배경을 세 문장으로 설명해줘.\"\n\nSo first part: where is the capital. Second part: historical background in three sentences. Wait, no. The entire answer should be three sentences. So first sentence: capital is Seoul. Second: historical background (when and why). Third: maybe additional context or continuation.\n\nWait, the user says \"세 문장으로 설명해줘\" so the entire answer is three sentences. So:\n\n1. 대한민국의 수도는 서울입니다.\n\n2. [Historical background]\n\n3. [Additional context or conclusion]\n\nBut the user wants the historical background of why it became the capital. So the second sentence should cover that, and the third might elaborate or state its continued role.\n\nWait, the example response I thought of earlier:\n\n1. 대한민국의 수도는 서울입니다.\n\n2. 조선 시대인 1394년 태조 이성계가 한양을 수도로 정하며, 지리적 요충지와 풍수지리적 이점을 고려했습니다.\n\n3. 이후 근대까지 수도로 유지되며 정치·경제 중심지로 발전했습니다.\n\nBut the user might want more specific historical background. Let me check historical facts.\n\nIn 1394, King Taejo of Joseon moved the capital from Gaegyeong (Kaesong) to Hanyang (Seoul). The reasons included strategic location, defense against northern invasions, and geomantic principles (pungsu). Also, Seoul's location in the center of the Korean Peninsula was advantageous.\n\nSo the second sentence should mention 1394, Joseon Dynasty, King Taejo, and the reasons (strategic, geomantic).\n\nThird sentence: perhaps that it remained the capital through subsequent periods, including modern times, due to its central role.\n\nBut the user wants the historical background of why it became the capital, so the third sentence might not be necessary, but the user said three sentences total.\n\nWait, the user's query is: \"대한민국의 수도는 어디이고, 그 도시가 수도가 된 역사적 배경을 세 문장으로 설명해줘.\"\n\nSo the first part answers \"where is the capital\", and the second part (the historical background) should be explained in three sentences. Wait, no. The entire answer must be three sentences. So:\n\n1. Capital is Seoul.\n\n2. Historical background (when and why).\n\n3. Additional context (maybe how it remained the capital or significance).\n\nBut the user says \"그 도시가 수도가 된 역사적 배경을 세 문장으로 설명해줘.\" Wait, no. The user",
+        "chunks": 1024,
+        "prompt": "fact",
+        "broken": "사고만(예산 부족)"
+      },
+      {
+        "ttft": 0.38926366018131375,
+        "total": 24.453745021950454,
+        "out_tokens": 1024,
+        "in_tokens": 34,
+        "decode_tps": 42.51078527814125,
+        "text": "",
+        "thinking": "Okay, I need to write a Python function that calculates the nth term of the Fibonacci sequence using a loop, and then add the time complexity in one line. Let's start by recalling how the Fibonacci sequence works. The sequence starts with 0 and 1, and each subsequent number is the sum of the two preceding ones. So, F(0) = 0, F(1) = 1, F(2) = 1, F(3) = 2, etc.\n\nWait, sometimes people start counting from F(1) = 1, F(2) = 1. But the problem says \"n번째 항\", which in Korean usually starts counting from 1. But I need to check the problem statement. The user didn't specify whether n starts at 0 or 1. Hmm. But in many programming contexts, especially when using loops, it's common to have F(0) = 0, F(1) = 1. However, the problem might expect the sequence starting with 0 as the 0th term. Wait, the user says \"n번째 항\", which in Korean typically starts counting from 1. So for example, the 1st term is 0, 2nd is 1, 3rd is 1, etc. But sometimes it's the other way around. Wait, this is a bit ambiguous.\n\nWait, let's think. The standard Fibonacci sequence is often defined as F(0) = 0, F(1) = 1, F(2) = 1, F(3) = 2, etc. But some people start counting from F(1) = 1, F(2) = 1. So the problem might need clarification, but since the user didn't specify, I should probably go with the common programming convention where F(0) is 0. However, the problem says \"n번째 항\", which in Korean usually starts counting from 1. So maybe the user expects F(1) = 0, F(2) = 1, F(3) = 1, etc. Wait, no, that's not standard. Wait, no, the standard Fibonacci sequence starts with 0, 1, 1, 2, 3, 5... So F(0)=0, F(1)=1, F(2)=1, F(3)=2, etc.\n\nBut the problem says \"n번째 항\", which in Korean is 1-based. So if n is 1, it's the first term, which would be 0. If n is 2, it's 1, n=3 is 1, n=4 is 2, etc. Wait, but that's conflicting with the standard 0-based index. Hmm. This is a common point of confusion.\n\nWait, maybe the problem expects the sequence starting with 0 as the 0th term, but the user is using 1-based indexing. So for example, if n=1, return 0; n=2, return 1; n=3, return 1; etc. Or maybe the user considers the first term as 1 (F(1)=1, F(2)=1). Wait, this is unclear.\n\nBut since the user didn't specify, perhaps the safest way is to follow the standard mathematical definition where F(0) = 0, F(1) = 1, and then the function should return the nth term where n starts at 0. However, the problem says \"n번째 항\", which in Korean is 1-based. So maybe the user expects n=1 to be the first term, which is 0. Wait, no, in the standard sequence, the first term (n=1) is 0, second (n=2) is 1, third (n=3) is 1, etc. But sometimes people start the sequence with 1,1,2,3... So this is confusing.\n\nWait, perhaps the problem expects the sequence where F(1) = 0, F(2) = 1, F(3) = 1, F(4) = 2, etc. But I need to check common conventions.\n\nAlternatively, maybe the problem is using 0-based indexing, so n=0 is 0, n=1 is 1, etc. But the user says \"n번째 항\", which is 1-based. So perhaps the function should take n as 1-based, so for n=1, return 0; n=2, return 1; n=3, return 1; etc.\n\nBut this is a critical point. Let's see. Let's check some examples.\n\nIf n=1: 0\n\nn=2: 1\n\nn=3: 1\n\nn=4: 2\n\nn=5: 3\n\nYes, that's the standard sequence starting with 0 as the first term.\n\nBut sometimes people start the sequence with 1,1,2,3... So F(1)=1, F(2)=1, etc.\n\nBut the problem didn't specify, so perhaps the user expects the standard definition where F(0)=0, F(1)=1, and the function should handle n starting from 0. However, since the problem says \"n번째 항\", which is 1-based, maybe the function should take n as 1-based, so for n=",
+        "chunks": 1024,
+        "prompt": "code",
+        "broken": "사고만(예산 부족)"
+      },
+      {
+        "ttft": 0.4445894411765039,
+        "total": 23.418594321236014,
+        "out_tokens": 999,
+        "in_tokens": 44,
+        "decode_tps": 43.440401671813994,
+        "text": "\n\n### 문제 해결 과정\n\n1. **문제 분석**  \n   - 한 상자에 사과 12개를 담을 수 있습니다.  \n   - 총 100개의 사과를 담을 때 필요한 상자 수와 마지막 상자에 남는 사과 수를 구해야 합니다.\n\n2. **계산 방법**  \n   - 100을 12로 나누어 **몫**과 **나머지**를 구합니다.  \n     - 몫: 완전히 채워진 상자의 수  \n     - 나머지: 마지막 상자에 남는 사과 수  \n\n3. **나눗셈 수행**  \n   $$\n   100 \\div 12 = 8 \\text{ (몫)}, \\quad \\text{나머지 } 4\n   $$\n   - $ 12 \\times 8 = 96 $  \n   - $ 100 - 96 = 4 $  \n\n4. **해석**  \n   - 8개의 상자는 완전히 채워집니다 (96개).  \n   - 남은 4개의 사과를 담기 위해 **추가로 1개의 상자**가 필요합니다.  \n   - 따라서 **총 9개의 상자**가 필요하며, **마지막 상자에는 4개**의 사과가 남습니다.\n\n---\n\n### 최종 답안  \n- **필요한 상자 수**: $ \\boxed{9} $  \n- **마지막 상자에 남는 사과 수**: $ \\boxed{4} $",
+        "thinking": "Okay, let's see. I need to figure out how many boxes are needed to hold 100 apples if each box can hold 12 apples. And also, how many apples will be left in the last box. Hmm, right.\n\nFirst, I think this is a division problem. So, if I divide 100 by 12, the quotient will tell me the number of full boxes, and the remainder will tell me how many apples are left in the last box. Wait, but the question says \"상자가 몇 개 필요하고 마지막 상자에는 몇 개가 남는지\". So, they want the total number of boxes needed, which might be the quotient plus one if there's a remainder. Because even if there's a remainder, you still need an extra box for the leftover apples.\n\nLet me check. Let's do the division. 12 times 8 is 96, right? Because 12*8=96. Then 100 minus 96 is 4. So, 100 divided by 12 is 8 with a remainder of 4. But wait, does that mean 8 boxes are full, and then a 9th box with 4 apples? So the total number of boxes needed would be 9, and the last box has 4 apples.\n\nWait, let me confirm. If each box holds 12, then 8 boxes hold 96 apples. Then we have 4 left, so we need one more box for those 4. So total boxes: 8 +1 =9. And the last box has 4 apples.\n\nBut maybe the question is phrased as \"마지막 상자에는 몇 개가 남는지\", which translates to \"how many are left in the last box\". So the remainder is 4, so the last box has 4 apples.\n\nLet me make sure I didn't make a mistake. Let's calculate 12*8=96. 100-96=4. Yes, so 8 full boxes, and 4 left. So total boxes needed is 9, and the last box has 4.\n\nWait, but sometimes people might think that if the remainder is zero, then it's exactly the quotient. But in this case, remainder is 4, so we need to add one more box.\n\nSo the answer should be 9 boxes needed, and the last box has 4 apples.\n\nLet me check with another method. Let's do 100 divided by 12.\n\n12*8=96, remainder 4. So quotient is 8, remainder 4. Since there's a remainder, we need 8+1=9 boxes. The last box has 4 apples.\n\nYes, that seems right.\n\nAlternatively, using integer division. In programming terms, 100 // 12 is 8, and 100 % 12 is 4. So the number of boxes is 8 + (1 if remainder >0 else 0) =9.\n\nSo the answer is 9 boxes, and the last box has 4 apples.\n\nI think that's correct. Let me verify with actual numbers.\n\nBox 1:12, total 12\n\nBox2:12, total24\n\nBox3:12, 36\n\nBox4:12,48\n\nBox5:12,60\n\nBox6:12,72\n\nBox7:12,84\n\nBox8:12,96\n\nBox9:4, total 100.\n\nYes, that adds up. So 9 boxes, last one has 4.\n\nSo the answer is 9 boxes needed, and the last box has 4 apples.\n",
+        "chunks": 997,
+        "prompt": "reason",
+        "broken": null
+      },
+      {
+        "ttft": 0.38903552340343595,
+        "total": 24.230402627028525,
+        "out_tokens": 1024,
+        "in_tokens": 40,
+        "decode_tps": 42.90861323319217,
+        "text": "",
+        "thinking": "Okay, I need to explain what attention in Transformers is to someone new. Let me start by recalling what I know. Attention mechanism allows the model to focus on different parts of the input when processing each part. But how to explain this simply?\n\nMaybe use a metaphor. Oh, like reading a book. When you read a sentence, you focus on certain words to understand the meaning. For example, in \"The cat sat on the mat,\" when processing \"sat,\" you pay attention to \"cat\" and \"mat.\" That's like attention.\n\nWait, but the user wants a specific metaphor. Maybe a librarian? Or a detective? Hmm. The example I thought of earlier with reading a book might work. Let me check.\n\nWait, the user said \"비유를 하나 들고\" so one metaphor. Let's go with the book example. When reading, you focus on relevant words. So attention is like the model's ability to focus on important parts of the input.\n\nNow, why is attention better for parallelization than RNNs? RNNs process sequentially, one word at a time, so they can't be parallelized easily. Each step depends on the previous one. But Transformers use attention, which processes all words at once, so they can compute all attention scores in parallel. That's why it's faster.\n\nWait, need to explain that RNNs have sequential dependencies, so each step waits for the previous, making parallelization hard. Transformers compute all attention weights simultaneously, so they can use GPUs effectively.\n\nLet me structure this. First, explain attention with the book metaphor. Then, compare RNNs and Transformers in terms of parallelization.\n\nWait, the user said \"왜 순환신경망보다 병렬화에 유리한지도 말해줘.\" So need to clearly state why attention (in Transformers) is better for parallelization than RNNs.\n\nLet me make sure I get the technical details right. RNNs process sequences step by step, so for time step t, you need the output of t-1. This sequential dependency means you can't compute all steps at once. Transformers, on the other hand, use self-attention which computes relationships between all words in the sequence simultaneously. So all attention scores can be calculated in parallel, which is efficient on GPUs.\n\nYes, that's right. So the key point is the sequential vs. parallel processing.\n\nNow, the metaphor. Let's say when reading a sentence, instead of reading word by word and remembering previous words (like RNN), the attention mechanism lets you look at all words at once and decide which ones are important for the current word. So it's like having a highlighter that marks relevant words as you read each word, but doing it all at the same time.\n\nWait, but the metaphor should be simple. Maybe: Imagine you're reading a sentence and trying to understand each word. With an RNN, you read one word at a time, keeping a mental note of previous words, which is slow. With attention, it's like having a magic highlighter that instantly shows you which words are most important for each word you're reading, all at once.\n\nBut maybe a better metaphor. Let's think of a group discussion. When someone speaks, you focus on the relevant parts of the conversation. But RNN is like taking notes sequentially, while attention is like having everyone's notes visible at once and picking the important parts.\n\nHmm, maybe the book example is better. Let's go with: When reading a book, instead of reading each word one by one and trying to remember all previous words (like RNN), attention allows you to look at all words in the sentence at once and decide which ones are most important for understanding the current word. It's like having a highlighter that instantly marks the relevant words for each word you're focusing on.\n\nWait, but the user wants a single metaphor. Maybe: Imagine you're trying to understand a sentence by looking at all the words at once, and for each word, you decide which other words are most important. It's like having a spotlight that shines on the relevant words for each word you're processing.\n\nBut maybe a more concrete example. Let's say in the sentence \"The cat sat on the mat,\" when processing \"sat,\" the attention mechanism highlights \"cat\" and \"mat\" as the most important words. So it's like the model can dynamically focus on different parts of the input.\n\nNow, for parallelization: RNNs process each word one after another, so they have to wait for the previous step. It's like reading a book page by page, where you can't see the next page until you finish the current one. Transformers, however, process all words at the same time, like having the entire book open in front of you and being able to look at any part instantly. This allows using multiple processors (like GPU cores) to handle different parts simultaneously, making it much faster.\n\nWait, but the key point is that RNNs have sequential dependencies, so they can't be parallelized across time steps, while Transformers' attention mechanism computes all relationships in parallel.\n\nSo, to sum up:\n\n- Attention: Model focuses on relevant parts of input for each output. Metaphor: Like highlighting important words in a sentence when reading.\n\n- Parallelization: RNNs process sequentially (step-by-step), so can't parallelize time steps. Transformers compute all attention scores at once, so can parallelize, making training faster.\n\nI need to make sure the explanation is clear for a beginner. Avoid jargon. Use simple terms.\n\nLet me check if I'm missing anything. The user asked for \"트랜스포머의 어텐션이 무엇인지 처음 배우는 사람에게 설명해줘.\" So first explain what attention is, with a metaphor, then why it's better for parallelization than RNNs.\n\nAnother point",
+        "chunks": 1024,
+        "prompt": "long",
+        "broken": "사고만(예산 부족)"
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 36.54,
+      "out_tokens": 4096,
+      "agg_tps": 112.1,
+      "per_req_total_s": [
+        36.5,
+        36.42,
+        36.51,
+        36.52
+      ],
+      "errors": []
+    },
+    "elapsed_s": 2458.0,
+    "is_custom": false,
+    "base": "K-EXAONE-236B-A23B-NVFP4A16",
+    "serve_load_s": 2306.3,
+    "build_kind": "FXB",
+    "thinking_only": 3,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 42.9,
+    "ttft_med": 0.445
+  },
+  {
     "model": "Llama-3.1-8B-Instruct",
     "started": "2026-08-28 22:09:52",
     "load_s": 30.3,
@@ -157,7 +306,7 @@
     "elapsed_s": 68.3,
     "is_custom": true,
     "base": "Llama-3.1-8B-Instruct",
-    "serve_load_s": 16.2,
+    "serve_load_s": 9.7,
     "build_kind": "v2-artifact",
     "thinking_only": 0,
     "garbage": 0,
@@ -167,12 +316,170 @@
     "ttft_med": 0.037
   },
   {
+    "model": "Llama-3.3-70B-Instruct",
+    "started": "2026-08-29 04:24:44",
+    "load_s": 185.1,
+    "runs": [
+      {
+        "ttft": 0.19974254677072167,
+        "total": 4.268539665732533,
+        "out_tokens": 107,
+        "in_tokens": 63,
+        "decode_tps": 26.05192564308707,
+        "text": "대한민국의 수도는 서울입니다. 서울은 1394년 조선의 첫 번째 왕이던 태조 이성계에 의해 한양으로 개칭되어 조선의 수도가 되었으며, 1910년부터 1945년까지 일본의 식민지 시기인 일제 강점기에는 경성부로 불리었습니다. 1948년 대한민국 정부가 수립되면서 서울로 이름이 바뀌었고, 현재까지 대한민국의 수도로 남아 있습니다.",
+        "thinking": "",
+        "chunks": 103,
+        "prompt": "fact",
+        "broken": null
+      },
+      {
+        "ttft": 0.19041498424485326,
+        "total": 2.698993632104248,
+        "out_tokens": 67,
+        "in_tokens": 78,
+        "decode_tps": 26.309719273230172,
+        "text": "```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    a, b = 0, 1\n    for _ in range(2, n+1):\n        a, b = b, a + b\n    return b\n# 시간복잡도: O(n)\n```",
+        "thinking": "",
+        "chunks": 66,
+        "prompt": "code",
+        "broken": null
+      },
+      {
+        "ttft": 0.19518284313380718,
+        "total": 9.043282964732498,
+        "out_tokens": 233,
+        "in_tokens": 81,
+        "decode_tps": 26.220318126111103,
+        "text": "사과 100개를 담으려면 필요한 상자의 수를 계산해 보겠습니다.\n\n1. 사과 100개를 한 상자에 담을 수 있는 사과 개수인 12로 나눕니다.\n100 ÷ 12 = 8.33\n\n2. 상자의 수는 정수로만 표현할 수 있기 때문에, 8.33을 8로 반올림 내림합니다. \n   따라서 필요한 상자의 수는 9개입니다.\n\n3. 마지막 상자에 담긴 사과의 수를 계산해 보겠습니다.\n   9개의 상자에 12개의 사과를 담으면, 9 x 12 = 108개의 사과를 담을 수 있습니다.\n   하지만 사과는 100개만 있으므로, 마지막 상자에는 100 - (8 x 12) = 100 - 96 = 4개의 사과가 담깁니다.\n\n따라서 사과 100개를 담으려면 9개의 상자가 필요하고, 마지막 상자에는 4개의 사과가 남습니다.",
+        "thinking": "",
+        "chunks": 229,
+        "prompt": "reason",
+        "broken": null
+      },
+      {
+        "ttft": 0.18755771312862635,
+        "total": 15.711770420894027,
+        "out_tokens": 409,
+        "in_tokens": 84,
+        "decode_tps": 26.281526005883276,
+        "text": "트랜스포머의 어텐션은, 인공신경망에서 입력 데이터의 특정 부분에 집중하여 처리하는 기법입니다. 예를 들어, 한 문장을 번역하는 경우에, 문장의 각 단어에 다른 단어의 의미를 참고하여 번역을 더 정확하게 하는데 사용됩니다.\n\n비유를 하나 들면, 어텐션은 한 방에 많은 사람들이 있는 상황에서, 특정 사람과 대화할 때 다른 사람들의 목소리는 무시하고, 그 사람의 목소리만 집중해서 들으려는 것과 같습니다. 이 경우, 다른 사람들의 목소리는 노이즈로 작용하지만, 어텐션은 그 노이즈를 필터링하여, 원하는 사람의 목소리만 집중해서 들을 수 있습니다.\n\n순환신경망(RNN)과 비교했을 때, 트랜스포머의 어텐션은 병렬화에 더 유리합니다. 순환신경망은 시퀀스 데이터를 순차적으로 처리하기 때문에, 병렬화가 어렵습니다. 예를 들어, 문장을 번역하는 경우에, 순환신경망은 한 단어씩 순차적으로 처리해야 하기 때문에, 병렬화가 어려워서, 처리 속도가 느려질 수 있습니다.\n\n반면에, 트랜스포머의 어텐션은 입력 데이터의 모든 부분을 동시에 처리할 수 있기 때문에, 병렬화가 더 쉽습니다. 예를 들어, 문장을 번역하는 경우에, 트랜스포머의 어텐션은 문장의 모든 단어를 동시에 처리할 수 있기 때문에, 병렬화가 더 쉽고, 처리 속도가 더 빠를 수 있습니다. 따라서, 트랜스포머의 어텐션은 대규모 데이터를 처리하는 경우에, 순환신경망보다 더 효율적일 수 있습니다.",
+        "thinking": "",
+        "chunks": 407,
+        "prompt": "long",
+        "broken": null
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 22.65,
+      "out_tokens": 1487,
+      "agg_tps": 65.7,
+      "per_req_total_s": [
+        22.3,
+        20.22,
+        20.62,
+        22.64
+      ],
+      "errors": []
+    },
+    "elapsed_s": 239.5,
+    "is_custom": false,
+    "base": "Llama-3.3-70B-Instruct",
+    "serve_load_s": 173.7,
+    "build_kind": "v2-artifact",
+    "thinking_only": 0,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 26.3,
+    "ttft_med": 0.195
+  },
+  {
+    "model": "Qwen2.5-0.5B-Instruct",
+    "started": "2026-08-29 01:30:37",
+    "load_s": 20.1,
+    "runs": [
+      {
+        "ttft": 0.0304905460216105,
+        "total": 7.956467491108924,
+        "out_tokens": 715,
+        "in_tokens": 59,
+        "decode_tps": 90.08353228210588,
+        "text": "대한민국의 수도는 서울입니다. 서울은 1950년 1월 1일에 도시화된 19세기의 도시로, 19세기 초부터 20세기 초까지 한국의 중심지로 유명해졌습니다. 서울의 도시화는 19세기 초부터 19세기 중반까지 진행되었으며, 이는 한국의 역사적 배경과 문화적 특징을 담고 있습니다.\n\n1. 19세기 초: 서울은 한국의 중심지로 유명해졌습니다. 이 시기에는 서울은 전국의 중심지로, 전국의 교통과 경로를 통한 전국의 통합을 가능하게 했습니다.\n\n2. 19세기 중반: 서울은 전국의 중심지로 유명해졌습니다. 이 시기에는 서울은 전국의 교통과 경로를 통한 전국의 통합을 가능하게 했습니다. 이 시기에는 서울은 전국의 교통과 경로를 통한 전국의 통합을 가능하게 했습니다.\n\n3. 19세기 중: 서울은 전국의 중심지로 유명해졌습니다. 이 시기에는 서울은 전국의 교통과 경로를 통한 전국의 통합을 가능하게 했습니다. 이 시기에는 서울은 전국의 교통과 경로를 통한 전국의 통합을 가능하게 했습니다.\n\n4. 19세기 후: 서울은 전국의 중심지로 유명해졌습니다. 이 시기에는 서울은 전국의 교통과 경로를 통한 전국의 통합을 가능하게 했습니다. 이 시기에는 서울은 전국의 교통과 경로를 통한 전국의 통합을 가능하게 했습니다.\n\n5. 20세기 초: 서울은 전국의 중심지로 유명해졌습니다. 이 시기에는 서울은 전국의 교통과 경로를 통한 전국의 통합을 가능하게 했습니다. 이 시기에는 서울은 전국의 교통과 경로를 통한 전국의 통합을 가능하게 했습니다.\n\n6. 20세기 중: 서울은 전국의 중심지로 유명해졌습니다. 이 시기에는 서울은 전국의 교통과 경로를 통한 전국의 통합을 가능하게 했습니다. 이 시기에는 서울은 전국의 교통과 경로를 통한 전국의 통합을 가능하게 했습니다.\n\n7. 20세기 후: 서울은 전국의 중심지로 유명해졌습니다. 이 시기에는 서울은 전국의 교통과 경로를 통한 전국의 통합을 가능하게 했습니다. 이 시기에는 서울은 전국의 교통과 경로를 통한 전국의 통합을 가능하게 했습니다.\n\n이러한 역사적 배경은 서울의 도시화와 통합에 대한 중요한 역할을 했습니다. 서울은 전국의 중심지로 유명해졌으며, 이는 한국의 역사적 배경과 문화적 특징을 담고 있습니다.",
+        "thinking": "",
+        "chunks": 684,
+        "prompt": "fact",
+        "broken": null
+      },
+      {
+        "ttft": 0.033926626201719046,
+        "total": 3.530103970784694,
+        "out_tokens": 289,
+        "in_tokens": 72,
+        "decode_tps": 82.37568395843282,
+        "text": "파이썬으로 피보나치 수열의 n번째 항을 반복문으로 구하는 함수를 작성해 보겠습니다. 이 함수는 n에 해당하는 피보나치 수열의 n번째 항을 반환합니다. 시간복잡도는 O(1)입니다.\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    else:\n        return fibonacci(n-1) + fibonacci(n-2)\n```\n\n이 함수의 주요 특징은 다음과 같습니다:\n\n1. `n <= 1`는 피보나치 수열의 0번째 항과 1번째 항을 반환합니다.\n2. `n > 1`는 피보나치 수열의 n번째 항을 반환합니다.\n\n이 함수를 사용하면 다음과 같은 시간 복잡도로 피보나치 수열의 n번째 항을 구할 수 있습니다:\n\n- O(1) 시간 복잡도: `fibonacci(0)`, `fibonacci(1)`\n- O(1) 시간 복잡도: `fibonacci(2)`, `fibonacci(3)`\n- O(1) 시간 복잡도: `fibonacci(4)`, `fibonacci(5)`\n- ... 이까지 계속해서\n\n이 함수는 피보나치 수열의 n번째 항을 구하는 데 사용됩니다.",
+        "thinking": "",
+        "chunks": 283,
+        "prompt": "code",
+        "broken": null
+      },
+      {
+        "ttft": 0.03372798068448901,
+        "total": 2.910432392731309,
+        "out_tokens": 242,
+        "in_tokens": 85,
+        "decode_tps": 83.77642102913339,
+        "text": "이 문제를 해결하기 위해 필요한 계산 과정은 다음과 같습니다:\n\n1. 상자에 사과가 12개 들어간다. 이는 상자에 사과의 수를 계산합니다.\n\n2. 사과 100개를 담으려면 상자에 필요한 사과의 수를 계산합니다. 이를 구하기 위해 100을 나누어 봅니다.\n\n3. 100을 나누어 봐서 나머지가 0이 되면, 상자에 필요한 사과의 수를 계산합니다. 이는 100을 나누어 봐서 나머지가 0이 되는 최소의 몇 개를 구합니다.\n\n4. 마지막 상자에는 몇 개가 남는지 계산합니다. 이는 상자에 남은 사과의 수를 계산합니다. 이는 12을 뺀 나머지가 0이 되는 최소의 몇 개를 구합니다.\n\n이 과정을 통해, 마지막 상자에는 8개가 남는 것입니다.",
+        "thinking": "",
+        "chunks": 227,
+        "prompt": "reason",
+        "broken": null
+      },
+      {
+        "ttft": 0.033908938989043236,
+        "total": 3.3262498839758337,
+        "out_tokens": 291,
+        "in_tokens": 79,
+        "decode_tps": 88.08322249904879,
+        "text": "물론입니다. 트랜스포머의 어텐션은 비유적으로 \"어린 시절\"을 말합니다. 이는 트랜스포머가 학습한 데이터를 통해, 특정 문장이나 단어를 추출하고, 그에 대한 정보를 더 잘 이해하고, 이를 통해 새로운 문장이나 단어를 추출하는 과정을 말합니다.\n\n비유를 통해 설명하면, 트랜스포머의 어텐션은 학습된 데이터를 통해 문장이나 단어를 더 잘 이해하고, 이를 통해 새로운 문장이나 단어를 추출하는 과정을 의미합니다. 이는 순환 신경망보다 병렬화에 유리한 이유를 설명합니다. 순환 신경망은 데이터를 순환적으로 처리하여, 각 단계의 결과를 학습된 데이터에 반영하도록 설계되어 있습니다. 이는 데이터를 더 많이 처리할 수 있기 때문에, 학습된 데이터를 더 잘 이해하고, 새로운 문장이나 단어를 추출하는 데 더 효율적입니다. 반면, 병렬화는 데이터를 처리할 수록 더 많은 단계를 처리할 수 있기 때문에, 학습된 데이터를 더 잘 이해하고, 새로운 문장이나 단어를 추출하는 데 더 효율적입니다.",
+        "thinking": "",
+        "chunks": 276,
+        "prompt": "long",
+        "broken": null
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 4.07,
+      "out_tokens": 1257,
+      "agg_tps": 308.5,
+      "per_req_total_s": [
+        3.5,
+        4.07,
+        4.07,
+        4.07
+      ],
+      "errors": []
+    },
+    "elapsed_s": 41.9,
+    "is_custom": false,
+    "base": "Qwen2.5-0.5B-Instruct",
+    "serve_load_s": 3.2,
+    "build_kind": "v2-artifact",
+    "thinking_only": 0,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 88.1,
+    "ttft_med": 0.034
+  },
+  {
     "model": "Qwen3-30B-A3B-FP8",
-    "error": "TimeoutError: Qwen3-30B-A3B-FP8 준비 실패 (3600s)",
-    "started": "2026-08-28 22:07:50",
+    "error": "RuntimeError: Qwen3-30B-A3B-FP8: 라우터가 error 로 표시 — serve 가 뜨지 못했다",
+    "started": "2026-08-29 16:02:10",
     "is_custom": false,
     "base": "Qwen3-30B-A3B-FP8",
-    "serve_load_s": 19.1,
+    "serve_load_s": 29.9,
     "build_kind": "FXB"
   },
   {
@@ -719,7 +1026,7 @@
     "elapsed_s": 239.4,
     "is_custom": true,
     "base": "Qwen3-32B-FP8",
-    "serve_load_s": 24.1,
+    "serve_load_s": 28.3,
     "build_kind": "v2-artifact",
     "thinking_only": 1,
     "garbage": 0,
@@ -727,6 +1034,164 @@
     "n_runs": 4,
     "decode_tps_med": 24.8,
     "ttft_med": 0.23
+  },
+  {
+    "model": "Qwen3-4B-FP8",
+    "started": "2026-08-29 01:27:24",
+    "load_s": 31.4,
+    "runs": [
+      {
+        "ttft": 1.7097460641525686,
+        "total": 5.721885684877634,
+        "out_tokens": 304,
+        "in_tokens": 38,
+        "decode_tps": 75.52080152814884,
+        "text": "\n\n대한민국의 수도는 서울이다. 1392년 조선 왕조가 수도를 서울로 이전하면서 정치·문화 중심지로 확고히 자리잡았다. 1948년 한국 전쟁 이후 남한이 성립되면서 서울이 공식적으로 수도로 지정되어 현재의 대한민국 정부 중심지가 되었다. 20세기 후반에는 국제적 중심도시로서의 역할도 확대되었다.",
+        "thinking": "\nOkay, the user is asking about the capital of South Korea and its historical background in three sentences. Let me start by confirming the capital. I know it's Seoul, but I should make sure there's no confusion with other cities. Then, the historical background. I remember that Seoul has been a political center for a long time. The Joseon Dynasty moved the capital there, but I need to check the exact year. Also, the Korean War and the division of the country in 1948 might be relevant. The city was divided into North and South, and Seoul became the capital of the Republic of Korea. I should mention the role of the Korean War in solidifying its status. Let me structure this into three clear points: historical significance as a political center, the move during the Joseon Dynasty, and the post-war division. Need to keep each sentence concise and accurate. Double-check the dates to ensure correctness. Alright, that should cover it.\n",
+        "chunks": 300,
+        "prompt": "fact",
+        "broken": null
+      },
+      {
+        "ttft": 0.14800715958699584,
+        "total": 12.507970755919814,
+        "out_tokens": 1024,
+        "in_tokens": 51,
+        "decode_tps": 82.76723406398402,
+        "text": "",
+        "thinking": "\nOkay, I need to write a Python function that calculates the nth term of the Fibonacci sequence using a loop. Then, I have to add the time complexity in one line. Let me think about how to approach this.\n\nFirst, the Fibonacci sequence starts with 0 and 1, and each subsequent term is the sum of the previous two. So, for n=0, it's 0; n=1, it's 1; n=2, it's 1; and so on.\n\nThe user wants a function that uses a loop. So, I can't use the recursive approach because that's not a loop. The iterative approach would be better here. Let me outline the steps:\n\nInitialize two variables, let's say a and b, as the first two terms. Then, loop from 2 to n, updating the variables each time. Wait, but what if n is 0 or 1? I need to handle those base cases.\n\nSo, the function should check if n is 0, return 0. If n is 1 or 2, return 1. Otherwise, loop from 2 to n, and compute each term step by step.\n\nLet me think about the variables. Let's say for n=0, return 0. For n=1, return 1. For n=2, return 1. Then for n=3, it's 2, and so on.\n\nSo, the loop would start from 2 up to n. Let's say we have variables prev_prev (which is the term before the previous one) and prev (the previous term). Then, for each step, current = prev_prev + prev. Then, update prev_prev to prev, and prev to current. Wait, but maybe I should use variables that track the last two terms.\n\nAlternatively, maybe start with a = 0 (term 0), b = 1 (term 1). Then, for each step from 2 to n, compute next = a + b, then a becomes b, and b becomes next. So, after each iteration, a and b are the last two terms. So, for example, for n=2, the loop runs once: next = 0+1=1, then a becomes 1, b becomes 1. So, the result is b.\n\nSo, the function would be something like:\n\ndef fibonacci(n):\n    if n == 0:\n        return 0\n    elif n == 1 or n == 2:\n        return 1\n    a, b = 0, 1\n    for _ in range(2, n+1):\n        c = a + b\n        a = b\n        b = c\n    return b\n\nYes, that seems right. Let me test for n=3. The loop runs from 2 to 3, which is one iteration. c = 0+1=1, a becomes 1, b becomes 1. So return 1? Wait, but the third term is 2. Wait, no. Wait, the sequence is 0,1,1,2,3,5... So for n=3, the value is 2. Wait, but according to the code, when n=3, the loop runs for 2 to 3, which is one iteration. Let's see:\n\nInitially, a=0, b=1. For the first iteration (i=2), c = 0+1=1. Then a becomes 1, b becomes 1. Then, the loop ends. So return b=1. But that's wrong because the third term is 2. Wait, what's wrong here?\n\nAh, maybe the loop should run from 2 to n, but for n=3, the loop runs once. But the third term is 2. So maybe the loop should run n-1 times? Or maybe the initial values are wrong.\n\nWait, let's think again. The initial a and b are the first two terms (term 0 and term 1). So for term 2, we need to compute a + b. Then, for term 3, we need to compute the previous two terms. So, for n=2, the loop runs once. Let's see:\n\nIf n=2, the loop runs from 2 to 2, which is one iteration. So, c = 0+1=1. Then a becomes 1, b becomes 1. So return b=1. Which is correct for term 2 (since term 2 is 1). Wait, but term 3 is 2. So for n=3, the loop runs from 2 to 3, which is two iterations? Wait, no. The range(2, n+1) when n=3 is range(2,4), which is 2 and 3. So two iterations. Wait,",
+        "chunks": 1023,
+        "prompt": "code",
+        "broken": "사고만(예산 부족)"
+      },
+      {
+        "ttft": 0.15379770379513502,
+        "total": 12.72217080090195,
+        "out_tokens": 1024,
+        "in_tokens": 64,
+        "decode_tps": 81.3947829282288,
+        "text": "\n\n100개의 사과를 12개씩 담는 상자에 담기려면 다음과 같은 계산 과정을 거칩니다:\n\n1. **총 사과 수 ÷ 상자당 사과 수**  \n   $ 100 \\div 12 = 8 $ dư $ 4 $  \n   - 12 × 8 = 96 (8개의 상자가 담을 수 있는 사과 수)  \n   - 100 - 96 = 4 (남는 사과 수)\n\n2. **상자 수 계산**  \n   - 8개의 상자가 완전히 채워지고, 4개의 사과가 남는다.  \n   - 마지막 상자에 4개의 사과가 남는다.  \n   - 따라서 **9개의 상자가 필요**하며, **마지막 상자에는 4개의 사과가 남는다**.\n\n**결과**:  \n- **필요한 상자 수**: 9개  \n- **마지막 상자에 남는",
+        "thinking": "\nOkay, let's see. The problem is: There are 12 apples in each box. How many boxes are needed to hold 100 apples, and how many apples will be left in the last box? Hmm, I need to figure this out step by step.\n\nFirst, I think I need to divide 100 by 12 to find out how many full boxes are needed. But wait, division might give me a quotient and a remainder. The quotient would be the number of full boxes, and the remainder would be the leftover apples. But the question is asking for the number of boxes needed, which might include the last one even if it's not full. Let me make sure.\n\nSo, if I divide 100 by 12, what's the result? Let me do the division. 12 times 8 is 96, right? Because 12*8=96. Then 100 minus 96 is 4. So that would mean 8 boxes with 12 apples each, and then 4 apples left. But wait, does that mean we need 8 boxes plus one more box for the remaining 4 apples? So total boxes would be 9? But the question says \"how many boxes are needed to hold 100 apples,\" so if the last box isn't full, do we still count it? Because if you have 8 boxes with 12 apples each, that's 96, and then the 4th apples would need a 9th box. So the answer would be 9 boxes, with 4 apples in the last one.\n\nBut let me check again. Maybe I should use the division algorithm, which states that any integer can be expressed as dividend = divisor * quotient + remainder, where 0 ≤ remainder < divisor. So here, 100 = 12 * q + r, where q is the quotient and r is the remainder. So 12*8=96, 100-96=4, so r=4. Therefore, the number of boxes needed is q + 1 if there's a remainder, because even though the last box isn't full, you still need it to hold the remaining apples. Wait, but actually, the quotient is 8, which is the number of full boxes, and then the remainder is 4, which would go into the next box. So total boxes would be 8 + 1 = 9. So the answer is 9 boxes, with 4 apples in the last one.\n\nAlternatively, if you think of it as how many boxes are needed to contain all 100 apples, you can't have a fraction of a box, so you have to round up. So 100 divided by 12 is approximately 8.333... So you need 9 boxes. The remainder is 4, which is the number of apples in the last box. So that seems right.\n\nWait, but maybe I should verify with an example. Let's say you have 12 apples per box. If you have 12 apples, that's 1 box. 24 apples is 2 boxes. So 12*8=96, which is 8 boxes. Then 96 + 4 = 100. So the 9th box has 4 apples. Therefore, the answer is 9 boxes, with 4 apples remaining in the last box. Yeah, that makes sense.\n\nI think that's the correct approach. So the number of boxes needed is 9, and the remainder is 4. Therefore, the answer is 9 boxes, with 4 apples left in the last one.\n",
+        "chunks": 1013,
+        "prompt": "reason",
+        "broken": null
+      },
+      {
+        "ttft": 0.19775299774482846,
+        "total": 12.398347596172243,
+        "out_tokens": 1024,
+        "in_tokens": 58,
+        "decode_tps": 83.84837244996721,
+        "text": "\n\n트랜스포머의 **어텐션(Attention)**은 인공지능 모델이 입력 데이터에서 중요한 정보를 효율적으로 추출하는 메커니즘입니다. 처음 배우는 사람에게는 다음과 같은 비유로 설명할 수 있습니다:\n\n---\n\n### 🧠 **비유: \"클래스에서의 대화\"**\n가상의 수업에서 학생들이 주제를 논의하고 있다고 상상해보세요. 예를 들어, \"책의 주제를 이해하기 위해 서로의 의견을 듣는다\"는 상황이죠.  \n- **어텐션**은 이 학생들이 **모든 다른 학생의 의견을 동시에 들으며, 가장 중요한 내용을 집중적으로 듣는** 능력을 말합니다.  \n- 예를 들어, \"책의 주요 인물은 누구인가?\"라는 질문을 받을 때, 학생들은 **모든 다른 학생의 답변을 동시에 보고, 가장 유용한 답변을 선택**할 수 있습니다.  \n- 이처럼, 트랜스포머는 입력 데이터(예: 문장)의 각 단어가 **모든 다른 단어를 동시에 살펴보며, 중요도를 판단**하는 방식으로 작동합니다.\n\n---\n\n### 🔍 **어텐션의 핵심: \"중요도 가중치\"**\n트랜스포머는 입력 데이터의 각 요소(예: 단어)가 다른 요소들에 대해 **\"어떻게 영향을 미치는가?\"**를 계산합니다.  \n- 예를 들어, 문장 \"나는 책을 읽고 있다\"에서 \"책\"이라는 단어는 \"읽고 있다\"에 가장 중요하며, \"나\"는 덜 중요합니다.  \n- 이때, 어텐션은 각 단어가 다른 단어에 대해 **중요도를 가중치로 부여**해, 전체 의미를 더 잘 이해하게 도와줍니다.\n\n---\n\n### 🔄 **왜 순환신경망(RNN)보다 병렬화에 유리한가?**\n- **RNN**은 데이터를 **한 번에 하나씩",
+        "thinking": "\nOkay, I need to explain what attention is in Transformers to someone who's just starting. Let me start by recalling what I know. Attention mechanisms allow models to focus on relevant parts of the input when processing information. In Transformers, this is done through self-attention, which lets each position in the sequence look at all others to determine importance.\n\nHmm, the user wants a metaphor. Maybe something like a group of people discussing a topic. Each person can focus on different parts of the conversation. Like, if someone is talking about a book, others can pay attention to specific parts that are important to them. That's a common analogy, but maybe I can make it more vivid.\n\nWait, the user also wants to know why Transformers are better at parallelization compared to RNNs. RNNs process data sequentially, one step at a time, which makes them slower. Transformers, on the other hand, can process all parts of the input at the same time because of the self-attention mechanism. So, the metaphor could be like a group of people all looking at a big picture at once, rather than one person after another.\n\nLet me structure this. First, explain attention in simple terms with a metaphor. Then, compare it to RNNs, highlighting the parallel processing. Make sure to keep it clear and not too technical. Avoid jargon, but still be accurate. Maybe use the book example again. Also, mention that self-attention allows the model to weigh the importance of different parts, which is crucial for tasks like translation or text generation.\n\nWait, the user mentioned \"why it's better at parallelization.\" So, in RNNs, each step depends on the previous one, so you can't process all steps at once. Transformers, since they use self-attention, can compute all the attention scores simultaneously. That's why they're faster and can handle longer sequences better.\n\nI should check if the metaphor is clear. Maybe use a classroom example where students are discussing a topic, and each student can focus on different parts of the discussion. Or a team working on a project, each member can look at different parts of the project to contribute effectively. That might be more relatable.\n\nAlso, make sure to explain that in Transformers, each word in a sentence looks at all other words to determine how important they are, which helps in understanding context better. For example, in a sentence like \"The cat sat on the mat,\" the word \"mat\" might be more important for the context of \"sat on.\"\n\nOkay, putting it all together. Start with the metaphor, explain how attention works, then compare to RNNs, and explain the parallel processing. Keep it simple and conversational.\n",
+        "chunks": 1004,
+        "prompt": "long",
+        "broken": null
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 13.81,
+      "out_tokens": 4096,
+      "agg_tps": 296.7,
+      "per_req_total_s": [
+        13.58,
+        13.66,
+        13.75,
+        13.8
+      ],
+      "errors": []
+    },
+    "elapsed_s": 88.6,
+    "is_custom": false,
+    "base": "Qwen3-4B-FP8",
+    "serve_load_s": 9.2,
+    "build_kind": "FXB",
+    "thinking_only": 1,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 82.8,
+    "ttft_med": 0.198
+  },
+  {
+    "model": "Qwen3-8B-FP8",
+    "started": "2026-08-29 01:28:53",
+    "load_s": 30.3,
+    "runs": [
+      {
+        "ttft": 0.12777176313102245,
+        "total": 6.866045244038105,
+        "out_tokens": 257,
+        "in_tokens": 38,
+        "decode_tps": 37.991927861844246,
+        "text": "\n\n대한민국의 수도는 서울입니다. 1394년 조선 왕조가 경기도 양주(현 서울)에 수도를 이전하면서 서울이 정치적 중심지로 자리 잡았습니다. 이후 한국 전쟁 중 대한민국 정부가 서울을 수도로 삼아 민주주의와 현대화의 상징으로 발전시켰습니다.",
+        "thinking": "\nOkay, the user is asking about the capital of South Korea and its historical background. Let me start by confirming the capital is Seoul. Now, I need to explain why Seoul became the capital. I remember that Seoul has been an important city for a long time. The Joseon Dynasty moved the capital there in 1394, right? That's a key point. Then, during the Korean War, Seoul was the capital of the Republic of Korea. But wait, the user wants three sentences. Let me structure it: first, mention Seoul as the capital. Second, the Joseon Dynasty's move in 1394. Third, its role during the Korean War. I should check if there's more to the historical background, but maybe that's enough. Make sure the sentences are concise and clear.\n",
+        "chunks": 249,
+        "prompt": "fact",
+        "broken": null
+      },
+      {
+        "ttft": 0.1444645868614316,
+        "total": 15.678642390761524,
+        "out_tokens": 1024,
+        "in_tokens": 51,
+        "decode_tps": 65.85478889929792,
+        "text": "",
+        "thinking": "\nOkay, I need to write a Python function that calculates the nth Fibonacci number using a loop, and then add a line indicating the time complexity. Let me think about how to approach this.\n\nFirst, the Fibonacci sequence. The first two numbers are 0 and 1, right? Then each subsequent number is the sum of the previous two. So for n=0, it's 0; n=1, it's 1; n=2, 1; n=3, 2; and so on.\n\nBut wait, sometimes people start the sequence with 1 and 1. Hmm, the user didn't specify, but maybe I should check. However, since the question is about the nth term, I should probably define it clearly. Let me assume that the 0th term is 0, 1st is 1, 2nd is 1, etc. But maybe the user expects the standard definition where F(0)=0, F(1)=1, F(2)=1, F(3)=2, etc. So I'll go with that.\n\nNow, using a loop. The iterative approach is straightforward. Initialize two variables, a and b, as the first two terms. Then iterate from 2 to n, updating a and b each time. Wait, for example, if n is 0, return a. If n is 1, return b. Then for n >=2, loop from 2 to n, and in each iteration, compute the next term.\n\nWait, let me think of the steps. Let's say n is 5. The sequence is 0,1,1,2,3,5. So for n=5, the answer is 5. Let's see how the loop would work.\n\nInitialize a=0, b=1. For i in range(2, n+1): because if n is 2, we need to loop once. So for i from 2 to n, inclusive. Each time, compute next = a + b. Then set a = b, b = next. So after each iteration, a and b hold the previous two terms.\n\nSo the function would look like:\n\ndef fibonacci(n):\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    a, b = 0, 1\n    for _ in range(2, n+1):\n        a, b = b, a + b\n    return b\n\nWait, but what if n is 0? The initial check handles that. Let me test with n=0, returns 0. n=1 returns 1. For n=2, the loop runs once (i=2), a becomes 1, b becomes 0+1=1. So returns 1. Which is correct. For n=3, loop runs for i=2 and 3? Wait, no. Wait, range(2, n+1) when n=3 is 2 and 3? Wait, range in Python is up to but not including the end. So range(2, n+1) would be 2, 3 if n is 3. So for n=3, the loop runs for 2 and 3? Wait, no. Wait, if n is 3, then range(2, 3+1) is range(2,4), which is 2 and 3. So two iterations. Let me see:\n\nn=3:\n\nInitial a=0, b=1.\n\nFirst iteration (i=2): a becomes 1, b becomes 0+1=1. Now a=1, b=1.\n\nSecond iteration (i=3): a becomes 1, b becomes 1+1=2. Now a=1, b=2. Return b=2. Which is correct for F(3)=2. So that works.\n\nSo the function seems correct.\n\nNow, the time complexity. The loop runs n-1 times, right? Because for n=2, it runs once. For n=3, runs twice. So the number of iterations is n-1. So the time complexity is O(n). So the time complexity is O(n), which is linear.\n\nSo the function is O(n) time.\n\nSo putting it all together, the code would be:\n\ndef fibonacci(n):\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    a, b = 0, 1\n    for _ in range(2, n+1):\n        a, b = b, a + b\n    return b\n\n# Time complexity: O(n)\n\nWait, but the user said to add the time complexity in one line. So maybe after the function, write a comment or a print statement? But the user says \"한 줄로 덧붙",
+        "chunks": 1021,
+        "prompt": "code",
+        "broken": "사고만(예산 부족)"
+      },
+      {
+        "ttft": 0.1683303308673203,
+        "total": 19.221149871125817,
+        "out_tokens": 1024,
+        "in_tokens": 64,
+        "decode_tps": 53.69284046586422,
+        "text": "\n\n사과 100개를 12개씩 담는 상자에 담으려면 다음과 같은 계산 과정을 따릅니다:\n\n1. **총 사과 수 ÷ 상자당 사과 수 계산**  \n   $ 100 \\div 12 = 8 $ 나머지 $ 4 $  \n   - 이는 8개의 상자가 12개씩 담을 수 있고, 남은 사과는 4개임을 의미합니다.\n\n2. **필요한 상자 수 계산**  \n   - 8개의 상자가 96개의 사과를 담고, 남은 4개의 사과는 추가로 1개의 상자를 필요로 합니다.  \n   - 따라서 총 필요한 상자는 $ 8 + 1 = 9 $개입니다.\n\n3. **마지막 상자에 남는 사과 수**  \n   - 마지막 상자는 4개의 사과가 담깁니다.\n\n**결과:**  \n- **필요한 상자 수:** 9개  \n- **마지막 상자에 남는",
+        "thinking": "\nOkay, let's see. I need to figure out how many boxes are needed to hold 100 apples if each box can hold 12 apples. And also, I have to find out how many apples will be left in the last box. Hmm, let me start by thinking about division here. \n\nSo, if each box holds 12 apples, then the number of boxes needed would be the total number of apples divided by the number of apples per box. But wait, division might give me a decimal or a remainder. Let me write that down. \n\nTotal apples = 100\nApples per box = 12\n\nSo, dividing 100 by 12. Let me do that calculation. 12 times 8 is 96, right? Because 12*8=96. Then 100 minus 96 is 4. So that means 8 boxes can hold 96 apples, and there are 4 apples left over. \n\nWait, but does that mean the last box will have 4 apples? Because if I use 8 boxes, that's 96 apples, and then the remaining 4 apples would go into the 9th box. But the question is asking how many boxes are needed and how many apples are left in the last box. \n\nHold on, maybe I need to check if the remainder is zero or not. Since 100 divided by 12 is 8 with a remainder of 4, that means 8 full boxes and then one more box with 4 apples. So the total number of boxes needed is 9, and the last box has 4 apples. \n\nWait, but let me confirm. If I have 8 boxes, that's 8*12=96. Then 100-96=4. So yes, the 9th box will have 4 apples. Therefore, the answer should be 9 boxes needed, with 4 apples left in the last box. \n\nBut let me make sure I didn't make a mistake in division. Let me do 12*8=96, 12*9=108. Oh, right, 12*9 is 108, which is more than 100. So 9 boxes would hold 108 apples, but we only have 100. So actually, we need 8 full boxes and then a ninth box with 4 apples. So the total boxes needed is 9, and the last box has 4 apples. \n\nYes, that seems right. So the calculation is 100 divided by 12 equals 8 with a remainder of 4. Therefore, the number of boxes is 8 + 1 = 9, and the remainder is 4. \n\nI think that's correct. Let me check with another method. If I list out the multiples of 12: 12, 24, 36, 48, 60, 72, 84, 96, 108... So the 8th multiple is 96, which is less than 100. The next one is 108, which is more than 100. So between 8 and 9 boxes. Since we can't have a fraction of a box, we need 9 boxes. The difference between 100 and 96 is 4, so the last box has 4 apples. \n\nYep, that matches. So the answer is 9 boxes needed, with 4 apples remaining in the last box.\n",
+        "chunks": 1013,
+        "prompt": "reason",
+        "broken": null
+      },
+      {
+        "ttft": 0.1873093149624765,
+        "total": 15.732053224928677,
+        "out_tokens": 1024,
+        "in_tokens": 58,
+        "decode_tps": 65.8100259435039,
+        "text": "\n\n트랜스포머의 **어텐션**(Attention)은 입력 데이터의 중요한 부분에 집중하여 처리하는 기법입니다. 처음 배우는 사람에게 설명하기 위해 **도서관 라이브러리원**이라는 비유를 사용해보겠습니다.\n\n---\n\n### 📚 비유: 도서관 라이브러리원의 질문 응답\n- **문제**: \"이 책의 주제는 무엇인가요?\"라는 질문을 받았을 때, 라이브러리원은 수많은 책 중에서 **관련된 책만 선택**해 읽습니다.  \n- **어텐션의 역할**: 라이브러리원은 모든 책을 둘러보고, 각 책이 질문에 얼마나 관련된지를 판단합니다. 예를 들어, \"AI\"라는 키워드가 포함된 책은 더 중요하게 보고, \"역사\"라는 키워드가 있는 책은 덜 중요하게 처리합니다.  \n- **결과**: 질문에 대한 정확한 답변을 위해 **필요한 정보만 집중**해서 처리할 수 있습니다.\n\n---\n\n### 🧠 트랜스포머의 어텐션은 어떻게 작동하는가?\n- **입력 문장**: \"나는 오늘 날씨가 좋다\"  \n- **어텐션 메커니즘**:  \n  1. 각 단어(나, 오늘, 날씨, 좋다)를 처리할 때, **모든 단어를 동시에 살펴보며** 어떤 단어가 더 중요할지를 계산합니다.  \n  2. 예를 들어, \"날씨\"라는 단어는 \"좋다\"와 가장 관련이 깊기 때문에, \"좋다\"를 처리할 때 \"날씨\"에 더 많은 주의를 기울입니다.  \n  3. 이 과정을 통해 문장의 전체 맥락을 이해하고, **의미를 더 정확하게 파악**합니다.\n\n---\n\n### 🔄 왜 순환신경망(RNN)보다",
+        "thinking": "\nOkay, I need to explain what attention is in Transformers to someone who's just starting out. Let me start by recalling what I know about attention mechanisms. So, attention is a way for the model to focus on different parts of the input when processing information. But how do I make that clear?\n\nMaybe using an analogy would help. The user mentioned using a metaphor, so I should think of something relatable. Like, maybe a librarian who can focus on different books when answering a question. That makes sense. The librarian (model) can look at different books (input parts) and decide which ones are more relevant.\n\nWait, but how does that relate to the Transformer's architecture? Oh right, the attention mechanism allows the model to weigh the importance of each word in the input sequence. So, when processing a word, the model looks at all other words and assigns weights based on relevance. That's the key part.\n\nNow, the user also wants to know why attention is better for parallelization compared to RNNs. RNNs process sequences step by step, which is sequential and can't be parallelized easily. But with attention, since all parts of the input are considered at once, the model can process them in parallel. That's a big advantage for efficiency and speed.\n\nWait, but I should make sure I'm not mixing up things. Let me check: in RNNs, each step depends on the previous one, so you can't process all steps at the same time. In Transformers, the attention mechanism allows all positions to be processed simultaneously, which is why it's more efficient for parallel computing. That's right.\n\nSo putting it all together: explain attention as a way to focus on relevant parts, use the librarian analogy, and then contrast with RNNs by explaining the parallelization aspect. Make sure the explanation is simple and avoids jargon. Maybe also mention that attention helps the model understand context better by considering all parts of the input, not just the immediate previous ones.\n\nI should also mention that in the Transformer model, the attention mechanism is implemented through the self-attention layer, which calculates attention scores between all pairs of words. This allows the model to capture dependencies regardless of their distance in the sequence, which is a big improvement over RNNs that have limitations in capturing long-range dependencies.\n\nWait, but the user asked specifically about why attention is better for parallelization. So I need to emphasize that since all positions are processed at once, there's no sequential dependency, making it easier to parallelize. That's the main point here.\n\nLet me structure the answer: start with the analogy, explain attention in simple terms, then compare with RNNs, highlighting the parallelization advantage. Keep it conversational and avoid technical terms unless necessary. Make sure the analogy clearly illustrates the concept.\n",
+        "chunks": 998,
+        "prompt": "long",
+        "broken": null
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 16.51,
+      "out_tokens": 4096,
+      "agg_tps": 248.1,
+      "per_req_total_s": [
+        16.35,
+        16.41,
+        16.51,
+        16.46
+      ],
+      "errors": []
+    },
+    "elapsed_s": 104.3,
+    "is_custom": false,
+    "base": "Qwen3-8B-FP8",
+    "serve_load_s": 13.3,
+    "build_kind": "FXB",
+    "thinking_only": 1,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 65.8,
+    "ttft_med": 0.168
   },
   {
     "model": "Qwen3-Coder-30B-A3B-Instruct-FP8",
@@ -877,7 +1342,7 @@
     "elapsed_s": 136.3,
     "is_custom": true,
     "base": "Qwen3-Coder-30B-A3B-Instruct-FP8",
-    "serve_load_s": 21.1,
+    "serve_load_s": 9.0,
     "build_kind": "v2-artifact",
     "thinking_only": 0,
     "garbage": 4,
@@ -964,5 +1429,242 @@
     "n_runs": 4,
     "decode_tps_med": 54.4,
     "ttft_med": 0.188
+  },
+  {
+    "model": "Qwen3-VL-32B-Instruct",
+    "started": "2026-08-29 02:29:06",
+    "load_s": 270.7,
+    "runs": [
+      {
+        "ttft": 0.19047708809375763,
+        "total": 2.3403627439402044,
+        "out_tokens": 85,
+        "in_tokens": 38,
+        "decode_tps": 39.07184541260068,
+        "text": "대한민국의 수도는 서울이다. 서울은 고려 시대부터 수도로 사용되었고, 조선 시대에는 한양(漢陽)으로 불리며 정치·문화의 중심지로 발전했다. 1948년 대한민국이 성립하면서 한양이 다시 서울로 명칭이 변경되었고, 이후 현재까지 수도로 유지되고 있다.",
+        "thinking": "",
+        "chunks": 84,
+        "prompt": "fact",
+        "broken": null
+      },
+      {
+        "ttft": 0.18135445239022374,
+        "total": 1.862707591149956,
+        "out_tokens": 68,
+        "in_tokens": 51,
+        "decode_tps": 39.84885652839311,
+        "text": "```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    a, b = 0, 1\n    for i in range(2, n + 1):\n        a, b = b, a + b\n    return b\n# 시간복잡도: O(n)\n```",
+        "thinking": "",
+        "chunks": 67,
+        "prompt": "code",
+        "broken": null
+      },
+      {
+        "ttft": 0.18098992621526122,
+        "total": 13.073344928212464,
+        "out_tokens": 497,
+        "in_tokens": 64,
+        "decode_tps": 38.47241252068864,
+        "text": "주어진 문제는:\n\n> 한 상자에 사과가 12개 들어간다. 사과 100개를 담으려면 상자가 몇 개 필요하고, 마지막 상자에는 몇 개가 남는지 계산 과정을 보여줘.\n\n---\n\n### 계산 과정:\n\n1. **총 사과 수**: 100개  \n2. **한 상자당 사과 수**: 12개  \n\n이 문제는 **나눗셈과 나머지**를 이용해 해결할 수 있습니다.\n\n---\n\n### 1. 상자 수 계산 (몫)\n\n100을 12로 나누면:\n\n\\[\n100 \\div 12 = 8 \\text{ (몫)} \\quad \\text{나머지 } 4\n\\]\n\n이유:  \n\\(12 \\times 8 = 96\\)  \n\\(100 - 96 = 4\\)\n\n즉, 8개의 상자로 96개를 담을 수 있고, 4개가 남습니다.\n\n---\n\n### 2. 마지막 상자에 들어가는 사과 수\n\n남은 사과 4개는 **9번째 상자**에 담아야 하므로,  \n**마지막 상자에는 4개가 들어간다.**\n\n---\n\n### 3. 필요한 상자 수\n\n8개의 상자로는 96개만 담을 수 있으므로,  \n**남은 4개를 담기 위해 1개 더 필요**합니다.\n\n따라서, **총 상자 수 = 8 + 1 = 9개**\n\n---\n\n### ✅ 최종 답:\n\n- **필요한 상자 수**: **9개**  \n- **마지막 상자에 들어가는 사과 수**: **4개**\n\n---\n\n### 📌 요약:\n\n\\[\n100 \\div 12 = 8 \\text{ (몫)}, \\quad \\text{나머지 } 4\n\\]\n\n→ 상자 8개로 96개 담고, 남은 4개는 9번째 상자에 담음.\n\n---\n\n✅ **정답: 상자 9개 필요, 마지막 상자에 4개 남음.**",
+        "thinking": "",
+        "chunks": 482,
+        "prompt": "reason",
+        "broken": null
+      },
+      {
+        "ttft": 0.18061488680541515,
+        "total": 26.3965635439381,
+        "out_tokens": 1014,
+        "in_tokens": 58,
+        "decode_tps": 38.64060054620182,
+        "text": "물론이죠! 트랜스포머의 **어텐션**(Attention)을 처음 배우는 사람에게 설명하기 위해, **비유**를 하나 들어보겠습니다.\n\n---\n\n## 🌟 비유: \"책을 읽는 친구와 그의 집중력\"\n\n상상해보세요. 당신이 친구와 함께 긴 이야기를 읽고 있습니다. 이 이야기는 100페이지짜리 책이에요. 친구는 각 페이지를 읽을 때마다 **\"이 페이지가 중요한가?\"**, **\"이 부분은 다음 페이지와 어떻게 연결되나?\"**, **\"이 문장은 전체 이야기에 어떤 영향을 주나?\"** 라고 생각하며 집중합니다.\n\n이 친구가 하는 일은 바로 **어텐션**입니다.\n\n- **어텐션**은 \"어떤 부분에 집중할지\"를 결정하는 기계입니다.\n- 예를 들어, \"그녀는 창문을 열고 바깥을 바라보았다\"라는 문장에서, \"창문\"이라는 단어가 중요한지, \"바깥\"이 중요한지, 아니면 \"그녀\"가 중요한지를 판단합니다.\n- 그리고 그 판단을 바탕으로, **다른 단어들과의 관계를 이해**합니다. 예를 들어, \"그녀\"가 \"창문을 열었다\"는 행동을 했고, 그 행동이 \"바깥을 바라보았다\"는 결과를 낳았다는 걸 알 수 있어요.\n\n이렇게 **어떤 단어가 다른 단어와 얼마나 관련이 있는지**를 계산하는 것이 바로 **어텐션 메커니즘**입니다.\n\n---\n\n## 🧠 왜 순환신경망(RNN)보다 병렬화에 유리할까?\n\n이제 RNN과 트랜스포머의 차이를 비유로 설명해볼게요.\n\n### 🌀 RNN: \"한 줄씩 읽는 사람\"\n\nRNN은 마치 **한 줄씩 책을 읽는 사람** 같아요.  \n첫 번째 문장을 읽고, 그 기억을 가지고 두 번째 문장을 읽고, 그 기억을 가지고 세 번째 문장을 읽는 식이에요.\n\n- 장점: 순서를 잘 이해할 수 있음 (예: \"그녀는 창문을 열고 바깥을 바라보았다\" → 순서 중요)\n- 단점: **병렬화가 안 됨**. 한 줄을 읽어야 다음 줄을 읽을 수 있으니까, 컴퓨터가 여러 줄을 동시에 처리할 수 없어요. → **느리고 비효율적**\n\n### 🌐 트랜스포머: \"모든 페이지를 한 번에 보는 사람\"\n\n트랜스포머는 **모든 페이지를 한 번에 보고, 어떤 부분이 중요한지 판단하는 사람** 같아요.\n\n- 어텐션을 통해 **모든 단어가 서로를 보고 관계를 계산**합니다.\n- 예를 들어, \"그녀\"와 \"창문\"이 어떤 관계인지, \"바깥\"과 \"바라보았다\"가 어떤 관계인지, **모든 조합을 동시에 계산**합니다.\n- 그래서 **모든 단어를 동시에 처리**할 수 있어요 → **병렬화 가능**\n\n---\n\n## ✅ 요약\n\n| 항목 | RNN | 트랜스포머 |\n|------|-----|------------|\n| 처리 방식 | 순차적 (한 단어씩) | 병렬적 (모든 단어 동시) |\n| 어텐션 사용 여부 | 없음 | 있음 (핵심) |\n| 속도 | 느림 | 빠름 |\n| 긴 문장 처리 | 어려움 (기억이 흐려짐) | 쉬움 (모든 단어 관계를 직접 계산) |\n\n---\n\n## 💡 마무리\n\n> **어텐션은 \"무엇에 집중할지\"를 결정하는 지능적인 렌즈**입니다.  \n> 트랜스포머는 이 렌즈를 통해 **모든 단어를 동시에 보고, 서로의 관계를 이해**합니다.  \n> 그래서 RNN처럼 하나씩 읽는 게 아니라, **모든 것을 한 번에 처리**할 수 있어 **빠르고 효율적**이죠.\n\n---\n\n이렇게 비유로 이해하면, 어텐션이 왜 중요한지, 트랜스포머가 왜 혁신적인지 더 잘 느껴지겠죠? 😊",
+        "thinking": "",
+        "chunks": 950,
+        "prompt": "long",
+        "broken": null
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 106.73,
+      "out_tokens": 4056,
+      "agg_tps": 38.0,
+      "per_req_total_s": [
+        53.03,
+        26.41,
+        79.68,
+        106.72
+      ],
+      "errors": []
+    },
+    "elapsed_s": 421.1,
+    "is_custom": false,
+    "base": "Qwen3-VL-32B-Instruct",
+    "serve_load_s": 76.9,
+    "build_kind": "FXB",
+    "thinking_only": 0,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 39.1,
+    "ttft_med": 0.181
+  },
+  {
+    "model": "Solar-Open-100B-NVFP4A16",
+    "started": "2026-08-29 15:54:34",
+    "load_s": 302.5,
+    "runs": [
+      {
+        "ttft": 0.3184103178791702,
+        "total": 3.6498519550077617,
+        "out_tokens": 188,
+        "in_tokens": 87,
+        "decode_tps": 56.131855325305196,
+        "text": "대한민국의 수도는 서울입니다. 서울은 1394년 조선 태조 이성계가 한양으로 수도를 옮기면서 처음 수도가 되었으며, 이후 600년 이상 정치·문화의 중심지로 기능해 왔습니다. 일제 강점기와 한국전쟁을 거치며 수도로서의 역할이 더욱 공고해졌고, 현재는 대한민국의 행정·경제·문화의 핵심 도시입니다.",
+        "thinking": "The user asks for the capital of South Korea and its historical background in three sentences. I recall that Seoul has been the capital since the founding of the Joseon Dynasty in 1394, when King Taejo moved the capital from Kaesong to Hanyang, which later became Seoul. The city's status was reinforced during the Japanese colonial period and after the Korean War, when it was rebuilt and solidified as the political, economic, and cultural center of the nation. I will provide a concise three‑sentence answer in Korean, covering these key points.",
+        "chunks": 182,
+        "prompt": "fact",
+        "broken": null
+      },
+      {
+        "ttft": 0.3057218571193516,
+        "total": 18.15449650818482,
+        "out_tokens": 833,
+        "in_tokens": 92,
+        "decode_tps": 46.61384415822261,
+        "text": "아래는 **반복문(루프)**을 이용해 n번째 피보나치 수를 구하는 파이썬 함수 예시입니다.  \n시간 복잡도는 한 줄 주석으로 표시했습니다.\n\n```python\ndef fibonacci(n: int) -> int:\n    \"\"\"\n    n번째 피보나치 수 (0-indexed)를 반환한다.\n    예: fibonacci(0) -> 0, fibonacci(1) -> 1, fibonacci(5) -> 5\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"n must be a non‑negative integer\")\n    if n == 0:\n        return 0\n    a, b = 0, 1  # F(0), F(1)\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b  # F(n)\n\n# Time complexity: O(n)\n```\n\n**설명**  \n- `a`와 `b`를 각각 `F(i‑2)`와 `F(i‑1)`에 해당하는 값으로 유지하면서 `i`를 2부터 `n`까지 순차적으로 업데이트합니다.  \n- 루프가 `n‑1`번 실행되므로 **시간 복잡도는 O(n)** 입니다.  \n- 추가적인 배열이나 재귀 호출 없이 두 변수만 사용하므로 **공간 복잡도는 O(1)** 입니다.  \n\n필요에 따라 `n`이 0일 때 0을 반환하도록 처리했으며, 음수 입력에 대해서는 `ValueError`를 발생시켜 안전하게 사용할 수 있습니다.",
+        "thinking": "The user asks: \"파이썬으로 피보나치 수열의 n번째 항을 반복문으로 구하는 함수를 쓰고, 시간복잡도를 한 줄로 덧붙여줘.\" This is Korean: \"Write a function in Python that computes the nth term of the Fibonacci sequence using a loop, and add the time complexity in one line.\"\n\nWe need to respond with a Python function that uses a loop (iterative) to compute the nth Fibonacci number, and also include a one-line comment about time complexity. The user wants a function and a one-line time complexity comment. So we can provide code like:\n\ndef fibonacci(n):\n    if n <= 0: return 0\n    a, b = 0, 1\n    for _ in range(2, n+1):\n        a, b = b, a+b\n    return b\n\nTime complexity: O(n). Also note that space complexity is O(1). But they only ask for time complexity in one line. So we can add a comment: # Time complexity: O(n). Or we can add a docstring line: \"Time complexity: O(n)\". Provide explanation.\n\nWe should also consider edge cases: n=0 returns 0, n=1 returns 1. Provide docstring.\n\nWe can also mention that the function uses iterative approach, O(n) time, O(1) space.\n\nWe need to respond in Korean presumably, as the user wrote Korean. So we can respond in Korean, providing code and comment.\n\nWe should also ensure we follow the policy: no disallowed content. It's fine.\n\nWe can also include a brief explanation of the algorithm.\n\nThus answer: Provide code snippet with function, comment about time complexity.\n\nWe can also mention that the function uses integer arithmetic, works for large n but may overflow Python's int? Actually Python's int is arbitrary precision, so fine.\n\nWe can also mention that if n is negative, raise ValueError.\n\nThus final answer: Provide code and comment.\n\nWe need to ensure we include the time complexity in one line. So maybe a comment line: # Time complexity: O(n). Or a docstring line: \"Time complexity: O(n)\".\n\nWe can also include a one-liner comment after the function definition: # O(n) time.\n\nThus final answer: Provide code.\n\nWe'll respond in Korean.\n\nWe'll also note that the function uses iterative approach.\n\nWe'll include a short explanation.\n\nWe'll ensure we don't include extraneous content.\n\nThus final answer: Provide code.\n\nWe'll also mention that the function returns the nth Fibonacci number (0-indexed). Provide example usage.\n\nOk.\n\nNow produce final answer.",
+        "chunks": 827,
+        "prompt": "code",
+        "broken": null
+      },
+      {
+        "ttft": 0.28215835988521576,
+        "total": 17.584168504923582,
+        "out_tokens": 1024,
+        "in_tokens": 103,
+        "decode_tps": 59.12607791952786,
+        "text": "**계산 과정**\n\n1. **전체 사과 수를 한 상자에 들어가는 사과 수로 나눕니다.**  \n   \\[\n   100 \\div 12 = 8 \\text{ remainder } 4\n   \\]\n\n2. **정수 부분(몫)은 ‘가득 찬 상자’의 개수**  \n   - 8개의 상자는 각각 12개의 사과를 담을 수 있습니다.  \n   - 8 × 12 = 96개의 사과가 들어갑니다.\n\n3. **나머지(잔여 사과)는 마지막 상자에 남게 됩니다.**  \n   - 100 − 9",
+        "thinking": "The user asks in Korean: \"한 상자에 사과가 12개 들어간다. 사과 100개를 담으려면 상자가 몇 개 필요하고 마지막 상자에는 몇 개가 남는지 계산 과정을 보여줘.\"\n\nWe need to compute how many boxes needed to hold 100 apples, each box holds 12 apples. So we need to compute the number of full boxes and the remainder. The number of boxes needed is ceil(100/12) = 9 boxes (since 8 boxes hold 96 apples, remainder 4). So we need 9 boxes, and the last box will have 4 apples (the remainder). Show calculation steps.\n\nWe need to respond in Korean, showing the process. Possibly also show division: 100 ÷ 12 = 8 remainder 4, so 8 full boxes, 4 apples left, need one more box for the remainder, total 9 boxes.\n\nWe can also show using integer division and modulo.\n\nWe should also note that the last box will have 4 apples (the remainder). Provide the steps.\n\nWe can also show a table: Box number, apples per box, total.\n\nWe can also show the formula: total boxes = floor(100/12) + (if remainder > 0 then 1 else 0). So floor = 8, remainder = 4 > 0, so total = 9.\n\nWe can also show the calculation: 12 * 8 = 96, 100 - 96 = 4.\n\nThus answer: 9 boxes, last box contains 4 apples.\n\nWe can also mention that if we want to fill all boxes completely, we would need 9 boxes, with 4 apples in the last box.\n\nWe can also show the process in a step-by-step manner.\n\nWe need to be mindful of the system prompt: \"You are Solar Open 100B, a large language model trained by Upstage AI, a Korean startup. Your knowledge cutoff is 2025-07. The current date is 2026-08-29.\"\n\nWe should respond as a helpful assistant, showing the calculation process.\n\nWe can also ask if they need any further assistance.\n\nWe should not mention the system prompt. Just answer.\n\nThus final answer: 9 boxes, last box has 4 apples.\n\nWe can also show the division: 100 ÷ 12 = 8 remainder 4.\n\nWe can also show the formula: total boxes = ceil(100/12) = 9.\n\nWe can also show the steps:\n\n1. Compute how many full boxes: 100 ÷ 12 = 8 remainder 4.\n2. So 8 boxes are full (8*12 = 96 apples).\n3. The remaining apples: 100 - 96 = 4.\n4. Since there are leftover apples, we need an additional box for them.\n5. So total boxes = 8 + 1 = 9.\n6. The last box contains the remainder: 4 apples.\n\nWe can also show a simple table:\n\nBox 1: 12 apples\n...\nBox 8: 12 apples\nBox 9: 4 apples\n\nThus answer.\n\nWe can also mention that if we want to fill all boxes completely, we would need 9 boxes, with 4 apples in the last box.\n\nWe can also mention that if we want to avoid partially filled boxes, we could have 8 boxes with 12 apples each and 4 apples left over, but the question asks \"상자가 몇 개 필요하고 마지막 상자에는 몇 개가 남는지\" which implies we need to count the last box as partially filled.\n\nThus answer.\n\nWe can also show the calculation using integer division and modulo.\n\nWe can also show the code snippet in Python: boxes = (100 + 12 - 1) // 12 = 9, remainder = 100 % 12 = 4.\n\nWe can also show the math: ceil(100/12) = 9.\n\nThus final answer.\n\nWe should respond in Korean.\n\nWe can also ask if they need any further help.\n\nWe'll produce a clear answer.\n\nNow produce final.",
+        "chunks": 1018,
+        "prompt": "reason",
+        "broken": null
+      },
+      {
+        "ttft": 0.2806833181530237,
+        "total": 17.395627645310014,
+        "out_tokens": 1024,
+        "in_tokens": 100,
+        "decode_tps": 59.77232414228561,
+        "text": "",
+        "thinking": "The user asks: \"Explain what attention in Transformers is to someone who is learning it for the first time. Provide an analogy, and also explain why it's more favorable for parallelization than recurrent neural networks.\"\n\nWe need to respond in Korean (the user wrote Korean). Provide a clear explanation, analogy, and discuss parallelization advantages. Should be beginner-friendly. Use simple language, maybe analogies like \"searching for relevant parts of a document\", \"focusing on a specific word while reading\", \"like a spotlight\". Also talk about self-attention, query, key, value, how it computes weighted sum of values based on similarity between query and key. Provide step-by-step.\n\nExplain why RNNs have sequential dependencies, can't compute all at once, need to wait for previous hidden state, while Transformers compute all positions simultaneously using matrix operations, enabling GPU parallelism.\n\nAlso mention that attention can be computed in parallel across all tokens, and that the self-attention mechanism allows each token to attend to all others, but still can be computed in parallel because it's just matrix multiplication.\n\nWe can also mention that the attention mechanism can be visualized as a graph where each node (token) connects to others with weighted edges.\n\nExplain the difference between encoder and decoder attention, multi-head attention.\n\nAlso mention that the attention mechanism can be thought of as a \"memory\" that can retrieve relevant information from the entire sequence.\n\nWe can also talk about the computational complexity: O(n^2) for self-attention, but still parallelizable.\n\nWe can also mention that RNNs have O(n) sequential steps, but each step depends on previous hidden state, making parallelization difficult.\n\nWe can also mention that Transformers can be trained faster due to parallelization, leading to large-scale models.\n\nWe can also mention that the attention mechanism can be seen as a \"soft alignment\" between source and target sequences.\n\nWe can also mention that the attention weights can be visualized as heatmaps.\n\nWe can also mention that the attention mechanism is like a \"team of experts\" each focusing on different parts.\n\nWe can also mention that the attention mechanism can be used for tasks like translation, summarization, etc.\n\nWe need to keep it beginner-friendly, but also thorough.\n\nWe should also mention that the attention mechanism is a function that takes queries, keys, values and returns a weighted sum of values.\n\nWe can also mention that the attention mechanism can be thought of as a \"lookup table\" where each token queries the table and gets relevant values.\n\nWe can also mention that the attention mechanism can be thought of as a \"search engine\" that returns relevant documents.\n\nWe can also mention that the attention mechanism can be thought of as a \"focus lens\" that can zoom in on relevant parts.\n\nWe can also mention that the attention mechanism can be thought of as a \"brain's ability to focus on relevant information while ignoring irrelevant\".\n\nWe can also mention that the attention mechanism can be thought of as a \"graph neural network\" where each node can attend to all others.\n\nWe can also mention that the attention mechanism can be thought of as a \"weighted average of all other tokens\".\n\nWe can also mention that the attention mechanism can be thought of as a \"soft version of a pointer\".\n\nWe can also mention that the attention mechanism can be thought of as a \"soft alignment\" between source and target.\n\nWe can also mention that the attention mechanism can be thought of as a \"memory retrieval\".\n\nWe can also mention that the attention mechanism can be thought of as a \"self-attention\" where each token attends to itself and others.\n\nWe can also mention that the attention mechanism can be thought of as a \"matrix multiplication\".\n\nWe can also mention that the attention mechanism can be thought of as a \"dot product similarity\".\n\nWe can also mention that the attention mechanism can be thought of as a \"score\".\n\nWe can also mention that the attention mechanism can be thought of as a \"softmax\".\n\nWe can also mention that the attention mechanism can be thought of as a \"weighted sum\".\n\nWe can also mention that the attention mechanism can be thought of as a \"weighted average\".\n\nWe can also mention that the attention mechanism can be thought of as a \"soft selection\".\n\nWe can also mention that the attention mechanism can be thought of as a \"soft version of a hard pointer\".\n\nWe can also mention that the attention mechanism can be thought of as a \"soft version of a gating mechanism\".\n\nWe can also mention that the attention mechanism can be thought of as a \"soft version of a filter\".\n\nWe can also mention that the attention mechanism can be thought of as a \"soft version of a memory\".\n\nWe can also mention that the attention mechanism can be thought of as a \"soft version of a context vector\".\n\nWe can also mention that the attention mechanism can be thought of as a \"soft version of a context\".\n\nWe can also mention that the attention mechanism can be thought of as a \"soft version of a context vector\".\n\nWe can also mention that the attention mechanism can be thought of as a \"soft version of a context\".\n\nWe can also mention that the attention mechanism can be thought of as a \"soft version of a",
+        "chunks": 1023,
+        "prompt": "long",
+        "broken": "사고만(예산 부족)"
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 36.24,
+      "out_tokens": 4096,
+      "agg_tps": 113.0,
+      "per_req_total_s": [
+        36.2,
+        36.24,
+        36.24,
+        36.24
+      ],
+      "errors": []
+    },
+    "elapsed_s": 395.6,
+    "is_custom": false,
+    "base": "Solar-Open-100B-NVFP4A16",
+    "serve_load_s": 278.0,
+    "build_kind": "FXB",
+    "thinking_only": 1,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 59.1,
+    "ttft_med": 0.306
+  },
+  {
+    "model": "gpt-oss-120b",
+    "started": "2026-08-29 02:36:07",
+    "load_s": 1526.1,
+    "runs": [
+      {
+        "ttft": 8.408618865069002,
+        "total": 339.0534549248405,
+        "out_tokens": 270,
+        "in_tokens": 98,
+        "decode_tps": 0.8135617758487304,
+        "text": "대한민국의 수도는 **서울**입니다.  \n조선 시대에 한양(현재의 서울)으로 정해진 뒤, 일제 강점기와 해방을 거치며 행정·경제·문화의 중심지 역할을 지속했으며, 1948년 남한 정부 수립 시 공식적으로 수도가 확정되었습니다.  \n한국전쟁 후 1950년대 초반에 잠시 부산으로 임시 이전했지만, 1953년 전쟁이 종전되면서 다시 한반도 중심에 위치한 서울로 복귀해 현재까지 수도로 남아 있습니다.",
+        "thinking": "The user asks in Korean: \"대한민국의 수도는 어디이고, 그 도시가 수도가 된 역사적 배경을 세 문장으로 설명해줘.\" They want: what is the capital of South Korea, and a three-sentence explanation of the historical background of how that city became the capital.\n\nWe can answer: The capital is Seoul. Provide three sentences about its history: after Korean War, the government moved from Busan to Seoul, etc. Or historically, Seoul was the capital of Joseon dynasty as Hanyang, then renamed Seoul after independence. Provide three sentences.\n\nWe must comply. No policy issues. Provide answer in Korean.",
+        "chunks": 260,
+        "prompt": "fact",
+        "broken": null
+      },
+      {
+        "ttft": 4.882326800841838,
+        "total": 393.8210633099079,
+        "out_tokens": 391,
+        "in_tokens": 110,
+        "decode_tps": 1.0027286135098277,
+        "text": "아래는 **반복문(루프)**을 이용해 피보나치 수열의 n번째 항을 구하는 파이썬 함수입니다.  \n함수 바로 아래에 시간 복잡도를 한 줄로 적어 두었습니다.\n\n```python\ndef fibonacci(n: int) -> int:\n    \"\"\"\n    n번째 피보나치 수를 반환한다.\n    n이 0이면 0, n이 1이면 1을 반환한다.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"n must be a non‑negative integer\")\n    if n == 0:\n        return 0\n    if n == 1:\n        return 1\n\n    a, b = 0, 1          # F(0), F(1)\n    for _ in range(2, n + 1):\n        a, b = b, a + b   # 다음 항 계산\n    return b\n\n# 시간 복잡도: O(n)   (반복문을 n‑1번 수행)\n```\n\n**설명**  \n- `a`와 `b`에 각각 `F(i‑2)`와 `F(i‑1)`을 저장하고, 루프를 돌면서 `F(i) = F(i‑1) + F(i‑2)`를 계산합니다.  \n- 루프는 `2`부터 `n`까지 한 번씩 실행되므로 전체 연산 횟수는 `n‑1`번이며, 이는 **선형 시간** `O(n)`에 해당합니다.",
+        "thinking": "The user asks in Korean: \"Write a Python function that computes the nth term of the Fibonacci sequence using a loop, and add the time complexity in one line.\" This is straightforward. Provide code and comment with time complexity O(n). No disallowed content. Provide answer.",
+        "chunks": 380,
+        "prompt": "code",
+        "broken": null
+      },
+      {
+        "ttft": 2.5999429542571306,
+        "total": 207.4879913609475,
+        "out_tokens": 492,
+        "in_tokens": 117,
+        "decode_tps": 2.3964306547807745,
+        "text": "**문제**  \n- 한 상자에 사과 12개가 들어갑니다.  \n- 총 사과 100개를 모두 담으려면 몇 개의 상자가 필요하고, 마지막 상자에 남는 사과는 몇 개인가요?\n\n---\n\n### 1. 전체 사과 수 ÷ 한 상자에 들어가는 사과 수  \n\n\\[\n\\frac{100}{12}=8\\text{…}4\n\\]\n\n- **8** : 12개씩 가득 채울 수 있는 상자의 개수 (정수 부분)  \n- **4** : 나머지, 즉 마지막 상자에 남는 사과 수  \n\n### 2. 필요한 상자 수  \n\n가득 채운 상자 8개 외에, 남은 사과 4개를 넣을 **추가 상자**가 하나 더 필요합니다.\n\n\\[\n\\text{필요한 상자 수}=8+1=9\\text{개}\n\\]\n\n### 3. 마지막 상자에 남는 사과 수  \n\n위 나머지 연산에서 구한 **4**가 바로 마지막 상자에 들어가는 사과 수입니다.\n\n---\n\n## 최종 답\n\n- **필요한 상자 수:** **9개**  \n- **마지막 상자에 남는 사과:** **4개**  \n\n(계산 과정: 100 ÷ 12 = 8 remainder 4 → 8개의 가득 찬 상자 + 1개의 남은 사과 4개를 담는 상자)",
+        "thinking": "The user asks in Korean: \"한 상자에 사과가 12개 들어간다. 사과 100개를 담으려면 상자가 몇 개 필요하고 마지막 상자에는 몇 개가 남는지 계산 과정을 보여줘.\"\n\nWe need to compute number of boxes needed to hold 100 apples, each box holds 12 apples. So 100 divided by 12 = 8 remainder 4 (since 12*8=96, remainder 4). So need 9 boxes (since the last box will have the remaining 4 apples). The last box will have 4 apples.\n\nWe need to show calculation steps.\n\nWe can respond in Korean, showing division, maybe using floor division and remainder.\n\nWe should comply.",
+        "chunks": 482,
+        "prompt": "reason",
+        "broken": null
+      },
+      {
+        "ttft": 4.4382536159828305,
+        "total": 340.7312913676724,
+        "out_tokens": 1024,
+        "in_tokens": 118,
+        "decode_tps": 3.0419898277982127,
+        "text": "## 트랜스포머의 **어텐션**이란?  \n\n### 1. 핵심 아이디어  \n어텐션은 **“입력 전체 중에서 현재가 가장 필요로 하는 부분에 집중한다”**는 메커니즘입니다.  \n입력 문장(또는 시퀀스)의 모든 토큰을 동시에 바라보면서, 각 토큰이 **다른 토큰들과 얼마나 관련이 있는지**를 점수화하고, 그 점수에 따라 정보를 섞어 새로운 표현을 만들어냅니다.\n\n- **Query (Q)** : “내가 지금 궁금한 것”  \n- **Key (K)** : “각 토큰이 가지고 있는 특징(키)”  \n- **Value (V)** : “키에 대응하는 실제 정보(값)”\n\n`Q·K`(점곱) → **유사도 점수** → **softmax** 로 정규화 → **점수 × V** 를 모두 더하면 “내가 궁금한 것에 가장 관련 있는 정보”가 모여 새로운 벡터가 됩니다.  \n\n---\n\n### 2. 비유: 도서관 사서와 책 찾기  \n\n> **상황**: 당신은 도서관에서 “인공지능”에 관한 정보를 찾고 싶다.  \n> **전통적인 방법(RNN 비유)**: 사서가 한 줄씩 책을 꺼내서 “이 책에 인공지능이 있나요?” 하고 물어보고, 답을 들은 뒤에야 다음 책을 확인한다. → **하나씩 순차적으로 진행**  \n> **어텐션(Transformer 비유)**: 사서는 한 번에 모든 책을 테이블 위에 펼쳐 놓고, 각 책의 목차와 표지를 스캔한다. “인공지능”이라는 키워드와 가장 잘 맞는 책(키)들을 빠르게 찾아서, 그 책들의 핵심 내용(값)만 골라 모은다. → **전체를 동시에 살피면서 필요한 부분에만 집중**  \n\n이처럼 어텐션은 “전체를 한눈에 보고, 현재가 필요로 하는 부분에 가중치를 줘서 정보를 모은다”는 방식입니다.\n\n---\n\n### 3. 왜 **병렬화에 유리한가?** (RNN과 비교)\n\n| 특성 | 순환신경망 (RNN) | 트랜스포머 (어텐션) |\n|------|----------------|-------------------|\n| **연산 흐름** | **시간 단계마다** 이전 은닉 상태를 사용 → **순차적** (t‑1 → t) | **전체 토큰을 동시에** Q, K, V 로 변환 → **동시 연산** |\n| **GPU/TPU 활용** | 한 단계가 끝나야 다음 단계가 시작될 수 있어 **GPU 코어를 충분히 활용하기 어려움** | 행렬 연산(매트릭스 곱, softmax)만 있으면 **수천·수만 개 토큰을 한 번에** 처리 → **GPU/TPU의 대규모 병렬 연산에 최적** |\n| **메모리 접근 패턴** | 매 단계마다 작은 메모리(은닉 상태)만 사용 → **연속적인 메모리 접근** | 전체 입력을 한 번에 메모리에 올리고, **대규모 행렬을 한 번에 읽고 쓰기** → **메모리 대역폭을 효율적으로 사용** |\n| **학습 속도** | 순차적이라 **시간 복잡도 O(T)** (T = 시퀀스 길이) | 어텐션은 **O(T²)** (점곱 연산) 이지만 **병렬화** 덕분에 실제 실행 시간은 **O(T)** 에 가깝게 감소 |\n| **장점** | 긴 시퀀스에서도 메모리 사용량이 비교적 작음 (하지만 학습이 느림) | **빠른 학습·추론**, **긴 의존관계**도 한 번에 잡아냄 |\n\n#### 핵심 포인트\n- **RNN**은",
+        "thinking": "The user asks in Korean: \"Explain what attention in transformers is to someone learning it for the first time. Give a metaphor, and also explain why it's more advantageous for parallelization compared to recurrent neural networks.\"\n\nWe need to respond in Korean, clear explanation, metaphor, and discuss parallelization advantage. Also follow policy: no disallowed content. It's fine.\n\nWe should be concise but thorough. Provide metaphor like \"reading a book and focusing on relevant words\". Also explain attention mechanism: queries, keys, values, dot-product, scaling, softmax. Then compare to RNN: sequential processing vs parallel.\n\nLet's produce final answer.",
+        "chunks": 1006,
+        "prompt": "long",
+        "broken": null
+      }
+    ],
+    "concurrent": {
+      "n": 4,
+      "wall_s": 102.44,
+      "out_tokens": 4096,
+      "agg_tps": 40.0,
+      "per_req_total_s": [
+        102.28,
+        102.43,
+        102.43,
+        102.41
+      ],
+      "errors": []
+    },
+    "elapsed_s": 2909.7,
+    "is_custom": false,
+    "base": "gpt-oss-120b",
+    "serve_load_s": 1490.6,
+    "build_kind": "FXB",
+    "thinking_only": 0,
+    "garbage": 0,
+    "ok_runs": 4,
+    "n_runs": 4,
+    "decode_tps_med": 2.4,
+    "ttft_med": 4.882
   }
 ]

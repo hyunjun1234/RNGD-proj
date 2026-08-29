@@ -1,0 +1,5 @@
+{
+  "model": "Qwen3-30B-A3B-FP8",
+  "error": "TimeoutError: Qwen3-30B-A3B-FP8 준비 실패 (3600s)",
+  "started": "2026-08-28 22:07:50"
+}

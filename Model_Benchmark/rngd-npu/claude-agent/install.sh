@@ -40,11 +40,43 @@ ORIG_PATH="$PATH"
 HOME_DIR="${FURIO_HOME:-$HOME/.$CMD}"                  # openclaude 격리 설치/설정 위치
 BIN_DIR="${FURIO_BIN_DIR:-$HOME/.local/bin}"
 
-echo "[1/4] Node ≥22 확인 (openclaude 요구)"
-command -v node >/dev/null 2>&1 || { echo "[fail] node 없음 — Node ≥22 설치 후 재실행 (nvm: 'nvm install 22', 또는 brew install node)"; exit 1; }
-NODEMAJ=$(node -p 'process.versions.node.split(".")[0]' 2>/dev/null || echo 0)
-[ "${NODEMAJ:-0}" -ge 22 ] || { echo "[fail] $(node -v) — openclaude 는 Node ≥22 필요. 'nvm install 22'(또는 brew install node) 후 재실행."; exit 1; }
-command -v npm >/dev/null 2>&1 || { echo "[fail] npm 없음(Node 설치 확인)"; exit 1; }
+echo "[1/4] 실행 런타임 확인 (openclaude 는 Node ≥22 요구)"
+# bun 도 받아들인다. RNGD 서버처럼 배포판 node 가 18 에 묶여 있고 nvm 을 깔 수 없는(또는
+# npm prefix 가 이미 잡혀 있어 nvm 이 거부하는) 환경이 있어서다. bun 은 Node 호환 런타임이라
+# openclaude 가 그대로 돈다 — 아래 헬퍼와 furio 래퍼가 같은 것을 쓴다.
+#
+# 판정은 '그 런타임이 흉내 내는 Node 주 버전이 22 이상인가' 하나로 한다. bun 이 있기만 해서는
+# 부족하다 — 옛 bun 은 아래 격리 플래그를 몰라 헬퍼가 전부 조용히 실패한다.
+#   --no-env-file      : 작업 폴더의 .env·.env.local 을 자동으로 읽지 않는다
+#   --config=/dev/null : 작업 폴더의 bunfig.toml(preload 스크립트)을 읽지 않는다
+#                        ('-c 경로' 처럼 = 없이 쓰면 preload 가 그대로 돈다)
+# node 로 돌 때는 둘 다 없는 동작이다. bun 으로 돌 때도 없어야 같은 프로그램이다.
+node_major() {  # $@ = 런타임 명령. 흉내 내는 Node 주 버전, 못 읽으면 0.
+  _v=$("$@" -e 'process.stdout.write(String(process.versions.node).split(".")[0])' 2>/dev/null | tail -n1 || true)
+  case "$_v" in ''|*[!0-9]*) echo 0 ;; *) echo "$_v" ;; esac
+}
+BUN_BIN="$(command -v bun 2>/dev/null || true)"
+NODEMAJ=$(node_major node)
+BUNMAJ=0; [ -n "$BUN_BIN" ] && BUNMAJ=$(node_major "$BUN_BIN" --no-env-file --config=/dev/null)
+if [ "$NODEMAJ" -ge 22 ]; then
+  JS=node
+elif [ "$BUNMAJ" -ge 22 ]; then
+  JS=bun
+  echo "      [ok] node $( [ "$NODEMAJ" = 0 ] && echo 없음 || node -v ) — bun $("$BUN_BIN" --version) 으로 실행합니다"
+elif [ -n "$BUN_BIN" ]; then
+  echo "[fail] node $( [ "$NODEMAJ" = 0 ] && echo 없음 || node -v ), bun $("$BUN_BIN" --version 2>/dev/null || echo '?') — 이 bun 은 너무 옛 버전입니다."
+  echo "       'bun upgrade' 후 다시 실행하세요 (bun 1.3.14 에서 확인)."
+  exit 1
+else
+  echo "[fail] Node ≥22 도 bun 도 없습니다."
+  echo "       가장 간단한 길: 'nvm install 22' (또는 brew install node)."
+  echo "       node 를 못 올리면 지금 node·npm 은 그대로 두고 bun 을 더합니다:"
+  echo "       'curl -fsSL https://bun.sh/install | bash' 후 새 터미널에서 다시 실행."
+  exit 1
+fi
+command -v npm >/dev/null 2>&1 || { echo "[fail] npm 없음 — 패키지를 받는 데 필요합니다(node 버전은 상관없음). 예: apt install nodejs npm / brew install node"; exit 1; }
+# 설치 중 JSON 헬퍼는 모두 js 로 부른다.
+js() { if [ "$JS" = bun ]; then "$BUN_BIN" --no-env-file --config=/dev/null "$@"; else node "$@"; fi; }
 
 echo "[2/4] openclaude 설치 (격리 prefix: $HOME_DIR — 전역 npm 안 건드림)"
 mkdir -p "$HOME_DIR" "$BIN_DIR"
@@ -66,7 +98,7 @@ fi
 
 FORK_VER=""
 if [ -z "$LOCAL_DIST" ]; then
-  FORK_VER=$(curl -fsS --max-time 10 ${AUTH[@]+"${AUTH[@]}"} "$SDI_SERVER/router/client/manifest.json" 2>/dev/null | node -e '
+  FORK_VER=$(curl -fsS --max-time 10 ${AUTH[@]+"${AUTH[@]}"} "$SDI_SERVER/router/client/manifest.json" 2>/dev/null | js -e '
 let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
   try{const j=JSON.parse(s);process.stdout.write(j.ok&&j.version?String(j.version):"")}catch(e){process.stdout.write("")}});' 2>/dev/null || echo "")
 fi
@@ -141,7 +173,7 @@ if [ -n "$SDI_API_KEY" ]; then (umask 177; printf '%s' "$SDI_API_KEY" > "$HOME_D
 # 모델별 '진짜' 컨텍스트 창을 라우터에서 받아 ctx.json 에 저장(단일 출처 = 서버 REGISTRY).
 # ⚠️ 이게 없으면 openclaude 는 처음 보는 우리 모델 id 를 전부 128000 토큰으로 가정한다.
 #    실제론 40960~262144 로 제각각이라, 작은 모델에선 컨텍스트 초과(400)가 나고 큰 모델은 손해다.
-N=$(curl -fsS --max-time 10 ${AUTH[@]+"${AUTH[@]}"} "$SDI_SERVER/router/models" 2>/dev/null | node -e '
+N=$(curl -fsS --max-time 10 ${AUTH[@]+"${AUTH[@]}"} "$SDI_SERVER/router/models" 2>/dev/null | js -e '
 const fs=require("fs"); let s=""; process.stdin.on("data",d=>s+=d).on("end",()=>{
   try{ const j=JSON.parse(s), m={};
     for (const x of (j.data||[])) if (x && x.id && x.context) m[x.id]=x.context;
@@ -162,7 +194,7 @@ fi
 # 그건 이 모델이 NPU 몇 장을 어떤 병렬 구성으로 쓰는지 전혀 알려주지 않는다.
 # 라우터가 주는 "tp8·dp2·pp1 · 2장 · ctx 40k · fxb" 로 바꿔 고를 때 판단이 되게 한다.
 # (OpenAI /v1/models 규격엔 description 필드가 없어서 설치 때 받아 두는 것이 확실하다.)
-D=$(curl -fsS --max-time 10 ${AUTH[@]+"${AUTH[@]}"} "$SDI_SERVER/router/models" 2>/dev/null | node -e '
+D=$(curl -fsS --max-time 10 ${AUTH[@]+"${AUTH[@]}"} "$SDI_SERVER/router/models" 2>/dev/null | js -e '
 const fs=require("fs"); let s=""; process.stdin.on("data",d=>s+=d).on("end",()=>{
   try{ const j=JSON.parse(s), m={};
     for (const x of (j.data||[])) if (x && x.id && x.description) m[x.id]=x.description;
@@ -180,7 +212,7 @@ fi
 # 모델별 tp 선택지를 라우터에서 받아 meta.json 에 저장 → /model 의 tp 화살표 축.
 # 맨이름(접미사 없는 id)의 tp 는 id 에 안 들어 있어(=기본 빌드), 클라이언트가 이 맵으로 기본 tp 와
 # 고를 수 있는 tp 목록을 안다. base 별 {tp_default, tps} 한 벌.
-M=$(curl -fsS --max-time 10 ${AUTH[@]+"${AUTH[@]}"} "$SDI_SERVER/router/models" 2>/dev/null | node -e '
+M=$(curl -fsS --max-time 10 ${AUTH[@]+"${AUTH[@]}"} "$SDI_SERVER/router/models" 2>/dev/null | js -e '
 const fs=require("fs"); let s=""; process.stdin.on("data",d=>s+=d).on("end",()=>{
   try{ const j=JSON.parse(s), m={};
     for (const x of (j.data||[])) if (x && x.base && typeof x.tp_default==="number" && Array.isArray(x.tp_choices))
@@ -295,14 +327,15 @@ if [ "${FURIO_ALLOW_BYPASS:-1}" = "0" ]; then
 else
   mkdir -p "$CFG_DIR"
   # 기존 settings.json 이 있으면 다른 키는 보존하고 이 항목만 병합한다.
-  node -e '
+  js -e '
 const fs=require("fs"), p=process.argv[1];
 let j={};
 try{ j=JSON.parse(fs.readFileSync(p,"utf8"))||{} }catch(e){ j={} }
 if (typeof j!=="object"||Array.isArray(j)) j={};
 j.permissions = (j.permissions && typeof j.permissions==="object" && !Array.isArray(j.permissions)) ? j.permissions : {};
 j.permissions.allowBypassPermissionsMode = true;
-fs.writeFileSync(p, JSON.stringify(j,null,2)+"\n");
+// bun -e 는 최상위에서 난 동기 fs 오류를 삼키고 0 으로 끝난다(node 는 1). 실패를 종료 코드로 알린다.
+try{ fs.writeFileSync(p, JSON.stringify(j,null,2)+"\n") }catch(e){ process.exit(1) }
 ' "$CFG_DIR/settings.json" 2>/dev/null \
     && { echo "      [ok] 자동모드 사용 가능 — 실행 후 Shift+Tab 을 눌러 모드를 바꾼다:"
          echo "           default(매번 확인) → Accept edits → Plan → Bypass Permissions → Full Access"
@@ -330,7 +363,7 @@ fi
 AGENT_KEY="${SDI_API_KEY:-dummy}"
 if [ "${FURIO_AGENTS:-1}" = "0" ]; then
   mkdir -p "$CFG_DIR"
-  node -e '
+  js -e '
 const fs=require("fs"), p=process.argv[1];
 let j={}; try{ j=JSON.parse(fs.readFileSync(p,"utf8"))||{} }catch(e){ j={} }
 if (typeof j!=="object"||Array.isArray(j)) j={};
@@ -340,7 +373,8 @@ for (const t of ["Agent","Task"]) if (!deny.includes(t)) deny.push(t);
 j.permissions.deny = deny;
 // 라우팅은 남겨두면 혼란만 준다 — 위임 자체를 막았으므로 함께 지운다.
 delete j.agentRouting; delete j.agentModels;
-fs.writeFileSync(p, JSON.stringify(j,null,2)+"\n");
+// bun -e 는 최상위에서 난 동기 fs 오류를 삼키고 0 으로 끝난다(node 는 1). 실패를 종료 코드로 알린다.
+try{ fs.writeFileSync(p, JSON.stringify(j,null,2)+"\n") }catch(e){ process.exit(1) }
 ' "$CFG_DIR/settings.json" 2>/dev/null \
     && echo "      [ok] 서브에이전트 비활성(FURIO_AGENTS=0) — Agent/Task 도구를 모델에게 안 보여준다." \
     || echo "      [warn] settings.json 기록 실패 — 수동으로 permissions.deny 에 Agent/Task 추가"
@@ -348,7 +382,7 @@ elif [ "${FURIO_AGENT_ROUTING:-1}" = "0" ]; then
   echo "      [skip] NPU 에이전트 라우팅 비활성(FURIO_AGENT_ROUTING=0)"
 else
   mkdir -p "$CFG_DIR"
-  node -e '
+  _R=$(js -e '
 const fs=require("fs"), p=process.argv[1], base=process.argv[2], key=process.argv[3];
 let j={};
 try{ j=JSON.parse(fs.readFileSync(p,"utf8"))||{} }catch(e){ j={} }
@@ -376,12 +410,16 @@ if (!j.agentRouting || typeof j.agentRouting!=="object" || Array.isArray(j.agent
   };
   added=true;
 }
-fs.writeFileSync(p, JSON.stringify(j,null,2)+"\n");
+// bun -e 는 최상위에서 난 동기 fs 오류를 삼키고 0 으로 끝난다(node 는 1). 실패를 종료 코드로 알린다.
+try{ fs.writeFileSync(p, JSON.stringify(j,null,2)+"\n") }catch(e){ process.exit(1) }
 process.stdout.write(added?"added":"kept");
-' "$CFG_DIR/settings.json" "$SDI_SERVER/v1" "$AGENT_KEY" 2>/dev/null | grep -q added \
-    && { echo "      [ok] NPU 에이전트 라우팅 기록 — 역할별 서브에이전트가 NPU 모델을 쓴다."
-         echo "           역할↔모델 변경: $CFG_DIR/settings.json 의 agentRouting/agentModels"; } \
-    || echo "      [ok] NPU 에이전트 라우팅 — 기존 설정 보존(agentModels/agentRouting 유지)"
+' "$CFG_DIR/settings.json" "$SDI_SERVER/v1" "$AGENT_KEY" 2>/dev/null || echo fail)
+  case "$_R" in
+    added) echo "      [ok] NPU 에이전트 라우팅 기록 — 역할별 서브에이전트가 NPU 모델을 쓴다."
+           echo "           역할↔모델 변경: $CFG_DIR/settings.json 의 agentRouting/agentModels" ;;
+    kept)  echo "      [ok] NPU 에이전트 라우팅 — 기존 설정 보존(agentModels/agentRouting 유지)" ;;
+    *)     echo "      [warn] settings.json 기록 실패 — NPU 에이전트 라우팅을 못 넣었습니다" ;;
+  esac
 
   # ── 역할 에이전트 템플릿 scaffold (있으면 보존) ──────────────────────
   # 사용자가 나중에 채우도록 baseline .md 를 깐다. name=agentRouting 키와 일치.
@@ -467,7 +505,17 @@ export OPENCLAUDE_CONFIG_DIR="\${OPENCLAUDE_CONFIG_DIR:-$HOME_DIR/config}"   # �
 # settings.json 에 저장한다(동기). 그걸 읽어 OPENAI_MODEL 기본값으로 쓰면, furio 를 다시
 # 켜도 마지막 모델이 그대로 뜬다. 우선순위: 명시적 OPENAI_MODEL > 직전 모델 > 설치 기본값($MODEL).
 # (furio --model 은 이와 무관하게 최우선으로 그 실행만 덮어쓴다.)
-_LAST_MODEL="\$(node -e 'try{var fs=require("fs");var s=JSON.parse(fs.readFileSync(process.env.OPENCLAUDE_CONFIG_DIR+"/settings.json","utf8"));if(s&&typeof s.model==="string"&&s.model)process.stdout.write(s.model)}catch(e){}' 2>/dev/null || true)"
+# bun 은 PATH 에서 먼저 찾고, 없으면 설치 때 찾은 절대경로를 쓴다. ssh 원격 명령·cron 처럼 비대화형으로
+# 불리면 ~/.bun/bin 이 PATH 에 없어서다(RNGD 서버의 .bashrc 는 비대화형이면 그 설정 전에 끝난다).
+_BUN="\$(command -v bun 2>/dev/null || true)"; [ -n "\$_BUN" ] || _BUN="$BUN_BIN"
+# 짧은 JS 실행기(설정 읽기용). 이 정도는 node 18 로도 충분하고, node 가 아예 없으면 bun 으로 읽는다.
+# bun 이면 작업 폴더의 .env·bunfig.toml 을 읽지 않게 막는다(설치기 [1/4] 주석 참고).
+_js() {
+  if command -v node >/dev/null 2>&1; then node "\$@"
+  elif [ -n "\$_BUN" ]; then "\$_BUN" --no-env-file --config=/dev/null "\$@"
+  else return 1; fi
+}
+_LAST_MODEL="\$(_js -e 'try{var fs=require("fs");var s=JSON.parse(fs.readFileSync(process.env.OPENCLAUDE_CONFIG_DIR+"/settings.json","utf8"));if(s&&typeof s.model==="string"&&s.model)process.stdout.write(s.model)}catch(e){}' 2>/dev/null || true)"
 export OPENAI_MODEL="\${OPENAI_MODEL:-\${_LAST_MODEL:-$MODEL}}"
 export CLAUDE_CODE_MAX_OUTPUT_TOKENS="\${CLAUDE_CODE_MAX_OUTPUT_TOKENS:-$MAXOUT}"
 export OPENAI_API_KEY="\$( [ -f "$HOME_DIR/key" ] && cat "$HOME_DIR/key" || echo dummy )"
@@ -526,7 +574,42 @@ TOOL_ARGS=()
 # 지켜보지 않는 실행에서는 낮게 두는 편이 안전하다(NPU 카드를 그만큼 오래 점유한다).
 TURN_ARGS=()
 [ -n "\${FURIO_MAX_TURNS:-}" ] && TURN_ARGS=(--max-turns "\$FURIO_MAX_TURNS")
-exec "$OC_BIN" \${AUTO_ARGS[@]+"\${AUTO_ARGS[@]}"} \${TOOL_ARGS[@]+"\${TOOL_ARGS[@]}"} \${TURN_ARGS[@]+"\${TURN_ARGS[@]}"} "\$@"   # macOS bash3.2 + set -u 빈배열 가드
+# 실행 런타임은 여기서 고른다(설치 때가 아니라). node 를 나중에 올리거나 내려도 그대로 동작한다.
+# openclaude 는 Node ≥22 를 요구하는데 배포판 node 가 18 인 서버가 있어, 그럴 때 bun 으로 넘어간다.
+_NODEMAJ="\$(node -p 'process.versions.node.split(".")[0]' 2>/dev/null | tail -n1 || true)"
+case "\$_NODEMAJ" in ''|*[!0-9]*) _NODEMAJ=0 ;; esac
+_USE_BUN=0
+if [ "\$_NODEMAJ" -ge 22 ]; then
+  :                               # node 가 충분하다 — 셔뱅대로 실행
+elif [ -n "\$_BUN" ] && [ -x "\$_BUN" ]; then
+  _USE_BUN=1
+else
+  echo "furio: Node ≥22 도 bun 도 없습니다 (현재 node: \$(node -v 2>/dev/null || echo 없음))" >&2
+  echo "       'nvm install 22' 또는 'curl -fsSL https://bun.sh/install | bash'" >&2
+  exit 1
+fi
+# 실행할 명령을 배열에 담지 않고 플래그로 가른다. macOS 기본 bash 3.2 는 set -u 에서 빈 배열을
+# "\${arr[@]}" 로 펼치면 unbound 오류다(\${#arr[@]} 는 괜찮다 — bash 3.2.0 으로 확인). 인자 배열은
+# 기존과 같은 \${arr[@]+...} 가드로 펼친다.
+if [ "\$_USE_BUN" = 1 ]; then
+  # bun 경로는 bin/openclaude 런처를 건너뛰고 dist/cli.mjs 를 바로 돌린다. 런처가 하던 일 중
+  # 여기서도 필요한 것만 옮긴다(힙 크기·--expose-gc 는 node 전용 플래그라 bun 과 무관).
+  #  · --max-memory 는 런처 전용 인자다. CLI 로 넘기면 모르는 옵션으로 거부되므로 걸러 내고 값만 넘긴다.
+  #  · 팀원 창(tmux/iTerm2)은 argv[1] 로 자신을 다시 띄우는데 여기선 그게 실행 권한 없는 cli.mjs 다.
+  #    이 래퍼를 가리키게 해 창 안에서도 런타임을 다시 고르게 한다.
+  #  · 작업 폴더의 .env·bunfig.toml(preload) 자동 읽기를 끈다 — node 로 돌 때와 같게.
+  export CLAUDE_CODE_TEAMMATE_COMMAND="\${CLAUDE_CODE_TEAMMATE_COMMAND:-$BIN_DIR/$CMD}"
+  _ARGS=()
+  for _a in "\$@"; do
+    case "\$_a" in
+      --max-memory=*) export OPENCLAUDE_MAX_MEMORY_MB="\${_a#--max-memory=}" ;;
+      --max-memory) ;;
+      *) _ARGS+=("\$_a") ;;
+    esac
+  done
+  exec "\$_BUN" --no-env-file --config=/dev/null "$HOME_DIR/lib/node_modules/@gitlawb/openclaude/dist/cli.mjs" \${AUTO_ARGS[@]+"\${AUTO_ARGS[@]}"} \${TOOL_ARGS[@]+"\${TOOL_ARGS[@]}"} \${TURN_ARGS[@]+"\${TURN_ARGS[@]}"} \${_ARGS[@]+"\${_ARGS[@]}"}
+fi
+exec "$OC_BIN" \${AUTO_ARGS[@]+"\${AUTO_ARGS[@]}"} \${TOOL_ARGS[@]+"\${TOOL_ARGS[@]}"} \${TURN_ARGS[@]+"\${TURN_ARGS[@]}"} "\$@"
 EOF
 chmod 755 "$BIN_DIR/$CMD"
 

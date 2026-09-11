@@ -18,7 +18,8 @@ bash serve-router.sh start                               # 이미 sdi 용으로 
 
 ## 2. 사용자 — 각자 PC
 
-> **사전 요구: Node ≥ 22** (openclaude 요구). 없으면 `nvm install 22` 또는 `brew install node`(Mac) / nodejs.org(Win).
+> **사전 요구: Node ≥ 22 또는 [bun](https://bun.sh)** (openclaude 요구). 없으면 `nvm install 22` 또는 `brew install node`(Mac) / nodejs.org(Win).
+> node 를 못 올리는 곳(예: node 18 이 묶인 서버)은 `curl -fsSL https://bun.sh/install | bash` 로 bun 을 깔면 설치기와 `furio` 가 bun 으로 돕니다. 패키지를 받는 데 npm 은 필요합니다.
 
 ### 2-A. 원격(집/외부) — SSH 터널 (권장)
 **터미널 ①** — 터널(유지):
@@ -214,11 +215,13 @@ API_TIMEOUT_MS=1200000 CLAUDE_STREAM_IDLE_TIMEOUT_MS=900000 furio
 ```
 
 ### `node: ... required` / Node 버전 오류
-openclaude 는 Node ≥22 필요:
+openclaude 는 Node ≥22 가 필요합니다. 둘 중 하나를 깔고 설치기를 다시 돌리세요.
 ```bash
-nvm install 22 && nvm use 22      # 또는 brew install node (Mac)
+nvm install 22 && nvm use 22                 # 또는 brew install node (Mac)
+curl -fsSL https://bun.sh/install | bash     # node 를 못 올릴 때 (예: 서버의 node 18)
 ```
-설치 후 `furio` 가 그 node 를 쓰도록 PATH 에 node≥22 가 잡혀 있어야 합니다.
+다시 설치한 `furio` 는 실행할 때마다 node 버전을 봅니다. 22 이상이면 node 로, 아니면 bun 으로 돌고,
+둘 다 없으면 무엇을 깔아야 하는지 알려주고 멈춥니다.
 
 ### 모델이 도구 대신 권한/위치 얘기만 하고 파일을 안 만듦
 `.claude` 같은 **민감 경로**에서 실행했을 때 납니다 — **일반 프로젝트 폴더**에서 실행하세요.

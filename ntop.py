@@ -105,6 +105,41 @@ def run_smi_text(subcmd: str, timeout: float = 3.0) -> str:
         return f"(error: {e})"
 
 
+MGMT_SYSFS = "/sys/class/rngd_mgmt/rngd!{}mgmt"
+HEARTBEAT_STALL_S = 5.0
+_heartbeat_seen: dict[str, tuple[str, float]] = {}   # dev → (마지막 값, 바뀐 시각)
+
+
+def _read_sysfs(path: str) -> str | None:
+    try:
+        with open(path) as f:
+            return f.read().strip()
+    except OSError:
+        return None
+
+
+def sysfs_liveness(name: str) -> str:
+    """furiosa-smi 2026.4.0 부터 status JSON 에 liveness 가 없어져서 sysfs 로 판정.
+
+    device_state 0 = 정상, heartbeat 는 펌웨어가 초당 올리는 카운터 → 멈추면 hang.
+    """
+    base = MGMT_SYSFS.format(name)
+    state = _read_sysfs(base + "/device_state")
+    if state is None:
+        return ""
+    if state != "0":
+        return "err"
+    hb = _read_sysfs(base + "/heartbeat")
+    if hb is None:
+        return "alive"
+    now = time.monotonic()
+    prev = _heartbeat_seen.get(name)
+    if prev is None or prev[0] != hb:
+        _heartbeat_seen[name] = (hb, now)
+        return "alive"
+    return "hang" if now - prev[1] > HEARTBEAT_STALL_S else "alive"
+
+
 def gather() -> list[NpuDev]:
     """status + info 를 JSON 으로 받아서 디바이스 단위로 머지."""
     status = run_smi_json("status")
@@ -117,10 +152,11 @@ def gather() -> list[NpuDev]:
         dev = NpuDev(
             name=name,
             arch=s.get("arch", ""),
-            liveness=s.get("liveness", ""),
+            liveness=s.get("liveness") or sysfs_liveness(name),
         )
 
-        dram = (s.get("memory") or {}).get("DRAM") or {}
+        mem = s.get("memory") or {}
+        dram = mem.get("DRAM") or mem     # 2026.4.0 부터 DRAM 단계 없이 memory 에 바로
         dev.mem_used = _gib(dram.get("used_size", 0))
         dev.mem_total = _gib(dram.get("total_size", 0))
         dev.mem_ratio = float(dram.get("used_ratio", 0.0))

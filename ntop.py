@@ -1730,13 +1730,13 @@ def main() -> None:
         nonlocal shown
         keys.on()
         live.start()
-        shown, Poller.paused, sources.since = True, False, time.monotonic()
+        shown, sources.since = True, time.monotonic()
 
     def hide(restore: bool) -> None:
         nonlocal shown
         live.stop()
         keys.off(restore)
-        shown, Poller.paused = False, True
+        shown = False
 
     try:
         sources.start()
@@ -1758,6 +1758,7 @@ def main() -> None:
                 keys.on()                   # 화면을 쓰던 채로 멈췄다 깼다 (SIGSTOP)
                 sources.since = time.monotonic()
             got["cont"] = False
+            Poller.paused = not shown       # 화면을 안 그리는 동안(배경)은 수집도 쉰다
             if shown:
                 live.update(build_layout(sources.snapshot(), args, console=console, pages=pages,
                                          page=page, title=default_title,

@@ -35,7 +35,8 @@ NTOP_DIR=/다른/폴더 python3 tests/ntop/test_ntop.py     # 다른 곳의 ntop
 | `variants` | `ntop`, `--gpu`, `--no-gpu`, `--no-ps`, `--raw`, `-p` |
 | `notty` | stdin 이 터미널이 아닐 때 |
 | `suspend` `jobs` `signals` | Ctrl+Z·bg·fg, `nctop &`, SIGTERM·SIGHUP·SIGSTOP |
+| `tostop` | `stty tostop` 셸에서 배경 작업이 멈춰 남지 않는지 |
 | `storm` | 키 연타 |
 | `hang` `down` `old` `multi` `slowpmon` | nvidia-smi 무응답·오류·옛 드라이버·GPU 4장·pmon 무응답 |
-| `orphans` | 끝낼 때 도는 중이던 smi 정리 |
+| `orphans` `orphans_npu` | 끝낼 때 도는 중이던 smi 정리 (nvidia-smi 무응답, furiosa-smi 무응답) |
 | `cost` | nctop 자신의 CPU 비용 (`NCTOP_E2E_REAL=1` 일 때만) |

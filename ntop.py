@@ -130,6 +130,8 @@ class GpuDev:
             mask = int(self.txt("clocks_event_reasons.active"), 16)
         except ValueError:
             return None
+        if mask & 0x0c0:
+            mask &= ~0x008                  # 'hw slowdown' 은 hw thermal·hw power brake 를 아우르는 표시라 겹쳐 쓰지 않는다
         events = [(name, style) for bit, name, style in GPU_CLOCK_EVENTS if mask & bit]
         rest = mask & ~sum(bit for bit, _, _ in GPU_CLOCK_EVENTS)
         if rest:                            # 표에 없는 비트 — 'none' 으로 보이면 안 된다
@@ -1023,7 +1025,16 @@ def _shorten_cmd(cmd: str, maxlen: int = 80) -> str:
     return short
 
 
-_NTOP_CMD = re.compile(r"(^|[/\s])(ntop|nctop)(\.py)?(\s|$)")
+def _is_ntop(cmd: str) -> bool:
+    """명령줄이 ntop·nctop 실행인가. 실행 파일 이름이나, 파이썬이면 그 스크립트 이름으로만 본다
+    (인수나 경로 중간에 ntop 이라는 글자가 있는 다른 프로그램을 잘못 집지 않게)."""
+    argv = cmd.split()
+    if not argv:
+        return False
+    names = [os.path.basename(argv[0])]
+    if re.fullmatch(r"python[0-9.]*", names[0]):
+        names.append(os.path.basename(next((a for a in argv[1:] if not a.startswith("-")), "")))
+    return any(n in ("ntop", "nctop", "ntop.py", "nctop.py") for n in names)
 
 
 def gather_ps(gpu_pids: set[int]) -> list[tuple[str, ...]] | None:
@@ -1043,10 +1054,10 @@ def gather_ps(gpu_pids: set[int]) -> list[tuple[str, ...]] | None:
     cmd_of = {f[0]: f[5] for _, _, f in procs}
     rows: list[tuple[str, ...]] = []
     for ppid, line, f in procs:
-        # ntop·nctop 이 수집하느라 띄운 smi·ps 는 뺀다 — 내 것도, 다른 창에서 도는 것도
-        if ppid == me or _NTOP_CMD.search(cmd_of.get(ppid, "")):
-            continue
-        if not (f[0].isdigit() and int(f[0]) in gpu_pids):
+        if not (f[0].isdigit() and int(f[0]) in gpu_pids):     # GPU 를 쓰는 프로세스는 언제나 남긴다
+            # ntop·nctop 이 수집하느라 띄운 smi·ps 는 뺀다 — 내 것도, 다른 창에서 도는 것도
+            if ppid == me or _is_ntop(cmd_of.get(ppid, "")):
+                continue
             if not (any(k in line for k in ("furiosa-llm", "furiosa-smi"))
                     or re.search(r"python[0-9.]*\s.*(build|serve|orchestrator)", line)):
                 continue
@@ -1641,7 +1652,7 @@ class KeyReader:
             tty.setcbreak(self._tty)
             self.fd = self._tty
         except termios.error:
-            self.fd = None
+            self.fd = None                  # 시그널에 끊겼을 수도 있다 — 메인 루프가 다음 바퀴에 다시 켠다
 
     def off(self, restore: bool = True) -> None:
         """키 읽기를 멈춘다. restore 면 켜기 전의 터미널 설정으로 되돌린다
@@ -1663,8 +1674,9 @@ class KeyReader:
             try:
                 data = os.read(self.fd, 256)
             except OSError:
-                data = b""
-            if not data:                    # EOF·오류 — 더 읽지 않는다 (select 가 계속 깨우므로)
+                self.fd = None              # 지금은 못 읽는다 — 메인 루프가 다음 바퀴에 다시 켠다
+                break
+            if not data:                    # EOF — 더 읽지 않는다 (select 가 계속 깨우므로)
                 self.fd, self._eof = None, True
                 break
             self._pending += self._decode(data)
@@ -1792,6 +1804,8 @@ def main() -> None:
             elif fg and got["cont"]:
                 keys.on()                   # 화면을 쓰던 채로 멈췄다 깼다 (SIGSTOP)
                 sources.since = time.monotonic()
+            elif fg and keys.fd is None:
+                keys.on()                   # 앞에서 켜지 못했으면 다시 (stdin 이 터미널이 아니면 아무 일도 안 한다)
             got["cont"] = False
             Poller.paused = not shown       # 화면을 안 그리는 동안(배경)은 수집도 쉰다
             if shown:

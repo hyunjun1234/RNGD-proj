@@ -692,24 +692,35 @@ def test_jobs():
         check("fg 뒤 키 찌꺼기(^[[C) 없음", "^[[C" not in scr)
 
         # 되풀이: 멈춘 사이 가짜 시간 초과 오류가 번쩍이지 않는다
-        flashes = 0
+        flashes, stopped, back = 0, 0, 0
         for rep_ in range(5):
             t.send("C-z")
-            wait_state(pid, "T")
+            stopped += wait_state(pid, "T")
             time.sleep(3.6)
             t.run("fg")
             wait_state(pid, "run")
             t0 = time.monotonic()
+            seen = False
             while time.monotonic() - t0 < 1.6:
                 scr = t.screen()
-                if bool(re.search(DETAIL, scr)) and ("no NPU" in scr or "응답 없음" in scr or "초 전" in scr):
-                    flashes += 1
-                    break
+                if bool(re.search(DETAIL, scr)):
+                    seen = True
+                    if "no NPU" in scr or "응답 없음" in scr or "초 전" in scr:
+                        flashes += 1
+                        break
                 time.sleep(0.03)
+            back += seen
+            if not seen:                     # 돌아오지 않았다 — 원인을 알 수 있게 그때의 상태를 남긴다
+                print(f"    [진단] {rep_ + 1}번째 fg 뒤 화면이 안 돌아옴: state={pstate(pid)} kids={children_of(pid)}")
+                print("    [진단] 화면 끝 12줄:\n" + "\n".join("      " + l for l in t.screen().rstrip().split("\n")[-12:]))
             time.sleep(0.15 + 0.09 * rep_)
+        check("Ctrl+Z→fg 5번: 매번 멈추고 매번 화면이 돌아옴", stopped == 5 and back == 5, f"멈춤 {stopped}/5, 복귀 {back}/5")
         check("Ctrl+Z→fg 5번: 가짜 오류가 번쩍이지 않음", flashes == 0, f"{flashes}/5")
         t.send("q")
-        ok, _, _ = t.wait_for(r"bye\.\nPROMPT\$")
+        ok, _, scr = t.wait_for(r"bye\.\nPROMPT\$")
+        if not ok:
+            print(f"    [진단] q 뒤에도 안 끝남: state={pstate(pid)} kids={children_of(pid)}")
+            print("    [진단] 화면 끝 12줄:\n" + "\n".join("      " + l for l in scr.rstrip().split("\n")[-12:]))
         check("q 종료", ok)
         check("끝난 뒤 stty 동일", stty(t, "after") == before)
     finally:
@@ -973,6 +984,10 @@ if __name__ == "__main__":
                 check(f"{name}: 시험 실행", False, f"{type(e).__name__}: {e}")
     finally:
         tmux("kill-server", check=False)
+        try:                                 # 서버를 내려도 소켓 파일은 남는다
+            os.unlink(os.path.join(os.environ.get("TMUX_TMPDIR", "/tmp"), f"tmux-{os.getuid()}", SOCK))
+        except OSError:
+            pass
     bad = [r for r in RESULTS if not r[1]]
     print(f"\n{len(RESULTS) - len(bad)}/{len(RESULTS)} 통과" + ("" if not bad else "  — 실패: " + "; ".join(r[0] for r in bad)))
     sys.exit(1 if bad else 0)

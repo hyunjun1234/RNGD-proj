@@ -212,6 +212,43 @@ class KeyReaderPty(unittest.TestCase):
         self.assertIsNone(self.kr.fd)
         os.close(r)
 
+    def test_on_failure_is_not_permanent(self):
+        # cbreak 설정이 한 번 실패해도(시그널에 끊김 등) 다음에 다시 켤 수 있다
+        import termios
+        import tty
+        self.kr.fd = None
+        self.kr._tty = self.slave
+        real = tty.setcbreak
+        calls = []
+
+        def flaky(fd, *a):
+            calls.append(fd)
+            if len(calls) == 1:
+                raise termios.error(4, "Interrupted system call")
+            return real(fd, *a)
+        tty.setcbreak = flaky
+        try:
+            self.kr.on()
+            self.assertIsNone(self.kr.fd)
+            self.kr.on()
+            self.assertEqual(self.kr.fd, self.slave)
+        finally:
+            tty.setcbreak = real
+        os.write(self.master, b"q")
+        self.assertEqual(self.kr.read(), ["q"])
+        self.kr.off()
+        self.assertIsNone(self.kr.fd)
+
+    def test_read_error_is_not_eof(self):
+        self.kr._tty = self.slave
+        self.kr.fd = 987654                  # 없는 fd — os.read 가 OSError
+        self.assertEqual(self.kr.read(), [])
+        self.assertIsNone(self.kr.fd)
+        self.assertFalse(self.kr._eof)       # 영영 끄지는 않는다
+        self.kr.on()
+        self.assertEqual(self.kr.fd, self.slave)
+        self.kr.off()
+
     def test_utf8_hangul(self):
         import tty
         tty.setraw(self.slave)
@@ -376,6 +413,17 @@ class Misc(unittest.TestCase):
         self.assertEqual(ntop._flow(parts, 9).plain, "aaaa bbbb\ncc\ndddd eeee\nf")
         self.assertEqual(ntop._flow(parts, 3).plain, "aaaa bbbb\ncc\ndddd eeee\nf")    # 조각이 폭보다 길어도 조각 안에서는 안 끊는다
         self.assertEqual(ntop._flow([], 10).plain, "")
+
+    def test_clock_events_umbrella_bit(self):
+        # 3차 검토 fixcheck:1 — hw slowdown(0x8)은 hw thermal(0x40)·hw power brake(0x80)의 상위 표시
+        def names(mask):
+            (g,) = ntop.parse_gpu_csv(gpu_line(clocks_event_reasons__active=mask), FIELDS)
+            return [n for n, _ in g.clock_events]
+        self.assertEqual(names("0x0000000000000008"), ["hw slowdown"])
+        self.assertEqual(names("0x0000000000000048"), ["hw thermal"])
+        self.assertEqual(names("0x0000000000000088"), ["hw power brake"])
+        self.assertEqual(names("0x00000000000000c8"), ["hw thermal", "hw power brake"])
+        self.assertEqual(names("0x000000000000004c"), ["sw power cap", "hw thermal"])
 
     def test_clock_events_unknown_bits(self):
         (g,) = ntop.parse_gpu_csv(gpu_line(clocks_event_reasons__active="0x0000000000000200"), FIELDS)
@@ -604,13 +652,29 @@ class GatherPs(unittest.TestCase):
             f"   6100    6101 lee       9.0  0.0       00:00 furiosa-smi info --format json",
             f"      1    6200 lee       0.1  0.1       10:00 top -b",
             f"   6200    6201 lee       0.1  0.0       00:00 furiosa-smi status --watch 1",
+            f"      1    6500 lee       0.1  0.1       10:00 python3 -u /home/lee/bin/nctop --no-gpu",
+            f"   6500    6501 lee       9.0  0.0       00:00 furiosa-smi status --format json",
+            # GPU 를 쓰는 프로세스는 부모가 nctop 이어도 남는다
+            f"   6500  950999 lee       1.0  0.0       00:10 gpu-job",
+            # 3차 검토 newcode:1 — 부모 명령줄에 ntop 이라는 글자만 있는 경우는 숨기지 않는다
+            f"      1    6300 lee       0.1  0.1       10:00 tmux new -s nctop",
+            f"   6300    6301 lee      50.0  3.0       10:00 /opt/furiosa/bin/python3 /opt/furiosa/bin/furiosa-llm serve m",
+            f"      1    6400 lee       0.1  0.1       10:00 python train.py --tag ntop --serve",
+            f"   6400    6401 lee      20.0  1.0       05:00 python /data/ntop/worker.py serve",
             f"      1    8888 kim       0.0  0.0       00:01 grep furiosa-llm",
             f"      1    9999 kim       0.0  0.0       00:01 vim notes.txt",
         ])
         ntop.run_cmd = lambda argv, timeout=3.0: (0, out, "")
-        rows = ntop.gather_ps({950487})
-        # 6001·6101: 다른 사람의 nctop·ntop.py 가 띄운 smi 는 빠진다. 6201: 부모가 ntop 이 아니면 남는다
-        self.assertEqual([r[0] for r in rows], ["444724", "950487", "950194", "7777", "6201"])
+        rows = ntop.gather_ps({950487, 950999})
+        # 6001·6101·6501: 다른 사람의 nctop·ntop.py 가 띄운 smi 는 빠진다. 6201: 부모가 ntop 이 아니면 남는다
+        self.assertEqual([r[0] for r in rows],
+                         ["444724", "950487", "950194", "7777", "6201", "950999", "6301", "6400"])
+        ntop_like = ["python3 /home/lee/.local/bin/nctop -i 1", "/usr/bin/python3 /srv/RNGD-proj/ntop.py",
+                     "python3 -u /x/nctop --no-gpu", "nctop", "./ntop.py -p 2", "/usr/local/bin/ntop"]
+        others = ["tmux new -s nctop", "python train.py --tag ntop", "/home/x/ntop/run serve", "top -b",
+                  "python3 /data/ntop/worker.py", "ntopng -i eth0", "vim ntop.py", ""]
+        self.assertTrue(all(ntop._is_ntop(c) for c in ntop_like))
+        self.assertFalse(any(ntop._is_ntop(c) for c in others))
         self.assertEqual(rows[1], ("950487", "jun", "4.5", "2.4", "49:49", "VLLM::EngineCore"))
         self.assertEqual(rows[0][5], "/usr/bin/python3 /opt/furiosa/bin/furiosa-llm serve x")
 

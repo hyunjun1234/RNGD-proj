@@ -24,6 +24,7 @@ CPU 코어별 사용률과 GPU 상세는 → 키로 넘기는 둘째 화면에 �
 from __future__ import annotations
 
 import argparse
+import codecs
 import glob
 import json
 import os
@@ -129,7 +130,11 @@ class GpuDev:
             mask = int(self.txt("clocks_event_reasons.active"), 16)
         except ValueError:
             return None
-        return [(name, style) for bit, name, style in GPU_CLOCK_EVENTS if mask & bit]
+        events = [(name, style) for bit, name, style in GPU_CLOCK_EVENTS if mask & bit]
+        rest = mask & ~sum(bit for bit, _, _ in GPU_CLOCK_EVENTS)
+        if rest:                            # 표에 없는 비트 — 'none' 으로 보이면 안 된다
+            events.append((f"other 0x{rest:x}", "yellow"))
+        return events
 
 
 @dataclass
@@ -186,28 +191,64 @@ def _parse_float(s: str) -> float:
 
 
 # ──────────────────────────── SMI 호출 ────────────────────────────
-def run_smi_json(subcmd: str, timeout: float = 3.0) -> list[dict]:
+_running: set = set()                       # 지금 돌고 있는 하위 프로세스 — 끝낼 때 정리한다
+_stuck: dict[str, subprocess.Popen] = {}    # 명령 이름 → 죽여도 안 죽은 프로세스
+
+
+def run_cmd(argv: list[str], timeout: float = 3.0) -> tuple[int, str, str]:
+    """(returncode, stdout, stderr). 실행 파일이 없거나 시간을 넘기면 returncode -1.
+
+    stdin 은 터미널을 물려주지 않는다 (키는 nctop 만 읽는다). 시간을 넘긴 프로세스는 죽인다.
+    죽지 않으면(드라이버 안에서 멈춘 smi) 그것이 사라질 때까지 같은 명령을 새로 띄우지 않는다.
+    """
+    name = os.path.basename(argv[0])
+    stuck = _stuck.get(name)
+    if stuck is not None:
+        if stuck.poll() is None:
+            return -1, "", f"{name} 응답 없음 (멈춘 프로세스 {stuck.pid} 가 죽지 않음)"
+        _stuck.pop(name, None)
     try:
-        r = subprocess.run(
-            ["furiosa-smi", subcmd, "--format", "json"],
-            capture_output=True, text=True, timeout=timeout, check=False,
-        )
-        if r.returncode != 0:
-            return []
-        return json.loads(r.stdout or "[]")
-    except (subprocess.TimeoutExpired, json.JSONDecodeError, FileNotFoundError):
+        p = subprocess.Popen(argv, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE, text=True, errors="replace")
+    except OSError as e:
+        return -1, "", f"{name} 실행 실패: {e.strerror or e}"
+    _running.add(p)
+    try:
+        out, err = p.communicate(timeout=timeout)
+        return p.returncode, out or "", err or ""
+    except subprocess.TimeoutExpired:
+        p.kill()
+        try:
+            p.communicate(timeout=1.0)
+        except subprocess.TimeoutExpired:
+            _stuck[name] = p
+        return -1, "", f"{name} 응답 없음 ({timeout:.0f}s 초과)"
+    finally:
+        _running.discard(p)
+
+
+def kill_children() -> None:
+    """끝낼 때 — 아직 도는 smi·ps 를 죽인다 (멈춘 smi 가 고아로 남지 않게)."""
+    for p in list(_running) + list(_stuck.values()):
+        try:
+            p.kill()
+        except OSError:
+            pass
+
+
+def run_smi_json(subcmd: str, timeout: float = 3.0) -> list[dict]:
+    rc, out, _ = run_cmd(["furiosa-smi", subcmd, "--format", "json"], timeout)
+    if rc != 0:
+        return []
+    try:
+        return json.loads(out or "[]")
+    except json.JSONDecodeError:
         return []
 
 
 def run_smi_text(subcmd: str, timeout: float = 3.0) -> str:
-    try:
-        r = subprocess.run(
-            ["furiosa-smi", subcmd],
-            capture_output=True, text=True, timeout=timeout, check=False,
-        )
-        return (r.stdout or "") + (("\n" + r.stderr) if r.stderr.strip() else "")
-    except Exception as e:
-        return f"(error: {e})"
+    rc, out, err = run_cmd(["furiosa-smi", subcmd], timeout)
+    return out + (("\n" + err) if err.strip() else "")
 
 
 MGMT_SYSFS = "/sys/class/rngd_mgmt/rngd!{}mgmt"
@@ -282,18 +323,6 @@ def gather() -> list[NpuDev]:
 
 
 # ──────────────────────────── GPU (nvidia-smi) ────────────────────────────
-def run_cmd(argv: list[str], timeout: float = 3.0) -> tuple[int, str, str]:
-    """(returncode, stdout, stderr). 실행 파일이 없거나 시간을 넘기면 returncode -1."""
-    try:
-        r = subprocess.run(argv, capture_output=True, text=True, errors="replace",
-                           timeout=timeout, check=False)
-        return r.returncode, r.stdout or "", r.stderr or ""
-    except subprocess.TimeoutExpired:
-        return -1, "", f"{argv[0]} 응답 없음 ({timeout:.0f}s 초과)"
-    except OSError as e:
-        return -1, "", f"{argv[0]} 실행 실패: {e.strerror or e}"
-
-
 def _first_line(s: str) -> str:
     for line in s.splitlines():
         if line.strip():
@@ -331,6 +360,8 @@ GPU_CLOCK_EVENTS = [
     (0x040, "hw thermal", "bold red"),
     (0x080, "hw power brake", "bold red"),
     (0x100, "display clocks", "dim"),
+    (0x200, "board limit", "yellow"),
+    (0x400, "reliability", "yellow"),
 ]
 
 
@@ -410,12 +441,25 @@ def _proc_user_cmd(pid: int) -> tuple[str, str]:
     return user, cmd
 
 
-def gather_gpu_procs() -> tuple[list[GpuProc], str]:
-    """(GPU 를 쓰는 프로세스 — 메모리 큰 순, 오류 문구)."""
-    rc, out, err = run_cmd(["nvidia-smi", "pmon", "-c", "1", "-s", "um"])
-    if rc != 0:
-        return [], _first_line(err) or _first_line(out) or f"nvidia-smi pmon 실패 (종료 코드 {rc})"
-    procs = parse_pmon(out)
+PMON_MAX_GPUS = 4       # nvidia-smi pmon 은 한 번에 GPU 4장까지만 본다 (pmon -h)
+
+
+def gather_gpu_procs(indices: list[int] | None = None) -> tuple[list[GpuProc], str]:
+    """(GPU 를 쓰는 프로세스 — 메모리 큰 순, 오류 문구).
+    indices 는 GPU 번호들 — 4장이 넘으면 -i 로 4장씩 나눠 묻는다."""
+    chunks: list = [None]
+    if indices and len(indices) > PMON_MAX_GPUS:
+        chunks = [indices[i:i + PMON_MAX_GPUS] for i in range(0, len(indices), PMON_MAX_GPUS)]
+    procs: list[GpuProc] = []
+    for chunk in chunks:
+        argv = ["nvidia-smi", "pmon", "-c", "1", "-s", "um"]
+        if chunk:
+            argv += ["-i", ",".join(str(i) for i in chunk)]
+        rc, out, err = run_cmd(argv)
+        if rc != 0:
+            return [], (_first_line(err) or _first_line(out)
+                        or f"nvidia-smi pmon 실패 (종료 코드 {rc})")
+        procs += parse_pmon(out)
     for p in procs:
         p.user, p.cmd = _proc_user_cmd(p.pid)
     procs.sort(key=lambda p: -(p.fb_mib or 0.0))
@@ -481,6 +525,23 @@ def _join(parts: list[Text]) -> Text:
         if out.plain:
             out.append("  ·  ", style="dim")
         out.append(p)
+    return out
+
+
+def _flow(parts: list[Text], width: int) -> Text:
+    """조각들을 '  ·  ' 로 잇되, 폭 width 를 넘으면 조각 사이에서 줄을 바꾼다 (조각 안에서는 안 끊는다)."""
+    out, used = Text(), 0
+    for p in parts:
+        if not p.plain:
+            continue
+        if used and used + 5 + p.cell_len > width:
+            out.append("\n")
+            used = 0
+        elif used:
+            out.append("  ·  ", style="dim")
+            used += 5
+        out.append(p)
+        used += p.cell_len
     return out
 
 
@@ -555,15 +616,16 @@ def mem_text(d: "NpuDev", width: int = 12) -> Text:
     return mem_only_text(d.mem_used, d.mem_total)
 
 
-def render_devices(devs: list[NpuDev], console_width: int = 140, compact: bool = False) -> Table:
+def render_devices(devs: list[NpuDev], console_width: int = 140, compact: bool = False,
+                   percore: bool = True) -> Table:
     # per-core 컬럼 표시 여부 — 8코어 기준 2행 안에 들어갈 때만 (3행 이상이면 숨김)
     n_cores = len(devs[0].core_utils) if devs and devs[0].core_utils else 8
     label_w = len(str(max(n_cores - 1, 0)))
     per_row = cores_per_row(console_width, n_cores, label_width=label_w)
-    show_percore = per_row * 2 >= n_cores       # 2행 이내일 때만 표시
+    show_percore = percore and per_row * 2 >= n_cores       # 2행 이내일 때만 표시
 
     # padding=(0,0) 으로 컬럼 양 옆 공백 제거 → 좁은 콘솔에서 표가 안 잘리도록
-    # compact: 세로 자리가 모자랄 때 행 사이 구분선을 뺀다
+    # 세로 자리가 모자랄 때: compact 는 행 사이 구분선을, percore=False 는 Per-core 열을 뺀다
     tbl = Table(expand=True, show_lines=not compact, header_style="bold cyan",
                 border_style="bright_black", padding=(0, 0))
     tbl.add_column("Device", style="bold yellow", width=5)
@@ -600,8 +662,9 @@ def render_devices(devs: list[NpuDev], console_width: int = 140, compact: bool =
 
 def render_header(devs: list[NpuDev], title: str = "ntop", *, pages: list[str] | None = None,
                   page: int = 0, keys_on: bool = False, width: int = 0,
-                  warn: str = "") -> Panel:
-    """요약 한 줄. 화면이 둘 이상이면 위 테두리에 화면 탭, 아래 테두리에 키 안내를 단다."""
+                  warn: Text | None = None, gpus: list[GpuDev] | None = None) -> Panel:
+    """요약 한 줄. 화면이 둘 이상이면 위 테두리에 화면 탭, 아래 테두리에 키 안내를 단다.
+    gpus 를 주면(GPU 패널이 켜진 경우) 어느 장치의 합계인지 NPU·GPU 로 묶어 라벨을 단다."""
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     n_alive = sum(1 for d in devs if d.liveness == "alive")
     n_busy = sum(1 for d in devs if any(d.core_busy))
@@ -619,16 +682,31 @@ def render_header(devs: list[NpuDev], title: str = "ntop", *, pages: list[str] |
     mem_color_style = util_color(mem_ratio) if mem_ratio > 0.01 else "dim"
 
     parts = [Text(title, style="bold bright_cyan"), Text(now, style="white")]
-    if warn:
-        parts.append(Text(warn, style="bold red"))
+    if warn is not None:
+        parts.append(warn)
+    alive = Text(f"{n_alive}/{len(devs)} alive", style="green")
+    util = Text(f"{total_util*100:5.1f}%", style=util_color_style)
+    if gpus is None:
+        parts += [alive, Text.assemble(("NPU ", "bold"), util)]
+    else:
+        parts += [Text.assemble(("NPU ", "bold"), alive), Text.assemble(("util ", "bold"), util)]
     parts += [
-        Text(f"{n_alive}/{len(devs)} alive", style="green"),
-        Text.assemble(("NPU ", "bold"), (f"{total_util*100:5.1f}%", util_color_style)),
         Text.assemble(("MEM ", "bold"), (f"{mem_used:4.1f}/{mem_total:.0f}G", mem_color_style)),
         Text(f"{n_busy} busy", style="yellow"),
         Text(f"{total_pwr:.0f}W", style="magenta"),
         Text(f"avg {avg_temp:.1f}°C", style="red" if avg_temp >= 70 else ""),
     ]
+    if gpus:
+        utils = [u for u in (g.ratio("utilization.gpu") for g in gpus) if u is not None]
+        g_power = [w for w in (g.num("power.draw") for g in gpus) if w is not None]
+        gpu = Text.assemble(("GPU ", "bold"))
+        if utils:
+            gpu.append(pct_text(sum(utils) / len(utils), width=5))
+            gpu.append("  ")
+        gpu.append(mem_only_text(sum(g.mem_used for g in gpus), sum(g.mem_total for g in gpus)))
+        if g_power:
+            gpu.append(f"  {sum(g_power):.0f}W", style="magenta")
+        parts.append(gpu)
     # 한 줄에 안 들어가면 뒤에서부터 뺀다 — 줄이 넘어가면 둘째 줄은 잘려서 안 보인다
     while width and len(parts) > 2 and \
             sum(p.cell_len for p in parts) + 5 * (len(parts) - 1) > width - 4:
@@ -805,39 +883,23 @@ def gather_host() -> HostStat:
 
 
 def _cpu_summary(host: HostStat, console_width: int, load: bool = False) -> Text:
-    """'CPU · RAM · SWAP (· load) (· 칩셋)' 한 줄 — 칩셋은 폭이 남을 때만."""
-    # cell width 추정: 'CPU XXX.X%'=10, sep=5, 'RAM XXX.X/XXXG (XX.X%)'=22,
-    # 'SWAP XXX.X/XXXG (XX.X%)'=23
-    PANEL_CHROME = 6
-    body = Text()
-    body.append("CPU ", style="bold")
-    body.append(pct_text(host.cpu_total, width=5))
-    body.append("  ·  ", style="dim")
-    body.append("RAM ", style="bold")
-    body.append(mem_only_text(host.ram_used, host.ram_total))
-
-    head_w = 10 + 5 + 22         # 현재까지 사용한 폭 (CPU + sep + RAM)
-
-    # SWAP — CPU/RAM 처럼 항상 표시 (swap_total>0 일 때).
-    # 매우 좁은 콘솔이면 rich wrap 으로 다음 줄로 넘어감 — 잘리지는 않음.
-    swap_w = 5 + 5 + 22          # sep + 'SWAP ' (5) + mem 표기 ≈ 32
+    """'CPU · RAM · SWAP (· load) (· 칩셋)' — 좁은 콘솔에서는 조각 사이에서 다음 줄로 넘어간다."""
+    parts = [
+        Text.assemble(("CPU ", "bold"), pct_text(host.cpu_total, width=5)),
+        Text.assemble(("RAM ", "bold"), mem_only_text(host.ram_used, host.ram_total)),
+    ]
     if host.swap_total > 0:
-        body.append("  ·  ", style="dim")
-        body.append("SWAP ", style="bold")
-        body.append(mem_only_text(host.swap_used, host.swap_total))
-        head_w += swap_w
-
+        parts.append(Text.assemble(("SWAP ", "bold"),
+                                   mem_only_text(host.swap_used, host.swap_total)))
     if load and host.loadavg:
-        body.append("  ·  ", style="dim")
-        body.append("load ", style="bold")
-        body.append(host.loadavg)
-        head_w += 5 + 5 + len(host.loadavg)
+        parts.append(Text.assemble(("load ", "bold"), host.loadavg))
 
     # 칩셋(model) 은 한 행에 같이 들어갈 폭 일 때만 (자동 생략)
-    if console_width >= PANEL_CHROME + head_w + 5 + len(host.model):
-        body.append("  ·  ", style="dim")
-        body.append(host.model, style="dim italic")
-    return body
+    avail = console_width - 4               # 패널 테두리·여백
+    used = sum(p.cell_len for p in parts) + 5 * (len(parts) - 1)
+    if used + 5 + len(host.model) <= avail:
+        parts.append(Text(host.model, style="dim italic"))
+    return _flow(parts, avail)
 
 
 def _cpu_cores(host: HostStat, console_width: int, strip: bool, by_node: bool) -> list:
@@ -1028,13 +1090,13 @@ def _gpu_proc_brief(p: GpuProc) -> str:
     return name
 
 
-def render_gpus(snap: Snapshot, console_width: int = 140) -> Table:
-    """첫 화면의 GPU 표 — GPU 한 장에 한 줄."""
+def render_gpus(snap: Snapshot, console_width: int = 140, compact: bool = False) -> Table:
+    """첫 화면의 GPU 표 — GPU 한 장에 한 줄. compact 면 행 사이 구분선을 뺀다."""
     failed = bool(snap.gpu_error) or not snap.gpus
     show_name = console_width >= 80 or failed       # 오류 문구는 Name 칸에 쓴다
     show_procs = console_width >= 120
 
-    tbl = Table(expand=True, show_lines=True, header_style="bold cyan",
+    tbl = Table(expand=True, show_lines=not compact, header_style="bold cyan",
                 border_style="bright_black", padding=(0, 0))
     tbl.add_column("Device", style="bold yellow", width=6)
     if show_name:
@@ -1058,7 +1120,7 @@ def render_gpus(snap: Snapshot, console_width: int = 140) -> Table:
         power = g.num("power.draw")
         row: list = [f"gpu{g.index}"]
         if show_name:
-            row.append(g.name.removeprefix("NVIDIA "))
+            row.append(g.name[7:] if g.name.startswith("NVIDIA ") else g.name)
         row += [
             pct_text(util, width=5) if util is not None else na,
             mem_only_text(g.mem_used, g.mem_total),
@@ -1085,16 +1147,17 @@ def _gpu_detail_panel(g: GpuDev, procs: list[GpuProc], procs_error: str,
     """둘째 화면의 GPU 한 장 — 막대 넷(사용률·메모리·전력·온도) + 세부 값 + 프로세스.
     compact 면 세부 값(클럭·PCIe·드라이버·UUID)을 뺀다."""
     bar_w = max(10, min(40, console_width // 4))
+    flow_w = console_width - 12             # 패널 테두리·여백 4 + 항목 이름 6 + 열 사이 2
     na = Text("N/A", style="dim")
     grid = Table.grid(padding=(0, 2))
     grid.add_column(style="bold", no_wrap=True)
     grid.add_column()
 
     def bar_row(label: str, ratio: float, value: Text, extras: list[Text], style: str = "") -> None:
-        row = bar_text(ratio, bar_w, style)
-        row.append(" ")
-        row.append(_join([value] + extras))
-        grid.add_row(label, row)
+        head = bar_text(ratio, bar_w, style)
+        head.append(" ")
+        head.append(value)
+        grid.add_row(label, _flow([head] + extras, flow_w))
 
     # 사용률 — GPU 전체와 엔진별
     util = g.ratio("utilization.gpu")
@@ -1104,7 +1167,9 @@ def _gpu_detail_panel(g: GpuDev, procs: list[GpuProc], procs_error: str,
                        ("utilization.ofa", "ofa")):
         v = g.ratio(key)
         if v is not None:
-            engines.append(Text.assemble((f"{label} ", "dim"), pct_text(v, width=1)))
+            # nvidia-smi 가 정수 % 로 준다 — 소수 자리 없이, 폭은 고정 (값이 바뀌어도 줄이 안 밀리게)
+            engines.append(Text.assemble((f"{label} ", "dim"), (
+                f"{v * 100:3.0f}%", "dim" if v < 0.005 else util_color(v))))
     bar_row("Util", util or 0.0, pct_text(util, width=5) if util is not None else na, engines)
 
     # 메모리
@@ -1123,7 +1188,7 @@ def _gpu_detail_panel(g: GpuDev, procs: list[GpuProc], procs_error: str,
         value = Text(f"{power:5.1f}" + (f"/{limit:.0f}" if limit else "") + "W", style="magenta")
         if limit:
             value.append(f" ({p_ratio * 100:4.1f}%)", style="dim")
-    extras = [Text(f"{label} {v:.1f}W", style="dim")
+    extras = [Text(f"{label} {v:5.1f}W", style="dim")
               for key, label in (("power.draw.average", "avg"), ("power.draw.instant", "instant"))
               if (v := g.num(key)) is not None]
     bar_row("Power", p_ratio, value, extras)
@@ -1138,11 +1203,11 @@ def _gpu_detail_panel(g: GpuDev, procs: list[GpuProc], procs_error: str,
         value = Text(f"{temp:5.1f}°C", style=t_style)
     extras = []
     if margin is not None and margin > 0:
-        extras.append(Text(f"{margin:.0f}°C below T.Limit", style="dim"))
+        extras.append(Text(f"{margin:2.0f}°C below T.Limit", style="dim"))
     elif margin is not None:
-        extras.append(Text(f"{-margin:.0f}°C over T.Limit", style="bold red"))
+        extras.append(Text(f"{-margin:2.0f}°C over T.Limit", style="bold red"))
     fan = g.num("fan.speed")
-    extras.append(Text(f"fan {fan:.0f}%" if fan is not None else "fan N/A", style="dim"))
+    extras.append(Text(f"fan {fan:3.0f}%" if fan is not None else "fan  N/A", style="dim"))
     if g.txt("pstate"):
         extras.append(Text(g.txt("pstate"), style="dim"))
     bar_row("Temp", t_ratio, value, extras, style=t_style or "green")
@@ -1153,7 +1218,8 @@ def _gpu_detail_panel(g: GpuDev, procs: list[GpuProc], procs_error: str,
                                     ("memory", "clocks.current.memory", "clocks.max.memory")):
         cur, top = g.num(cur_key), g.num(max_key)
         if cur is not None:
-            clocks.append(Text(f"{label} {cur:.0f}" + (f"/{top:.0f}" if top is not None else "") + " MHz"))
+            clocks.append(Text(f"{label} {cur:5.0f}"
+                               + (f"/{top:.0f}" if top is not None else "") + " MHz"))
     events = g.clock_events
     if events is not None:
         ev = Text("throttle ", style="dim")
@@ -1164,7 +1230,7 @@ def _gpu_detail_panel(g: GpuDev, procs: list[GpuProc], procs_error: str,
             ev.append("none", style="green")
         clocks.append(ev)
     if clocks and not (compact and not events):
-        grid.add_row("Clocks", _join(clocks))
+        grid.add_row("Clocks", _flow(clocks, flow_w))
 
     # PCIe 링크 (유휴일 때는 드라이버가 세대를 낮추기도 한다)
     link = []
@@ -1178,7 +1244,7 @@ def _gpu_detail_panel(g: GpuDev, procs: list[GpuProc], procs_error: str,
     if g.txt("pci.bus_id"):
         link.append(Text(f"bus {g.txt('pci.bus_id')}", style="dim"))
     if link and not compact:
-        grid.add_row("PCIe", _join(link))
+        grid.add_row("PCIe", _flow(link, flow_w))
 
     # 드라이버·모드·ECC
     info = []
@@ -1194,7 +1260,7 @@ def _gpu_detail_panel(g: GpuDev, procs: list[GpuProc], procs_error: str,
         info.append(Text(f"ECC {ecc_ok or 0:.0f} corrected / {ecc_bad or 0:.0f} uncorrected",
                          style="bold red" if ecc_bad else "dim"))
     if info and not (compact and not ecc_bad):
-        grid.add_row("Driver", _join(info))
+        grid.add_row("Driver", _flow(info, flow_w))
     if g.txt("uuid") and not compact:
         grid.add_row("UUID", Text(g.txt("uuid"), style="dim"))
 
@@ -1246,71 +1312,77 @@ def _height(console: Console, renderable, width: int) -> int:
 def build_layout(snap: Snapshot, args: argparse.Namespace, *, console: Console,
                  pages: list[str], page: int = 0, title: str = "ntop",
                  keys_on: bool = False) -> Layout:
-    width, height = console.size.width, console.size.height
+    width = console.size.width
+    body_h = console.size.height - 3        # 요약 패널(3줄) 아래로 쓸 수 있는 줄 수
 
-    warn = ""
-    if snap.error:
-        warn = f"수집 오류: {snap.error}"
-    elif not snap.ts:
-        warn = "furiosa-smi 응답 대기 중"
-    elif time.monotonic() - snap.ts > max(3.0, 5 * args.interval):
-        warn = f"NPU 데이터 {time.monotonic() - snap.ts:.0f}초 전"
+    def sized(name: str, renderable) -> tuple:
+        return name, renderable, _height(console, renderable, width)
 
     # (이름, 내용, 높이) — 높이 None 은 남는 자리를 다 쓴다
-    blocks: list[tuple[str, object, int | None]] = [
-        ("header", render_header(snap.devs, title=title, pages=pages, page=page,
-                                 keys_on=keys_on, width=width, warn=warn), 3),
-    ]
-
-    def fixed(name: str, renderable) -> None:
-        blocks.append((name, renderable, _height(console, renderable, width)))
-
+    blocks: list[tuple[str, object, int | None]] = []
     if pages[page] == "Detail":
         # 다 안 들어가면 ① 코어를 한 칸 막대로 줄이고 ② 그래도 모자라면 GPU 세부 값을 뺀다
         for cores, compact in (("grid", False), ("strip", False), ("strip", True)):
-            cpu = render_cpu(snap.host, width, cores=cores, detail=True) if args.cpu else None
+            fixed = [sized("cpu", render_cpu(snap.host, width, cores=cores, detail=True))] \
+                if args.cpu else []
             gpu = render_gpu_detail(snap, width, compact=compact) if args.gpu else None
-            cpu_h = _height(console, cpu, width) if cpu else 0
-            if 3 + cpu_h + (_height(console, gpu, width) if gpu else 0) <= height:
+            room = body_h - sum(h for _, _, h in fixed) - (_height(console, gpu, width) if gpu else 0)
+            if room >= 0:
                 break
-        if cpu:
-            blocks.append(("cpu", cpu, cpu_h))
-        blocks.append(("gpu", gpu if gpu is not None else Text(""), None))
+        blocks = fixed + [("gpu", gpu if gpu is not None else Text(""), None)]
     else:
+        def overview(level: int) -> list:
+            out = []
+            if not args.raw:
+                out.append(sized("devices", Panel(
+                    render_devices(snap.devs, console_width=width, compact=level >= 1,
+                                   percore=level < 3),
+                    title="NPU Devices", border_style="cyan")))
+            if args.cpu:
+                # GPU 표가 있으면 요약 한 줄만 — 코어별은 둘째 화면에 있다.
+                # GPU 가 없으면 예전처럼 넓은 콘솔(≥ 120칸)에서 코어 그리드까지.
+                cores = "" if args.gpu or width < 120 else "grid"
+                out.append(sized("cpu", render_cpu(snap.host, width, cores=cores)))
+            if args.gpu:
+                out.append(sized("gpu", Panel(
+                    render_gpus(snap, console_width=width, compact=level >= 2),
+                    title="GPU Devices", border_style="green")))
+            return out
+
+        # 프로세스(또는 원본) 패널 몫으로 남기고 싶은 줄 수: 테두리·머리 4줄 + 내용 4줄
+        want = 0 if args.no_ps and not args.raw else 8
+        # 세로가 모자라면 ① NPU 표 ② GPU 표의 행 구분선을 빼고,
+        # ③ 그래도 표가 화면을 넘으면 NPU 표의 Per-core 열을 숨긴다
+        for level in range(4):
+            fixed = overview(level)
+            room = body_h - sum(h for _, _, h in fixed)
+            if room >= want or (level == 2 and room >= 0):
+                break
         if args.raw:
             blocks.append(("raw", Panel(Text(snap.raw_payload),
                                         title="furiosa-smi status/info (raw JSON)",
                                         border_style="cyan"), None))
-        else:
-            fixed("devices", Panel(render_devices(snap.devs, console_width=width),
-                                   title="NPU Devices", border_style="cyan"))
-        if args.cpu:
-            # GPU 표가 있으면 요약 한 줄만 — 코어별은 둘째 화면에 있다.
-            # GPU 가 없으면 예전처럼 넓은 콘솔(≥ 120칸)에서 코어 그리드까지.
-            cores = "" if args.gpu or width < 120 else "grid"
-            fixed("cpu", render_cpu(snap.host, width, cores=cores))
-        if args.gpu:
-            fixed("gpu", Panel(render_gpus(snap, console_width=width),
-                               title="GPU Devices", border_style="green"))
-
-        # 프로세스 패널 몫으로 남는 줄. 모자라면 NPU 표의 행 구분선부터 뺀다.
-        PS_ROOM = 8                             # 테두리·머리 4줄 + 프로세스 4줄
-        want = 0 if args.no_ps else PS_ROOM
-        room = height - sum(size or 0 for _, _, size in blocks)
-        if room < want and not args.raw:
-            i = next(i for i, b in enumerate(blocks) if b[0] == "devices")
-            dev = Panel(render_devices(snap.devs, console_width=width, compact=True),
-                        title="NPU Devices", border_style="cyan")
-            dev_h = _height(console, dev, width)
-            room += blocks[i][2] - dev_h
-            blocks[i] = ("devices", dev, dev_h)
+        blocks += fixed
         if not args.no_ps and room >= 5:        # 5줄 미만이면 프로세스가 한 줄도 안 보인다
             gpu_mem = {p.pid: p.fb_mib for p in snap.gpu_procs if p.fb_mib is not None} \
                 if args.gpu else None
             blocks.append(("ps", render_ps(snap.ps_rows, gpu_mem), None))
 
+    warn = None
+    if snap.error:
+        warn = Text(f"수집 오류: {snap.error}", style="bold red")
+    elif not snap.ts:
+        warn = Text("furiosa-smi 응답 대기 중", style="bold red")
+    elif time.monotonic() - snap.ts > max(3.0, 5 * args.interval):
+        warn = Text(f"NPU 데이터 {time.monotonic() - snap.ts:.0f}초 전", style="bold red")
+    elif room < 0:
+        warn = Text("창이 작아 아래가 잘림", style="yellow")
+    header = render_header(snap.devs, title=title, pages=pages, page=page, keys_on=keys_on,
+                           width=width, warn=warn, gpus=snap.gpus if args.gpu else None)
+
     layout = Layout()
-    layout.split(*[Layout(renderable, name=name, size=size) for name, renderable, size in blocks])
+    layout.split(Layout(header, name="header", size=3),
+                 *[Layout(renderable, name=name, size=size) for name, renderable, size in blocks])
     return layout
 
 
@@ -1335,10 +1407,14 @@ def gather_raw() -> str:
 class Poller(threading.Thread):
     """fn 을 period 초마다 불러 마지막 결과를 들고 있는다."""
 
+    resumed_at = 0.0                        # Ctrl+Z 로 멈췄다가 다시 돌기 시작한 시각 (SIGCONT)
+    paused = False                          # 화면을 안 그리는 동안(배경 작업)은 수집도 쉰다
+
     def __init__(self, name: str, fn, period: float, on_update=None) -> None:
         super().__init__(name=f"ntop-{name}", daemon=True)
         self.fn, self.period, self.on_update = fn, period, on_update
         self.value = None
+        self.started = 0.0                  # 지금 도는(또는 마지막) fn 호출을 시작한 시각
         self.ts = 0.0                       # 마지막으로 fn 이 끝난 시각 (time.monotonic)
         self.error = ""                     # fn 이 던진 예외
         self.ready = threading.Event()      # 첫 수집이 끝나면 켜진다
@@ -1346,21 +1422,30 @@ class Poller(threading.Thread):
 
     def run(self) -> None:
         while not self._halt.is_set():
-            t0 = time.monotonic()
+            if Poller.paused:
+                self._halt.wait(0.2)
+                continue
+            self.started = t0 = time.monotonic()
             try:
-                self.value, self.error = self.fn(), ""
+                value, error = self.fn(), ""
             except Exception as e:          # 수집 버그로 스레드가 죽어 화면이 굳는 일은 없게
-                self.error = f"{type(e).__name__}: {e}"
+                value, error = self.value, f"{type(e).__name__}: {e}"
+            if time.monotonic() - t0 > 2.5:
+                self._halt.wait(0.1)        # 막 깨어난 참이면 SIGCONT 처리기가 resumed_at 을 적을 틈
+            if Poller.resumed_at > t0:
+                continue                    # 도는 사이에 Ctrl+Z 로 멈췄다 깼다 — 시간 초과가 가짜라 버리고 다시 돈다
+            self.value, self.error = value, error
             self.ts = time.monotonic()
             self.ready.set()
             if self.on_update:
                 self.on_update()
             self._halt.wait(max(0.0, self.period - (time.monotonic() - t0)))
 
-    def stalled(self, now: float) -> float:
-        """fn 이 오래 안 끝나고 있으면(죽지도 않는 smi 등) 멈춘 지 몇 초인지, 아니면 0."""
-        age = now - self.ts
-        return age if self.ts and age > max(5.0, 5 * self.period) else 0.0
+    def stalled(self, now: float, since: float = 0.0) -> float:
+        """지금 도는 fn 호출이 오래 안 끝나고 있으면 몇 초째인지, 아니면 0.
+        since(화면을 다시 쓰기 시작한 시각) 전에 흐른 시간은 치지 않는다."""
+        age = now - max(self.started, since)
+        return age if self.started > self.ts and age > max(5.0, 5 * self.period) else 0.0
 
     def stop(self) -> None:
         self._halt.set()
@@ -1372,6 +1457,8 @@ class Sources:
 
     def __init__(self, args: argparse.Namespace, on_update) -> None:
         interval = max(args.interval, 0.1)
+        # 화면을 (다시) 쓰기 시작한 시각 — 멈춰 있던 동안은 수집이 늦은 것으로 치지 않는다
+        self.since = 0.0
         # 화면은 NPU 수집이 끝날 때마다 다시 그린다 (on_update)
         self.pollers: dict[str, Poller] = {"npu": Poller("npu", gather, interval, on_update)}
         if args.raw:
@@ -1380,10 +1467,14 @@ class Sources:
             self.pollers["host"] = Poller("host", gather_host, interval)
         if args.gpu:
             self.pollers["gpu"] = Poller("gpu", gather_gpus, max(interval, GPU_PERIOD))
-            self.pollers["gpu_procs"] = Poller("gpu_procs", gather_gpu_procs,
+            self.pollers["gpu_procs"] = Poller("gpu_procs", self._gpu_procs,
                                                max(interval, PROCS_PERIOD))
         if not args.no_ps:
             self.pollers["ps"] = Poller("ps", self._ps, max(interval, PROCS_PERIOD))
+
+    def _gpu_procs(self) -> tuple[list[GpuProc], str]:
+        gpus = (self.pollers["gpu"].value or ([], ""))[0]
+        return gather_gpu_procs([g.index for g in gpus])
 
     def _ps(self) -> list[tuple[str, ...]] | None:
         procs: list[GpuProc] = []
@@ -1398,8 +1489,8 @@ class Sources:
             p.start()
 
     def wait_ready(self) -> None:
-        """첫 화면에 빈 표가 번쩍이지 않게 첫 수집을 기다린다. NPU 는 5초, 나머지는 0.5초 더."""
-        self.pollers["npu"].ready.wait(5.0)
+        """첫 화면에 빈 표가 번쩍이지 않게 첫 수집을 기다린다. NPU 는 2초, 나머지는 0.5초 더."""
+        self.pollers["npu"].ready.wait(2.0)
         deadline = time.monotonic() + 0.5
         for p in self.pollers.values():
             p.ready.wait(max(0.0, deadline - time.monotonic()))
@@ -1422,11 +1513,12 @@ class Sources:
         def smi(name: str) -> tuple[list, str]:
             """nvidia-smi 결과 (목록, 오류 문구). 아직 안 왔거나 오래 멈춰 있으면 그 사정을 오류로."""
             p = self.pollers[name]
-            if p.stalled(now):
-                return [], f"nvidia-smi 응답 없음 ({p.stalled(now):.0f}초째)"
+            if p.stalled(now, self.since):
+                return [], f"nvidia-smi 응답 없음 ({p.stalled(now, self.since):.0f}초째)"
             return value(name, ([], "nvidia-smi 응답 대기 중"))
 
-        snap.devs, snap.ts = value("npu", []), self.pollers["npu"].ts
+        npu = self.pollers["npu"]
+        snap.devs, snap.ts = value("npu", []), max(npu.ts, self.since) if npu.ts else 0.0
         snap.raw_payload = value("raw", "")
         snap.host = value("host", None)
         if "gpu" in self.pollers:
@@ -1476,52 +1568,69 @@ def parse_keys(buf: str) -> tuple[list[str], str]:
             if buf[i + 2] in _ESC_KEYS:
                 keys.append(_ESC_KEYS[buf[i + 2]])
             i += 3
-        else:                               # Alt+키 — 안 쓴다
-            i += 2
+        else:                               # Alt+키 — 안 쓴다. ESC ESC [ C 는 뒤 ESC 부터 다시 본다
+            i += 1 if buf[i + 1] == "\x1b" else 2
     return keys, ""
 
 
-class KeyReader:
-    """stdin 을 cbreak(한 글자씩, 에코 없음)로 두고 키를 읽는다.
+def in_foreground() -> bool:
+    """우리가 터미널의 전면 작업인가. 배경에서 터미널을 읽거나 설정을 바꾸면 SIGTTIN·SIGTTOU 로
+    프로세스가 멈추므로, 화면과 키는 전면일 때만 쓴다. 터미널이 없으면(파이프 등) 늘 True."""
+    for stream in (sys.stdin, sys.stdout):
+        try:
+            fd = stream.fileno()
+            if os.isatty(fd):
+                return os.tcgetpgrp(fd) == os.getpgrp()
+        except (OSError, ValueError, AttributeError):
+            continue
+    return True
 
-    stdin 이 터미널이 아니거나 배경 작업으로 떠 있으면 손대지 않는다 (fd 가 None).
+
+class KeyReader:
+    """stdin 을 cbreak(한 글자씩, 에코 없음)로 두고 키를 읽는다. 켜고 끄는 때는 메인 루프가 정한다.
+
+    stdin 이 터미널이 아니면 켜도 아무 일도 안 한다 (fd 가 None 으로 남는다).
     """
 
     def __init__(self) -> None:
-        self.fd: int | None = None          # 읽을 fd — 입력이 끝나면 None 으로 바뀐다
-        self._tty: int | None = None        # 설정을 되돌릴 fd
-        self._saved = None
+        self.fd: int | None = None          # 읽을 fd — 꺼져 있거나 입력이 끝났으면 None
+        self._tty: int | None = None        # stdin 이 터미널이면 그 fd
+        self._saved = None                  # 켜기 전의 터미널 설정
+        self._eof = False
         self._pending = ""
-
-    def _foreground(self, fd: int) -> bool:
-        return os.isatty(fd) and os.tcgetpgrp(fd) == os.getpgrp()
-
-    def __enter__(self) -> "KeyReader":
+        # 여러 바이트 글자(ㅂ)가 읽기 경계에 걸려도 이어 붙인다
+        self._decode = codecs.getincrementaldecoder("utf-8")(errors="ignore").decode
         try:
-            fd = sys.stdin.fileno()
-            if self._foreground(fd):
-                self._saved = termios.tcgetattr(fd)
-                tty.setcbreak(fd)
-                self.fd = self._tty = fd
-        except (OSError, ValueError, AttributeError, termios.error):
-            self.fd = None
-        return self
+            if os.isatty(sys.stdin.fileno()):
+                self._tty = sys.stdin.fileno()
+        except (OSError, ValueError, AttributeError):
+            pass
 
-    def __exit__(self, *exc) -> None:
-        if self._tty is not None and self._saved is not None:
+    def on(self) -> None:
+        """cbreak 로 바꾸고 키를 읽기 시작한다. 이미 켜져 있으면 cbreak 만 다시 건다
+        (멈췄다 깨어난 사이 셸이 터미널을 줄 단위 입력으로 돌려놓았을 때)."""
+        if self._tty is None or self._eof:
+            return
+        try:
+            if self._saved is None:
+                self._saved = termios.tcgetattr(self._tty)
+            tty.setcbreak(self._tty)
+            self.fd = self._tty
+        except termios.error:
+            self.fd = None
+
+    def off(self, restore: bool = True) -> None:
+        """키 읽기를 멈춘다. restore 면 켜기 전의 터미널 설정으로 되돌린다
+        (배경으로 밀려난 뒤라면 터미널은 이미 셸 것이라 건드리지 않는다)."""
+        self.fd = None
+        self._pending = ""
+        if restore and self._saved is not None:
             try:
                 # TCSAFLUSH: 안 읽은 키가 셸 프롬프트로 새지 않게 버린다
                 termios.tcsetattr(self._tty, termios.TCSAFLUSH, self._saved)
             except termios.error:
                 pass
-
-    def resume(self) -> None:
-        """Ctrl+Z 뒤 fg 로 돌아오면 셸이 터미널을 줄 단위 입력으로 돌려놓은 상태 — 다시 cbreak 로."""
-        try:
-            if self._tty is not None and self._foreground(self._tty):
-                tty.setcbreak(self._tty)
-        except (OSError, termios.error):
-            pass
+        self._saved = None
 
     def read(self) -> list[str]:
         """지금 들어와 있는 입력을 키 목록으로. select 가 읽을 수 있다고 한 뒤에 부른다."""
@@ -1532,15 +1641,15 @@ class KeyReader:
             except OSError:
                 data = b""
             if not data:                    # EOF·오류 — 더 읽지 않는다 (select 가 계속 깨우므로)
-                self.fd = None
+                self.fd, self._eof = None, True
                 break
-            self._pending += data.decode("utf-8", errors="ignore")
+            self._pending += self._decode(data)
             got, self._pending = parse_keys(self._pending)
             keys += got
             if not self._pending:
                 break
             # 이스케이프 시퀀스가 덜 왔다 — 잠깐 더 기다리고, 안 오면 Esc 만 누른 것으로 보고 버린다
-            if not select.select([self.fd], [], [], 0.05)[0]:
+            if not select.select([self.fd], [], [], 0.1)[0]:
                 self._pending = ""
                 break
         return keys
@@ -1582,66 +1691,109 @@ def main() -> None:
     pages = ["Overview"] + (["Detail"] if args.cpu or args.gpu else [])
     page = max(0, min(len(pages) - 1, args.page - 1))
 
-    # 수집 스레드·시그널이 메인 루프의 select 를 깨우는 파이프
+    # 수집 스레드와 시그널이 메인 루프의 select 를 깨우는 파이프
     wake_r, wake_w = os.pipe()
     os.set_blocking(wake_r, False)
     os.set_blocking(wake_w, False)
 
-    def wake(*_) -> None:
+    def wake() -> None:
         try:
             os.write(wake_w, b"\0")
         except OSError:
             pass                            # 파이프가 찼다 = 이미 깨울 일이 쌓여 있다
 
-    resumed = threading.Event()
+    # 시그널 처리기는 표시만 해 두고 일은 메인 루프가 한다
+    got = {"cont": False, "tstp": False, "term": 0}
 
-    def on_cont(*_) -> None:
-        resumed.set()
-        wake()
+    def on_signal(signum, _frame) -> None:
+        if signum == signal.SIGCONT:
+            Poller.resumed_at = time.monotonic()
+            got["cont"] = True
+        elif signum == signal.SIGTSTP:
+            got["tstp"] = True
+        elif signum in (signal.SIGTERM, signal.SIGHUP):
+            got["term"] = signum
+            raise KeyboardInterrupt         # Ctrl+C 와 같은 길로 나가 터미널을 되돌린다
 
-    def on_term(*_) -> None:
-        raise KeyboardInterrupt             # Ctrl+C 와 같은 길로 나가 터미널을 되돌린다
-
-    signal.signal(signal.SIGWINCH, wake)    # 창 크기가 바뀌면 바로 다시 그린다
-    signal.signal(signal.SIGCONT, on_cont)
-    signal.signal(signal.SIGTERM, on_term)
-    signal.signal(signal.SIGHUP, on_term)
+    # 시그널이 어느 스레드로 오든 select 가 바로 깨도록 깨우기 파이프에 물린다
+    signal.set_wakeup_fd(wake_w, warn_on_full_buffer=False)
+    for sig in (signal.SIGWINCH, signal.SIGCONT, signal.SIGTSTP, signal.SIGTERM, signal.SIGHUP):
+        signal.signal(sig, on_signal)       # SIGWINCH 는 깨우기만 — 깨어나면 새 크기로 다시 그린다
 
     console = Console()
+    live = Live(console=console, screen=True, auto_refresh=False)
+    keys = KeyReader()
     sources = Sources(args, wake)
+    shown = False       # 화면을 쓰는 중인가 (대체 화면 + cbreak) — 전면 작업일 때만 쓴다
+
+    def show() -> None:
+        nonlocal shown
+        keys.on()
+        live.start()
+        shown, Poller.paused, sources.since = True, False, time.monotonic()
+
+    def hide(restore: bool) -> None:
+        nonlocal shown
+        live.stop()
+        keys.off(restore)
+        shown, Poller.paused = False, True
+
     try:
-        with KeyReader() as keys, Live(console=console, screen=True, auto_refresh=False) as live:
-            sources.start()
-            sources.wait_ready()
-            while True:
+        sources.start()
+        sources.wait_ready()
+        while True:
+            if got["tstp"]:                 # Ctrl+Z — 원래 화면과 터미널 설정을 돌려주고 멈춘다
+                got["tstp"] = False
+                if shown:
+                    hide(restore=True)
+                signal.signal(signal.SIGTSTP, signal.SIG_DFL)
+                os.kill(os.getpid(), signal.SIGTSTP)    # 여기서 멈췄다가 fg·bg 때 다음 줄로
+                signal.signal(signal.SIGTSTP, on_signal)
+            fg = in_foreground()
+            if fg and not shown:
+                show()                      # 처음이거나 전면으로 돌아왔다
+            elif not fg and shown:
+                hide(restore=False)         # 배경으로 밀려났다 — 그리지 않고 기다린다
+            elif fg and got["cont"]:
+                keys.on()                   # 화면을 쓰던 채로 멈췄다 깼다 (SIGSTOP)
+                sources.since = time.monotonic()
+            got["cont"] = False
+            if shown:
                 live.update(build_layout(sources.snapshot(), args, console=console, pages=pages,
                                          page=page, title=default_title,
                                          keys_on=keys.fd is not None), refresh=True)
-                # 새 NPU 수집 결과·키·창 크기 변경을 기다린다. 아무 일 없어도 1초마다 다시 그린다.
-                watch = [wake_r] if keys.fd is None else [wake_r, keys.fd]
-                readable, _, _ = select.select(watch, [], [], 1.0)
-                if wake_r in readable:
-                    try:
-                        os.read(wake_r, 4096)
-                    except OSError:
-                        pass
-                if resumed.is_set():
-                    resumed.clear()
-                    keys.resume()
-                if keys.fd is not None and keys.fd in readable:
-                    for key in keys.read():
-                        if key in QUIT_KEYS:
-                            raise KeyboardInterrupt
-                        if key in NEXT_KEYS:
-                            page = min(page + 1, len(pages) - 1)
-                        elif key in PREV_KEYS:
-                            page = max(page - 1, 0)
-                        elif len(key) == 1 and key in "123456789" and int(key) <= len(pages):
-                            page = int(key) - 1
+            # 새 NPU 수집 결과·키·시그널을 기다린다. 아무 일 없어도 1초마다 다시 그린다.
+            watch = [wake_r] if keys.fd is None else [wake_r, keys.fd]
+            readable, _, _ = select.select(watch, [], [], 1.0)
+            if wake_r in readable:
+                try:
+                    os.read(wake_r, 4096)
+                except OSError:
+                    pass
+            if keys.fd is not None and keys.fd in readable:
+                for key in keys.read():
+                    if key in QUIT_KEYS:
+                        raise KeyboardInterrupt
+                    if key in NEXT_KEYS:
+                        page = min(page + 1, len(pages) - 1)
+                    elif key in PREV_KEYS:
+                        page = max(page - 1, 0)
+                    elif len(key) == 1 and key in "123456789" and int(key) <= len(pages):
+                        page = int(key) - 1
     except KeyboardInterrupt:
         pass
     finally:
         sources.stop()
+        kill_children()
+        try:
+            live.stop()
+        except OSError:
+            pass                            # 터미널이 이미 사라졌다 (SIGHUP)
+        keys.off(restore=in_foreground())
+    if got["term"]:
+        # 터미널을 되돌렸으니 받은 시그널대로 죽는다 — 종료 코드(143·129)가 예전과 같게
+        signal.signal(got["term"], signal.SIG_DFL)
+        os.kill(os.getpid(), got["term"])
     print(f"\n[{default_title}] bye.")
 
 

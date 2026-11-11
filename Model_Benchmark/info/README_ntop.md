@@ -1,27 +1,56 @@
-# ntop / nctop — NPU·CPU 실시간 모니터
+# ntop / nctop — NPU·CPU·GPU 실시간 모니터
 
-`furiosa-smi` 를 매번 직접 치는 대신 htop처럼 한 화면에서 보여줍니다.
+`furiosa-smi` 와 `nvidia-smi` 를 매번 직접 치는 대신 htop처럼 한 화면에서 보여줍니다.
 
 ```bash
-ntop      # NPU 모니터 (1초마다 갱신)
-nctop     # ntop + CPU 코어별 사용률 + 호스트 RAM
+ntop      # NPU 모니터 (0.5초마다 갱신)
+nctop     # ntop + CPU·RAM 요약 + GPU 표, 둘째 화면에 CPU 코어별 사용률과 GPU 상세
 ```
 
 | 옵션 | 의미 |
 |---|---|
-| `-i 0.5` | 갱신 간격 0.5초 (기본 1.0) |
+| `-i 1` | 갱신 간격 1초 (기본 0.5) |
 | `--no-ps` | 프로세스 패널 숨김 |
 | `--cpu` / `--no-cpu` | CPU 패널 켜기/끄기 (`nctop` 은 켜진 채로 시작) |
+| `--gpu` / `--no-gpu` | GPU 패널 켜기/끄기 (`nctop` 은 `nvidia-smi` 가 있으면 켜진 채로 시작) |
+| `-p 2` | 둘째 화면에서 시작 |
 | `--raw` | furiosa-smi 원본 JSON 디버그 |
 
-종료: **q** 또는 **Ctrl+C**.
+## 화면과 키
+
+```
+첫 화면 (1 Overview)                    둘째 화면 (2 Detail)
+┌ 요약 한 줄 ──────────────┐            ┌ 요약 한 줄 ──────────────────┐
+│ NPU Devices   표         │    →       │ CPU · RAM · SWAP · load      │
+│ CPU · RAM · SWAP 한 줄   │  ─────▶    │ 코어별 사용률 (NUMA 노드별)  │
+│ GPU Devices   표         │  ◀─────    │ GPU 상세: 사용률·메모리·     │
+│ Processes                │    ←       │  전력·온도 막대, 프로세스    │
+└──────────────────────────┘            └──────────────────────────────┘
+```
+
+| 키 | 동작 |
+|---|---|
+| `→` / `←` | 다음 / 이전 화면. `l` / `h`, `Tab` / `Shift+Tab`, 숫자 `1` · `2` 도 같다 |
+| `q` | 종료. `Ctrl+C` 도 된다 |
+
+- 화면이 둘인 것은 CPU 나 GPU 패널이 켜져 있을 때다. `ntop` 은 첫 화면만 있다.
+- GPU 패널이 꺼져 있으면(`--no-gpu`, 또는 `nvidia-smi` 가 없는 서버) 첫 화면이 예전 배치 그대로다: 폭 120칸 이상에서 CPU 패널에 코어별 사용률이 같이 나온다.
+- 둘째 화면이 터미널 높이에 다 안 들어가면 코어를 한 칸 막대(`▁▂▃▄▅▆▇█`)로 줄여 GPU 상세 자리를 낸다. 첫 화면은 세로가 모자라면 NPU 표의 행 구분선을 뺀다.
+- GPU 상세의 프로세스 표에서 `SM%` 는 연산, `MEM%` 는 GPU 메모리 읽기·쓰기 사용률이다 (`nvidia-smi pmon` 의 `sm`, `mem`).
 
 ---
 
 ## 갱신 주기
 
-- 디폴트 **1초**.
-- `-i` 옵션으로 변경. 빠르게: `ntop -i 0.5` / 느리게: `ntop -i 2`.
+| 대상 | 주기 |
+|---|---|
+| NPU, CPU·RAM | `-i` 값 (기본 0.5초) |
+| GPU 상태 (`nvidia-smi --query-gpu`) | 1초 |
+| 프로세스 목록 (`nvidia-smi pmon`, `ps`) | 2초 |
+
+- `-i` 가 위 주기보다 길면 전부 `-i` 를 따른다. 빠르게: `ntop -i 0.2` / 느리게: `ntop -i 2`.
+- GPU 와 프로세스를 덜 자주 묻는 까닭: 한 번 부를 때마다 CPU 를 `nvidia-smi --query-gpu` 27 ms, `nvidia-smi pmon` 44 ms, `ps` 31 ms 쓴다. 0.5초마다 전부 부르면 nctop 이 코어 하나의 33% 를 쓰고, 주기를 나누면 18% 다 (2026-11-11 실측, 15초 평균. GPU 패널이 없던 때는 14.5%).
+- 수집은 종류마다 따로 돈다 (NPU, CPU·RAM, GPU 상태, GPU 프로세스, `ps`). 키 입력과 창 크기 변경은 수집을 기다리지 않고 바로 반영된다 (→ 키 응답 0.06초, 2026-11-11 tmux 실측).
 
 ---
 
@@ -100,7 +129,7 @@ invoked_as_nctop = os.path.basename(sys.argv[0]).lower().startswith("nctop")
 ap.add_argument("--cpu", action="store_true", default=invoked_as_nctop, ...)
 ```
 
-즉 **한 파일에 두 명령**이 사는 셈입니다. `ntop` 으로 부르면 NPU 만, `nctop` 으로 부르면 CPU 패널까지 자동으로 켜짐.
+즉 **한 파일에 두 명령**이 사는 셈입니다. `ntop` 으로 부르면 NPU 만, `nctop` 으로 부르면 CPU 패널과 GPU 패널(`--gpu` 의 default 도 같은 변수, 단 `nvidia-smi` 가 있을 때만)까지 자동으로 켜짐.
 
 ---
 
@@ -121,14 +150,25 @@ source ~/.bashrc
 
 ntop 가 어디서 정보를 가져오는지:
 
-- `furiosa-smi status --format json` — `pe_utilizations[]`, `memory.DRAM`
+- `furiosa-smi status --format json` — `pe_utilizations[]`, `memory` (2026.4.0 부터 `memory.DRAM` 단계가 없다)
 - `furiosa-smi info --format json` — `temperature`, `power`, `firmware`
-- `furiosa-smi ps` — NPU 점유 프로세스
+- `/sys/class/rngd_mgmt/rngd!npuNmgmt/device_state`, `heartbeat` — NPU Status (2026.4.0 부터 status JSON 에 `liveness` 가 없다)
+- `furiosa-smi ps` — `--raw` 화면에만
+- `nvidia-smi --query-gpu=... --format=csv,noheader,nounits` — GPU 사용률·메모리·온도·전력·클럭·PCIe·ECC. 드라이버가 모르는 필드는 빼고 다시 묻는다
+- `nvidia-smi pmon -c 1 -s um` — GPU 를 쓰는 프로세스와 프로세스별 사용률·메모리. 사용자와 명령줄은 `/proc/<pid>` 에서 읽는다
 - `/proc/stat` (delta) — CPU 코어별 사용률
+- `/sys/devices/system/node/node*/cpulist` — 코어를 NUMA 노드별로 묶기
 - `/proc/meminfo` — 호스트 RAM
 - `/proc/loadavg`, `ps -eo`
 
 JSON 파싱이 깨지면 `ntop --raw` 로 원본 확인.
+
+## 주의
+
+- ★ `nvidia-smi` 가 응답하지 않아도 NPU·CPU 패널과 키는 제 속도로 돈다. GPU 표에는 `nvidia-smi 응답 대기 중` 이, 3초 뒤에는 `nvidia-smi 응답 없음 (3s 초과)` 이 나온다 (2026-11-11, 60초 동안 답이 없는 가짜 `nvidia-smi` 로 시험: 첫 화면 0.75초, → 키 응답 0.05초).
+- ★ `furiosa-smi` 가 멈추면 요약 줄에 `NPU 데이터 N초 전` 이 빨갛게 뜬다.
+- stdin 이 터미널이 아니면(`nctop < /dev/null`) 키를 읽지 않는다. 화면 전환이 안 되니 `-p 2` 로 시작 화면을 고른다.
+- GPU 가 여러 장이라 둘째 화면에 다 안 들어가면 GPU 세부 값(클럭·PCIe·드라이버·UUID)을 빼고 막대와 프로세스만 남긴다. 그래도 넘치는 아래쪽은 잘린다 (160x50 에서 4장까지 확인).
 
 ---
 

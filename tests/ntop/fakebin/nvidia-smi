@@ -1,0 +1,115 @@
+#!/usr/bin/env python3
+"""시험용 가짜 nvidia-smi. 환경변수 FAKE_SMI 로 상황을 고른다.
+
+hang     아무 답 없이 60초 잔다
+down     드라이버와 통신 실패 문구, 종료 코드 9
+old      옛 드라이버: 새 필드를 모른다고 하고, pmon 은 옛 열 구성
+multi    GPU 4장, 부하 걸린 값들, 프로세스 여러 개
+one      이 서버와 같은 모양: GPU 1장 유휴, 프로세스 둘 (C 하나, G 하나)
+slowpmon 질의는 바로 답하고 pmon 만 60초 잔다
+"""
+import os
+import sys
+import time
+
+mode = os.environ.get("FAKE_SMI", "multi")
+argv = sys.argv[1:]
+
+if mode == "hang" or (mode == "slowpmon" and "pmon" in argv):
+    time.sleep(60)
+    sys.exit(1)
+if mode == "down":
+    print("NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. "
+          "Make sure that the latest NVIDIA driver is installed and running.\n")
+    sys.exit(9)
+
+OLD_UNKNOWN = {"utilization.jpeg", "utilization.ofa", "temperature.gpu.tlimit", "memory.reserved",
+               "power.draw.average", "power.draw.instant", "pcie.link.gen.gpucurrent",
+               "clocks_event_reasons.active"}
+NGPU = 4 if mode == "multi" else 1
+
+
+def gpu_values(i: int) -> dict:
+    if mode == "one":
+        return {
+            "index": "0", "uuid": "GPU-00000000-0000-0000-0000-000000000000", "pci.bus_id": "00000000:33:00.0",
+            "driver_version": "595.99.02",
+            "utilization.gpu": "0", "utilization.memory": "0", "utilization.encoder": "0",
+            "utilization.decoder": "0", "utilization.jpeg": "0", "utilization.ofa": "0",
+            "memory.used": "39564", "memory.total": "97887", "memory.reserved": "636",
+            "temperature.gpu": "36", "temperature.gpu.tlimit": "49", "fan.speed": "[N/A]", "pstate": "P0",
+            "power.draw": "89.50", "power.draw.average": "89.50", "power.draw.instant": "89.99",
+            "power.limit": "600.00",
+            "clocks.current.graphics": "2317", "clocks.max.graphics": "2430",
+            "clocks.current.memory": "12481", "clocks.max.memory": "12481",
+            "pcie.link.gen.gpucurrent": "5", "pcie.link.gen.current": "5", "pcie.link.gen.max": "5",
+            "pcie.link.width.current": "16", "pcie.link.width.max": "16",
+            "compute_mode": "Default", "persistence_mode": "Disabled",
+            "ecc.errors.corrected.volatile.total": "0", "ecc.errors.uncorrected.volatile.total": "0",
+            "clocks_event_reasons.active": "0x0000000000000000",
+            "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        }
+    busy = mode == "multi"
+    return {
+        "index": str(i), "uuid": f"GPU-fake-{i:04d}", "pci.bus_id": f"00000000:{0x33 + i:02x}:00.0",
+        "driver_version": "470.00" if mode == "old" else "595.99.02",
+        "utilization.gpu": str([97, 45, 3, 0][i % 4]) if busy else "12",
+        "utilization.memory": str([60, 20, 1, 0][i % 4]) if busy else "5",
+        "utilization.encoder": "0", "utilization.decoder": "0", "utilization.jpeg": "0", "utilization.ofa": "0",
+        "memory.used": str([90000, 40000, 900, 4][i % 4]) if busy else "2048",
+        "memory.total": "97887", "memory.reserved": "636",
+        "temperature.gpu": str([88, 71, 45, 33][i % 4]) if busy else "55",
+        "temperature.gpu.tlimit": str([-1, 8, 40, 52][i % 4]) if busy else "30",
+        "fan.speed": "[N/A]" if i % 2 == 0 else "45", "pstate": "P0" if i < 2 else "P8",
+        "power.draw": str([571.3, 310.0, 95.5, 60.1][i % 4]) if busy else "120.00",
+        "power.draw.average": "300.00", "power.draw.instant": "305.10", "power.limit": "600.00",
+        "clocks.current.graphics": "2430", "clocks.max.graphics": "2430",
+        "clocks.current.memory": "12481", "clocks.max.memory": "12481",
+        "pcie.link.gen.gpucurrent": "5", "pcie.link.gen.current": "4", "pcie.link.gen.max": "5",
+        "pcie.link.width.current": "16", "pcie.link.width.max": "16",
+        "compute_mode": "Default", "persistence_mode": "Enabled",
+        "ecc.errors.corrected.volatile.total": "0",
+        "ecc.errors.uncorrected.volatile.total": "2" if busy and i == 0 else "0",
+        "clocks_event_reasons.active": "0x0000000000000044" if busy and i == 0 else "0x0000000000000000",
+        "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition" if mode != "old" else "Tesla V100-SXM2-16GB",
+    }
+
+
+query = next((a for a in argv if a.startswith("--query-gpu=")), None)
+if query:
+    fields = query.split("=", 1)[1].split(",")
+    if mode == "old":
+        for f in fields:
+            if f in OLD_UNKNOWN:
+                print(f'Field "{f}" is not a valid field to query.\n')
+                sys.exit(2)
+    for i in range(NGPU):
+        v = gpu_values(i)
+        print(", ".join(v[f] for f in fields))
+    sys.exit(0)
+
+if "pmon" in argv:
+    me = os.getppid()       # 실제로 있는 pid 여야 /proc 에서 사용자·명령줄을 읽는다
+    if mode == "one":
+        print("# gpu         pid   type     sm    mem    enc    dec    jpg    ofa     fb   ccpm    command ")
+        print("# Idx           #    C/G      %      %      %      %      %      %     MB     MB    name ")
+        print(f"    0 {1:>10}     G      -      -      -      -      -      -      4      0    Xorg           ")
+        print(f"    0 {me:>10}     C      -      -      -      -      -      -  39542      0    VLLM::EngineCor")
+    elif mode == "old":
+        print("# gpu        pid  type    sm   mem   enc   dec   fb   command")
+        print("# Idx          #   C/G     %     %     %     %   MB   name")
+        print(f"    0 {me:>10}     C    55    20     -     -  1024   python")
+    else:
+        print("# gpu         pid   type     sm    mem    enc    dec    jpg    ofa     fb   ccpm    command ")
+        print("# Idx           #    C/G      %      %      %      %      %      %     MB     MB    name ")
+        print(f"    0 {me:>10}     C     87     41      -      -      -      -  80000      0    python         ")
+        print(f"    0 {1:>10}     G      -      -      -      -      -      -      4      0    Xorg           ")
+        for i in range(1, NGPU):
+            if i == 3:
+                print(f"    {i}          -     -      -      -      -      -      -      -      -      -    -              ")
+            else:
+                print(f"    {i} {os.getpid() if i == 1 else 1:>10}     C     {40 // i:>2}     10      -      -      -      -  {20000 // i:>5}      0    worker         ")
+    sys.exit(0)
+
+print("fake nvidia-smi: unsupported args", argv, file=sys.stderr)
+sys.exit(1)

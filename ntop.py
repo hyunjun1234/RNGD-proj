@@ -193,6 +193,7 @@ def _parse_float(s: str) -> float:
 # ──────────────────────────── SMI 호출 ────────────────────────────
 _running: set = set()                       # 지금 돌고 있는 하위 프로세스 — 끝낼 때 정리한다
 _stuck: dict[str, subprocess.Popen] = {}    # 명령 이름 → 죽여도 안 죽은 프로세스
+_closing = False                            # 끝내는 중 — 새 하위 프로세스를 띄우지 않는다
 
 
 def run_cmd(argv: list[str], timeout: float = 3.0) -> tuple[int, str, str]:
@@ -202,6 +203,8 @@ def run_cmd(argv: list[str], timeout: float = 3.0) -> tuple[int, str, str]:
     죽지 않으면(드라이버 안에서 멈춘 smi) 그것이 사라질 때까지 같은 명령을 새로 띄우지 않는다.
     """
     name = os.path.basename(argv[0])
+    if _closing:
+        return -1, "", f"{name} 안 띄움 (끝내는 중)"
     stuck = _stuck.get(name)
     if stuck is not None:
         if stuck.poll() is None:
@@ -213,6 +216,8 @@ def run_cmd(argv: list[str], timeout: float = 3.0) -> tuple[int, str, str]:
     except OSError as e:
         return -1, "", f"{name} 실행 실패: {e.strerror or e}"
     _running.add(p)
+    if _closing:                            # 띄우는 사이에 끝내기가 시작됐다 — kill_children 이 못 봤을 수 있다
+        p.kill()
     try:
         out, err = p.communicate(timeout=timeout)
         return p.returncode, out or "", err or ""
@@ -228,7 +233,10 @@ def run_cmd(argv: list[str], timeout: float = 3.0) -> tuple[int, str, str]:
 
 
 def kill_children() -> None:
-    """끝낼 때 — 아직 도는 smi·ps 를 죽인다 (멈춘 smi 가 고아로 남지 않게)."""
+    """끝낼 때 — 아직 도는 smi·ps 를 죽이고, 수집 스레드가 다음 것을 새로 띄우지 못하게 한다
+    (멈춘 smi 가 고아로 남지 않게)."""
+    global _closing
+    _closing = True
     for p in list(_running) + list(_stuck.values()):
         try:
             p.kill()
@@ -707,10 +715,15 @@ def render_header(devs: list[NpuDev], title: str = "ntop", *, pages: list[str] |
         if g_power:
             gpu.append(f"  {sum(g_power):.0f}W", style="magenta")
         parts.append(gpu)
-    # 한 줄에 안 들어가면 뒤에서부터 뺀다 — 줄이 넘어가면 둘째 줄은 잘려서 안 보인다
-    while width and len(parts) > 2 and \
-            sum(p.cell_len for p in parts) + 5 * (len(parts) - 1) > width - 4:
+    # 한 줄에 안 들어가면 뒤에서부터 뺀다 — 줄이 넘어가면 둘째 줄은 잘려서 안 보인다.
+    # 경고는 남긴다: 그래도 넘치면 시각을 빼고, 그래도 넘치면 줄 끝에서 … 으로 잘린다.
+    def too_wide() -> bool:
+        return bool(width) and sum(p.cell_len for p in parts) + 5 * (len(parts) - 1) > width - 4
+
+    while len(parts) > (2 if warn is None else 3) and too_wide():
         parts.pop()
+    if warn is not None and too_wide():
+        parts.pop(1)
 
     pages = pages or []
     tabs = None
@@ -1010,6 +1023,9 @@ def _shorten_cmd(cmd: str, maxlen: int = 80) -> str:
     return short
 
 
+_NTOP_CMD = re.compile(r"(^|[/\s])(ntop|nctop)(\.py)?(\s|$)")
+
+
 def gather_ps(gpu_pids: set[int]) -> list[tuple[str, ...]] | None:
     """NPU·GPU 관련 호스트 프로세스 — (pid, user, %cpu, %mem, etime, cmd), CPU 높은 순 최대 8개.
     ps 가 실패하면 None."""
@@ -1018,13 +1034,17 @@ def gather_ps(gpu_pids: set[int]) -> list[tuple[str, ...]] | None:
     if rc != 0:
         return None
     me = str(os.getpid())
-    rows: list[tuple[str, ...]] = []
+    procs = []                              # (ppid, 줄, 칸들)
     for line in out.splitlines()[1:]:
         ppid, _, line = line.strip().partition(" ")
-        if ppid == me:                      # 내가 띄운 smi·ps — 다른 수집 스레드와 같이 돌아서 잡힌다
-            continue
         f = line.split(None, 5)
-        if len(f) < 6:
+        if len(f) == 6:
+            procs.append((ppid, line, f))
+    cmd_of = {f[0]: f[5] for _, _, f in procs}
+    rows: list[tuple[str, ...]] = []
+    for ppid, line, f in procs:
+        # ntop·nctop 이 수집하느라 띄운 smi·ps 는 뺀다 — 내 것도, 다른 창에서 도는 것도
+        if ppid == me or _NTOP_CMD.search(cmd_of.get(ppid, "")):
             continue
         if not (f[0].isdigit() and int(f[0]) in gpu_pids):
             if not (any(k in line for k in ("furiosa-llm", "furiosa-smi"))
@@ -1228,6 +1248,8 @@ def _gpu_detail_panel(g: GpuDev, procs: list[GpuProc], procs_error: str,
                 ev.append(("" if i == 0 else ", ") + name, style=style)
         else:
             ev.append("none", style="green")
+        # 사유 하나(가장 긴 'hw power brake')까지는 폭이 같게 — 사유가 바뀌어도 줄 수가 안 변한다
+        ev.pad_right(max(0, 23 - ev.cell_len))
         clocks.append(ev)
     if clocks and not (compact and not events):
         grid.add_row("Clocks", _flow(clocks, flow_w))
@@ -1473,7 +1495,9 @@ class Sources:
             self.pollers["ps"] = Poller("ps", self._ps, max(interval, PROCS_PERIOD))
 
     def _gpu_procs(self) -> tuple[list[GpuProc], str]:
-        gpus = (self.pollers["gpu"].value or ([], ""))[0]
+        gpu = self.pollers["gpu"]
+        gpu.ready.wait(3.5)                 # 첫 바퀴에도 GPU 번호를 알고 묻게 (pmon 은 4장씩만 본다)
+        gpus = (gpu.value or ([], ""))[0]
         return gather_gpu_procs([g.index for g in gpus])
 
     def _ps(self) -> list[tuple[str, ...]] | None:
@@ -1732,9 +1756,20 @@ def main() -> None:
         live.start()
         shown, sources.since = True, time.monotonic()
 
+    def stop_live() -> None:
+        # 대체 화면을 끄는 쓰기 — 배경에서 하게 되면 `stty tostop` 셸에서는 SIGTTOU 로 프로세스가
+        # 멈춰 버리므로 그동안만 무시한다
+        old = signal.signal(signal.SIGTTOU, signal.SIG_IGN)
+        try:
+            live.stop()
+        except OSError:
+            pass                            # 터미널이 이미 사라졌다 (SIGHUP)
+        finally:
+            signal.signal(signal.SIGTTOU, old)
+
     def hide(restore: bool) -> None:
         nonlocal shown
-        live.stop()
+        stop_live()
         keys.off(restore)
         shown = False
 
@@ -1786,16 +1821,14 @@ def main() -> None:
     finally:
         sources.stop()
         kill_children()
-        try:
-            live.stop()
-        except OSError:
-            pass                            # 터미널이 이미 사라졌다 (SIGHUP)
+        stop_live()
         keys.off(restore=in_foreground())
     if got["term"]:
         # 터미널을 되돌렸으니 받은 시그널대로 죽는다 — 종료 코드(143·129)가 예전과 같게
         signal.signal(got["term"], signal.SIG_DFL)
         os.kill(os.getpid(), got["term"])
-    print(f"\n[{default_title}] bye.")
+    if in_foreground():                     # 배경에서 끝날 때는 셸 화면에 끼어들지 않는다
+        print(f"\n[{default_title}] bye.")
 
 
 if __name__ == "__main__":

@@ -189,6 +189,7 @@ JSON 파싱이 깨지면 `ntop --raw` 로 원본 확인.
 | `bg`, `nctop &` | 배경에서는 화면을 그리지 않고 수집도 쉰다. 셸에 타자해도 멈추지 않는다 |
 | `fg` | 화면과 키가 돌아온다 |
 | `kill <pid>` (SIGTERM), 터미널 닫힘 (SIGHUP) | 터미널을 되돌린 뒤 같은 시그널로 끝난다. 종료 코드 143, 129. `q` 와 `Ctrl+C` 는 0 |
+| 배경에 있는 채 끝남 | 셸 화면에 아무것도 쓰지 않는다 (`[nctop] bye.` 도 안 찍는다) |
 
 ---
 
@@ -199,6 +200,7 @@ JSON 파싱이 깨지면 `ntop --raw` 로 원본 확인.
 | `~/RNGD-proj/ntop.py` | 본 코드 (Python + rich) |
 | `~/RNGD-proj/ntop.sh` | bash + watch 버전 (rich 없이 원본 표 색칠) |
 | `~/.local/bin/ntop` | `ntop.py` 심볼릭 링크 |
-| `~/.local/bin/nctop` | `ntop.py` 심볼릭 링크 (argv[0] 으로 CPU 모드) |
+| `~/.local/bin/nctop` | `ntop.py` 심볼릭 링크 (argv[0] 으로 CPU·GPU 모드) |
+| `~/RNGD-proj/tests/ntop/` | 단위 시험과 tmux 종단 시험 (가짜 smi 사용). 실행법은 `tests/ntop/README.md` |
 
 의존성: `rich` (PyPI). 시스템 `/usr/bin/python3` 와 venv `~/furiosa/bin/python3` 양쪽에 이미 설치돼 있음.

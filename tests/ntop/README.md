@@ -7,7 +7,7 @@
 ```bash
 cd ~/RNGD-proj
 python3 tests/ntop/test_ntop.py                 # 단위·합성 화면 시험, 약 20초
-python3 tests/ntop/e2e.py                       # tmux 종단 시험 전부, 약 6분
+python3 tests/ntop/e2e.py                       # tmux 종단 시험 전부, 약 2분
 python3 tests/ntop/e2e.py pages jobs            # 이름을 주면 그것만
 NCTOP_E2E_REAL=1 python3 tests/ntop/e2e.py pages cost   # 실제 smi 로 (이 서버 구성 기준, 장치를 조회한다)
 ~/furiosa/bin/python3 tests/ntop/test_ntop.py   # 다른 rich 판(venv 의 15.0.0)으로
